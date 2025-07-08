@@ -5,43 +5,23 @@
  * @package uml
  * @extends Class
  */
-import { Behavior } from './Behavior';
 import { Class } from './Class';
-import { Classifier } from './Classifier';
-import { CollaborationUse } from './CollaborationUse';
-import { Comment } from './Comment';
-import { Connector } from './Connector';
-import { Constraint } from './Constraint';
-import { ElementImport } from './ElementImport';
-import { Generalization } from './Generalization';
 import { IBehavior } from './IBehavior';
 import { IClass } from './IClass';
 import { IClassifier } from './IClassifier';
 import { ICollaborationUse } from './ICollaborationUse';
 import { IComment } from './IComment';
-import { IConnectableElement } from './IConnectableElement';
 import { IConnector } from './IConnector';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IElementImport } from './IElementImport';
-import { IExtension } from './IExtension';
-import { IFeature } from './IFeature';
 import { IGeneralization } from './IGeneralization';
 import { IGeneralizationSet } from './IGeneralizationSet';
 import { IImage } from './IImage';
 import { IInterfaceRealization } from './IInterfaceRealization';
-import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IOperation } from './IOperation';
-import { IPackage } from './IPackage';
 import { IPackageImport } from './IPackageImport';
-import { IPackageableElement } from './IPackageableElement';
-import { IPort } from './IPort';
-import { IProfile } from './IProfile';
 import { IProperty } from './IProperty';
 import { IReception } from './IReception';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IStereotype } from './IStereotype';
 import { IStringExpression } from './IStringExpression';
 import { ISubstitution } from './ISubstitution';
@@ -49,17 +29,8 @@ import { ITemplateBinding } from './ITemplateBinding';
 import { ITemplateParameter } from './ITemplateParameter';
 import { ITemplateSignature } from './ITemplateSignature';
 import { IUseCase } from './IUseCase';
-import { Image } from './Image';
-import { InterfaceRealization } from './InterfaceRealization';
-import { Operation } from './Operation';
-import { PackageImport } from './PackageImport';
-import { Property } from './Property';
-import { Reception } from './Reception';
 import { StringExpression } from './StringExpression';
-import { Substitution } from './Substitution';
-import { TemplateBinding } from './TemplateBinding';
 import { TemplateSignature } from './TemplateSignature';
-import { UseCase } from './UseCase';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
 
@@ -73,18 +44,6 @@ export class Stereotype extends Class implements IStereotype {
    */
   public icon: Set<IImage> = new Set();
 
-  // Inherited from Class
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Class
   /**
    * ownedComment
    * 
@@ -94,16 +53,14 @@ export class Stereotype extends Class implements IStereotype {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Class
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Class
   /**
    * nameExpression
    * 
@@ -111,18 +68,15 @@ export class Stereotype extends Class implements IStereotype {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Class
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Class
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * ownedRule
    * 
@@ -133,7 +87,6 @@ export class Stereotype extends Class implements IStereotype {
    */
   public ownedRule: Set<IConstraint> = new Set();
 
-  // Inherited from Class
   /**
    * elementImport
    * 
@@ -144,7 +97,6 @@ export class Stereotype extends Class implements IStereotype {
    */
   public elementImport: Set<IElementImport> = new Set();
 
-  // Inherited from Class
   /**
    * packageImport
    * 
@@ -155,7 +107,6 @@ export class Stereotype extends Class implements IStereotype {
    */
   public packageImport: Set<IPackageImport> = new Set();
 
-  // Inherited from Class
   /**
    * isLeaf
    * 
@@ -164,7 +115,6 @@ export class Stereotype extends Class implements IStereotype {
    */
   public isLeaf!: boolean;
 
-  // Inherited from Class
   /**
    * owningTemplateParameter
    * 
@@ -173,9 +123,8 @@ export class Stereotype extends Class implements IStereotype {
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from Class
   /**
    * templateParameter
    * 
@@ -184,9 +133,8 @@ export class Stereotype extends Class implements IStereotype {
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from Class
   /**
    * templateBinding
    * 
@@ -197,7 +145,6 @@ export class Stereotype extends Class implements IStereotype {
    */
   public templateBinding: Set<ITemplateBinding> = new Set();
 
-  // Inherited from Class
   /**
    * ownedTemplateSignature
    * 
@@ -206,9 +153,8 @@ export class Stereotype extends Class implements IStereotype {
    * @relationship containment
    * @opposite template
    */
-  public ownedTemplateSignature?: ITemplateSignature = undefined;
+  public ownedTemplateSignature?: ITemplateSignature;
 
-  // Inherited from Class
   /**
    * collaborationUse
    * 
@@ -218,7 +164,6 @@ export class Stereotype extends Class implements IStereotype {
    */
   public collaborationUse: Set<ICollaborationUse> = new Set();
 
-  // Inherited from Class
   /**
    * generalization
    * 
@@ -229,7 +174,6 @@ export class Stereotype extends Class implements IStereotype {
    */
   public generalization: Set<IGeneralization> = new Set();
 
-  // Inherited from Class
   /**
    * powertypeExtent
    * 
@@ -238,9 +182,8 @@ export class Stereotype extends Class implements IStereotype {
    * @relationship cross-reference
    * @opposite powertype
    */
-  public powertypeExtent: Set<IGeneralizationSet | string> = new Set();
+  public powertypeExtent: Set<string> = new Set();
 
-  // Inherited from Class
   /**
    * isAbstract
    * 
@@ -249,7 +192,6 @@ export class Stereotype extends Class implements IStereotype {
    */
   public isAbstract!: boolean;
 
-  // Inherited from Class
   /**
    * isFinalSpecialization
    * 
@@ -258,7 +200,6 @@ export class Stereotype extends Class implements IStereotype {
    */
   public isFinalSpecialization!: boolean;
 
-  // Inherited from Class
   /**
    * ownedUseCase
    * 
@@ -268,7 +209,6 @@ export class Stereotype extends Class implements IStereotype {
    */
   public ownedUseCase: Set<IUseCase> = new Set();
 
-  // Inherited from Class
   /**
    * useCase
    * 
@@ -277,9 +217,8 @@ export class Stereotype extends Class implements IStereotype {
    * @relationship cross-reference
    * @opposite subject
    */
-  public useCase: Set<IUseCase | string> = new Set();
+  public useCase: Set<string> = new Set();
 
-  // Inherited from Class
   /**
    * redefinedClassifier
    * 
@@ -287,9 +226,8 @@ export class Stereotype extends Class implements IStereotype {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedClassifier: Set<IClassifier | string> = new Set();
+  public redefinedClassifier: Set<string> = new Set();
 
-  // Inherited from Class
   /**
    * representation
    * 
@@ -297,9 +235,8 @@ export class Stereotype extends Class implements IStereotype {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public representation?: ICollaborationUse | string = undefined;
+  public representation?: string;
 
-  // Inherited from Class
   /**
    * substitution
    * 
@@ -310,7 +247,6 @@ export class Stereotype extends Class implements IStereotype {
    */
   public substitution: Set<ISubstitution> = new Set();
 
-  // Inherited from Class
   /**
    * ownedAttribute
    * 
@@ -320,7 +256,6 @@ export class Stereotype extends Class implements IStereotype {
    */
   public ownedAttribute: IProperty[] = [];
 
-  // Inherited from Class
   /**
    * ownedConnector
    * 
@@ -330,7 +265,6 @@ export class Stereotype extends Class implements IStereotype {
    */
   public ownedConnector: Set<IConnector> = new Set();
 
-  // Inherited from Class
   /**
    * classifierBehavior
    * 
@@ -338,9 +272,8 @@ export class Stereotype extends Class implements IStereotype {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public classifierBehavior?: IBehavior | string = undefined;
+  public classifierBehavior?: string;
 
-  // Inherited from Class
   /**
    * interfaceRealization
    * 
@@ -351,7 +284,6 @@ export class Stereotype extends Class implements IStereotype {
    */
   public interfaceRealization: Set<IInterfaceRealization> = new Set();
 
-  // Inherited from Class
   /**
    * ownedBehavior
    * 
@@ -361,7 +293,6 @@ export class Stereotype extends Class implements IStereotype {
    */
   public ownedBehavior: Set<IBehavior> = new Set();
 
-  // Inherited from Class
   /**
    * ownedOperation
    * 
@@ -372,7 +303,6 @@ export class Stereotype extends Class implements IStereotype {
    */
   public ownedOperation: IOperation[] = [];
 
-  // Inherited from Class
   /**
    * isActive
    * 
@@ -381,7 +311,6 @@ export class Stereotype extends Class implements IStereotype {
    */
   public isActive!: boolean;
 
-  // Inherited from Class
   /**
    * nestedClassifier
    * 
@@ -391,7 +320,6 @@ export class Stereotype extends Class implements IStereotype {
    */
   public nestedClassifier: IClassifier[] = [];
 
-  // Inherited from Class
   /**
    * ownedReception
    * 
@@ -401,9 +329,11 @@ export class Stereotype extends Class implements IStereotype {
    */
   public ownedReception: Set<IReception> = new Set();
 
+
   constructor(init?: Partial<IStereotype>) {
     super(init);
-    this.icon = init?.icon ?? new Set();
+
+    this.icon = init?.icon ? new Set(init.icon) : new Set();
   }
   getIcon(): Set<IImage> {
     return this.icon;
@@ -474,9 +404,6 @@ export class Stereotype extends Class implements IStereotype {
   static fromJSON(json: any): Stereotype {
     const instance = new Stereotype();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

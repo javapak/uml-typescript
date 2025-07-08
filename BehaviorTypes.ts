@@ -12,9 +12,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialBehavior = Partial<IBehavior>;
 export type RequiredBehavior = Required<IBehavior>;
-export type BehaviorKey = Pick<IBehavior, 'name' | 'nameExpression'>;
-export type BehaviorMetadata = Pick<IBehavior, 'ownedComment' | 'visibility' | 'ownedRule' | 'ownedTemplateSignature' | 'ownedUseCase' | 'ownedAttribute' | 'ownedConnector' | 'ownedBehavior' | 'ownedOperation' | 'ownedReception' | 'ownedParameter' | 'ownedParameterSet'>;
-export type BehaviorSummary = Pick<IBehavior, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type BehaviorUnion = IBehavior | IClass;
 export type BehaviorFactory = () => Behavior;
 export type BehaviorValidator = (instance: IBehavior) => ValidationResult;

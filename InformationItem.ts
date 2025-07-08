@@ -6,41 +6,23 @@
  * @extends Classifier
  */
 import { Classifier } from './Classifier';
-import { CollaborationUse } from './CollaborationUse';
-import { Comment } from './Comment';
-import { Constraint } from './Constraint';
-import { ElementImport } from './ElementImport';
-import { Generalization } from './Generalization';
 import { IClassifier } from './IClassifier';
 import { ICollaborationUse } from './ICollaborationUse';
 import { IComment } from './IComment';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IElementImport } from './IElementImport';
-import { IFeature } from './IFeature';
 import { IGeneralization } from './IGeneralization';
 import { IGeneralizationSet } from './IGeneralizationSet';
 import { IInformationItem } from './IInformationItem';
-import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
-import { IPackage } from './IPackage';
 import { IPackageImport } from './IPackageImport';
-import { IPackageableElement } from './IPackageableElement';
-import { IProperty } from './IProperty';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { ISubstitution } from './ISubstitution';
 import { ITemplateBinding } from './ITemplateBinding';
 import { ITemplateParameter } from './ITemplateParameter';
 import { ITemplateSignature } from './ITemplateSignature';
 import { IUseCase } from './IUseCase';
-import { PackageImport } from './PackageImport';
 import { StringExpression } from './StringExpression';
-import { Substitution } from './Substitution';
-import { TemplateBinding } from './TemplateBinding';
 import { TemplateSignature } from './TemplateSignature';
-import { UseCase } from './UseCase';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
 
@@ -52,20 +34,8 @@ export class InformationItem extends Classifier implements IInformationItem {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public represented: Set<IClassifier | string> = new Set();
+  public represented: Set<string> = new Set();
 
-  // Inherited from Classifier
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Classifier
   /**
    * ownedComment
    * 
@@ -75,16 +45,14 @@ export class InformationItem extends Classifier implements IInformationItem {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Classifier
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Classifier
   /**
    * nameExpression
    * 
@@ -92,18 +60,15 @@ export class InformationItem extends Classifier implements IInformationItem {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Classifier
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Classifier
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * ownedRule
    * 
@@ -114,7 +79,6 @@ export class InformationItem extends Classifier implements IInformationItem {
    */
   public ownedRule: Set<IConstraint> = new Set();
 
-  // Inherited from Classifier
   /**
    * elementImport
    * 
@@ -125,7 +89,6 @@ export class InformationItem extends Classifier implements IInformationItem {
    */
   public elementImport: Set<IElementImport> = new Set();
 
-  // Inherited from Classifier
   /**
    * packageImport
    * 
@@ -136,7 +99,6 @@ export class InformationItem extends Classifier implements IInformationItem {
    */
   public packageImport: Set<IPackageImport> = new Set();
 
-  // Inherited from Classifier
   /**
    * isLeaf
    * 
@@ -145,7 +107,6 @@ export class InformationItem extends Classifier implements IInformationItem {
    */
   public isLeaf!: boolean;
 
-  // Inherited from Classifier
   /**
    * owningTemplateParameter
    * 
@@ -154,9 +115,8 @@ export class InformationItem extends Classifier implements IInformationItem {
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from Classifier
   /**
    * templateParameter
    * 
@@ -165,9 +125,8 @@ export class InformationItem extends Classifier implements IInformationItem {
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from Classifier
   /**
    * templateBinding
    * 
@@ -178,7 +137,6 @@ export class InformationItem extends Classifier implements IInformationItem {
    */
   public templateBinding: Set<ITemplateBinding> = new Set();
 
-  // Inherited from Classifier
   /**
    * ownedTemplateSignature
    * 
@@ -187,9 +145,8 @@ export class InformationItem extends Classifier implements IInformationItem {
    * @relationship containment
    * @opposite template
    */
-  public ownedTemplateSignature?: ITemplateSignature = undefined;
+  public ownedTemplateSignature?: ITemplateSignature;
 
-  // Inherited from Classifier
   /**
    * collaborationUse
    * 
@@ -199,7 +156,6 @@ export class InformationItem extends Classifier implements IInformationItem {
    */
   public collaborationUse: Set<ICollaborationUse> = new Set();
 
-  // Inherited from Classifier
   /**
    * generalization
    * 
@@ -210,7 +166,6 @@ export class InformationItem extends Classifier implements IInformationItem {
    */
   public generalization: Set<IGeneralization> = new Set();
 
-  // Inherited from Classifier
   /**
    * powertypeExtent
    * 
@@ -219,9 +174,8 @@ export class InformationItem extends Classifier implements IInformationItem {
    * @relationship cross-reference
    * @opposite powertype
    */
-  public powertypeExtent: Set<IGeneralizationSet | string> = new Set();
+  public powertypeExtent: Set<string> = new Set();
 
-  // Inherited from Classifier
   /**
    * isAbstract
    * 
@@ -230,7 +184,6 @@ export class InformationItem extends Classifier implements IInformationItem {
    */
   public isAbstract!: boolean;
 
-  // Inherited from Classifier
   /**
    * isFinalSpecialization
    * 
@@ -239,7 +192,6 @@ export class InformationItem extends Classifier implements IInformationItem {
    */
   public isFinalSpecialization!: boolean;
 
-  // Inherited from Classifier
   /**
    * ownedUseCase
    * 
@@ -249,7 +201,6 @@ export class InformationItem extends Classifier implements IInformationItem {
    */
   public ownedUseCase: Set<IUseCase> = new Set();
 
-  // Inherited from Classifier
   /**
    * useCase
    * 
@@ -258,9 +209,8 @@ export class InformationItem extends Classifier implements IInformationItem {
    * @relationship cross-reference
    * @opposite subject
    */
-  public useCase: Set<IUseCase | string> = new Set();
+  public useCase: Set<string> = new Set();
 
-  // Inherited from Classifier
   /**
    * redefinedClassifier
    * 
@@ -268,9 +218,8 @@ export class InformationItem extends Classifier implements IInformationItem {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedClassifier: Set<IClassifier | string> = new Set();
+  public redefinedClassifier: Set<string> = new Set();
 
-  // Inherited from Classifier
   /**
    * representation
    * 
@@ -278,9 +227,8 @@ export class InformationItem extends Classifier implements IInformationItem {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public representation?: ICollaborationUse | string = undefined;
+  public representation?: string;
 
-  // Inherited from Classifier
   /**
    * substitution
    * 
@@ -291,15 +239,17 @@ export class InformationItem extends Classifier implements IInformationItem {
    */
   public substitution: Set<ISubstitution> = new Set();
 
+
   constructor(init?: Partial<IInformationItem>) {
     super(init);
-    this.represented = init?.represented ?? new Set();
+
+    this.represented = init?.represented ? new Set(init.represented) : new Set();
   }
-  getRepresented(): Set<IClassifier | string> {
+  getRepresented(): Set<string> {
     return this.represented;
   }
 
-  setRepresented(value: Set<IClassifier | string>): void {
+  setRepresented(value: Set<string>): void {
     this.represented = value;
   }
 
@@ -364,9 +314,6 @@ export class InformationItem extends Classifier implements IInformationItem {
   static fromJSON(json: any): InformationItem {
     const instance = new InformationItem();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

@@ -28,7 +28,7 @@ export interface IReadLinkObjectEndQualifierAction extends IAction {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  qualifier: IProperty | string;
+  qualifier: string;
   /**
    * result
    * 

@@ -5,12 +5,7 @@
  * @package uml
  * @extends RedefinableElement, TemplateSignature
  */
-import { Comment } from './Comment';
-import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
-import { INamespace } from './INamespace';
 import { IRedefinableElement } from './IRedefinableElement';
 import { IRedefinableTemplateSignature } from './IRedefinableTemplateSignature';
 import { IStringExpression } from './IStringExpression';
@@ -19,7 +14,6 @@ import { ITemplateSignature } from './ITemplateSignature';
 import { ITemplateableElement } from './ITemplateableElement';
 import { RedefinableElement } from './RedefinableElement';
 import { StringExpression } from './StringExpression';
-import { TemplateParameter } from './TemplateParameter';
 import { TemplateSignature } from './TemplateSignature';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
@@ -32,20 +26,8 @@ export class RedefinableTemplateSignature extends RedefinableElement implements 
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public extendedSignature: Set<IRedefinableTemplateSignature | string> = new Set();
+  public extendedSignature: Set<string> = new Set();
 
-  // Inherited from RedefinableElement
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from RedefinableElement
   /**
    * ownedComment
    * 
@@ -55,16 +37,14 @@ export class RedefinableTemplateSignature extends RedefinableElement implements 
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from RedefinableElement
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from RedefinableElement
   /**
    * nameExpression
    * 
@@ -72,18 +52,15 @@ export class RedefinableTemplateSignature extends RedefinableElement implements 
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from RedefinableElement
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from RedefinableElement
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * isLeaf
    * 
@@ -92,7 +69,15 @@ export class RedefinableTemplateSignature extends RedefinableElement implements 
    */
   public isLeaf!: boolean;
 
-  // Inherited from TemplateSignature
+  /**
+   * ownedComment
+   * 
+   * @type Comment
+   * @multiplicity [0..*]
+   * @relationship containment
+   */
+  public ownedComment: Set<IComment> = new Set();
+
   /**
    * parameter
    * 
@@ -100,9 +85,8 @@ export class RedefinableTemplateSignature extends RedefinableElement implements 
    * @multiplicity [1..*]
    * @relationship cross-reference
    */
-  public parameter: ITemplateParameter | string[] = [];
+  public parameter: string[] = [];
 
-  // Inherited from TemplateSignature
   /**
    * template
    * 
@@ -111,9 +95,8 @@ export class RedefinableTemplateSignature extends RedefinableElement implements 
    * @relationship cross-reference
    * @opposite ownedTemplateSignature
    */
-  public template!: ITemplateableElement | string;
+  public template!: string;
 
-  // Inherited from TemplateSignature
   /**
    * ownedParameter
    * 
@@ -124,15 +107,17 @@ export class RedefinableTemplateSignature extends RedefinableElement implements 
    */
   public ownedParameter: ITemplateParameter[] = [];
 
+
   constructor(init?: Partial<IRedefinableTemplateSignature>) {
     super(init);
-    this.extendedSignature = init?.extendedSignature ?? new Set();
+
+    this.extendedSignature = init?.extendedSignature ? new Set(init.extendedSignature) : new Set();
   }
-  getExtendedSignature(): Set<IRedefinableTemplateSignature | string> {
+  getExtendedSignature(): Set<string> {
     return this.extendedSignature;
   }
 
-  setExtendedSignature(value: Set<IRedefinableTemplateSignature | string>): void {
+  setExtendedSignature(value: Set<string>): void {
     this.extendedSignature = value;
   }
 
@@ -197,9 +182,6 @@ export class RedefinableTemplateSignature extends RedefinableElement implements 
   static fromJSON(json: any): RedefinableTemplateSignature {
     const instance = new RedefinableTemplateSignature();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

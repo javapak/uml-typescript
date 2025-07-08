@@ -9,9 +9,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialStringExpression = Partial<IStringExpression>;
 export type RequiredStringExpression = Required<IStringExpression>;
-export type StringExpressionKey = Pick<IStringExpression, 'name' | 'nameExpression'>;
-export type StringExpressionMetadata = Pick<IStringExpression, 'ownedComment' | 'visibility' | 'ownedTemplateSignature'>;
-export type StringExpressionSummary = Pick<IStringExpression, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type StringExpressionUnion = IStringExpression | IExpression | ITemplateableElement;
 export type StringExpressionFactory = () => StringExpression;
 export type StringExpressionValidator = (instance: IStringExpression) => ValidationResult;

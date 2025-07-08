@@ -8,9 +8,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialInputPin = Partial<IInputPin>;
 export type RequiredInputPin = Required<IInputPin>;
-export type InputPinKey = Pick<IInputPin, 'name' | 'nameExpression'>;
-export type InputPinMetadata = Pick<IInputPin, 'ownedComment' | 'visibility'>;
-export type InputPinSummary = Pick<IInputPin, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type InputPinUnion = IInputPin | IPin;
 export type InputPinFactory = () => InputPin;
 export type InputPinValidator = (instance: IInputPin) => ValidationResult;

@@ -5,18 +5,13 @@
  * @package uml
  * @extends InteractionFragment
  */
-import { Comment } from './Comment';
-import { GeneralOrdering } from './GeneralOrdering';
 import { IComment } from './IComment';
 import { IContinuation } from './IContinuation';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IGeneralOrdering } from './IGeneralOrdering';
 import { IInteraction } from './IInteraction';
 import { IInteractionFragment } from './IInteractionFragment';
 import { IInteractionOperand } from './IInteractionOperand';
 import { ILifeline } from './ILifeline';
-import { INamespace } from './INamespace';
 import { IStringExpression } from './IStringExpression';
 import { InteractionFragment } from './InteractionFragment';
 import { StringExpression } from './StringExpression';
@@ -32,18 +27,6 @@ export class Continuation extends InteractionFragment implements IContinuation {
    */
   public setting!: boolean;
 
-  // Inherited from InteractionFragment
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from InteractionFragment
   /**
    * ownedComment
    * 
@@ -53,16 +36,14 @@ export class Continuation extends InteractionFragment implements IContinuation {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from InteractionFragment
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from InteractionFragment
   /**
    * nameExpression
    * 
@@ -70,18 +51,15 @@ export class Continuation extends InteractionFragment implements IContinuation {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from InteractionFragment
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from InteractionFragment
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * covered
    * 
@@ -90,9 +68,8 @@ export class Continuation extends InteractionFragment implements IContinuation {
    * @relationship cross-reference
    * @opposite coveredBy
    */
-  public covered: Set<ILifeline | string> = new Set();
+  public covered: Set<string> = new Set();
 
-  // Inherited from InteractionFragment
   /**
    * enclosingOperand
    * 
@@ -101,9 +78,8 @@ export class Continuation extends InteractionFragment implements IContinuation {
    * @relationship cross-reference
    * @opposite fragment
    */
-  public enclosingOperand?: IInteractionOperand | string = undefined;
+  public enclosingOperand?: string;
 
-  // Inherited from InteractionFragment
   /**
    * enclosingInteraction
    * 
@@ -112,9 +88,8 @@ export class Continuation extends InteractionFragment implements IContinuation {
    * @relationship cross-reference
    * @opposite fragment
    */
-  public enclosingInteraction?: IInteraction | string = undefined;
+  public enclosingInteraction?: string;
 
-  // Inherited from InteractionFragment
   /**
    * generalOrdering
    * 
@@ -124,9 +99,11 @@ export class Continuation extends InteractionFragment implements IContinuation {
    */
   public generalOrdering: Set<IGeneralOrdering> = new Set();
 
+
   constructor(init?: Partial<IContinuation>) {
     super(init);
-    this.setting = init?.setting!;
+
+    this.setting = init?.setting ?? false;
   }
   getSetting(): boolean {
     return this.setting;
@@ -197,9 +174,6 @@ export class Continuation extends InteractionFragment implements IContinuation {
   static fromJSON(json: any): Continuation {
     const instance = new Continuation();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

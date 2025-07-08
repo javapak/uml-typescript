@@ -5,15 +5,11 @@
  * @package uml
  * @extends Realization
  */
-import { Comment } from './Comment';
 import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
 import { IComponent } from './IComponent';
 import { IComponentRealization } from './IComponentRealization';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IOpaqueExpression } from './IOpaqueExpression';
 import { IRealization } from './IRealization';
 import { IStringExpression } from './IStringExpression';
@@ -32,7 +28,7 @@ export class ComponentRealization extends Realization implements IComponentReali
    * @multiplicity [1..*]
    * @relationship cross-reference
    */
-  public realizingClassifier: Set<IClassifier | string> = new Set();
+  public realizingClassifier: Set<string> = new Set();
 
   /**
    * abstraction
@@ -42,20 +38,8 @@ export class ComponentRealization extends Realization implements IComponentReali
    * @relationship cross-reference
    * @opposite realization
    */
-  public abstraction?: IComponent | string = undefined;
+  public abstraction?: string;
 
-  // Inherited from Realization
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Realization
   /**
    * ownedComment
    * 
@@ -65,16 +49,14 @@ export class ComponentRealization extends Realization implements IComponentReali
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Realization
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Realization
   /**
    * nameExpression
    * 
@@ -82,18 +64,15 @@ export class ComponentRealization extends Realization implements IComponentReali
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Realization
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Realization
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * owningTemplateParameter
    * 
@@ -102,9 +81,8 @@ export class ComponentRealization extends Realization implements IComponentReali
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from Realization
   /**
    * templateParameter
    * 
@@ -113,9 +91,8 @@ export class ComponentRealization extends Realization implements IComponentReali
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from Realization
   /**
    * client
    * 
@@ -123,9 +100,8 @@ export class ComponentRealization extends Realization implements IComponentReali
    * @multiplicity [1..*]
    * @relationship cross-reference
    */
-  public client: Set<INamedElement | string> = new Set();
+  public client: Set<string> = new Set();
 
-  // Inherited from Realization
   /**
    * supplier
    * 
@@ -133,9 +109,8 @@ export class ComponentRealization extends Realization implements IComponentReali
    * @multiplicity [1..*]
    * @relationship cross-reference
    */
-  public supplier: Set<INamedElement | string> = new Set();
+  public supplier: Set<string> = new Set();
 
-  // Inherited from Realization
   /**
    * mapping
    * 
@@ -143,26 +118,28 @@ export class ComponentRealization extends Realization implements IComponentReali
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public mapping?: IOpaqueExpression = undefined;
+  public mapping?: IOpaqueExpression;
+
 
   constructor(init?: Partial<IComponentRealization>) {
     super(init);
-    this.realizingClassifier = init?.realizingClassifier ?? new Set();
-    this.abstraction = init?.abstraction ?? undefined;
+
+    this.realizingClassifier = init?.realizingClassifier ? new Set(init.realizingClassifier) : new Set();
+    this.abstraction = init?.abstraction;
   }
-  getRealizingClassifier(): Set<IClassifier | string> {
+  getRealizingClassifier(): Set<string> {
     return this.realizingClassifier;
   }
 
-  setRealizingClassifier(value: Set<IClassifier | string>): void {
+  setRealizingClassifier(value: Set<string>): void {
     this.realizingClassifier = value;
   }
 
-  getAbstraction(): IComponent | string | undefined {
+  getAbstraction(): string | undefined {
     return this.abstraction;
   }
 
-  setAbstraction(value: IComponent | string | undefined): void {
+  setAbstraction(value: string | undefined): void {
     this.abstraction = value;
   }
 
@@ -231,9 +208,6 @@ export class ComponentRealization extends Realization implements IComponentReali
   static fromJSON(json: any): ComponentRealization {
     const instance = new ComponentRealization();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

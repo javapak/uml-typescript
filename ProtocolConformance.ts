@@ -5,11 +5,9 @@
  * @package uml
  * @extends DirectedRelationship
  */
-import { Comment } from './Comment';
 import { DirectedRelationship } from './DirectedRelationship';
 import { IComment } from './IComment';
 import { IDirectedRelationship } from './IDirectedRelationship';
-import { IElement } from './IElement';
 import { IProtocolConformance } from './IProtocolConformance';
 import { IProtocolStateMachine } from './IProtocolStateMachine';
 import { ValidationError, ValidationResult } from './ValidationTypes';
@@ -22,7 +20,7 @@ export class ProtocolConformance extends DirectedRelationship implements IProtoc
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public generalMachine!: IProtocolStateMachine | string;
+  public generalMachine!: string;
 
   /**
    * specificMachine
@@ -32,20 +30,8 @@ export class ProtocolConformance extends DirectedRelationship implements IProtoc
    * @relationship cross-reference
    * @opposite conformance
    */
-  public specificMachine!: IProtocolStateMachine | string;
+  public specificMachine!: string;
 
-  // Inherited from DirectedRelationship
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from DirectedRelationship
   /**
    * ownedComment
    * 
@@ -55,24 +41,26 @@ export class ProtocolConformance extends DirectedRelationship implements IProtoc
    */
   public ownedComment: Set<IComment> = new Set();
 
+
   constructor(init?: Partial<IProtocolConformance>) {
     super(init);
-    this.generalMachine = init?.generalMachine!;
-    this.specificMachine = init?.specificMachine!;
+
+    this.generalMachine = init?.generalMachine ?? '';
+    this.specificMachine = init?.specificMachine ?? '';
   }
-  getGeneralMachine(): IProtocolStateMachine | string {
+  getGeneralMachine(): string {
     return this.generalMachine;
   }
 
-  setGeneralMachine(value: IProtocolStateMachine | string): void {
+  setGeneralMachine(value: string): void {
     this.generalMachine = value;
   }
 
-  getSpecificMachine(): IProtocolStateMachine | string {
+  getSpecificMachine(): string {
     return this.specificMachine;
   }
 
-  setSpecificMachine(value: IProtocolStateMachine | string): void {
+  setSpecificMachine(value: string): void {
     this.specificMachine = value;
   }
 
@@ -139,9 +127,6 @@ export class ProtocolConformance extends DirectedRelationship implements IProtoc
   static fromJSON(json: any): ProtocolConformance {
     const instance = new ProtocolConformance();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

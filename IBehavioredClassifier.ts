@@ -20,7 +20,7 @@ export interface IBehavioredClassifier extends IClassifier {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  classifierBehavior?: IBehavior | string;
+  classifierBehavior?: string;
   /**
    * interfaceRealization
    * 
@@ -29,7 +29,7 @@ export interface IBehavioredClassifier extends IClassifier {
    * @relationship containment
    * @opposite implementingClassifier
    */
-  interfaceRealization: Set<IInterfaceRealization>;
+  interfaceRealization?: Set<IInterfaceRealization>;
   /**
    * ownedBehavior
    * 
@@ -37,7 +37,7 @@ export interface IBehavioredClassifier extends IClassifier {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  ownedBehavior: Set<IBehavior>;
+  ownedBehavior?: Set<IBehavior>;
 }
 
 // Type aliases for BehavioredClassifier

@@ -33,7 +33,7 @@ export interface INamedElement extends IElement {
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  visibility?: any;
+  visibility?: VisibilityKind;
 }
 
 // Type aliases for NamedElement

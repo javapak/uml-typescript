@@ -5,19 +5,11 @@
  * @package uml
  * @extends Namespace, RedefinableElement
  */
-import { Comment } from './Comment';
-import { Constraint } from './Constraint';
-import { ElementImport } from './ElementImport';
-import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IElementImport } from './IElementImport';
-import { INamedElement } from './INamedElement';
 import { INamespace } from './INamespace';
 import { IPackageImport } from './IPackageImport';
-import { IPackageableElement } from './IPackageableElement';
 import { IRedefinableElement } from './IRedefinableElement';
 import { IRegion } from './IRegion';
 import { IState } from './IState';
@@ -26,12 +18,9 @@ import { IStringExpression } from './IStringExpression';
 import { ITransition } from './ITransition';
 import { IVertex } from './IVertex';
 import { Namespace } from './Namespace';
-import { PackageImport } from './PackageImport';
 import { RedefinableElement } from './RedefinableElement';
 import { StringExpression } from './StringExpression';
-import { Transition } from './Transition';
 import { ValidationError, ValidationResult } from './ValidationTypes';
-import { Vertex } from './Vertex';
 import { VisibilityKind } from './VisibilityKind';
 
 export class Region extends Namespace implements IRegion {
@@ -42,7 +31,7 @@ export class Region extends Namespace implements IRegion {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public extendedRegion?: IRegion | string = undefined;
+  public extendedRegion?: string;
 
   /**
    * state
@@ -52,7 +41,7 @@ export class Region extends Namespace implements IRegion {
    * @relationship cross-reference
    * @opposite region
    */
-  public state?: IState | string = undefined;
+  public state?: string;
 
   /**
    * stateMachine
@@ -62,7 +51,7 @@ export class Region extends Namespace implements IRegion {
    * @relationship cross-reference
    * @opposite region
    */
-  public stateMachine?: IStateMachine | string = undefined;
+  public stateMachine?: string;
 
   /**
    * transition
@@ -84,18 +73,6 @@ export class Region extends Namespace implements IRegion {
    */
   public subvertex: Set<IVertex> = new Set();
 
-  // Inherited from Namespace
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Namespace
   /**
    * ownedComment
    * 
@@ -105,16 +82,14 @@ export class Region extends Namespace implements IRegion {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Namespace
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Namespace
   /**
    * nameExpression
    * 
@@ -122,18 +97,15 @@ export class Region extends Namespace implements IRegion {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Namespace
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Namespace
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * ownedRule
    * 
@@ -144,7 +116,6 @@ export class Region extends Namespace implements IRegion {
    */
   public ownedRule: Set<IConstraint> = new Set();
 
-  // Inherited from Namespace
   /**
    * elementImport
    * 
@@ -155,7 +126,6 @@ export class Region extends Namespace implements IRegion {
    */
   public elementImport: Set<IElementImport> = new Set();
 
-  // Inherited from Namespace
   /**
    * packageImport
    * 
@@ -166,7 +136,39 @@ export class Region extends Namespace implements IRegion {
    */
   public packageImport: Set<IPackageImport> = new Set();
 
-  // Inherited from RedefinableElement
+  /**
+   * ownedComment
+   * 
+   * @type Comment
+   * @multiplicity [0..*]
+   * @relationship containment
+   */
+  public ownedComment: Set<IComment> = new Set();
+
+  /**
+   * name
+   * 
+   * @type String
+   * @multiplicity [0..1]
+   */
+  public name?: string;
+
+  /**
+   * nameExpression
+   * 
+   * @type StringExpression
+   * @multiplicity [0..1]
+   * @relationship containment
+   */
+  public nameExpression?: IStringExpression;
+
+  /**
+   * visibility
+   * 
+   * @type VisibilityKind
+   * @multiplicity [0..1]
+   */
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * isLeaf
    * 
@@ -175,35 +177,37 @@ export class Region extends Namespace implements IRegion {
    */
   public isLeaf!: boolean;
 
+
   constructor(init?: Partial<IRegion>) {
     super(init);
-    this.extendedRegion = init?.extendedRegion ?? undefined;
-    this.state = init?.state ?? undefined;
-    this.stateMachine = init?.stateMachine ?? undefined;
-    this.transition = init?.transition ?? new Set();
-    this.subvertex = init?.subvertex ?? new Set();
+
+    this.extendedRegion = init?.extendedRegion;
+    this.state = init?.state;
+    this.stateMachine = init?.stateMachine;
+    this.transition = init?.transition ? new Set(init.transition) : new Set();
+    this.subvertex = init?.subvertex ? new Set(init.subvertex) : new Set();
   }
-  getExtendedRegion(): IRegion | string | undefined {
+  getExtendedRegion(): string | undefined {
     return this.extendedRegion;
   }
 
-  setExtendedRegion(value: IRegion | string | undefined): void {
+  setExtendedRegion(value: string | undefined): void {
     this.extendedRegion = value;
   }
 
-  getState(): IState | string | undefined {
+  getState(): string | undefined {
     return this.state;
   }
 
-  setState(value: IState | string | undefined): void {
+  setState(value: string | undefined): void {
     this.state = value;
   }
 
-  getStateMachine(): IStateMachine | string | undefined {
+  getStateMachine(): string | undefined {
     return this.stateMachine;
   }
 
-  setStateMachine(value: IStateMachine | string | undefined): void {
+  setStateMachine(value: string | undefined): void {
     this.stateMachine = value;
   }
 
@@ -298,9 +302,6 @@ export class Region extends Namespace implements IRegion {
   static fromJSON(json: any): Region {
     const instance = new Region();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

@@ -5,47 +5,26 @@
  * @package uml
  * @extends StateMachine
  */
-import { Behavior } from './Behavior';
-import { Classifier } from './Classifier';
-import { CollaborationUse } from './CollaborationUse';
-import { Comment } from './Comment';
-import { Connector } from './Connector';
-import { Constraint } from './Constraint';
-import { ElementImport } from './ElementImport';
-import { Generalization } from './Generalization';
 import { IBehavior } from './IBehavior';
 import { IBehavioralFeature } from './IBehavioralFeature';
-import { IBehavioredClassifier } from './IBehavioredClassifier';
-import { IClass } from './IClass';
 import { IClassifier } from './IClassifier';
 import { ICollaborationUse } from './ICollaborationUse';
 import { IComment } from './IComment';
-import { IConnectableElement } from './IConnectableElement';
 import { IConnector } from './IConnector';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IElementImport } from './IElementImport';
-import { IExtension } from './IExtension';
-import { IFeature } from './IFeature';
 import { IGeneralization } from './IGeneralization';
 import { IGeneralizationSet } from './IGeneralizationSet';
 import { IInterfaceRealization } from './IInterfaceRealization';
-import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IOperation } from './IOperation';
-import { IPackage } from './IPackage';
 import { IPackageImport } from './IPackageImport';
-import { IPackageableElement } from './IPackageableElement';
 import { IParameter } from './IParameter';
 import { IParameterSet } from './IParameterSet';
-import { IPort } from './IPort';
 import { IProperty } from './IProperty';
 import { IProtocolConformance } from './IProtocolConformance';
 import { IProtocolStateMachine } from './IProtocolStateMachine';
 import { IPseudostate } from './IPseudostate';
 import { IReception } from './IReception';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IRegion } from './IRegion';
 import { IState } from './IState';
 import { IStateMachine } from './IStateMachine';
@@ -55,22 +34,9 @@ import { ITemplateBinding } from './ITemplateBinding';
 import { ITemplateParameter } from './ITemplateParameter';
 import { ITemplateSignature } from './ITemplateSignature';
 import { IUseCase } from './IUseCase';
-import { InterfaceRealization } from './InterfaceRealization';
-import { Operation } from './Operation';
-import { PackageImport } from './PackageImport';
-import { Parameter } from './Parameter';
-import { ParameterSet } from './ParameterSet';
-import { Property } from './Property';
-import { ProtocolConformance } from './ProtocolConformance';
-import { Pseudostate } from './Pseudostate';
-import { Reception } from './Reception';
-import { Region } from './Region';
 import { StateMachine } from './StateMachine';
 import { StringExpression } from './StringExpression';
-import { Substitution } from './Substitution';
-import { TemplateBinding } from './TemplateBinding';
 import { TemplateSignature } from './TemplateSignature';
-import { UseCase } from './UseCase';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
 
@@ -85,18 +51,6 @@ export class ProtocolStateMachine extends StateMachine implements IProtocolState
    */
   public conformance: Set<IProtocolConformance> = new Set();
 
-  // Inherited from StateMachine
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from StateMachine
   /**
    * ownedComment
    * 
@@ -106,16 +60,14 @@ export class ProtocolStateMachine extends StateMachine implements IProtocolState
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from StateMachine
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from StateMachine
   /**
    * nameExpression
    * 
@@ -123,18 +75,15 @@ export class ProtocolStateMachine extends StateMachine implements IProtocolState
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from StateMachine
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from StateMachine
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * ownedRule
    * 
@@ -145,7 +94,6 @@ export class ProtocolStateMachine extends StateMachine implements IProtocolState
    */
   public ownedRule: Set<IConstraint> = new Set();
 
-  // Inherited from StateMachine
   /**
    * elementImport
    * 
@@ -156,7 +104,6 @@ export class ProtocolStateMachine extends StateMachine implements IProtocolState
    */
   public elementImport: Set<IElementImport> = new Set();
 
-  // Inherited from StateMachine
   /**
    * packageImport
    * 
@@ -167,7 +114,6 @@ export class ProtocolStateMachine extends StateMachine implements IProtocolState
    */
   public packageImport: Set<IPackageImport> = new Set();
 
-  // Inherited from StateMachine
   /**
    * isLeaf
    * 
@@ -176,7 +122,6 @@ export class ProtocolStateMachine extends StateMachine implements IProtocolState
    */
   public isLeaf!: boolean;
 
-  // Inherited from StateMachine
   /**
    * owningTemplateParameter
    * 
@@ -185,9 +130,8 @@ export class ProtocolStateMachine extends StateMachine implements IProtocolState
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from StateMachine
   /**
    * templateParameter
    * 
@@ -196,9 +140,8 @@ export class ProtocolStateMachine extends StateMachine implements IProtocolState
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from StateMachine
   /**
    * templateBinding
    * 
@@ -209,7 +152,6 @@ export class ProtocolStateMachine extends StateMachine implements IProtocolState
    */
   public templateBinding: Set<ITemplateBinding> = new Set();
 
-  // Inherited from StateMachine
   /**
    * ownedTemplateSignature
    * 
@@ -218,9 +160,8 @@ export class ProtocolStateMachine extends StateMachine implements IProtocolState
    * @relationship containment
    * @opposite template
    */
-  public ownedTemplateSignature?: ITemplateSignature = undefined;
+  public ownedTemplateSignature?: ITemplateSignature;
 
-  // Inherited from StateMachine
   /**
    * collaborationUse
    * 
@@ -230,7 +171,6 @@ export class ProtocolStateMachine extends StateMachine implements IProtocolState
    */
   public collaborationUse: Set<ICollaborationUse> = new Set();
 
-  // Inherited from StateMachine
   /**
    * generalization
    * 
@@ -241,7 +181,6 @@ export class ProtocolStateMachine extends StateMachine implements IProtocolState
    */
   public generalization: Set<IGeneralization> = new Set();
 
-  // Inherited from StateMachine
   /**
    * powertypeExtent
    * 
@@ -250,9 +189,8 @@ export class ProtocolStateMachine extends StateMachine implements IProtocolState
    * @relationship cross-reference
    * @opposite powertype
    */
-  public powertypeExtent: Set<IGeneralizationSet | string> = new Set();
+  public powertypeExtent: Set<string> = new Set();
 
-  // Inherited from StateMachine
   /**
    * isAbstract
    * 
@@ -261,7 +199,6 @@ export class ProtocolStateMachine extends StateMachine implements IProtocolState
    */
   public isAbstract!: boolean;
 
-  // Inherited from StateMachine
   /**
    * isFinalSpecialization
    * 
@@ -270,7 +207,6 @@ export class ProtocolStateMachine extends StateMachine implements IProtocolState
    */
   public isFinalSpecialization!: boolean;
 
-  // Inherited from StateMachine
   /**
    * ownedUseCase
    * 
@@ -280,7 +216,6 @@ export class ProtocolStateMachine extends StateMachine implements IProtocolState
    */
   public ownedUseCase: Set<IUseCase> = new Set();
 
-  // Inherited from StateMachine
   /**
    * useCase
    * 
@@ -289,9 +224,8 @@ export class ProtocolStateMachine extends StateMachine implements IProtocolState
    * @relationship cross-reference
    * @opposite subject
    */
-  public useCase: Set<IUseCase | string> = new Set();
+  public useCase: Set<string> = new Set();
 
-  // Inherited from StateMachine
   /**
    * redefinedClassifier
    * 
@@ -299,9 +233,8 @@ export class ProtocolStateMachine extends StateMachine implements IProtocolState
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedClassifier: Set<IClassifier | string> = new Set();
+  public redefinedClassifier: Set<string> = new Set();
 
-  // Inherited from StateMachine
   /**
    * representation
    * 
@@ -309,9 +242,8 @@ export class ProtocolStateMachine extends StateMachine implements IProtocolState
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public representation?: ICollaborationUse | string = undefined;
+  public representation?: string;
 
-  // Inherited from StateMachine
   /**
    * substitution
    * 
@@ -322,7 +254,6 @@ export class ProtocolStateMachine extends StateMachine implements IProtocolState
    */
   public substitution: Set<ISubstitution> = new Set();
 
-  // Inherited from StateMachine
   /**
    * ownedAttribute
    * 
@@ -332,7 +263,6 @@ export class ProtocolStateMachine extends StateMachine implements IProtocolState
    */
   public ownedAttribute: IProperty[] = [];
 
-  // Inherited from StateMachine
   /**
    * ownedConnector
    * 
@@ -342,7 +272,6 @@ export class ProtocolStateMachine extends StateMachine implements IProtocolState
    */
   public ownedConnector: Set<IConnector> = new Set();
 
-  // Inherited from StateMachine
   /**
    * classifierBehavior
    * 
@@ -350,9 +279,8 @@ export class ProtocolStateMachine extends StateMachine implements IProtocolState
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public classifierBehavior?: IBehavior | string = undefined;
+  public classifierBehavior?: string;
 
-  // Inherited from StateMachine
   /**
    * interfaceRealization
    * 
@@ -363,7 +291,6 @@ export class ProtocolStateMachine extends StateMachine implements IProtocolState
    */
   public interfaceRealization: Set<IInterfaceRealization> = new Set();
 
-  // Inherited from StateMachine
   /**
    * ownedBehavior
    * 
@@ -373,7 +300,6 @@ export class ProtocolStateMachine extends StateMachine implements IProtocolState
    */
   public ownedBehavior: Set<IBehavior> = new Set();
 
-  // Inherited from StateMachine
   /**
    * ownedOperation
    * 
@@ -384,7 +310,6 @@ export class ProtocolStateMachine extends StateMachine implements IProtocolState
    */
   public ownedOperation: IOperation[] = [];
 
-  // Inherited from StateMachine
   /**
    * isActive
    * 
@@ -393,7 +318,6 @@ export class ProtocolStateMachine extends StateMachine implements IProtocolState
    */
   public isActive!: boolean;
 
-  // Inherited from StateMachine
   /**
    * nestedClassifier
    * 
@@ -403,7 +327,6 @@ export class ProtocolStateMachine extends StateMachine implements IProtocolState
    */
   public nestedClassifier: IClassifier[] = [];
 
-  // Inherited from StateMachine
   /**
    * ownedReception
    * 
@@ -413,7 +336,6 @@ export class ProtocolStateMachine extends StateMachine implements IProtocolState
    */
   public ownedReception: Set<IReception> = new Set();
 
-  // Inherited from StateMachine
   /**
    * specification
    * 
@@ -422,18 +344,16 @@ export class ProtocolStateMachine extends StateMachine implements IProtocolState
    * @relationship cross-reference
    * @opposite method
    */
-  public specification?: IBehavioralFeature | string = undefined;
+  public specification?: string;
 
-  // Inherited from StateMachine
   /**
    * isReentrant
    * 
    * @type Boolean
    * @multiplicity [0..1]
    */
-  public isReentrant?: boolean = undefined;
+  public isReentrant?: boolean;
 
-  // Inherited from StateMachine
   /**
    * ownedParameter
    * 
@@ -443,7 +363,6 @@ export class ProtocolStateMachine extends StateMachine implements IProtocolState
    */
   public ownedParameter: IParameter[] = [];
 
-  // Inherited from StateMachine
   /**
    * ownedParameterSet
    * 
@@ -453,7 +372,6 @@ export class ProtocolStateMachine extends StateMachine implements IProtocolState
    */
   public ownedParameterSet: Set<IParameterSet> = new Set();
 
-  // Inherited from StateMachine
   /**
    * postcondition
    * 
@@ -461,9 +379,8 @@ export class ProtocolStateMachine extends StateMachine implements IProtocolState
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public postcondition: Set<IConstraint | string> = new Set();
+  public postcondition: Set<string> = new Set();
 
-  // Inherited from StateMachine
   /**
    * precondition
    * 
@@ -471,9 +388,8 @@ export class ProtocolStateMachine extends StateMachine implements IProtocolState
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public precondition: Set<IConstraint | string> = new Set();
+  public precondition: Set<string> = new Set();
 
-  // Inherited from StateMachine
   /**
    * redefinedBehavior
    * 
@@ -481,9 +397,8 @@ export class ProtocolStateMachine extends StateMachine implements IProtocolState
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedBehavior: Set<IBehavior | string> = new Set();
+  public redefinedBehavior: Set<string> = new Set();
 
-  // Inherited from StateMachine
   /**
    * connectionPoint
    * 
@@ -494,7 +409,6 @@ export class ProtocolStateMachine extends StateMachine implements IProtocolState
    */
   public connectionPoint: Set<IPseudostate> = new Set();
 
-  // Inherited from StateMachine
   /**
    * submachineState
    * 
@@ -503,9 +417,8 @@ export class ProtocolStateMachine extends StateMachine implements IProtocolState
    * @relationship cross-reference
    * @opposite submachine
    */
-  public submachineState: Set<IState | string> = new Set();
+  public submachineState: Set<string> = new Set();
 
-  // Inherited from StateMachine
   /**
    * region
    * 
@@ -516,7 +429,6 @@ export class ProtocolStateMachine extends StateMachine implements IProtocolState
    */
   public region: Set<IRegion> = new Set();
 
-  // Inherited from StateMachine
   /**
    * extendedStateMachine
    * 
@@ -524,11 +436,13 @@ export class ProtocolStateMachine extends StateMachine implements IProtocolState
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public extendedStateMachine: Set<IStateMachine | string> = new Set();
+  public extendedStateMachine: Set<string> = new Set();
+
 
   constructor(init?: Partial<IProtocolStateMachine>) {
     super(init);
-    this.conformance = init?.conformance ?? new Set();
+
+    this.conformance = init?.conformance ? new Set(init.conformance) : new Set();
   }
   getConformance(): Set<IProtocolConformance> {
     return this.conformance;
@@ -599,9 +513,6 @@ export class ProtocolStateMachine extends StateMachine implements IProtocolState
   static fromJSON(json: any): ProtocolStateMachine {
     const instance = new ProtocolStateMachine();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

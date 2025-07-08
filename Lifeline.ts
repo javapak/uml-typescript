@@ -5,16 +5,12 @@
  * @package uml
  * @extends NamedElement
  */
-import { Comment } from './Comment';
 import { IComment } from './IComment';
 import { IConnectableElement } from './IConnectableElement';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IInteraction } from './IInteraction';
 import { IInteractionFragment } from './IInteractionFragment';
 import { ILifeline } from './ILifeline';
 import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IPartDecomposition } from './IPartDecomposition';
 import { IStringExpression } from './IStringExpression';
 import { IValueSpecification } from './IValueSpecification';
@@ -32,7 +28,7 @@ export class Lifeline extends NamedElement implements ILifeline {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public decomposedAs?: IPartDecomposition | string = undefined;
+  public decomposedAs?: string;
 
   /**
    * interaction
@@ -42,7 +38,7 @@ export class Lifeline extends NamedElement implements ILifeline {
    * @relationship cross-reference
    * @opposite lifeline
    */
-  public interaction!: IInteraction | string;
+  public interaction!: string;
 
   /**
    * represents
@@ -51,7 +47,7 @@ export class Lifeline extends NamedElement implements ILifeline {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public represents?: IConnectableElement | string = undefined;
+  public represents?: string;
 
   /**
    * selector
@@ -60,7 +56,7 @@ export class Lifeline extends NamedElement implements ILifeline {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public selector?: IValueSpecification = undefined;
+  public selector?: IValueSpecification;
 
   /**
    * coveredBy
@@ -70,20 +66,8 @@ export class Lifeline extends NamedElement implements ILifeline {
    * @relationship cross-reference
    * @opposite covered
    */
-  public coveredBy: Set<IInteractionFragment | string> = new Set();
+  public coveredBy: Set<string> = new Set();
 
-  // Inherited from NamedElement
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from NamedElement
   /**
    * ownedComment
    * 
@@ -93,16 +77,14 @@ export class Lifeline extends NamedElement implements ILifeline {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from NamedElement
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from NamedElement
   /**
    * nameExpression
    * 
@@ -110,46 +92,46 @@ export class Lifeline extends NamedElement implements ILifeline {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from NamedElement
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
+  public visibility: VisibilityKind | undefined = undefined;
 
   constructor(init?: Partial<ILifeline>) {
     super(init);
-    this.decomposedAs = init?.decomposedAs ?? undefined;
-    this.interaction = init?.interaction!;
-    this.represents = init?.represents ?? undefined;
-    this.selector = init?.selector ?? undefined;
-    this.coveredBy = init?.coveredBy ?? new Set();
+
+    this.decomposedAs = init?.decomposedAs;
+    this.interaction = init?.interaction ?? '';
+    this.represents = init?.represents;
+    this.selector = init?.selector;
+    this.coveredBy = init?.coveredBy ? new Set(init.coveredBy) : new Set();
   }
-  getDecomposedAs(): IPartDecomposition | string | undefined {
+  getDecomposedAs(): string | undefined {
     return this.decomposedAs;
   }
 
-  setDecomposedAs(value: IPartDecomposition | string | undefined): void {
+  setDecomposedAs(value: string | undefined): void {
     this.decomposedAs = value;
   }
 
-  getInteraction(): IInteraction | string {
+  getInteraction(): string {
     return this.interaction;
   }
 
-  setInteraction(value: IInteraction | string): void {
+  setInteraction(value: string): void {
     this.interaction = value;
   }
 
-  getRepresents(): IConnectableElement | string | undefined {
+  getRepresents(): string | undefined {
     return this.represents;
   }
 
-  setRepresents(value: IConnectableElement | string | undefined): void {
+  setRepresents(value: string | undefined): void {
     this.represents = value;
   }
 
@@ -161,11 +143,11 @@ export class Lifeline extends NamedElement implements ILifeline {
     this.selector = value;
   }
 
-  getCoveredBy(): Set<IInteractionFragment | string> {
+  getCoveredBy(): Set<string> {
     return this.coveredBy;
   }
 
-  setCoveredBy(value: Set<IInteractionFragment | string>): void {
+  setCoveredBy(value: Set<string>): void {
     this.coveredBy = value;
   }
 
@@ -244,9 +226,6 @@ export class Lifeline extends NamedElement implements ILifeline {
   static fromJSON(json: any): Lifeline {
     const instance = new Lifeline();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

@@ -19,7 +19,7 @@ export interface IVariable extends IConnectableElement, IMultiplicityElement {
    * @relationship cross-reference
    * @opposite variable
    */
-  activityScope?: IActivity | string;
+  activityScope?: string;
   /**
    * scope
    * 
@@ -28,7 +28,7 @@ export interface IVariable extends IConnectableElement, IMultiplicityElement {
    * @relationship cross-reference
    * @opposite variable
    */
-  scope?: IStructuredActivityNode | string;
+  scope?: string;
 }
 
 // Type aliases for Variable

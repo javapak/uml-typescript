@@ -5,33 +5,16 @@
  * @package uml
  * @extends Behavior, InteractionFragment
  */
-import { Action } from './Action';
 import { Behavior } from './Behavior';
-import { Classifier } from './Classifier';
-import { CollaborationUse } from './CollaborationUse';
-import { Comment } from './Comment';
-import { Connector } from './Connector';
-import { Constraint } from './Constraint';
-import { ElementImport } from './ElementImport';
-import { Gate } from './Gate';
-import { GeneralOrdering } from './GeneralOrdering';
-import { Generalization } from './Generalization';
 import { IAction } from './IAction';
 import { IBehavior } from './IBehavior';
 import { IBehavioralFeature } from './IBehavioralFeature';
-import { IBehavioredClassifier } from './IBehavioredClassifier';
-import { IClass } from './IClass';
 import { IClassifier } from './IClassifier';
 import { ICollaborationUse } from './ICollaborationUse';
 import { IComment } from './IComment';
-import { IConnectableElement } from './IConnectableElement';
 import { IConnector } from './IConnector';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IElementImport } from './IElementImport';
-import { IExtension } from './IExtension';
-import { IFeature } from './IFeature';
 import { IGate } from './IGate';
 import { IGeneralOrdering } from './IGeneralOrdering';
 import { IGeneralization } from './IGeneralization';
@@ -42,18 +25,12 @@ import { IInteractionOperand } from './IInteractionOperand';
 import { IInterfaceRealization } from './IInterfaceRealization';
 import { ILifeline } from './ILifeline';
 import { IMessage } from './IMessage';
-import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IOperation } from './IOperation';
-import { IPackage } from './IPackage';
 import { IPackageImport } from './IPackageImport';
-import { IPackageableElement } from './IPackageableElement';
 import { IParameter } from './IParameter';
 import { IParameterSet } from './IParameterSet';
-import { IPort } from './IPort';
 import { IProperty } from './IProperty';
 import { IReception } from './IReception';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { ISubstitution } from './ISubstitution';
 import { ITemplateBinding } from './ITemplateBinding';
@@ -61,20 +38,8 @@ import { ITemplateParameter } from './ITemplateParameter';
 import { ITemplateSignature } from './ITemplateSignature';
 import { IUseCase } from './IUseCase';
 import { InteractionFragment } from './InteractionFragment';
-import { InterfaceRealization } from './InterfaceRealization';
-import { Lifeline } from './Lifeline';
-import { Message } from './Message';
-import { Operation } from './Operation';
-import { PackageImport } from './PackageImport';
-import { Parameter } from './Parameter';
-import { ParameterSet } from './ParameterSet';
-import { Property } from './Property';
-import { Reception } from './Reception';
 import { StringExpression } from './StringExpression';
-import { Substitution } from './Substitution';
-import { TemplateBinding } from './TemplateBinding';
 import { TemplateSignature } from './TemplateSignature';
-import { UseCase } from './UseCase';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
 
@@ -127,18 +92,6 @@ export class Interaction extends Behavior implements IInteraction {
    */
   public message: Set<IMessage> = new Set();
 
-  // Inherited from Behavior
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Behavior
   /**
    * ownedComment
    * 
@@ -148,16 +101,14 @@ export class Interaction extends Behavior implements IInteraction {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Behavior
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Behavior
   /**
    * nameExpression
    * 
@@ -165,18 +116,15 @@ export class Interaction extends Behavior implements IInteraction {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Behavior
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Behavior
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * ownedRule
    * 
@@ -187,7 +135,6 @@ export class Interaction extends Behavior implements IInteraction {
    */
   public ownedRule: Set<IConstraint> = new Set();
 
-  // Inherited from Behavior
   /**
    * elementImport
    * 
@@ -198,7 +145,6 @@ export class Interaction extends Behavior implements IInteraction {
    */
   public elementImport: Set<IElementImport> = new Set();
 
-  // Inherited from Behavior
   /**
    * packageImport
    * 
@@ -209,7 +155,6 @@ export class Interaction extends Behavior implements IInteraction {
    */
   public packageImport: Set<IPackageImport> = new Set();
 
-  // Inherited from Behavior
   /**
    * isLeaf
    * 
@@ -218,7 +163,6 @@ export class Interaction extends Behavior implements IInteraction {
    */
   public isLeaf!: boolean;
 
-  // Inherited from Behavior
   /**
    * owningTemplateParameter
    * 
@@ -227,9 +171,8 @@ export class Interaction extends Behavior implements IInteraction {
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from Behavior
   /**
    * templateParameter
    * 
@@ -238,9 +181,8 @@ export class Interaction extends Behavior implements IInteraction {
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from Behavior
   /**
    * templateBinding
    * 
@@ -251,7 +193,6 @@ export class Interaction extends Behavior implements IInteraction {
    */
   public templateBinding: Set<ITemplateBinding> = new Set();
 
-  // Inherited from Behavior
   /**
    * ownedTemplateSignature
    * 
@@ -260,9 +201,8 @@ export class Interaction extends Behavior implements IInteraction {
    * @relationship containment
    * @opposite template
    */
-  public ownedTemplateSignature?: ITemplateSignature = undefined;
+  public ownedTemplateSignature?: ITemplateSignature;
 
-  // Inherited from Behavior
   /**
    * collaborationUse
    * 
@@ -272,7 +212,6 @@ export class Interaction extends Behavior implements IInteraction {
    */
   public collaborationUse: Set<ICollaborationUse> = new Set();
 
-  // Inherited from Behavior
   /**
    * generalization
    * 
@@ -283,7 +222,6 @@ export class Interaction extends Behavior implements IInteraction {
    */
   public generalization: Set<IGeneralization> = new Set();
 
-  // Inherited from Behavior
   /**
    * powertypeExtent
    * 
@@ -292,9 +230,8 @@ export class Interaction extends Behavior implements IInteraction {
    * @relationship cross-reference
    * @opposite powertype
    */
-  public powertypeExtent: Set<IGeneralizationSet | string> = new Set();
+  public powertypeExtent: Set<string> = new Set();
 
-  // Inherited from Behavior
   /**
    * isAbstract
    * 
@@ -303,7 +240,6 @@ export class Interaction extends Behavior implements IInteraction {
    */
   public isAbstract!: boolean;
 
-  // Inherited from Behavior
   /**
    * isFinalSpecialization
    * 
@@ -312,7 +248,6 @@ export class Interaction extends Behavior implements IInteraction {
    */
   public isFinalSpecialization!: boolean;
 
-  // Inherited from Behavior
   /**
    * ownedUseCase
    * 
@@ -322,7 +257,6 @@ export class Interaction extends Behavior implements IInteraction {
    */
   public ownedUseCase: Set<IUseCase> = new Set();
 
-  // Inherited from Behavior
   /**
    * useCase
    * 
@@ -331,9 +265,8 @@ export class Interaction extends Behavior implements IInteraction {
    * @relationship cross-reference
    * @opposite subject
    */
-  public useCase: Set<IUseCase | string> = new Set();
+  public useCase: Set<string> = new Set();
 
-  // Inherited from Behavior
   /**
    * redefinedClassifier
    * 
@@ -341,9 +274,8 @@ export class Interaction extends Behavior implements IInteraction {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedClassifier: Set<IClassifier | string> = new Set();
+  public redefinedClassifier: Set<string> = new Set();
 
-  // Inherited from Behavior
   /**
    * representation
    * 
@@ -351,9 +283,8 @@ export class Interaction extends Behavior implements IInteraction {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public representation?: ICollaborationUse | string = undefined;
+  public representation?: string;
 
-  // Inherited from Behavior
   /**
    * substitution
    * 
@@ -364,7 +295,6 @@ export class Interaction extends Behavior implements IInteraction {
    */
   public substitution: Set<ISubstitution> = new Set();
 
-  // Inherited from Behavior
   /**
    * ownedAttribute
    * 
@@ -374,7 +304,6 @@ export class Interaction extends Behavior implements IInteraction {
    */
   public ownedAttribute: IProperty[] = [];
 
-  // Inherited from Behavior
   /**
    * ownedConnector
    * 
@@ -384,7 +313,6 @@ export class Interaction extends Behavior implements IInteraction {
    */
   public ownedConnector: Set<IConnector> = new Set();
 
-  // Inherited from Behavior
   /**
    * classifierBehavior
    * 
@@ -392,9 +320,8 @@ export class Interaction extends Behavior implements IInteraction {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public classifierBehavior?: IBehavior | string = undefined;
+  public classifierBehavior?: string;
 
-  // Inherited from Behavior
   /**
    * interfaceRealization
    * 
@@ -405,7 +332,6 @@ export class Interaction extends Behavior implements IInteraction {
    */
   public interfaceRealization: Set<IInterfaceRealization> = new Set();
 
-  // Inherited from Behavior
   /**
    * ownedBehavior
    * 
@@ -415,7 +341,6 @@ export class Interaction extends Behavior implements IInteraction {
    */
   public ownedBehavior: Set<IBehavior> = new Set();
 
-  // Inherited from Behavior
   /**
    * ownedOperation
    * 
@@ -426,7 +351,6 @@ export class Interaction extends Behavior implements IInteraction {
    */
   public ownedOperation: IOperation[] = [];
 
-  // Inherited from Behavior
   /**
    * isActive
    * 
@@ -435,7 +359,6 @@ export class Interaction extends Behavior implements IInteraction {
    */
   public isActive!: boolean;
 
-  // Inherited from Behavior
   /**
    * nestedClassifier
    * 
@@ -445,7 +368,6 @@ export class Interaction extends Behavior implements IInteraction {
    */
   public nestedClassifier: IClassifier[] = [];
 
-  // Inherited from Behavior
   /**
    * ownedReception
    * 
@@ -455,7 +377,6 @@ export class Interaction extends Behavior implements IInteraction {
    */
   public ownedReception: Set<IReception> = new Set();
 
-  // Inherited from Behavior
   /**
    * specification
    * 
@@ -464,18 +385,16 @@ export class Interaction extends Behavior implements IInteraction {
    * @relationship cross-reference
    * @opposite method
    */
-  public specification?: IBehavioralFeature | string = undefined;
+  public specification?: string;
 
-  // Inherited from Behavior
   /**
    * isReentrant
    * 
    * @type Boolean
    * @multiplicity [0..1]
    */
-  public isReentrant?: boolean = undefined;
+  public isReentrant?: boolean;
 
-  // Inherited from Behavior
   /**
    * ownedParameter
    * 
@@ -485,7 +404,6 @@ export class Interaction extends Behavior implements IInteraction {
    */
   public ownedParameter: IParameter[] = [];
 
-  // Inherited from Behavior
   /**
    * ownedParameterSet
    * 
@@ -495,7 +413,6 @@ export class Interaction extends Behavior implements IInteraction {
    */
   public ownedParameterSet: Set<IParameterSet> = new Set();
 
-  // Inherited from Behavior
   /**
    * postcondition
    * 
@@ -503,9 +420,8 @@ export class Interaction extends Behavior implements IInteraction {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public postcondition: Set<IConstraint | string> = new Set();
+  public postcondition: Set<string> = new Set();
 
-  // Inherited from Behavior
   /**
    * precondition
    * 
@@ -513,9 +429,8 @@ export class Interaction extends Behavior implements IInteraction {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public precondition: Set<IConstraint | string> = new Set();
+  public precondition: Set<string> = new Set();
 
-  // Inherited from Behavior
   /**
    * redefinedBehavior
    * 
@@ -523,9 +438,41 @@ export class Interaction extends Behavior implements IInteraction {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedBehavior: Set<IBehavior | string> = new Set();
+  public redefinedBehavior: Set<string> = new Set();
 
-  // Inherited from InteractionFragment
+  /**
+   * ownedComment
+   * 
+   * @type Comment
+   * @multiplicity [0..*]
+   * @relationship containment
+   */
+  public ownedComment: Set<IComment> = new Set();
+
+  /**
+   * name
+   * 
+   * @type String
+   * @multiplicity [0..1]
+   */
+  public name?: string;
+
+  /**
+   * nameExpression
+   * 
+   * @type StringExpression
+   * @multiplicity [0..1]
+   * @relationship containment
+   */
+  public nameExpression?: IStringExpression;
+
+  /**
+   * visibility
+   * 
+   * @type VisibilityKind
+   * @multiplicity [0..1]
+   */
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * covered
    * 
@@ -534,9 +481,8 @@ export class Interaction extends Behavior implements IInteraction {
    * @relationship cross-reference
    * @opposite coveredBy
    */
-  public covered: Set<ILifeline | string> = new Set();
+  public covered: Set<string> = new Set();
 
-  // Inherited from InteractionFragment
   /**
    * enclosingOperand
    * 
@@ -545,9 +491,8 @@ export class Interaction extends Behavior implements IInteraction {
    * @relationship cross-reference
    * @opposite fragment
    */
-  public enclosingOperand?: IInteractionOperand | string = undefined;
+  public enclosingOperand?: string;
 
-  // Inherited from InteractionFragment
   /**
    * enclosingInteraction
    * 
@@ -556,9 +501,8 @@ export class Interaction extends Behavior implements IInteraction {
    * @relationship cross-reference
    * @opposite fragment
    */
-  public enclosingInteraction?: IInteraction | string = undefined;
+  public enclosingInteraction?: string;
 
-  // Inherited from InteractionFragment
   /**
    * generalOrdering
    * 
@@ -568,13 +512,15 @@ export class Interaction extends Behavior implements IInteraction {
    */
   public generalOrdering: Set<IGeneralOrdering> = new Set();
 
+
   constructor(init?: Partial<IInteraction>) {
     super(init);
-    this.lifeline = init?.lifeline ?? new Set();
-    this.fragment = init?.fragment ?? [];
-    this.action = init?.action ?? new Set();
-    this.formalGate = init?.formalGate ?? new Set();
-    this.message = init?.message ?? new Set();
+
+    this.lifeline = init?.lifeline ? new Set(init.lifeline) : new Set();
+    this.fragment = init?.fragment ? [...init.fragment] : [];
+    this.action = init?.action ? new Set(init.action) : new Set();
+    this.formalGate = init?.formalGate ? new Set(init.formalGate) : new Set();
+    this.message = init?.message ? new Set(init.message) : new Set();
   }
   getLifeline(): Set<ILifeline> {
     return this.lifeline;
@@ -685,9 +631,6 @@ export class Interaction extends Behavior implements IInteraction {
   static fromJSON(json: any): Interaction {
     const instance = new Interaction();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

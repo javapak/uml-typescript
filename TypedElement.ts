@@ -6,12 +6,8 @@
  * @abstract
  * @extends NamedElement
  */
-import { Comment } from './Comment';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IStringExpression } from './IStringExpression';
 import { IType } from './IType';
 import { ITypedElement } from './ITypedElement';
@@ -28,20 +24,8 @@ export class TypedElement extends NamedElement implements ITypedElement {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public type?: IType | string = undefined;
+  public type?: string;
 
-  // Inherited from NamedElement
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from NamedElement
   /**
    * ownedComment
    * 
@@ -51,16 +35,14 @@ export class TypedElement extends NamedElement implements ITypedElement {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from NamedElement
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from NamedElement
   /**
    * nameExpression
    * 
@@ -68,26 +50,26 @@ export class TypedElement extends NamedElement implements ITypedElement {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from NamedElement
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
+  public visibility: VisibilityKind | undefined = undefined;
 
   constructor(init?: Partial<ITypedElement>) {
     super(init);
-    this.type = init?.type ?? undefined;
+
+    this.type = init?.type;
   }
-  getType(): IType | string | undefined {
+  getType(): string | undefined {
     return this.type;
   }
 
-  setType(value: IType | string | undefined): void {
+  setType(value: string | undefined): void {
     this.type = value;
   }
 
@@ -154,9 +136,6 @@ export class TypedElement extends NamedElement implements ITypedElement {
   static fromJSON(json: any): TypedElement {
     const instance = new TypedElement();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

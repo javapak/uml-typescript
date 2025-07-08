@@ -17,7 +17,7 @@ export interface IVariableAction extends IAction {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  variable: IVariable | string;
+  variable: string;
 }
 
 // Type aliases for VariableAction

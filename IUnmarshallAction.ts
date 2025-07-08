@@ -36,7 +36,7 @@ export interface IUnmarshallAction extends IAction {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  unmarshallType: IClassifier | string;
+  unmarshallType: string;
 }
 
 // Type aliases for UnmarshallAction

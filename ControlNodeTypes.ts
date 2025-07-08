@@ -8,9 +8,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialControlNode = Partial<IControlNode>;
 export type RequiredControlNode = Required<IControlNode>;
-export type ControlNodeKey = Pick<IControlNode, 'name' | 'nameExpression'>;
-export type ControlNodeMetadata = Pick<IControlNode, 'ownedComment' | 'visibility'>;
-export type ControlNodeSummary = Pick<IControlNode, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type ControlNodeUnion = IControlNode | IActivityNode;
 export type ControlNodeFactory = () => ControlNode;
 export type ControlNodeValidator = (instance: IControlNode) => ValidationResult;

@@ -5,14 +5,10 @@
  * @package uml
  * @extends PackageableElement
  */
-import { Comment } from './Comment';
 import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IGeneralization } from './IGeneralization';
 import { IGeneralizationSet } from './IGeneralizationSet';
-import { INamespace } from './INamespace';
 import { IPackageableElement } from './IPackageableElement';
 import { IStringExpression } from './IStringExpression';
 import { ITemplateParameter } from './ITemplateParameter';
@@ -46,7 +42,7 @@ export class GeneralizationSet extends PackageableElement implements IGeneraliza
    * @relationship cross-reference
    * @opposite powertypeExtent
    */
-  public powertype?: IClassifier | string = undefined;
+  public powertype?: string;
 
   /**
    * generalization
@@ -56,20 +52,8 @@ export class GeneralizationSet extends PackageableElement implements IGeneraliza
    * @relationship cross-reference
    * @opposite generalizationSet
    */
-  public generalization: Set<IGeneralization | string> = new Set();
+  public generalization: Set<string> = new Set();
 
-  // Inherited from PackageableElement
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from PackageableElement
   /**
    * ownedComment
    * 
@@ -79,16 +63,14 @@ export class GeneralizationSet extends PackageableElement implements IGeneraliza
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from PackageableElement
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from PackageableElement
   /**
    * nameExpression
    * 
@@ -96,18 +78,15 @@ export class GeneralizationSet extends PackageableElement implements IGeneraliza
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from PackageableElement
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from PackageableElement
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * owningTemplateParameter
    * 
@@ -116,9 +95,8 @@ export class GeneralizationSet extends PackageableElement implements IGeneraliza
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from PackageableElement
   /**
    * templateParameter
    * 
@@ -127,14 +105,16 @@ export class GeneralizationSet extends PackageableElement implements IGeneraliza
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
+
 
   constructor(init?: Partial<IGeneralizationSet>) {
     super(init);
-    this.isCovering = init?.isCovering!;
-    this.isDisjoint = init?.isDisjoint!;
-    this.powertype = init?.powertype ?? undefined;
-    this.generalization = init?.generalization ?? new Set();
+
+    this.isCovering = init?.isCovering ?? false;
+    this.isDisjoint = init?.isDisjoint ?? false;
+    this.powertype = init?.powertype;
+    this.generalization = init?.generalization ? new Set(init.generalization) : new Set();
   }
   getIsCovering(): boolean {
     return this.isCovering;
@@ -152,19 +132,19 @@ export class GeneralizationSet extends PackageableElement implements IGeneraliza
     this.isDisjoint = value;
   }
 
-  getPowertype(): IClassifier | string | undefined {
+  getPowertype(): string | undefined {
     return this.powertype;
   }
 
-  setPowertype(value: IClassifier | string | undefined): void {
+  setPowertype(value: string | undefined): void {
     this.powertype = value;
   }
 
-  getGeneralization(): Set<IGeneralization | string> {
+  getGeneralization(): Set<string> {
     return this.generalization;
   }
 
-  setGeneralization(value: Set<IGeneralization | string>): void {
+  setGeneralization(value: Set<string>): void {
     this.generalization = value;
   }
 
@@ -237,9 +217,6 @@ export class GeneralizationSet extends PackageableElement implements IGeneraliza
   static fromJSON(json: any): GeneralizationSet {
     const instance = new GeneralizationSet();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

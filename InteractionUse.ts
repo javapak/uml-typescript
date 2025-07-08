@@ -5,12 +5,7 @@
  * @package uml
  * @extends InteractionFragment
  */
-import { Comment } from './Comment';
-import { Gate } from './Gate';
-import { GeneralOrdering } from './GeneralOrdering';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IGate } from './IGate';
 import { IGeneralOrdering } from './IGeneralOrdering';
 import { IInteraction } from './IInteraction';
@@ -18,14 +13,12 @@ import { IInteractionFragment } from './IInteractionFragment';
 import { IInteractionOperand } from './IInteractionOperand';
 import { IInteractionUse } from './IInteractionUse';
 import { ILifeline } from './ILifeline';
-import { INamespace } from './INamespace';
 import { IProperty } from './IProperty';
 import { IStringExpression } from './IStringExpression';
 import { IValueSpecification } from './IValueSpecification';
 import { InteractionFragment } from './InteractionFragment';
 import { StringExpression } from './StringExpression';
 import { ValidationError, ValidationResult } from './ValidationTypes';
-import { ValueSpecification } from './ValueSpecification';
 import { VisibilityKind } from './VisibilityKind';
 
 export class InteractionUse extends InteractionFragment implements IInteractionUse {
@@ -54,7 +47,7 @@ export class InteractionUse extends InteractionFragment implements IInteractionU
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public refersTo!: IInteraction | string;
+  public refersTo!: string;
 
   /**
    * returnValue
@@ -63,7 +56,7 @@ export class InteractionUse extends InteractionFragment implements IInteractionU
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public returnValue?: IValueSpecification = undefined;
+  public returnValue?: IValueSpecification;
 
   /**
    * returnValueRecipient
@@ -72,20 +65,8 @@ export class InteractionUse extends InteractionFragment implements IInteractionU
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public returnValueRecipient?: IProperty | string = undefined;
+  public returnValueRecipient?: string;
 
-  // Inherited from InteractionFragment
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from InteractionFragment
   /**
    * ownedComment
    * 
@@ -95,16 +76,14 @@ export class InteractionUse extends InteractionFragment implements IInteractionU
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from InteractionFragment
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from InteractionFragment
   /**
    * nameExpression
    * 
@@ -112,18 +91,15 @@ export class InteractionUse extends InteractionFragment implements IInteractionU
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from InteractionFragment
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from InteractionFragment
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * covered
    * 
@@ -132,9 +108,8 @@ export class InteractionUse extends InteractionFragment implements IInteractionU
    * @relationship cross-reference
    * @opposite coveredBy
    */
-  public covered: Set<ILifeline | string> = new Set();
+  public covered: Set<string> = new Set();
 
-  // Inherited from InteractionFragment
   /**
    * enclosingOperand
    * 
@@ -143,9 +118,8 @@ export class InteractionUse extends InteractionFragment implements IInteractionU
    * @relationship cross-reference
    * @opposite fragment
    */
-  public enclosingOperand?: IInteractionOperand | string = undefined;
+  public enclosingOperand?: string;
 
-  // Inherited from InteractionFragment
   /**
    * enclosingInteraction
    * 
@@ -154,9 +128,8 @@ export class InteractionUse extends InteractionFragment implements IInteractionU
    * @relationship cross-reference
    * @opposite fragment
    */
-  public enclosingInteraction?: IInteraction | string = undefined;
+  public enclosingInteraction?: string;
 
-  // Inherited from InteractionFragment
   /**
    * generalOrdering
    * 
@@ -166,13 +139,15 @@ export class InteractionUse extends InteractionFragment implements IInteractionU
    */
   public generalOrdering: Set<IGeneralOrdering> = new Set();
 
+
   constructor(init?: Partial<IInteractionUse>) {
     super(init);
-    this.actualGate = init?.actualGate ?? new Set();
-    this.argument = init?.argument ?? [];
-    this.refersTo = init?.refersTo!;
-    this.returnValue = init?.returnValue ?? undefined;
-    this.returnValueRecipient = init?.returnValueRecipient ?? undefined;
+
+    this.actualGate = init?.actualGate ? new Set(init.actualGate) : new Set();
+    this.argument = init?.argument ? [...init.argument] : [];
+    this.refersTo = init?.refersTo ?? '';
+    this.returnValue = init?.returnValue;
+    this.returnValueRecipient = init?.returnValueRecipient;
   }
   getActualGate(): Set<IGate> {
     return this.actualGate;
@@ -190,11 +165,11 @@ export class InteractionUse extends InteractionFragment implements IInteractionU
     this.argument = value;
   }
 
-  getRefersTo(): IInteraction | string {
+  getRefersTo(): string {
     return this.refersTo;
   }
 
-  setRefersTo(value: IInteraction | string): void {
+  setRefersTo(value: string): void {
     this.refersTo = value;
   }
 
@@ -206,11 +181,11 @@ export class InteractionUse extends InteractionFragment implements IInteractionU
     this.returnValue = value;
   }
 
-  getReturnValueRecipient(): IProperty | string | undefined {
+  getReturnValueRecipient(): string | undefined {
     return this.returnValueRecipient;
   }
 
-  setReturnValueRecipient(value: IProperty | string | undefined): void {
+  setReturnValueRecipient(value: string | undefined): void {
     this.returnValueRecipient = value;
   }
 
@@ -287,9 +262,6 @@ export class InteractionUse extends InteractionFragment implements IInteractionU
   static fromJSON(json: any): InteractionUse {
     const instance = new InteractionUse();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

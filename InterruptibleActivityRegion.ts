@@ -6,16 +6,11 @@
  * @extends ActivityGroup
  */
 import { ActivityGroup } from './ActivityGroup';
-import { Comment } from './Comment';
-import { IActivity } from './IActivity';
 import { IActivityEdge } from './IActivityEdge';
 import { IActivityGroup } from './IActivityGroup';
 import { IActivityNode } from './IActivityNode';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IInterruptibleActivityRegion } from './IInterruptibleActivityRegion';
-import { INamespace } from './INamespace';
 import { IStringExpression } from './IStringExpression';
 import { StringExpression } from './StringExpression';
 import { ValidationError, ValidationResult } from './ValidationTypes';
@@ -30,7 +25,7 @@ export class InterruptibleActivityRegion extends ActivityGroup implements IInter
    * @relationship cross-reference
    * @opposite interrupts
    */
-  public interruptingEdge: Set<IActivityEdge | string> = new Set();
+  public interruptingEdge: Set<string> = new Set();
 
   /**
    * node
@@ -40,20 +35,8 @@ export class InterruptibleActivityRegion extends ActivityGroup implements IInter
    * @relationship cross-reference
    * @opposite inInterruptibleRegion
    */
-  public node: Set<IActivityNode | string> = new Set();
+  public node: Set<string> = new Set();
 
-  // Inherited from ActivityGroup
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from ActivityGroup
   /**
    * ownedComment
    * 
@@ -63,16 +46,14 @@ export class InterruptibleActivityRegion extends ActivityGroup implements IInter
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from ActivityGroup
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from ActivityGroup
   /**
    * nameExpression
    * 
@@ -80,35 +61,35 @@ export class InterruptibleActivityRegion extends ActivityGroup implements IInter
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from ActivityGroup
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
+  public visibility: VisibilityKind | undefined = undefined;
 
   constructor(init?: Partial<IInterruptibleActivityRegion>) {
     super(init);
-    this.interruptingEdge = init?.interruptingEdge ?? new Set();
-    this.node = init?.node ?? new Set();
+
+    this.interruptingEdge = init?.interruptingEdge ? new Set(init.interruptingEdge) : new Set();
+    this.node = init?.node ? new Set(init.node) : new Set();
   }
-  getInterruptingEdge(): Set<IActivityEdge | string> {
+  getInterruptingEdge(): Set<string> {
     return this.interruptingEdge;
   }
 
-  setInterruptingEdge(value: Set<IActivityEdge | string>): void {
+  setInterruptingEdge(value: Set<string>): void {
     this.interruptingEdge = value;
   }
 
-  getNode(): Set<IActivityNode | string> {
+  getNode(): Set<string> {
     return this.node;
   }
 
-  setNode(value: Set<IActivityNode | string>): void {
+  setNode(value: Set<string>): void {
     this.node = value;
   }
 
@@ -175,9 +156,6 @@ export class InterruptibleActivityRegion extends ActivityGroup implements IInter
   static fromJSON(json: any): InterruptibleActivityRegion {
     const instance = new InterruptibleActivityRegion();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

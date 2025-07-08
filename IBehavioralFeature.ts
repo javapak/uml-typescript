@@ -23,7 +23,7 @@ export interface IBehavioralFeature extends INamespace, IFeature {
    * @type CallConcurrencyKind
    * @multiplicity [1..1]
    */
-  concurrency: any;
+  concurrency: CallConcurrencyKind;
   /**
    * isAbstract
    * 
@@ -39,7 +39,7 @@ export interface IBehavioralFeature extends INamespace, IFeature {
    * @relationship cross-reference
    * @opposite specification
    */
-  method: Set<IBehavior | string>;
+  method?: Set<string>;
   /**
    * ownedParameter
    * 
@@ -47,7 +47,7 @@ export interface IBehavioralFeature extends INamespace, IFeature {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  ownedParameter: IParameter[];
+  ownedParameter?: IParameter[];
   /**
    * ownedParameterSet
    * 
@@ -55,7 +55,7 @@ export interface IBehavioralFeature extends INamespace, IFeature {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  ownedParameterSet: Set<IParameterSet>;
+  ownedParameterSet?: Set<IParameterSet>;
   /**
    * raisedException
    * 
@@ -63,7 +63,7 @@ export interface IBehavioralFeature extends INamespace, IFeature {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  raisedException: Set<IType | string>;
+  raisedException?: Set<string>;
 }
 
 // Type aliases for BehavioralFeature

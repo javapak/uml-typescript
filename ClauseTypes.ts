@@ -11,8 +11,6 @@ import { ValidationResult } from './ValidationTypes';
 export type PartialClause = Partial<IClause>;
 export type RequiredClause = Required<IClause>;
 export type ClauseKey = Pick<IClause, 'decider'>;
-export type ClauseMetadata = Pick<IClause, 'ownedComment'>;
-export type ClauseSummary = Pick<IClause, 'eAnnotations' | 'ownedComment' | 'body'>;
 export type ClauseUnion = IClause | IElement;
 export type ClauseFactory = () => Clause;
 export type ClauseValidator = (instance: IClause) => ValidationResult;

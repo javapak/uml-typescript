@@ -28,14 +28,14 @@ export interface IParameter extends IConnectableElement, IMultiplicityElement {
    * @type ParameterDirectionKind
    * @multiplicity [1..1]
    */
-  direction: any;
+  direction: ParameterDirectionKind;
   /**
    * effect
    * 
    * @type ParameterEffectKind
    * @multiplicity [0..1]
    */
-  effect?: any;
+  effect?: ParameterEffectKind;
   /**
    * isException
    * 
@@ -58,7 +58,7 @@ export interface IParameter extends IConnectableElement, IMultiplicityElement {
    * @relationship cross-reference
    * @opposite parameter
    */
-  parameterSet: Set<IParameterSet | string>;
+  parameterSet?: Set<string>;
 }
 
 // Type aliases for Parameter

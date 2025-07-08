@@ -9,9 +9,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialCallEvent = Partial<ICallEvent>;
 export type RequiredCallEvent = Required<ICallEvent>;
-export type CallEventKey = Pick<ICallEvent, 'name' | 'nameExpression'>;
-export type CallEventMetadata = Pick<ICallEvent, 'ownedComment' | 'visibility'>;
-export type CallEventSummary = Pick<ICallEvent, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type CallEventUnion = ICallEvent | IMessageEvent;
 export type CallEventFactory = () => CallEvent;
 export type CallEventValidator = (instance: ICallEvent) => ValidationResult;

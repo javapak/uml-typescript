@@ -16,7 +16,7 @@ export interface IExpansionRegion extends IStructuredActivityNode {
    * @type ExpansionKind
    * @multiplicity [1..1]
    */
-  mode: any;
+  mode: ExpansionKind;
   /**
    * outputElement
    * 
@@ -25,7 +25,7 @@ export interface IExpansionRegion extends IStructuredActivityNode {
    * @relationship cross-reference
    * @opposite regionAsOutput
    */
-  outputElement: Set<IExpansionNode | string>;
+  outputElement?: Set<string>;
   /**
    * inputElement
    * 
@@ -34,7 +34,7 @@ export interface IExpansionRegion extends IStructuredActivityNode {
    * @relationship cross-reference
    * @opposite regionAsInput
    */
-  inputElement: Set<IExpansionNode | string>;
+  inputElement: Set<string>;
 }
 
 // Type aliases for ExpansionRegion

@@ -9,9 +9,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialCallBehaviorAction = Partial<ICallBehaviorAction>;
 export type RequiredCallBehaviorAction = Required<ICallBehaviorAction>;
-export type CallBehaviorActionKey = Pick<ICallBehaviorAction, 'name' | 'nameExpression'>;
-export type CallBehaviorActionMetadata = Pick<ICallBehaviorAction, 'ownedComment' | 'visibility'>;
-export type CallBehaviorActionSummary = Pick<ICallBehaviorAction, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type CallBehaviorActionUnion = ICallBehaviorAction | ICallAction;
 export type CallBehaviorActionFactory = () => CallBehaviorAction;
 export type CallBehaviorActionValidator = (instance: ICallBehaviorAction) => ValidationResult;

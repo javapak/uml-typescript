@@ -5,11 +5,9 @@
  * @package uml
  * @extends DirectedRelationship
  */
-import { Comment } from './Comment';
 import { DirectedRelationship } from './DirectedRelationship';
 import { IComment } from './IComment';
 import { IDirectedRelationship } from './IDirectedRelationship';
-import { IElement } from './IElement';
 import { IPackage } from './IPackage';
 import { IPackageMerge } from './IPackageMerge';
 import { ValidationError, ValidationResult } from './ValidationTypes';
@@ -22,7 +20,7 @@ export class PackageMerge extends DirectedRelationship implements IPackageMerge 
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public mergedPackage!: IPackage | string;
+  public mergedPackage!: string;
 
   /**
    * receivingPackage
@@ -32,20 +30,8 @@ export class PackageMerge extends DirectedRelationship implements IPackageMerge 
    * @relationship cross-reference
    * @opposite packageMerge
    */
-  public receivingPackage!: IPackage | string;
+  public receivingPackage!: string;
 
-  // Inherited from DirectedRelationship
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from DirectedRelationship
   /**
    * ownedComment
    * 
@@ -55,24 +41,26 @@ export class PackageMerge extends DirectedRelationship implements IPackageMerge 
    */
   public ownedComment: Set<IComment> = new Set();
 
+
   constructor(init?: Partial<IPackageMerge>) {
     super(init);
-    this.mergedPackage = init?.mergedPackage!;
-    this.receivingPackage = init?.receivingPackage!;
+
+    this.mergedPackage = init?.mergedPackage ?? '';
+    this.receivingPackage = init?.receivingPackage ?? '';
   }
-  getMergedPackage(): IPackage | string {
+  getMergedPackage(): string {
     return this.mergedPackage;
   }
 
-  setMergedPackage(value: IPackage | string): void {
+  setMergedPackage(value: string): void {
     this.mergedPackage = value;
   }
 
-  getReceivingPackage(): IPackage | string {
+  getReceivingPackage(): string {
     return this.receivingPackage;
   }
 
-  setReceivingPackage(value: IPackage | string): void {
+  setReceivingPackage(value: string): void {
     this.receivingPackage = value;
   }
 
@@ -139,9 +127,6 @@ export class PackageMerge extends DirectedRelationship implements IPackageMerge 
   static fromJSON(json: any): PackageMerge {
     const instance = new PackageMerge();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

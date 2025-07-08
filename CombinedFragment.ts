@@ -5,23 +5,16 @@
  * @package uml
  * @extends InteractionFragment
  */
-import { Comment } from './Comment';
-import { Gate } from './Gate';
-import { GeneralOrdering } from './GeneralOrdering';
 import { ICombinedFragment } from './ICombinedFragment';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IGate } from './IGate';
 import { IGeneralOrdering } from './IGeneralOrdering';
 import { IInteraction } from './IInteraction';
 import { IInteractionFragment } from './IInteractionFragment';
 import { IInteractionOperand } from './IInteractionOperand';
 import { ILifeline } from './ILifeline';
-import { INamespace } from './INamespace';
 import { IStringExpression } from './IStringExpression';
 import { InteractionFragment } from './InteractionFragment';
-import { InteractionOperand } from './InteractionOperand';
 import { InteractionOperatorKind } from './InteractionOperatorKind';
 import { StringExpression } from './StringExpression';
 import { ValidationError, ValidationResult } from './ValidationTypes';
@@ -43,7 +36,7 @@ export class CombinedFragment extends InteractionFragment implements ICombinedFr
    * @type InteractionOperatorKind
    * @multiplicity [1..1]
    */
-  public interactionOperator!: any;
+  public interactionOperator!: InteractionOperatorKind;
 
   /**
    * operand
@@ -54,18 +47,6 @@ export class CombinedFragment extends InteractionFragment implements ICombinedFr
    */
   public operand: IInteractionOperand[] = [];
 
-  // Inherited from InteractionFragment
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from InteractionFragment
   /**
    * ownedComment
    * 
@@ -75,16 +56,14 @@ export class CombinedFragment extends InteractionFragment implements ICombinedFr
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from InteractionFragment
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from InteractionFragment
   /**
    * nameExpression
    * 
@@ -92,18 +71,15 @@ export class CombinedFragment extends InteractionFragment implements ICombinedFr
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from InteractionFragment
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from InteractionFragment
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * covered
    * 
@@ -112,9 +88,8 @@ export class CombinedFragment extends InteractionFragment implements ICombinedFr
    * @relationship cross-reference
    * @opposite coveredBy
    */
-  public covered: Set<ILifeline | string> = new Set();
+  public covered: Set<string> = new Set();
 
-  // Inherited from InteractionFragment
   /**
    * enclosingOperand
    * 
@@ -123,9 +98,8 @@ export class CombinedFragment extends InteractionFragment implements ICombinedFr
    * @relationship cross-reference
    * @opposite fragment
    */
-  public enclosingOperand?: IInteractionOperand | string = undefined;
+  public enclosingOperand?: string;
 
-  // Inherited from InteractionFragment
   /**
    * enclosingInteraction
    * 
@@ -134,9 +108,8 @@ export class CombinedFragment extends InteractionFragment implements ICombinedFr
    * @relationship cross-reference
    * @opposite fragment
    */
-  public enclosingInteraction?: IInteraction | string = undefined;
+  public enclosingInteraction?: string;
 
-  // Inherited from InteractionFragment
   /**
    * generalOrdering
    * 
@@ -146,11 +119,13 @@ export class CombinedFragment extends InteractionFragment implements ICombinedFr
    */
   public generalOrdering: Set<IGeneralOrdering> = new Set();
 
+
   constructor(init?: Partial<ICombinedFragment>) {
     super(init);
-    this.cfragmentGate = init?.cfragmentGate ?? new Set();
+
+    this.cfragmentGate = init?.cfragmentGate ? new Set(init.cfragmentGate) : new Set();
     this.interactionOperator = init?.interactionOperator!;
-    this.operand = init?.operand ?? [];
+    this.operand = init?.operand ? [...init.operand] : [];
   }
   getCfragmentGate(): Set<IGate> {
     return this.cfragmentGate;
@@ -160,11 +135,11 @@ export class CombinedFragment extends InteractionFragment implements ICombinedFr
     this.cfragmentGate = value;
   }
 
-  getInteractionOperator(): any {
+  getInteractionOperator(): InteractionOperatorKind {
     return this.interactionOperator;
   }
 
-  setInteractionOperator(value: any): void {
+  setInteractionOperator(value: InteractionOperatorKind): void {
     this.interactionOperator = value;
   }
 
@@ -241,9 +216,6 @@ export class CombinedFragment extends InteractionFragment implements ICombinedFr
   static fromJSON(json: any): CombinedFragment {
     const instance = new CombinedFragment();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

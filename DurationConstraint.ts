@@ -5,9 +5,7 @@
  * @package uml
  * @extends IntervalConstraint
  */
-import { Comment } from './Comment';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
 import { IDurationConstraint } from './IDurationConstraint';
 import { IElement } from './IElement';
 import { IIntervalConstraint } from './IIntervalConstraint';
@@ -30,18 +28,6 @@ export class DurationConstraint extends IntervalConstraint implements IDurationC
    */
   public firstEvent: Set<boolean> = new Set();
 
-  // Inherited from IntervalConstraint
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from IntervalConstraint
   /**
    * ownedComment
    * 
@@ -51,16 +37,14 @@ export class DurationConstraint extends IntervalConstraint implements IDurationC
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from IntervalConstraint
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from IntervalConstraint
   /**
    * nameExpression
    * 
@@ -68,18 +52,15 @@ export class DurationConstraint extends IntervalConstraint implements IDurationC
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from IntervalConstraint
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from IntervalConstraint
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * owningTemplateParameter
    * 
@@ -88,9 +69,8 @@ export class DurationConstraint extends IntervalConstraint implements IDurationC
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from IntervalConstraint
   /**
    * templateParameter
    * 
@@ -99,9 +79,8 @@ export class DurationConstraint extends IntervalConstraint implements IDurationC
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from IntervalConstraint
   /**
    * constrainedElement
    * 
@@ -109,9 +88,8 @@ export class DurationConstraint extends IntervalConstraint implements IDurationC
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public constrainedElement: IElement | string[] = [];
+  public constrainedElement: string[] = [];
 
-  // Inherited from IntervalConstraint
   /**
    * context
    * 
@@ -120,9 +98,8 @@ export class DurationConstraint extends IntervalConstraint implements IDurationC
    * @relationship cross-reference
    * @opposite ownedRule
    */
-  public context?: INamespace | string = undefined;
+  public context?: string;
 
-  // Inherited from IntervalConstraint
   /**
    * specification
    * 
@@ -132,9 +109,11 @@ export class DurationConstraint extends IntervalConstraint implements IDurationC
    */
   public specification!: IValueSpecification;
 
+
   constructor(init?: Partial<IDurationConstraint>) {
     super(init);
-    this.firstEvent = init?.firstEvent ?? new Set();
+
+    this.firstEvent = init?.firstEvent ? new Set(init.firstEvent) : new Set();
   }
   getFirstEvent(): Set<boolean> {
     return this.firstEvent;
@@ -205,9 +184,6 @@ export class DurationConstraint extends IntervalConstraint implements IDurationC
   static fromJSON(json: any): DurationConstraint {
     const instance = new DurationConstraint();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

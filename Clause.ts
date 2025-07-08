@@ -5,7 +5,6 @@
  * @package uml
  * @extends Element
  */
-import { Comment } from './Comment';
 import { Element } from './Element';
 import { IClause } from './IClause';
 import { IComment } from './IComment';
@@ -22,7 +21,7 @@ export class Clause extends Element implements IClause {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public body: Set<IExecutableNode | string> = new Set();
+  public body: Set<string> = new Set();
 
   /**
    * bodyOutput
@@ -31,7 +30,7 @@ export class Clause extends Element implements IClause {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public bodyOutput: IOutputPin | string[] = [];
+  public bodyOutput: string[] = [];
 
   /**
    * decider
@@ -40,7 +39,7 @@ export class Clause extends Element implements IClause {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public decider!: IOutputPin | string;
+  public decider!: string;
 
   /**
    * predecessorClause
@@ -50,7 +49,7 @@ export class Clause extends Element implements IClause {
    * @relationship cross-reference
    * @opposite successorClause
    */
-  public predecessorClause: Set<IClause | string> = new Set();
+  public predecessorClause: Set<string> = new Set();
 
   /**
    * successorClause
@@ -60,7 +59,7 @@ export class Clause extends Element implements IClause {
    * @relationship cross-reference
    * @opposite predecessorClause
    */
-  public successorClause: Set<IClause | string> = new Set();
+  public successorClause: Set<string> = new Set();
 
   /**
    * test
@@ -69,20 +68,8 @@ export class Clause extends Element implements IClause {
    * @multiplicity [1..*]
    * @relationship cross-reference
    */
-  public test: Set<IExecutableNode | string> = new Set();
+  public test: Set<string> = new Set();
 
-  // Inherited from Element
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Element
   /**
    * ownedComment
    * 
@@ -92,60 +79,62 @@ export class Clause extends Element implements IClause {
    */
   public ownedComment: Set<IComment> = new Set();
 
+
   constructor(init?: Partial<IClause>) {
     super(init);
-    this.body = init?.body ?? new Set();
-    this.bodyOutput = init?.bodyOutput ?? [];
-    this.decider = init?.decider!;
-    this.predecessorClause = init?.predecessorClause ?? new Set();
-    this.successorClause = init?.successorClause ?? new Set();
-    this.test = init?.test ?? new Set();
+
+    this.body = init?.body ? new Set(init.body) : new Set();
+    this.bodyOutput = init?.bodyOutput ? [...init.bodyOutput] : [];
+    this.decider = init?.decider ?? '';
+    this.predecessorClause = init?.predecessorClause ? new Set(init.predecessorClause) : new Set();
+    this.successorClause = init?.successorClause ? new Set(init.successorClause) : new Set();
+    this.test = init?.test ? new Set(init.test) : new Set();
   }
-  getBody(): Set<IExecutableNode | string> {
+  getBody(): Set<string> {
     return this.body;
   }
 
-  setBody(value: Set<IExecutableNode | string>): void {
+  setBody(value: Set<string>): void {
     this.body = value;
   }
 
-  getBodyOutput(): IOutputPin | string[] {
+  getBodyOutput(): string[] {
     return this.bodyOutput;
   }
 
-  setBodyOutput(value: IOutputPin | string[]): void {
+  setBodyOutput(value: string[]): void {
     this.bodyOutput = value;
   }
 
-  getDecider(): IOutputPin | string {
+  getDecider(): string {
     return this.decider;
   }
 
-  setDecider(value: IOutputPin | string): void {
+  setDecider(value: string): void {
     this.decider = value;
   }
 
-  getPredecessorClause(): Set<IClause | string> {
+  getPredecessorClause(): Set<string> {
     return this.predecessorClause;
   }
 
-  setPredecessorClause(value: Set<IClause | string>): void {
+  setPredecessorClause(value: Set<string>): void {
     this.predecessorClause = value;
   }
 
-  getSuccessorClause(): Set<IClause | string> {
+  getSuccessorClause(): Set<string> {
     return this.successorClause;
   }
 
-  setSuccessorClause(value: Set<IClause | string>): void {
+  setSuccessorClause(value: Set<string>): void {
     this.successorClause = value;
   }
 
-  getTest(): Set<IExecutableNode | string> {
+  getTest(): Set<string> {
     return this.test;
   }
 
-  setTest(value: Set<IExecutableNode | string>): void {
+  setTest(value: Set<string>): void {
     this.test = value;
   }
 
@@ -220,9 +209,6 @@ export class Clause extends Element implements IClause {
   static fromJSON(json: any): Clause {
     const instance = new Clause();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

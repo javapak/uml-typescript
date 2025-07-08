@@ -20,7 +20,7 @@ export interface ILoopNode extends IStructuredActivityNode {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  bodyOutput: IOutputPin | string[];
+  bodyOutput?: string[];
   /**
    * bodyPart
    * 
@@ -28,7 +28,7 @@ export interface ILoopNode extends IStructuredActivityNode {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  bodyPart: Set<IExecutableNode | string>;
+  bodyPart?: Set<string>;
   /**
    * decider
    * 
@@ -36,7 +36,7 @@ export interface ILoopNode extends IStructuredActivityNode {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  decider: IOutputPin | string;
+  decider: string;
   /**
    * isTestedFirst
    * 
@@ -51,7 +51,7 @@ export interface ILoopNode extends IStructuredActivityNode {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  loopVariable: IOutputPin[];
+  loopVariable?: IOutputPin[];
   /**
    * loopVariableInput
    * 
@@ -59,7 +59,7 @@ export interface ILoopNode extends IStructuredActivityNode {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  loopVariableInput: IInputPin[];
+  loopVariableInput?: IInputPin[];
   /**
    * result
    * 
@@ -67,7 +67,7 @@ export interface ILoopNode extends IStructuredActivityNode {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  result: IOutputPin[];
+  result?: IOutputPin[];
   /**
    * setupPart
    * 
@@ -75,7 +75,7 @@ export interface ILoopNode extends IStructuredActivityNode {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  setupPart: Set<IExecutableNode | string>;
+  setupPart?: Set<string>;
   /**
    * test
    * 
@@ -83,7 +83,7 @@ export interface ILoopNode extends IStructuredActivityNode {
    * @multiplicity [1..*]
    * @relationship cross-reference
    */
-  test: Set<IExecutableNode | string>;
+  test: Set<string>;
 }
 
 // Type aliases for LoopNode

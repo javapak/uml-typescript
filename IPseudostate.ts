@@ -19,14 +19,14 @@ export interface IPseudostate extends IVertex {
    * @relationship cross-reference
    * @opposite connectionPoint
    */
-  state?: IState | string;
+  state?: string;
   /**
    * kind
    * 
    * @type PseudostateKind
    * @multiplicity [1..1]
    */
-  kind: any;
+  kind: PseudostateKind;
   /**
    * stateMachine
    * 
@@ -35,7 +35,7 @@ export interface IPseudostate extends IVertex {
    * @relationship cross-reference
    * @opposite connectionPoint
    */
-  stateMachine?: IStateMachine | string;
+  stateMachine?: string;
 }
 
 // Type aliases for Pseudostate

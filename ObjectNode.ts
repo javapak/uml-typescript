@@ -7,21 +7,13 @@
  * @extends ActivityNode, TypedElement
  */
 import { ActivityNode } from './ActivityNode';
-import { Comment } from './Comment';
-import { IActivity } from './IActivity';
 import { IActivityEdge } from './IActivityEdge';
-import { IActivityGroup } from './IActivityGroup';
 import { IActivityNode } from './IActivityNode';
 import { IActivityPartition } from './IActivityPartition';
 import { IBehavior } from './IBehavior';
-import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IInterruptibleActivityRegion } from './IInterruptibleActivityRegion';
-import { INamespace } from './INamespace';
 import { IObjectNode } from './IObjectNode';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IState } from './IState';
 import { IStringExpression } from './IStringExpression';
 import { IStructuredActivityNode } from './IStructuredActivityNode';
@@ -43,7 +35,7 @@ export class ObjectNode extends ActivityNode implements IObjectNode {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public inState: Set<IState | string> = new Set();
+  public inState: Set<string> = new Set();
 
   /**
    * isControlType
@@ -59,7 +51,7 @@ export class ObjectNode extends ActivityNode implements IObjectNode {
    * @type ObjectNodeOrderingKind
    * @multiplicity [1..1]
    */
-  public ordering!: any;
+  public ordering!: ObjectNodeOrderingKind;
 
   /**
    * selection
@@ -68,7 +60,7 @@ export class ObjectNode extends ActivityNode implements IObjectNode {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public selection?: IBehavior | string = undefined;
+  public selection?: string;
 
   /**
    * upperBound
@@ -77,20 +69,8 @@ export class ObjectNode extends ActivityNode implements IObjectNode {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public upperBound?: IValueSpecification = undefined;
+  public upperBound?: IValueSpecification;
 
-  // Inherited from ActivityNode
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from ActivityNode
   /**
    * ownedComment
    * 
@@ -100,16 +80,14 @@ export class ObjectNode extends ActivityNode implements IObjectNode {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from ActivityNode
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from ActivityNode
   /**
    * nameExpression
    * 
@@ -117,18 +95,15 @@ export class ObjectNode extends ActivityNode implements IObjectNode {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from ActivityNode
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from ActivityNode
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * isLeaf
    * 
@@ -137,7 +112,6 @@ export class ObjectNode extends ActivityNode implements IObjectNode {
    */
   public isLeaf!: boolean;
 
-  // Inherited from ActivityNode
   /**
    * inInterruptibleRegion
    * 
@@ -146,9 +120,8 @@ export class ObjectNode extends ActivityNode implements IObjectNode {
    * @relationship cross-reference
    * @opposite node
    */
-  public inInterruptibleRegion: Set<IInterruptibleActivityRegion | string> = new Set();
+  public inInterruptibleRegion: Set<string> = new Set();
 
-  // Inherited from ActivityNode
   /**
    * inStructuredNode
    * 
@@ -157,9 +130,8 @@ export class ObjectNode extends ActivityNode implements IObjectNode {
    * @relationship cross-reference
    * @opposite node
    */
-  public inStructuredNode?: IStructuredActivityNode | string = undefined;
+  public inStructuredNode?: string;
 
-  // Inherited from ActivityNode
   /**
    * incoming
    * 
@@ -168,9 +140,8 @@ export class ObjectNode extends ActivityNode implements IObjectNode {
    * @relationship cross-reference
    * @opposite target
    */
-  public incoming: Set<IActivityEdge | string> = new Set();
+  public incoming: Set<string> = new Set();
 
-  // Inherited from ActivityNode
   /**
    * outgoing
    * 
@@ -179,9 +150,8 @@ export class ObjectNode extends ActivityNode implements IObjectNode {
    * @relationship cross-reference
    * @opposite source
    */
-  public outgoing: Set<IActivityEdge | string> = new Set();
+  public outgoing: Set<string> = new Set();
 
-  // Inherited from ActivityNode
   /**
    * redefinedNode
    * 
@@ -189,9 +159,8 @@ export class ObjectNode extends ActivityNode implements IObjectNode {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedNode: Set<IActivityNode | string> = new Set();
+  public redefinedNode: Set<string> = new Set();
 
-  // Inherited from ActivityNode
   /**
    * inPartition
    * 
@@ -200,9 +169,41 @@ export class ObjectNode extends ActivityNode implements IObjectNode {
    * @relationship cross-reference
    * @opposite node
    */
-  public inPartition: Set<IActivityPartition | string> = new Set();
+  public inPartition: Set<string> = new Set();
 
-  // Inherited from TypedElement
+  /**
+   * ownedComment
+   * 
+   * @type Comment
+   * @multiplicity [0..*]
+   * @relationship containment
+   */
+  public ownedComment: Set<IComment> = new Set();
+
+  /**
+   * name
+   * 
+   * @type String
+   * @multiplicity [0..1]
+   */
+  public name?: string;
+
+  /**
+   * nameExpression
+   * 
+   * @type StringExpression
+   * @multiplicity [0..1]
+   * @relationship containment
+   */
+  public nameExpression?: IStringExpression;
+
+  /**
+   * visibility
+   * 
+   * @type VisibilityKind
+   * @multiplicity [0..1]
+   */
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * type
    * 
@@ -210,21 +211,23 @@ export class ObjectNode extends ActivityNode implements IObjectNode {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public type?: IType | string = undefined;
+  public type?: string;
+
 
   constructor(init?: Partial<IObjectNode>) {
     super(init);
-    this.inState = init?.inState ?? new Set();
-    this.isControlType = init?.isControlType!;
+
+    this.inState = init?.inState ? new Set(init.inState) : new Set();
+    this.isControlType = init?.isControlType ?? false;
     this.ordering = init?.ordering!;
-    this.selection = init?.selection ?? undefined;
-    this.upperBound = init?.upperBound ?? undefined;
+    this.selection = init?.selection;
+    this.upperBound = init?.upperBound;
   }
-  getInState(): Set<IState | string> {
+  getInState(): Set<string> {
     return this.inState;
   }
 
-  setInState(value: Set<IState | string>): void {
+  setInState(value: Set<string>): void {
     this.inState = value;
   }
 
@@ -236,19 +239,19 @@ export class ObjectNode extends ActivityNode implements IObjectNode {
     this.isControlType = value;
   }
 
-  getOrdering(): any {
+  getOrdering(): ObjectNodeOrderingKind {
     return this.ordering;
   }
 
-  setOrdering(value: any): void {
+  setOrdering(value: ObjectNodeOrderingKind): void {
     this.ordering = value;
   }
 
-  getSelection(): IBehavior | string | undefined {
+  getSelection(): string | undefined {
     return this.selection;
   }
 
-  setSelection(value: IBehavior | string | undefined): void {
+  setSelection(value: string | undefined): void {
     this.selection = value;
   }
 
@@ -333,9 +336,6 @@ export class ObjectNode extends ActivityNode implements IObjectNode {
   static fromJSON(json: any): ObjectNode {
     const instance = new ObjectNode();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

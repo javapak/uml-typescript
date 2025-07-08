@@ -17,7 +17,7 @@ export interface IConnectorEnd extends IMultiplicityElement {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  partWithPort?: IProperty | string;
+  partWithPort?: string;
   /**
    * role
    * 
@@ -25,7 +25,7 @@ export interface IConnectorEnd extends IMultiplicityElement {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  role: IConnectableElement | string;
+  role: string;
 }
 
 // Type aliases for ConnectorEnd

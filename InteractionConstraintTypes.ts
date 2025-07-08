@@ -9,9 +9,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialInteractionConstraint = Partial<IInteractionConstraint>;
 export type RequiredInteractionConstraint = Required<IInteractionConstraint>;
-export type InteractionConstraintKey = Pick<IInteractionConstraint, 'name' | 'nameExpression'>;
-export type InteractionConstraintMetadata = Pick<IInteractionConstraint, 'ownedComment' | 'visibility'>;
-export type InteractionConstraintSummary = Pick<IInteractionConstraint, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type InteractionConstraintUnion = IInteractionConstraint | IConstraint;
 export type InteractionConstraintFactory = () => InteractionConstraint;
 export type InteractionConstraintValidator = (instance: IInteractionConstraint) => ValidationResult;

@@ -33,7 +33,7 @@ export interface IActivityPartition extends IActivityGroup {
    * @relationship cross-reference
    * @opposite inPartition
    */
-  node: Set<IActivityNode | string>;
+  node?: Set<string>;
   /**
    * represents
    * 
@@ -41,7 +41,7 @@ export interface IActivityPartition extends IActivityGroup {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  represents?: IElement | string;
+  represents?: string;
   /**
    * subpartition
    * 
@@ -50,7 +50,7 @@ export interface IActivityPartition extends IActivityGroup {
    * @relationship containment
    * @opposite superPartition
    */
-  subpartition: Set<IActivityPartition>;
+  subpartition?: Set<IActivityPartition>;
   /**
    * superPartition
    * 
@@ -59,7 +59,7 @@ export interface IActivityPartition extends IActivityGroup {
    * @relationship cross-reference
    * @opposite subpartition
    */
-  superPartition?: IActivityPartition | string;
+  superPartition?: string;
   /**
    * edge
    * 
@@ -68,7 +68,7 @@ export interface IActivityPartition extends IActivityGroup {
    * @relationship cross-reference
    * @opposite inPartition
    */
-  edge: Set<IActivityEdge | string>;
+  edge?: Set<string>;
 }
 
 // Type aliases for ActivityPartition

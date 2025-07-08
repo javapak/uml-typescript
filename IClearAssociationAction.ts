@@ -18,7 +18,7 @@ export interface IClearAssociationAction extends IAction {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  association: IAssociation | string;
+  association: string;
   /**
    * object
    * 

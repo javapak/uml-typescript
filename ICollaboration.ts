@@ -17,7 +17,7 @@ export interface ICollaboration extends IStructuredClassifier, IBehavioredClassi
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  collaborationRole: Set<IConnectableElement | string>;
+  collaborationRole?: Set<string>;
 }
 
 // Type aliases for Collaboration

@@ -5,11 +5,9 @@
  * @package uml
  * @extends DirectedRelationship
  */
-import { Comment } from './Comment';
 import { DirectedRelationship } from './DirectedRelationship';
 import { IComment } from './IComment';
 import { IDirectedRelationship } from './IDirectedRelationship';
-import { IElement } from './IElement';
 import { IPackage } from './IPackage';
 import { IProfile } from './IProfile';
 import { IProfileApplication } from './IProfileApplication';
@@ -23,7 +21,7 @@ export class ProfileApplication extends DirectedRelationship implements IProfile
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public appliedProfile!: IProfile | string;
+  public appliedProfile!: string;
 
   /**
    * isStrict
@@ -41,20 +39,8 @@ export class ProfileApplication extends DirectedRelationship implements IProfile
    * @relationship cross-reference
    * @opposite profileApplication
    */
-  public applyingPackage!: IPackage | string;
+  public applyingPackage!: string;
 
-  // Inherited from DirectedRelationship
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from DirectedRelationship
   /**
    * ownedComment
    * 
@@ -64,17 +50,19 @@ export class ProfileApplication extends DirectedRelationship implements IProfile
    */
   public ownedComment: Set<IComment> = new Set();
 
+
   constructor(init?: Partial<IProfileApplication>) {
     super(init);
-    this.appliedProfile = init?.appliedProfile!;
-    this.isStrict = init?.isStrict!;
-    this.applyingPackage = init?.applyingPackage!;
+
+    this.appliedProfile = init?.appliedProfile ?? '';
+    this.isStrict = init?.isStrict ?? false;
+    this.applyingPackage = init?.applyingPackage ?? '';
   }
-  getAppliedProfile(): IProfile | string {
+  getAppliedProfile(): string {
     return this.appliedProfile;
   }
 
-  setAppliedProfile(value: IProfile | string): void {
+  setAppliedProfile(value: string): void {
     this.appliedProfile = value;
   }
 
@@ -86,11 +74,11 @@ export class ProfileApplication extends DirectedRelationship implements IProfile
     this.isStrict = value;
   }
 
-  getApplyingPackage(): IPackage | string {
+  getApplyingPackage(): string {
     return this.applyingPackage;
   }
 
-  setApplyingPackage(value: IPackage | string): void {
+  setApplyingPackage(value: string): void {
     this.applyingPackage = value;
   }
 
@@ -159,9 +147,6 @@ export class ProfileApplication extends DirectedRelationship implements IProfile
   static fromJSON(json: any): ProfileApplication {
     const instance = new ProfileApplication();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

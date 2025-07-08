@@ -5,50 +5,25 @@
  * @package uml
  * @extends WriteLinkAction
  */
-import { Comment } from './Comment';
-import { Constraint } from './Constraint';
-import { ExceptionHandler } from './ExceptionHandler';
-import { IActivity } from './IActivity';
 import { IActivityEdge } from './IActivityEdge';
-import { IActivityGroup } from './IActivityGroup';
 import { IActivityNode } from './IActivityNode';
 import { IActivityPartition } from './IActivityPartition';
-import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
 import { IConstraint } from './IConstraint';
 import { ICreateLinkAction } from './ICreateLinkAction';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IExceptionHandler } from './IExceptionHandler';
 import { IInputPin } from './IInputPin';
 import { IInterruptibleActivityRegion } from './IInterruptibleActivityRegion';
 import { ILinkEndData } from './ILinkEndData';
-import { INamespace } from './INamespace';
-import { IOutputPin } from './IOutputPin';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { IStructuredActivityNode } from './IStructuredActivityNode';
 import { IWriteLinkAction } from './IWriteLinkAction';
-import { InputPin } from './InputPin';
-import { LinkEndData } from './LinkEndData';
 import { StringExpression } from './StringExpression';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
 import { WriteLinkAction } from './WriteLinkAction';
 
 export class CreateLinkAction extends WriteLinkAction implements ICreateLinkAction {
-  // Inherited from WriteLinkAction
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from WriteLinkAction
   /**
    * ownedComment
    * 
@@ -58,16 +33,14 @@ export class CreateLinkAction extends WriteLinkAction implements ICreateLinkActi
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from WriteLinkAction
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from WriteLinkAction
   /**
    * nameExpression
    * 
@@ -75,18 +48,15 @@ export class CreateLinkAction extends WriteLinkAction implements ICreateLinkActi
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from WriteLinkAction
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from WriteLinkAction
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * isLeaf
    * 
@@ -95,7 +65,6 @@ export class CreateLinkAction extends WriteLinkAction implements ICreateLinkActi
    */
   public isLeaf!: boolean;
 
-  // Inherited from WriteLinkAction
   /**
    * inInterruptibleRegion
    * 
@@ -104,9 +73,8 @@ export class CreateLinkAction extends WriteLinkAction implements ICreateLinkActi
    * @relationship cross-reference
    * @opposite node
    */
-  public inInterruptibleRegion: Set<IInterruptibleActivityRegion | string> = new Set();
+  public inInterruptibleRegion: Set<string> = new Set();
 
-  // Inherited from WriteLinkAction
   /**
    * inStructuredNode
    * 
@@ -115,9 +83,8 @@ export class CreateLinkAction extends WriteLinkAction implements ICreateLinkActi
    * @relationship cross-reference
    * @opposite node
    */
-  public inStructuredNode?: IStructuredActivityNode | string = undefined;
+  public inStructuredNode?: string;
 
-  // Inherited from WriteLinkAction
   /**
    * incoming
    * 
@@ -126,9 +93,8 @@ export class CreateLinkAction extends WriteLinkAction implements ICreateLinkActi
    * @relationship cross-reference
    * @opposite target
    */
-  public incoming: Set<IActivityEdge | string> = new Set();
+  public incoming: Set<string> = new Set();
 
-  // Inherited from WriteLinkAction
   /**
    * outgoing
    * 
@@ -137,9 +103,8 @@ export class CreateLinkAction extends WriteLinkAction implements ICreateLinkActi
    * @relationship cross-reference
    * @opposite source
    */
-  public outgoing: Set<IActivityEdge | string> = new Set();
+  public outgoing: Set<string> = new Set();
 
-  // Inherited from WriteLinkAction
   /**
    * redefinedNode
    * 
@@ -147,9 +112,8 @@ export class CreateLinkAction extends WriteLinkAction implements ICreateLinkActi
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedNode: Set<IActivityNode | string> = new Set();
+  public redefinedNode: Set<string> = new Set();
 
-  // Inherited from WriteLinkAction
   /**
    * inPartition
    * 
@@ -158,9 +122,8 @@ export class CreateLinkAction extends WriteLinkAction implements ICreateLinkActi
    * @relationship cross-reference
    * @opposite node
    */
-  public inPartition: Set<IActivityPartition | string> = new Set();
+  public inPartition: Set<string> = new Set();
 
-  // Inherited from WriteLinkAction
   /**
    * handler
    * 
@@ -171,7 +134,6 @@ export class CreateLinkAction extends WriteLinkAction implements ICreateLinkActi
    */
   public handler: Set<IExceptionHandler> = new Set();
 
-  // Inherited from WriteLinkAction
   /**
    * isLocallyReentrant
    * 
@@ -180,7 +142,6 @@ export class CreateLinkAction extends WriteLinkAction implements ICreateLinkActi
    */
   public isLocallyReentrant!: boolean;
 
-  // Inherited from WriteLinkAction
   /**
    * localPostcondition
    * 
@@ -190,7 +151,6 @@ export class CreateLinkAction extends WriteLinkAction implements ICreateLinkActi
    */
   public localPostcondition: Set<IConstraint> = new Set();
 
-  // Inherited from WriteLinkAction
   /**
    * localPrecondition
    * 
@@ -200,7 +160,6 @@ export class CreateLinkAction extends WriteLinkAction implements ICreateLinkActi
    */
   public localPrecondition: Set<IConstraint> = new Set();
 
-  // Inherited from WriteLinkAction
   /**
    * endData
    * 
@@ -210,7 +169,6 @@ export class CreateLinkAction extends WriteLinkAction implements ICreateLinkActi
    */
   public endData: Set<ILinkEndData> = new Set();
 
-  // Inherited from WriteLinkAction
   /**
    * inputValue
    * 
@@ -220,8 +178,10 @@ export class CreateLinkAction extends WriteLinkAction implements ICreateLinkActi
    */
   public inputValue: Set<IInputPin> = new Set();
 
+
   constructor(init?: Partial<ICreateLinkAction>) {
     super(init);
+
   }
   /**
    * Converts this instance to a plain object matching the interface
@@ -282,9 +242,6 @@ export class CreateLinkAction extends WriteLinkAction implements ICreateLinkActi
   static fromJSON(json: any): CreateLinkAction {
     const instance = new CreateLinkAction();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

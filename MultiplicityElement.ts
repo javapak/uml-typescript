@@ -6,7 +6,6 @@
  * @abstract
  * @extends Element
  */
-import { Comment } from './Comment';
 import { Element } from './Element';
 import { IComment } from './IComment';
 import { IElement } from './IElement';
@@ -39,7 +38,7 @@ export class MultiplicityElement extends Element implements IMultiplicityElement
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public lowerValue?: IValueSpecification = undefined;
+  public lowerValue?: IValueSpecification;
 
   /**
    * upperValue
@@ -48,20 +47,8 @@ export class MultiplicityElement extends Element implements IMultiplicityElement
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public upperValue?: IValueSpecification = undefined;
+  public upperValue?: IValueSpecification;
 
-  // Inherited from Element
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Element
   /**
    * ownedComment
    * 
@@ -71,12 +58,14 @@ export class MultiplicityElement extends Element implements IMultiplicityElement
    */
   public ownedComment: Set<IComment> = new Set();
 
+
   constructor(init?: Partial<IMultiplicityElement>) {
     super(init);
-    this.isOrdered = init?.isOrdered!;
-    this.isUnique = init?.isUnique!;
-    this.lowerValue = init?.lowerValue ?? undefined;
-    this.upperValue = init?.upperValue ?? undefined;
+
+    this.isOrdered = init?.isOrdered ?? false;
+    this.isUnique = init?.isUnique ?? false;
+    this.lowerValue = init?.lowerValue;
+    this.upperValue = init?.upperValue;
   }
   getIsOrdered(): boolean {
     return this.isOrdered;
@@ -181,9 +170,6 @@ export class MultiplicityElement extends Element implements IMultiplicityElement
   static fromJSON(json: any): MultiplicityElement {
     const instance = new MultiplicityElement();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

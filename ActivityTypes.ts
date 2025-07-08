@@ -14,9 +14,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialActivity = Partial<IActivity>;
 export type RequiredActivity = Required<IActivity>;
-export type ActivityKey = Pick<IActivity, 'name' | 'nameExpression'>;
-export type ActivityMetadata = Pick<IActivity, 'ownedComment' | 'visibility' | 'ownedRule' | 'ownedTemplateSignature' | 'ownedUseCase' | 'ownedAttribute' | 'ownedConnector' | 'ownedBehavior' | 'ownedOperation' | 'ownedReception' | 'ownedParameter' | 'ownedParameterSet' | 'ownedGroup' | 'ownedNode'>;
-export type ActivitySummary = Pick<IActivity, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type ActivityUnion = IActivity | IBehavior;
 export type ActivityFactory = () => Activity;
 export type ActivityValidator = (instance: IActivity) => ValidationResult;

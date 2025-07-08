@@ -6,15 +6,10 @@
  * @abstract
  * @extends NamedElement
  */
-import { Comment } from './Comment';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IRegion } from './IRegion';
 import { IStringExpression } from './IStringExpression';
-import { ITransition } from './ITransition';
 import { IVertex } from './IVertex';
 import { NamedElement } from './NamedElement';
 import { StringExpression } from './StringExpression';
@@ -30,20 +25,8 @@ export class Vertex extends NamedElement implements IVertex {
    * @relationship cross-reference
    * @opposite subvertex
    */
-  public container?: IRegion | string = undefined;
+  public container?: string;
 
-  // Inherited from NamedElement
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from NamedElement
   /**
    * ownedComment
    * 
@@ -53,16 +36,14 @@ export class Vertex extends NamedElement implements IVertex {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from NamedElement
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from NamedElement
   /**
    * nameExpression
    * 
@@ -70,26 +51,26 @@ export class Vertex extends NamedElement implements IVertex {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from NamedElement
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
+  public visibility: VisibilityKind | undefined = undefined;
 
   constructor(init?: Partial<IVertex>) {
     super(init);
-    this.container = init?.container ?? undefined;
+
+    this.container = init?.container;
   }
-  getContainer(): IRegion | string | undefined {
+  getContainer(): string | undefined {
     return this.container;
   }
 
-  setContainer(value: IRegion | string | undefined): void {
+  setContainer(value: string | undefined): void {
     this.container = value;
   }
 
@@ -156,9 +137,6 @@ export class Vertex extends NamedElement implements IVertex {
   static fromJSON(json: any): Vertex {
     const instance = new Vertex();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

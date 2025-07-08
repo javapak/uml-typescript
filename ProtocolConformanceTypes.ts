@@ -9,8 +9,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialProtocolConformance = Partial<IProtocolConformance>;
 export type RequiredProtocolConformance = Required<IProtocolConformance>;
-export type ProtocolConformanceMetadata = Pick<IProtocolConformance, 'ownedComment'>;
-export type ProtocolConformanceSummary = Pick<IProtocolConformance, 'eAnnotations' | 'ownedComment' | 'generalMachine'>;
 export type ProtocolConformanceUnion = IProtocolConformance | IDirectedRelationship;
 export type ProtocolConformanceFactory = () => ProtocolConformance;
 export type ProtocolConformanceValidator = (instance: IProtocolConformance) => ValidationResult;

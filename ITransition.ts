@@ -32,14 +32,14 @@ export interface ITransition extends INamespace, IRedefinableElement {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  guard?: IConstraint | string;
+  guard?: string;
   /**
    * kind
    * 
    * @type TransitionKind
    * @multiplicity [1..1]
    */
-  kind: any;
+  kind: TransitionKind;
   /**
    * redefinedTransition
    * 
@@ -47,7 +47,7 @@ export interface ITransition extends INamespace, IRedefinableElement {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  redefinedTransition?: ITransition | string;
+  redefinedTransition?: string;
   /**
    * source
    * 
@@ -55,7 +55,7 @@ export interface ITransition extends INamespace, IRedefinableElement {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  source: IVertex | string;
+  source: string;
   /**
    * target
    * 
@@ -63,7 +63,7 @@ export interface ITransition extends INamespace, IRedefinableElement {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  target: IVertex | string;
+  target: string;
   /**
    * trigger
    * 
@@ -71,7 +71,7 @@ export interface ITransition extends INamespace, IRedefinableElement {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  trigger: Set<ITrigger>;
+  trigger?: Set<ITrigger>;
   /**
    * container
    * 
@@ -80,7 +80,7 @@ export interface ITransition extends INamespace, IRedefinableElement {
    * @relationship cross-reference
    * @opposite transition
    */
-  container: IRegion | string;
+  container: string;
 }
 
 // Type aliases for Transition

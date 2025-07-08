@@ -6,12 +6,8 @@
  * @abstract
  * @extends NamedElement, ParameterableElement
  */
-import { Comment } from './Comment';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IPackageableElement } from './IPackageableElement';
 import { IParameterableElement } from './IParameterableElement';
 import { IStringExpression } from './IStringExpression';
@@ -23,18 +19,6 @@ import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
 
 export class PackageableElement extends NamedElement implements IPackageableElement {
-  // Inherited from NamedElement
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from NamedElement
   /**
    * ownedComment
    * 
@@ -44,16 +28,14 @@ export class PackageableElement extends NamedElement implements IPackageableElem
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from NamedElement
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from NamedElement
   /**
    * nameExpression
    * 
@@ -61,18 +43,24 @@ export class PackageableElement extends NamedElement implements IPackageableElem
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from NamedElement
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
+  public visibility: VisibilityKind | undefined = undefined;
+  /**
+   * ownedComment
+   * 
+   * @type Comment
+   * @multiplicity [0..*]
+   * @relationship containment
+   */
+  public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from ParameterableElement
   /**
    * owningTemplateParameter
    * 
@@ -81,9 +69,8 @@ export class PackageableElement extends NamedElement implements IPackageableElem
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from ParameterableElement
   /**
    * templateParameter
    * 
@@ -92,10 +79,12 @@ export class PackageableElement extends NamedElement implements IPackageableElem
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
+
 
   constructor(init?: Partial<IPackageableElement>) {
     super(init);
+
   }
   /**
    * Converts this instance to a plain object matching the interface
@@ -156,9 +145,6 @@ export class PackageableElement extends NamedElement implements IPackageableElem
   static fromJSON(json: any): PackageableElement {
     const instance = new PackageableElement();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

@@ -16,9 +16,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialClassifier = Partial<IClassifier>;
 export type RequiredClassifier = Required<IClassifier>;
-export type ClassifierKey = Pick<IClassifier, 'name' | 'nameExpression'>;
-export type ClassifierMetadata = Pick<IClassifier, 'ownedComment' | 'visibility' | 'ownedRule' | 'ownedTemplateSignature' | 'ownedUseCase'>;
-export type ClassifierSummary = Pick<IClassifier, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type ClassifierUnion = IClassifier | INamespace | IRedefinableElement | IType | ITemplateableElement;
 export type ClassifierFactory = () => Classifier;
 export type ClassifierValidator = (instance: IClassifier) => ValidationResult;

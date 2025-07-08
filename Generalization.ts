@@ -5,12 +5,10 @@
  * @package uml
  * @extends DirectedRelationship
  */
-import { Comment } from './Comment';
 import { DirectedRelationship } from './DirectedRelationship';
 import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
 import { IDirectedRelationship } from './IDirectedRelationship';
-import { IElement } from './IElement';
 import { IGeneralization } from './IGeneralization';
 import { IGeneralizationSet } from './IGeneralizationSet';
 import { ValidationError, ValidationResult } from './ValidationTypes';
@@ -23,7 +21,7 @@ export class Generalization extends DirectedRelationship implements IGeneralizat
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public general!: IClassifier | string;
+  public general!: string;
 
   /**
    * generalizationSet
@@ -33,7 +31,7 @@ export class Generalization extends DirectedRelationship implements IGeneralizat
    * @relationship cross-reference
    * @opposite generalization
    */
-  public generalizationSet: Set<IGeneralizationSet | string> = new Set();
+  public generalizationSet: Set<string> = new Set();
 
   /**
    * isSubstitutable
@@ -41,7 +39,7 @@ export class Generalization extends DirectedRelationship implements IGeneralizat
    * @type Boolean
    * @multiplicity [0..1]
    */
-  public isSubstitutable?: boolean = undefined;
+  public isSubstitutable?: boolean;
 
   /**
    * specific
@@ -51,20 +49,8 @@ export class Generalization extends DirectedRelationship implements IGeneralizat
    * @relationship cross-reference
    * @opposite generalization
    */
-  public specific!: IClassifier | string;
+  public specific!: string;
 
-  // Inherited from DirectedRelationship
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from DirectedRelationship
   /**
    * ownedComment
    * 
@@ -74,26 +60,28 @@ export class Generalization extends DirectedRelationship implements IGeneralizat
    */
   public ownedComment: Set<IComment> = new Set();
 
+
   constructor(init?: Partial<IGeneralization>) {
     super(init);
-    this.general = init?.general!;
-    this.generalizationSet = init?.generalizationSet ?? new Set();
-    this.isSubstitutable = init?.isSubstitutable ?? true;
-    this.specific = init?.specific!;
+
+    this.general = init?.general ?? '';
+    this.generalizationSet = init?.generalizationSet ? new Set(init.generalizationSet) : new Set();
+    this.isSubstitutable = init?.isSubstitutable;
+    this.specific = init?.specific ?? '';
   }
-  getGeneral(): IClassifier | string {
+  getGeneral(): string {
     return this.general;
   }
 
-  setGeneral(value: IClassifier | string): void {
+  setGeneral(value: string): void {
     this.general = value;
   }
 
-  getGeneralizationSet(): Set<IGeneralizationSet | string> {
+  getGeneralizationSet(): Set<string> {
     return this.generalizationSet;
   }
 
-  setGeneralizationSet(value: Set<IGeneralizationSet | string>): void {
+  setGeneralizationSet(value: Set<string>): void {
     this.generalizationSet = value;
   }
 
@@ -105,11 +93,11 @@ export class Generalization extends DirectedRelationship implements IGeneralizat
     this.isSubstitutable = value;
   }
 
-  getSpecific(): IClassifier | string {
+  getSpecific(): string {
     return this.specific;
   }
 
-  setSpecific(value: IClassifier | string): void {
+  setSpecific(value: string): void {
     this.specific = value;
   }
 
@@ -182,9 +170,6 @@ export class Generalization extends DirectedRelationship implements IGeneralizat
   static fromJSON(json: any): Generalization {
     const instance = new Generalization();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

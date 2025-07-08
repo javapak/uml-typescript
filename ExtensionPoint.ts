@@ -5,13 +5,8 @@
  * @package uml
  * @extends RedefinableElement
  */
-import { Comment } from './Comment';
-import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IExtensionPoint } from './IExtensionPoint';
-import { INamespace } from './INamespace';
 import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { IUseCase } from './IUseCase';
@@ -29,20 +24,8 @@ export class ExtensionPoint extends RedefinableElement implements IExtensionPoin
    * @relationship cross-reference
    * @opposite extensionPoint
    */
-  public useCase!: IUseCase | string;
+  public useCase!: string;
 
-  // Inherited from RedefinableElement
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from RedefinableElement
   /**
    * ownedComment
    * 
@@ -52,16 +35,14 @@ export class ExtensionPoint extends RedefinableElement implements IExtensionPoin
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from RedefinableElement
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from RedefinableElement
   /**
    * nameExpression
    * 
@@ -69,18 +50,15 @@ export class ExtensionPoint extends RedefinableElement implements IExtensionPoin
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from RedefinableElement
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from RedefinableElement
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * isLeaf
    * 
@@ -89,15 +67,17 @@ export class ExtensionPoint extends RedefinableElement implements IExtensionPoin
    */
   public isLeaf!: boolean;
 
+
   constructor(init?: Partial<IExtensionPoint>) {
     super(init);
-    this.useCase = init?.useCase!;
+
+    this.useCase = init?.useCase ?? '';
   }
-  getUseCase(): IUseCase | string {
+  getUseCase(): string {
     return this.useCase;
   }
 
-  setUseCase(value: IUseCase | string): void {
+  setUseCase(value: string): void {
     this.useCase = value;
   }
 
@@ -162,9 +142,6 @@ export class ExtensionPoint extends RedefinableElement implements IExtensionPoin
   static fromJSON(json: any): ExtensionPoint {
     const instance = new ExtensionPoint();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

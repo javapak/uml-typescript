@@ -6,24 +6,14 @@
  * @extends Property
  */
 import { AggregationKind } from './AggregationKind';
-import { Comment } from './Comment';
-import { Deployment } from './Deployment';
 import { IAssociation } from './IAssociation';
-import { IClass } from './IClass';
-import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
-import { IConnectorEnd } from './IConnectorEnd';
 import { IDataType } from './IDataType';
-import { IDependency } from './IDependency';
 import { IDeployment } from './IDeployment';
-import { IElement } from './IElement';
 import { IInterface } from './IInterface';
-import { INamespace } from './INamespace';
-import { IPackageableElement } from './IPackageableElement';
 import { IPort } from './IPort';
 import { IProperty } from './IProperty';
 import { IProtocolStateMachine } from './IProtocolStateMachine';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { ITemplateParameter } from './ITemplateParameter';
 import { IType } from './IType';
@@ -66,7 +56,7 @@ export class Port extends Property implements IPort {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public protocol?: IProtocolStateMachine | string = undefined;
+  public protocol?: string;
 
   /**
    * redefinedPort
@@ -75,20 +65,8 @@ export class Port extends Property implements IPort {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedPort: Set<IPort | string> = new Set();
+  public redefinedPort: Set<string> = new Set();
 
-  // Inherited from Property
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Property
   /**
    * ownedComment
    * 
@@ -98,16 +76,14 @@ export class Port extends Property implements IPort {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Property
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Property
   /**
    * nameExpression
    * 
@@ -115,18 +91,15 @@ export class Port extends Property implements IPort {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Property
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Property
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * isLeaf
    * 
@@ -135,7 +108,6 @@ export class Port extends Property implements IPort {
    */
   public isLeaf!: boolean;
 
-  // Inherited from Property
   /**
    * isStatic
    * 
@@ -144,7 +116,6 @@ export class Port extends Property implements IPort {
    */
   public isStatic!: boolean;
 
-  // Inherited from Property
   /**
    * type
    * 
@@ -152,9 +123,8 @@ export class Port extends Property implements IPort {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public type?: IType | string = undefined;
+  public type?: string;
 
-  // Inherited from Property
   /**
    * isOrdered
    * 
@@ -163,7 +133,6 @@ export class Port extends Property implements IPort {
    */
   public isOrdered!: boolean;
 
-  // Inherited from Property
   /**
    * isUnique
    * 
@@ -172,7 +141,6 @@ export class Port extends Property implements IPort {
    */
   public isUnique!: boolean;
 
-  // Inherited from Property
   /**
    * lowerValue
    * 
@@ -180,9 +148,8 @@ export class Port extends Property implements IPort {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public lowerValue?: IValueSpecification = undefined;
+  public lowerValue?: IValueSpecification;
 
-  // Inherited from Property
   /**
    * upperValue
    * 
@@ -190,9 +157,8 @@ export class Port extends Property implements IPort {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public upperValue?: IValueSpecification = undefined;
+  public upperValue?: IValueSpecification;
 
-  // Inherited from Property
   /**
    * isReadOnly
    * 
@@ -201,7 +167,6 @@ export class Port extends Property implements IPort {
    */
   public isReadOnly!: boolean;
 
-  // Inherited from Property
   /**
    * owningTemplateParameter
    * 
@@ -210,9 +175,8 @@ export class Port extends Property implements IPort {
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from Property
   /**
    * templateParameter
    * 
@@ -221,9 +185,8 @@ export class Port extends Property implements IPort {
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from Property
   /**
    * deployment
    * 
@@ -234,7 +197,6 @@ export class Port extends Property implements IPort {
    */
   public deployment: Set<IDeployment> = new Set();
 
-  // Inherited from Property
   /**
    * datatype
    * 
@@ -243,9 +205,8 @@ export class Port extends Property implements IPort {
    * @relationship cross-reference
    * @opposite ownedAttribute
    */
-  public datatype?: IDataType | string = undefined;
+  public datatype?: string;
 
-  // Inherited from Property
   /**
    * interface
    * 
@@ -254,18 +215,15 @@ export class Port extends Property implements IPort {
    * @relationship cross-reference
    * @opposite ownedAttribute
    */
-  public interface?: IInterface | string = undefined;
+  public interface?: string;
 
-  // Inherited from Property
   /**
    * aggregation
    * 
    * @type AggregationKind
    * @multiplicity [1..1]
    */
-  public aggregation!: any;
-
-  // Inherited from Property
+  public aggregation: AggregationKind = AggregationKind.none;
   /**
    * associationEnd
    * 
@@ -274,9 +232,8 @@ export class Port extends Property implements IPort {
    * @relationship cross-reference
    * @opposite qualifier
    */
-  public associationEnd?: IProperty | string = undefined;
+  public associationEnd?: string;
 
-  // Inherited from Property
   /**
    * qualifier
    * 
@@ -287,7 +244,6 @@ export class Port extends Property implements IPort {
    */
   public qualifier: IProperty[] = [];
 
-  // Inherited from Property
   /**
    * defaultValue
    * 
@@ -295,9 +251,8 @@ export class Port extends Property implements IPort {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public defaultValue?: IValueSpecification = undefined;
+  public defaultValue?: IValueSpecification;
 
-  // Inherited from Property
   /**
    * isDerived
    * 
@@ -306,7 +261,6 @@ export class Port extends Property implements IPort {
    */
   public isDerived!: boolean;
 
-  // Inherited from Property
   /**
    * isDerivedUnion
    * 
@@ -315,7 +269,6 @@ export class Port extends Property implements IPort {
    */
   public isDerivedUnion!: boolean;
 
-  // Inherited from Property
   /**
    * isID
    * 
@@ -324,7 +277,6 @@ export class Port extends Property implements IPort {
    */
   public isID!: boolean;
 
-  // Inherited from Property
   /**
    * owningAssociation
    * 
@@ -333,9 +285,8 @@ export class Port extends Property implements IPort {
    * @relationship cross-reference
    * @opposite ownedEnd
    */
-  public owningAssociation?: IAssociation | string = undefined;
+  public owningAssociation?: string;
 
-  // Inherited from Property
   /**
    * redefinedProperty
    * 
@@ -343,9 +294,8 @@ export class Port extends Property implements IPort {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedProperty: Set<IProperty | string> = new Set();
+  public redefinedProperty: Set<string> = new Set();
 
-  // Inherited from Property
   /**
    * subsettedProperty
    * 
@@ -353,9 +303,8 @@ export class Port extends Property implements IPort {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public subsettedProperty: Set<IProperty | string> = new Set();
+  public subsettedProperty: Set<string> = new Set();
 
-  // Inherited from Property
   /**
    * association
    * 
@@ -364,15 +313,17 @@ export class Port extends Property implements IPort {
    * @relationship cross-reference
    * @opposite memberEnd
    */
-  public association?: IAssociation | string = undefined;
+  public association?: string;
+
 
   constructor(init?: Partial<IPort>) {
     super(init);
-    this.isBehavior = init?.isBehavior!;
-    this.isConjugated = init?.isConjugated!;
-    this.isService = init?.isService!;
-    this.protocol = init?.protocol ?? undefined;
-    this.redefinedPort = init?.redefinedPort ?? new Set();
+
+    this.isBehavior = init?.isBehavior ?? false;
+    this.isConjugated = init?.isConjugated ?? false;
+    this.isService = init?.isService ?? false;
+    this.protocol = init?.protocol;
+    this.redefinedPort = init?.redefinedPort ? new Set(init.redefinedPort) : new Set();
   }
   getIsBehavior(): boolean {
     return this.isBehavior;
@@ -398,19 +349,19 @@ export class Port extends Property implements IPort {
     this.isService = value;
   }
 
-  getProtocol(): IProtocolStateMachine | string | undefined {
+  getProtocol(): string | undefined {
     return this.protocol;
   }
 
-  setProtocol(value: IProtocolStateMachine | string | undefined): void {
+  setProtocol(value: string | undefined): void {
     this.protocol = value;
   }
 
-  getRedefinedPort(): Set<IPort | string> {
+  getRedefinedPort(): Set<string> {
     return this.redefinedPort;
   }
 
-  setRedefinedPort(value: Set<IPort | string>): void {
+  setRedefinedPort(value: Set<string>): void {
     this.redefinedPort = value;
   }
 
@@ -485,9 +436,6 @@ export class Port extends Property implements IPort {
   static fromJSON(json: any): Port {
     const instance = new Port();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

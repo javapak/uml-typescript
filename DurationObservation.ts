@@ -5,13 +5,9 @@
  * @package uml
  * @extends Observation
  */
-import { Comment } from './Comment';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
 import { IDurationObservation } from './IDurationObservation';
-import { IElement } from './IElement';
 import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IObservation } from './IObservation';
 import { IStringExpression } from './IStringExpression';
 import { ITemplateParameter } from './ITemplateParameter';
@@ -28,7 +24,7 @@ export class DurationObservation extends Observation implements IDurationObserva
    * @multiplicity [1..2]
    * @relationship cross-reference
    */
-  public event: INamedElement | string[] = [];
+  public event: string[] = [];
 
   /**
    * firstEvent
@@ -38,18 +34,6 @@ export class DurationObservation extends Observation implements IDurationObserva
    */
   public firstEvent: Set<boolean> = new Set();
 
-  // Inherited from Observation
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Observation
   /**
    * ownedComment
    * 
@@ -59,16 +43,14 @@ export class DurationObservation extends Observation implements IDurationObserva
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Observation
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Observation
   /**
    * nameExpression
    * 
@@ -76,18 +58,15 @@ export class DurationObservation extends Observation implements IDurationObserva
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Observation
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Observation
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * owningTemplateParameter
    * 
@@ -96,9 +75,8 @@ export class DurationObservation extends Observation implements IDurationObserva
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from Observation
   /**
    * templateParameter
    * 
@@ -107,18 +85,20 @@ export class DurationObservation extends Observation implements IDurationObserva
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
+
 
   constructor(init?: Partial<IDurationObservation>) {
     super(init);
-    this.event = init?.event ?? [];
-    this.firstEvent = init?.firstEvent ?? new Set();
+
+    this.event = init?.event ? [...init.event] : [];
+    this.firstEvent = init?.firstEvent ? new Set(init.firstEvent) : new Set();
   }
-  getEvent(): INamedElement | string[] {
+  getEvent(): string[] {
     return this.event;
   }
 
-  setEvent(value: INamedElement | string[]): void {
+  setEvent(value: string[]): void {
     this.event = value;
   }
 
@@ -193,9 +173,6 @@ export class DurationObservation extends Observation implements IDurationObserva
   static fromJSON(json: any): DurationObservation {
     const instance = new DurationObservation();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

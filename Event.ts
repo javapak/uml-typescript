@@ -6,12 +6,8 @@
  * @abstract
  * @extends PackageableElement
  */
-import { Comment } from './Comment';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IEvent } from './IEvent';
-import { INamespace } from './INamespace';
 import { IPackageableElement } from './IPackageableElement';
 import { IStringExpression } from './IStringExpression';
 import { ITemplateParameter } from './ITemplateParameter';
@@ -21,18 +17,6 @@ import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
 
 export class Event extends PackageableElement implements IEvent {
-  // Inherited from PackageableElement
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from PackageableElement
   /**
    * ownedComment
    * 
@@ -42,16 +26,14 @@ export class Event extends PackageableElement implements IEvent {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from PackageableElement
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from PackageableElement
   /**
    * nameExpression
    * 
@@ -59,18 +41,15 @@ export class Event extends PackageableElement implements IEvent {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from PackageableElement
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from PackageableElement
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * owningTemplateParameter
    * 
@@ -79,9 +58,8 @@ export class Event extends PackageableElement implements IEvent {
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from PackageableElement
   /**
    * templateParameter
    * 
@@ -90,10 +68,12 @@ export class Event extends PackageableElement implements IEvent {
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
+
 
   constructor(init?: Partial<IEvent>) {
     super(init);
+
   }
   /**
    * Converts this instance to a plain object matching the interface
@@ -154,9 +134,6 @@ export class Event extends PackageableElement implements IEvent {
   static fromJSON(json: any): Event {
     const instance = new Event();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

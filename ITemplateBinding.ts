@@ -20,7 +20,7 @@ export interface ITemplateBinding extends IDirectedRelationship {
    * @relationship containment
    * @opposite templateBinding
    */
-  parameterSubstitution: Set<ITemplateParameterSubstitution>;
+  parameterSubstitution?: Set<ITemplateParameterSubstitution>;
   /**
    * signature
    * 
@@ -28,7 +28,7 @@ export interface ITemplateBinding extends IDirectedRelationship {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  signature: ITemplateSignature | string;
+  signature: string;
   /**
    * boundElement
    * 
@@ -37,7 +37,7 @@ export interface ITemplateBinding extends IDirectedRelationship {
    * @relationship cross-reference
    * @opposite templateBinding
    */
-  boundElement: ITemplateableElement | string;
+  boundElement: string;
 }
 
 // Type aliases for TemplateBinding

@@ -8,9 +8,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialDataStoreNode = Partial<IDataStoreNode>;
 export type RequiredDataStoreNode = Required<IDataStoreNode>;
-export type DataStoreNodeKey = Pick<IDataStoreNode, 'name' | 'nameExpression'>;
-export type DataStoreNodeMetadata = Pick<IDataStoreNode, 'ownedComment' | 'visibility'>;
-export type DataStoreNodeSummary = Pick<IDataStoreNode, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type DataStoreNodeUnion = IDataStoreNode | ICentralBufferNode;
 export type DataStoreNodeFactory = () => DataStoreNode;
 export type DataStoreNodeValidator = (instance: IDataStoreNode) => ValidationResult;

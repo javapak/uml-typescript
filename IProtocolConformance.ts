@@ -16,7 +16,7 @@ export interface IProtocolConformance extends IDirectedRelationship {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  generalMachine: IProtocolStateMachine | string;
+  generalMachine: string;
   /**
    * specificMachine
    * 
@@ -25,7 +25,7 @@ export interface IProtocolConformance extends IDirectedRelationship {
    * @relationship cross-reference
    * @opposite conformance
    */
-  specificMachine: IProtocolStateMachine | string;
+  specificMachine: string;
 }
 
 // Type aliases for ProtocolConformance

@@ -20,14 +20,14 @@ export interface ICombinedFragment extends IInteractionFragment {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  cfragmentGate: Set<IGate>;
+  cfragmentGate?: Set<IGate>;
   /**
    * interactionOperator
    * 
    * @type InteractionOperatorKind
    * @multiplicity [1..1]
    */
-  interactionOperator: any;
+  interactionOperator: InteractionOperatorKind;
   /**
    * operand
    * 

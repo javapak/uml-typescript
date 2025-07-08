@@ -19,7 +19,7 @@ export interface IDeploymentTarget extends INamedElement {
    * @relationship containment
    * @opposite location
    */
-  deployment: Set<IDeployment>;
+  deployment?: Set<IDeployment>;
 }
 
 // Type aliases for DeploymentTarget

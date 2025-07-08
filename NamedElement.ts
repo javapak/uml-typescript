@@ -6,13 +6,10 @@
  * @abstract
  * @extends Element
  */
-import { Comment } from './Comment';
 import { Element } from './Element';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
 import { IElement } from './IElement';
 import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IStringExpression } from './IStringExpression';
 import { StringExpression } from './StringExpression';
 import { ValidationError, ValidationResult } from './ValidationTypes';
@@ -25,7 +22,7 @@ export class NamedElement extends Element implements INamedElement {
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
   /**
    * nameExpression
@@ -34,7 +31,7 @@ export class NamedElement extends Element implements INamedElement {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
   /**
    * visibility
@@ -42,20 +39,8 @@ export class NamedElement extends Element implements INamedElement {
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
+  public visibility?: VisibilityKind;
 
-  // Inherited from Element
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Element
   /**
    * ownedComment
    * 
@@ -65,11 +50,13 @@ export class NamedElement extends Element implements INamedElement {
    */
   public ownedComment: Set<IComment> = new Set();
 
+
   constructor(init?: Partial<INamedElement>) {
     super(init);
-    this.name = init?.name ?? undefined;
-    this.nameExpression = init?.nameExpression ?? undefined;
-    this.visibility = init?.visibility ?? 'public';
+
+    this.name = init?.name;
+    this.nameExpression = init?.nameExpression;
+    this.visibility = init?.visibility;
   }
   getName(): string | undefined {
     return this.name;
@@ -87,11 +74,11 @@ export class NamedElement extends Element implements INamedElement {
     this.nameExpression = value;
   }
 
-  getVisibility(): any | undefined {
+  getVisibility(): VisibilityKind | undefined {
     return this.visibility;
   }
 
-  setVisibility(value: any | undefined): void {
+  setVisibility(value: VisibilityKind | undefined): void {
     this.visibility = value;
   }
 
@@ -166,9 +153,6 @@ export class NamedElement extends Element implements INamedElement {
   static fromJSON(json: any): NamedElement {
     const instance = new NamedElement();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

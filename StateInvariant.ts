@@ -5,19 +5,14 @@
  * @package uml
  * @extends InteractionFragment
  */
-import { Comment } from './Comment';
 import { Constraint } from './Constraint';
-import { GeneralOrdering } from './GeneralOrdering';
 import { IComment } from './IComment';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IGeneralOrdering } from './IGeneralOrdering';
 import { IInteraction } from './IInteraction';
 import { IInteractionFragment } from './IInteractionFragment';
 import { IInteractionOperand } from './IInteractionOperand';
 import { ILifeline } from './ILifeline';
-import { INamespace } from './INamespace';
 import { IStateInvariant } from './IStateInvariant';
 import { IStringExpression } from './IStringExpression';
 import { InteractionFragment } from './InteractionFragment';
@@ -35,18 +30,6 @@ export class StateInvariant extends InteractionFragment implements IStateInvaria
    */
   public invariant!: IConstraint;
 
-  // Inherited from InteractionFragment
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from InteractionFragment
   /**
    * ownedComment
    * 
@@ -56,16 +39,14 @@ export class StateInvariant extends InteractionFragment implements IStateInvaria
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from InteractionFragment
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from InteractionFragment
   /**
    * nameExpression
    * 
@@ -73,18 +54,15 @@ export class StateInvariant extends InteractionFragment implements IStateInvaria
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from InteractionFragment
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from InteractionFragment
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * covered
    * 
@@ -93,9 +71,8 @@ export class StateInvariant extends InteractionFragment implements IStateInvaria
    * @relationship cross-reference
    * @opposite coveredBy
    */
-  public covered: Set<ILifeline | string> = new Set();
+  public covered: Set<string> = new Set();
 
-  // Inherited from InteractionFragment
   /**
    * enclosingOperand
    * 
@@ -104,9 +81,8 @@ export class StateInvariant extends InteractionFragment implements IStateInvaria
    * @relationship cross-reference
    * @opposite fragment
    */
-  public enclosingOperand?: IInteractionOperand | string = undefined;
+  public enclosingOperand?: string;
 
-  // Inherited from InteractionFragment
   /**
    * enclosingInteraction
    * 
@@ -115,9 +91,8 @@ export class StateInvariant extends InteractionFragment implements IStateInvaria
    * @relationship cross-reference
    * @opposite fragment
    */
-  public enclosingInteraction?: IInteraction | string = undefined;
+  public enclosingInteraction?: string;
 
-  // Inherited from InteractionFragment
   /**
    * generalOrdering
    * 
@@ -127,8 +102,10 @@ export class StateInvariant extends InteractionFragment implements IStateInvaria
    */
   public generalOrdering: Set<IGeneralOrdering> = new Set();
 
+
   constructor(init?: Partial<IStateInvariant>) {
     super(init);
+
     this.invariant = init?.invariant!;
   }
   getInvariant(): IConstraint {
@@ -200,9 +177,6 @@ export class StateInvariant extends InteractionFragment implements IStateInvaria
   static fromJSON(json: any): StateInvariant {
     const instance = new StateInvariant();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

@@ -21,7 +21,7 @@ export interface IInteractionUse extends IInteractionFragment {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  actualGate: Set<IGate>;
+  actualGate?: Set<IGate>;
   /**
    * argument
    * 
@@ -29,7 +29,7 @@ export interface IInteractionUse extends IInteractionFragment {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  argument: IValueSpecification[];
+  argument?: IValueSpecification[];
   /**
    * refersTo
    * 
@@ -37,7 +37,7 @@ export interface IInteractionUse extends IInteractionFragment {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  refersTo: IInteraction | string;
+  refersTo: string;
   /**
    * returnValue
    * 
@@ -53,7 +53,7 @@ export interface IInteractionUse extends IInteractionFragment {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  returnValueRecipient?: IProperty | string;
+  returnValueRecipient?: string;
 }
 
 // Type aliases for InteractionUse

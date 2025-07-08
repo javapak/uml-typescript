@@ -5,13 +5,9 @@
  * @package uml
  * @extends NamedElement
  */
-import { Comment } from './Comment';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IEvent } from './IEvent';
 import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IPort } from './IPort';
 import { IStringExpression } from './IStringExpression';
 import { ITrigger } from './ITrigger';
@@ -28,7 +24,7 @@ export class Trigger extends NamedElement implements ITrigger {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public event!: IEvent | string;
+  public event!: string;
 
   /**
    * port
@@ -37,20 +33,8 @@ export class Trigger extends NamedElement implements ITrigger {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public port: Set<IPort | string> = new Set();
+  public port: Set<string> = new Set();
 
-  // Inherited from NamedElement
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from NamedElement
   /**
    * ownedComment
    * 
@@ -60,16 +44,14 @@ export class Trigger extends NamedElement implements ITrigger {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from NamedElement
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from NamedElement
   /**
    * nameExpression
    * 
@@ -77,35 +59,35 @@ export class Trigger extends NamedElement implements ITrigger {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from NamedElement
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
+  public visibility: VisibilityKind | undefined = undefined;
 
   constructor(init?: Partial<ITrigger>) {
     super(init);
-    this.event = init?.event!;
-    this.port = init?.port ?? new Set();
+
+    this.event = init?.event ?? '';
+    this.port = init?.port ? new Set(init.port) : new Set();
   }
-  getEvent(): IEvent | string {
+  getEvent(): string {
     return this.event;
   }
 
-  setEvent(value: IEvent | string): void {
+  setEvent(value: string): void {
     this.event = value;
   }
 
-  getPort(): Set<IPort | string> {
+  getPort(): Set<string> {
     return this.port;
   }
 
-  setPort(value: Set<IPort | string>): void {
+  setPort(value: Set<string>): void {
     this.port = value;
   }
 
@@ -172,9 +154,6 @@ export class Trigger extends NamedElement implements ITrigger {
   static fromJSON(json: any): Trigger {
     const instance = new Trigger();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

@@ -19,7 +19,7 @@ export interface ISlot extends IElement {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  definingFeature: IStructuralFeature | string;
+  definingFeature: string;
   /**
    * value
    * 
@@ -27,7 +27,7 @@ export interface ISlot extends IElement {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  value: IValueSpecification[];
+  value?: IValueSpecification[];
   /**
    * owningInstance
    * 
@@ -36,7 +36,7 @@ export interface ISlot extends IElement {
    * @relationship cross-reference
    * @opposite slot
    */
-  owningInstance: IInstanceSpecification | string;
+  owningInstance: string;
 }
 
 // Type aliases for Slot

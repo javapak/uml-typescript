@@ -15,7 +15,7 @@ export interface IComment extends IElement {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  annotatedElement: Set<IElement | string>;
+  annotatedElement?: Set<string>;
   /**
    * body
    * 

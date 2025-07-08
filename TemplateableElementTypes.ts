@@ -10,8 +10,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialTemplateableElement = Partial<ITemplateableElement>;
 export type RequiredTemplateableElement = Required<ITemplateableElement>;
-export type TemplateableElementMetadata = Pick<ITemplateableElement, 'ownedComment' | 'ownedTemplateSignature'>;
-export type TemplateableElementSummary = Pick<ITemplateableElement, 'eAnnotations' | 'ownedComment' | 'templateBinding'>;
 export type TemplateableElementUnion = ITemplateableElement | IElement;
 export type TemplateableElementFactory = () => TemplateableElement;
 export type TemplateableElementValidator = (instance: ITemplateableElement) => ValidationResult;

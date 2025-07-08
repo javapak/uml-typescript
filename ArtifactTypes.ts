@@ -12,9 +12,8 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialArtifact = Partial<IArtifact>;
 export type RequiredArtifact = Required<IArtifact>;
-export type ArtifactKey = Pick<IArtifact, 'name' | 'nameExpression' | 'fileName'>;
-export type ArtifactMetadata = Pick<IArtifact, 'ownedComment' | 'visibility' | 'ownedRule' | 'ownedTemplateSignature' | 'ownedUseCase' | 'ownedAttribute' | 'ownedOperation'>;
-export type ArtifactSummary = Pick<IArtifact, 'eAnnotations' | 'ownedComment' | 'name'>;
+export type ArtifactKey = Pick<IArtifact, 'fileName'>;
+export type ArtifactSummary = Pick<IArtifact, 'fileName'>;
 export type ArtifactUnion = IArtifact | IClassifier | IDeployedArtifact;
 export type ArtifactFactory = () => Artifact;
 export type ArtifactValidator = (instance: IArtifact) => ValidationResult;

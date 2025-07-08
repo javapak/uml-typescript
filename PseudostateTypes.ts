@@ -11,9 +11,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialPseudostate = Partial<IPseudostate>;
 export type RequiredPseudostate = Required<IPseudostate>;
-export type PseudostateKey = Pick<IPseudostate, 'name' | 'nameExpression'>;
-export type PseudostateMetadata = Pick<IPseudostate, 'ownedComment' | 'visibility'>;
-export type PseudostateSummary = Pick<IPseudostate, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type PseudostateUnion = IPseudostate | IVertex;
 export type PseudostateFactory = () => Pseudostate;
 export type PseudostateValidator = (instance: IPseudostate) => ValidationResult;

@@ -6,7 +6,6 @@
  * @abstract
  * @extends Element
  */
-import { Comment } from './Comment';
 import { Element } from './Element';
 import { IComment } from './IComment';
 import { IElement } from './IElement';
@@ -14,18 +13,6 @@ import { IRelationship } from './IRelationship';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 
 export class Relationship extends Element implements IRelationship {
-  // Inherited from Element
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Element
   /**
    * ownedComment
    * 
@@ -35,8 +22,10 @@ export class Relationship extends Element implements IRelationship {
    */
   public ownedComment: Set<IComment> = new Set();
 
+
   constructor(init?: Partial<IRelationship>) {
     super(init);
+
   }
   /**
    * Converts this instance to a plain object matching the interface
@@ -97,9 +86,6 @@ export class Relationship extends Element implements IRelationship {
   static fromJSON(json: any): Relationship {
     const instance = new Relationship();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

@@ -11,8 +11,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialTemplateParameterSubstitution = Partial<ITemplateParameterSubstitution>;
 export type RequiredTemplateParameterSubstitution = Required<ITemplateParameterSubstitution>;
-export type TemplateParameterSubstitutionMetadata = Pick<ITemplateParameterSubstitution, 'ownedComment' | 'ownedActual'>;
-export type TemplateParameterSubstitutionSummary = Pick<ITemplateParameterSubstitution, 'eAnnotations' | 'ownedComment' | 'actual'>;
 export type TemplateParameterSubstitutionUnion = ITemplateParameterSubstitution | IElement;
 export type TemplateParameterSubstitutionFactory = () => TemplateParameterSubstitution;
 export type TemplateParameterSubstitutionValidator = (instance: ITemplateParameterSubstitution) => ValidationResult;

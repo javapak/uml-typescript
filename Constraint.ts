@@ -5,10 +5,8 @@
  * @package uml
  * @extends PackageableElement
  */
-import { Comment } from './Comment';
 import { IComment } from './IComment';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
 import { IElement } from './IElement';
 import { INamespace } from './INamespace';
 import { IPackageableElement } from './IPackageableElement';
@@ -29,7 +27,7 @@ export class Constraint extends PackageableElement implements IConstraint {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public constrainedElement: IElement | string[] = [];
+  public constrainedElement: string[] = [];
 
   /**
    * context
@@ -39,7 +37,7 @@ export class Constraint extends PackageableElement implements IConstraint {
    * @relationship cross-reference
    * @opposite ownedRule
    */
-  public context?: INamespace | string = undefined;
+  public context?: string;
 
   /**
    * specification
@@ -50,18 +48,6 @@ export class Constraint extends PackageableElement implements IConstraint {
    */
   public specification!: IValueSpecification;
 
-  // Inherited from PackageableElement
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from PackageableElement
   /**
    * ownedComment
    * 
@@ -71,16 +57,14 @@ export class Constraint extends PackageableElement implements IConstraint {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from PackageableElement
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from PackageableElement
   /**
    * nameExpression
    * 
@@ -88,18 +72,15 @@ export class Constraint extends PackageableElement implements IConstraint {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from PackageableElement
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from PackageableElement
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * owningTemplateParameter
    * 
@@ -108,9 +89,8 @@ export class Constraint extends PackageableElement implements IConstraint {
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from PackageableElement
   /**
    * templateParameter
    * 
@@ -119,27 +99,29 @@ export class Constraint extends PackageableElement implements IConstraint {
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
+
 
   constructor(init?: Partial<IConstraint>) {
     super(init);
-    this.constrainedElement = init?.constrainedElement ?? [];
-    this.context = init?.context ?? undefined;
+
+    this.constrainedElement = init?.constrainedElement ? [...init.constrainedElement] : [];
+    this.context = init?.context;
     this.specification = init?.specification!;
   }
-  getConstrainedElement(): IElement | string[] {
+  getConstrainedElement(): string[] {
     return this.constrainedElement;
   }
 
-  setConstrainedElement(value: IElement | string[]): void {
+  setConstrainedElement(value: string[]): void {
     this.constrainedElement = value;
   }
 
-  getContext(): INamespace | string | undefined {
+  getContext(): string | undefined {
     return this.context;
   }
 
-  setContext(value: INamespace | string | undefined): void {
+  setContext(value: string | undefined): void {
     this.context = value;
   }
 
@@ -218,9 +200,6 @@ export class Constraint extends PackageableElement implements IConstraint {
   static fromJSON(json: any): Constraint {
     const instance = new Constraint();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

@@ -18,7 +18,7 @@ export interface IParameterSet extends INamedElement {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  condition: Set<IConstraint>;
+  condition?: Set<IConstraint>;
   /**
    * parameter
    * 
@@ -27,7 +27,7 @@ export interface IParameterSet extends INamedElement {
    * @relationship cross-reference
    * @opposite parameterSet
    */
-  parameter: Set<IParameter | string>;
+  parameter: Set<string>;
 }
 
 // Type aliases for ParameterSet

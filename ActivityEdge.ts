@@ -6,18 +6,12 @@
  * @abstract
  * @extends RedefinableElement
  */
-import { Comment } from './Comment';
 import { IActivity } from './IActivity';
 import { IActivityEdge } from './IActivityEdge';
-import { IActivityGroup } from './IActivityGroup';
 import { IActivityNode } from './IActivityNode';
 import { IActivityPartition } from './IActivityPartition';
-import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IInterruptibleActivityRegion } from './IInterruptibleActivityRegion';
-import { INamespace } from './INamespace';
 import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { IStructuredActivityNode } from './IStructuredActivityNode';
@@ -37,7 +31,7 @@ export class ActivityEdge extends RedefinableElement implements IActivityEdge {
    * @relationship cross-reference
    * @opposite edge
    */
-  public activity?: IActivity | string = undefined;
+  public activity?: string;
 
   /**
    * guard
@@ -46,7 +40,7 @@ export class ActivityEdge extends RedefinableElement implements IActivityEdge {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public guard?: IValueSpecification = undefined;
+  public guard?: IValueSpecification;
 
   /**
    * inPartition
@@ -56,7 +50,7 @@ export class ActivityEdge extends RedefinableElement implements IActivityEdge {
    * @relationship cross-reference
    * @opposite edge
    */
-  public inPartition: Set<IActivityPartition | string> = new Set();
+  public inPartition: Set<string> = new Set();
 
   /**
    * interrupts
@@ -66,7 +60,7 @@ export class ActivityEdge extends RedefinableElement implements IActivityEdge {
    * @relationship cross-reference
    * @opposite interruptingEdge
    */
-  public interrupts?: IInterruptibleActivityRegion | string = undefined;
+  public interrupts?: string;
 
   /**
    * inStructuredNode
@@ -76,7 +70,7 @@ export class ActivityEdge extends RedefinableElement implements IActivityEdge {
    * @relationship cross-reference
    * @opposite edge
    */
-  public inStructuredNode?: IStructuredActivityNode | string = undefined;
+  public inStructuredNode?: string;
 
   /**
    * target
@@ -86,7 +80,7 @@ export class ActivityEdge extends RedefinableElement implements IActivityEdge {
    * @relationship cross-reference
    * @opposite incoming
    */
-  public target!: IActivityNode | string;
+  public target!: string;
 
   /**
    * source
@@ -96,7 +90,7 @@ export class ActivityEdge extends RedefinableElement implements IActivityEdge {
    * @relationship cross-reference
    * @opposite outgoing
    */
-  public source!: IActivityNode | string;
+  public source!: string;
 
   /**
    * redefinedEdge
@@ -105,7 +99,7 @@ export class ActivityEdge extends RedefinableElement implements IActivityEdge {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedEdge: Set<IActivityEdge | string> = new Set();
+  public redefinedEdge: Set<string> = new Set();
 
   /**
    * weight
@@ -114,20 +108,8 @@ export class ActivityEdge extends RedefinableElement implements IActivityEdge {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public weight?: IValueSpecification = undefined;
+  public weight?: IValueSpecification;
 
-  // Inherited from RedefinableElement
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from RedefinableElement
   /**
    * ownedComment
    * 
@@ -137,16 +119,14 @@ export class ActivityEdge extends RedefinableElement implements IActivityEdge {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from RedefinableElement
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from RedefinableElement
   /**
    * nameExpression
    * 
@@ -154,18 +134,15 @@ export class ActivityEdge extends RedefinableElement implements IActivityEdge {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from RedefinableElement
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from RedefinableElement
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * isLeaf
    * 
@@ -174,23 +151,25 @@ export class ActivityEdge extends RedefinableElement implements IActivityEdge {
    */
   public isLeaf!: boolean;
 
+
   constructor(init?: Partial<IActivityEdge>) {
     super(init);
-    this.activity = init?.activity ?? undefined;
-    this.guard = init?.guard ?? undefined;
-    this.inPartition = init?.inPartition ?? new Set();
-    this.interrupts = init?.interrupts ?? undefined;
-    this.inStructuredNode = init?.inStructuredNode ?? undefined;
-    this.target = init?.target!;
-    this.source = init?.source!;
-    this.redefinedEdge = init?.redefinedEdge ?? new Set();
-    this.weight = init?.weight ?? undefined;
+
+    this.activity = init?.activity;
+    this.guard = init?.guard;
+    this.inPartition = init?.inPartition ? new Set(init.inPartition) : new Set();
+    this.interrupts = init?.interrupts;
+    this.inStructuredNode = init?.inStructuredNode;
+    this.target = init?.target ?? '';
+    this.source = init?.source ?? '';
+    this.redefinedEdge = init?.redefinedEdge ? new Set(init.redefinedEdge) : new Set();
+    this.weight = init?.weight;
   }
-  getActivity(): IActivity | string | undefined {
+  getActivity(): string | undefined {
     return this.activity;
   }
 
-  setActivity(value: IActivity | string | undefined): void {
+  setActivity(value: string | undefined): void {
     this.activity = value;
   }
 
@@ -202,51 +181,51 @@ export class ActivityEdge extends RedefinableElement implements IActivityEdge {
     this.guard = value;
   }
 
-  getInPartition(): Set<IActivityPartition | string> {
+  getInPartition(): Set<string> {
     return this.inPartition;
   }
 
-  setInPartition(value: Set<IActivityPartition | string>): void {
+  setInPartition(value: Set<string>): void {
     this.inPartition = value;
   }
 
-  getInterrupts(): IInterruptibleActivityRegion | string | undefined {
+  getInterrupts(): string | undefined {
     return this.interrupts;
   }
 
-  setInterrupts(value: IInterruptibleActivityRegion | string | undefined): void {
+  setInterrupts(value: string | undefined): void {
     this.interrupts = value;
   }
 
-  getInStructuredNode(): IStructuredActivityNode | string | undefined {
+  getInStructuredNode(): string | undefined {
     return this.inStructuredNode;
   }
 
-  setInStructuredNode(value: IStructuredActivityNode | string | undefined): void {
+  setInStructuredNode(value: string | undefined): void {
     this.inStructuredNode = value;
   }
 
-  getTarget(): IActivityNode | string {
+  getTarget(): string {
     return this.target;
   }
 
-  setTarget(value: IActivityNode | string): void {
+  setTarget(value: string): void {
     this.target = value;
   }
 
-  getSource(): IActivityNode | string {
+  getSource(): string {
     return this.source;
   }
 
-  setSource(value: IActivityNode | string): void {
+  setSource(value: string): void {
     this.source = value;
   }
 
-  getRedefinedEdge(): Set<IActivityEdge | string> {
+  getRedefinedEdge(): Set<string> {
     return this.redefinedEdge;
   }
 
-  setRedefinedEdge(value: Set<IActivityEdge | string>): void {
+  setRedefinedEdge(value: Set<string>): void {
     this.redefinedEdge = value;
   }
 
@@ -345,9 +324,6 @@ export class ActivityEdge extends RedefinableElement implements IActivityEdge {
   static fromJSON(json: any): ActivityEdge {
     const instance = new ActivityEdge();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

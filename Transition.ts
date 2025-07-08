@@ -6,20 +6,12 @@
  * @extends Namespace, RedefinableElement
  */
 import { Behavior } from './Behavior';
-import { Comment } from './Comment';
-import { Constraint } from './Constraint';
-import { ElementImport } from './ElementImport';
 import { IBehavior } from './IBehavior';
-import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IElementImport } from './IElementImport';
-import { INamedElement } from './INamedElement';
 import { INamespace } from './INamespace';
 import { IPackageImport } from './IPackageImport';
-import { IPackageableElement } from './IPackageableElement';
 import { IRedefinableElement } from './IRedefinableElement';
 import { IRegion } from './IRegion';
 import { IStringExpression } from './IStringExpression';
@@ -27,11 +19,9 @@ import { ITransition } from './ITransition';
 import { ITrigger } from './ITrigger';
 import { IVertex } from './IVertex';
 import { Namespace } from './Namespace';
-import { PackageImport } from './PackageImport';
 import { RedefinableElement } from './RedefinableElement';
 import { StringExpression } from './StringExpression';
 import { TransitionKind } from './TransitionKind';
-import { Trigger } from './Trigger';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
 
@@ -43,7 +33,7 @@ export class Transition extends Namespace implements ITransition {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public effect?: IBehavior = undefined;
+  public effect?: IBehavior;
 
   /**
    * guard
@@ -52,7 +42,7 @@ export class Transition extends Namespace implements ITransition {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public guard?: IConstraint | string = undefined;
+  public guard?: string;
 
   /**
    * kind
@@ -60,7 +50,7 @@ export class Transition extends Namespace implements ITransition {
    * @type TransitionKind
    * @multiplicity [1..1]
    */
-  public kind!: any;
+  public kind!: TransitionKind;
 
   /**
    * redefinedTransition
@@ -69,7 +59,7 @@ export class Transition extends Namespace implements ITransition {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public redefinedTransition?: ITransition | string = undefined;
+  public redefinedTransition?: string;
 
   /**
    * source
@@ -78,7 +68,7 @@ export class Transition extends Namespace implements ITransition {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public source!: IVertex | string;
+  public source!: string;
 
   /**
    * target
@@ -87,7 +77,7 @@ export class Transition extends Namespace implements ITransition {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public target!: IVertex | string;
+  public target!: string;
 
   /**
    * trigger
@@ -106,20 +96,8 @@ export class Transition extends Namespace implements ITransition {
    * @relationship cross-reference
    * @opposite transition
    */
-  public container!: IRegion | string;
+  public container!: string;
 
-  // Inherited from Namespace
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Namespace
   /**
    * ownedComment
    * 
@@ -129,16 +107,14 @@ export class Transition extends Namespace implements ITransition {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Namespace
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Namespace
   /**
    * nameExpression
    * 
@@ -146,18 +122,15 @@ export class Transition extends Namespace implements ITransition {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Namespace
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Namespace
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * ownedRule
    * 
@@ -168,7 +141,6 @@ export class Transition extends Namespace implements ITransition {
    */
   public ownedRule: Set<IConstraint> = new Set();
 
-  // Inherited from Namespace
   /**
    * elementImport
    * 
@@ -179,7 +151,6 @@ export class Transition extends Namespace implements ITransition {
    */
   public elementImport: Set<IElementImport> = new Set();
 
-  // Inherited from Namespace
   /**
    * packageImport
    * 
@@ -190,7 +161,39 @@ export class Transition extends Namespace implements ITransition {
    */
   public packageImport: Set<IPackageImport> = new Set();
 
-  // Inherited from RedefinableElement
+  /**
+   * ownedComment
+   * 
+   * @type Comment
+   * @multiplicity [0..*]
+   * @relationship containment
+   */
+  public ownedComment: Set<IComment> = new Set();
+
+  /**
+   * name
+   * 
+   * @type String
+   * @multiplicity [0..1]
+   */
+  public name?: string;
+
+  /**
+   * nameExpression
+   * 
+   * @type StringExpression
+   * @multiplicity [0..1]
+   * @relationship containment
+   */
+  public nameExpression?: IStringExpression;
+
+  /**
+   * visibility
+   * 
+   * @type VisibilityKind
+   * @multiplicity [0..1]
+   */
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * isLeaf
    * 
@@ -199,16 +202,18 @@ export class Transition extends Namespace implements ITransition {
    */
   public isLeaf!: boolean;
 
+
   constructor(init?: Partial<ITransition>) {
     super(init);
-    this.effect = init?.effect ?? undefined;
-    this.guard = init?.guard ?? undefined;
+
+    this.effect = init?.effect;
+    this.guard = init?.guard;
     this.kind = init?.kind!;
-    this.redefinedTransition = init?.redefinedTransition ?? undefined;
-    this.source = init?.source!;
-    this.target = init?.target!;
-    this.trigger = init?.trigger ?? new Set();
-    this.container = init?.container!;
+    this.redefinedTransition = init?.redefinedTransition;
+    this.source = init?.source ?? '';
+    this.target = init?.target ?? '';
+    this.trigger = init?.trigger ? new Set(init.trigger) : new Set();
+    this.container = init?.container ?? '';
   }
   getEffect(): IBehavior | undefined {
     return this.effect;
@@ -218,43 +223,43 @@ export class Transition extends Namespace implements ITransition {
     this.effect = value;
   }
 
-  getGuard(): IConstraint | string | undefined {
+  getGuard(): string | undefined {
     return this.guard;
   }
 
-  setGuard(value: IConstraint | string | undefined): void {
+  setGuard(value: string | undefined): void {
     this.guard = value;
   }
 
-  getKind(): any {
+  getKind(): TransitionKind {
     return this.kind;
   }
 
-  setKind(value: any): void {
+  setKind(value: TransitionKind): void {
     this.kind = value;
   }
 
-  getRedefinedTransition(): ITransition | string | undefined {
+  getRedefinedTransition(): string | undefined {
     return this.redefinedTransition;
   }
 
-  setRedefinedTransition(value: ITransition | string | undefined): void {
+  setRedefinedTransition(value: string | undefined): void {
     this.redefinedTransition = value;
   }
 
-  getSource(): IVertex | string {
+  getSource(): string {
     return this.source;
   }
 
-  setSource(value: IVertex | string): void {
+  setSource(value: string): void {
     this.source = value;
   }
 
-  getTarget(): IVertex | string {
+  getTarget(): string {
     return this.target;
   }
 
-  setTarget(value: IVertex | string): void {
+  setTarget(value: string): void {
     this.target = value;
   }
 
@@ -266,11 +271,11 @@ export class Transition extends Namespace implements ITransition {
     this.trigger = value;
   }
 
-  getContainer(): IRegion | string {
+  getContainer(): string {
     return this.container;
   }
 
-  setContainer(value: IRegion | string): void {
+  setContainer(value: string): void {
     this.container = value;
   }
 
@@ -355,9 +360,6 @@ export class Transition extends Namespace implements ITransition {
   static fromJSON(json: any): Transition {
     const instance = new Transition();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

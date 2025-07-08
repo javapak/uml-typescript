@@ -5,13 +5,10 @@
  * @package uml
  * @extends Dependency
  */
-import { Comment } from './Comment';
 import { Dependency } from './Dependency';
 import { IComment } from './IComment';
 import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IStringExpression } from './IStringExpression';
 import { ITemplateParameter } from './ITemplateParameter';
 import { IUsage } from './IUsage';
@@ -20,18 +17,6 @@ import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
 
 export class Usage extends Dependency implements IUsage {
-  // Inherited from Dependency
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Dependency
   /**
    * ownedComment
    * 
@@ -41,16 +26,14 @@ export class Usage extends Dependency implements IUsage {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Dependency
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Dependency
   /**
    * nameExpression
    * 
@@ -58,18 +41,15 @@ export class Usage extends Dependency implements IUsage {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Dependency
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Dependency
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * owningTemplateParameter
    * 
@@ -78,9 +58,8 @@ export class Usage extends Dependency implements IUsage {
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from Dependency
   /**
    * templateParameter
    * 
@@ -89,9 +68,8 @@ export class Usage extends Dependency implements IUsage {
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from Dependency
   /**
    * client
    * 
@@ -99,9 +77,8 @@ export class Usage extends Dependency implements IUsage {
    * @multiplicity [1..*]
    * @relationship cross-reference
    */
-  public client: Set<INamedElement | string> = new Set();
+  public client: Set<string> = new Set();
 
-  // Inherited from Dependency
   /**
    * supplier
    * 
@@ -109,10 +86,12 @@ export class Usage extends Dependency implements IUsage {
    * @multiplicity [1..*]
    * @relationship cross-reference
    */
-  public supplier: Set<INamedElement | string> = new Set();
+  public supplier: Set<string> = new Set();
+
 
   constructor(init?: Partial<IUsage>) {
     super(init);
+
   }
   /**
    * Converts this instance to a plain object matching the interface
@@ -173,9 +152,6 @@ export class Usage extends Dependency implements IUsage {
   static fromJSON(json: any): Usage {
     const instance = new Usage();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

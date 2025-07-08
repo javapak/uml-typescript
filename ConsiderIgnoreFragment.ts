@@ -6,23 +6,16 @@
  * @extends CombinedFragment
  */
 import { CombinedFragment } from './CombinedFragment';
-import { Comment } from './Comment';
-import { Gate } from './Gate';
-import { GeneralOrdering } from './GeneralOrdering';
 import { ICombinedFragment } from './ICombinedFragment';
 import { IComment } from './IComment';
 import { IConsiderIgnoreFragment } from './IConsiderIgnoreFragment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IGate } from './IGate';
 import { IGeneralOrdering } from './IGeneralOrdering';
 import { IInteraction } from './IInteraction';
 import { IInteractionOperand } from './IInteractionOperand';
 import { ILifeline } from './ILifeline';
 import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IStringExpression } from './IStringExpression';
-import { InteractionOperand } from './InteractionOperand';
 import { InteractionOperatorKind } from './InteractionOperatorKind';
 import { StringExpression } from './StringExpression';
 import { ValidationError, ValidationResult } from './ValidationTypes';
@@ -36,20 +29,8 @@ export class ConsiderIgnoreFragment extends CombinedFragment implements IConside
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public message: Set<INamedElement | string> = new Set();
+  public message: Set<string> = new Set();
 
-  // Inherited from CombinedFragment
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from CombinedFragment
   /**
    * ownedComment
    * 
@@ -59,16 +40,14 @@ export class ConsiderIgnoreFragment extends CombinedFragment implements IConside
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from CombinedFragment
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from CombinedFragment
   /**
    * nameExpression
    * 
@@ -76,18 +55,15 @@ export class ConsiderIgnoreFragment extends CombinedFragment implements IConside
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from CombinedFragment
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from CombinedFragment
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * covered
    * 
@@ -96,9 +72,8 @@ export class ConsiderIgnoreFragment extends CombinedFragment implements IConside
    * @relationship cross-reference
    * @opposite coveredBy
    */
-  public covered: Set<ILifeline | string> = new Set();
+  public covered: Set<string> = new Set();
 
-  // Inherited from CombinedFragment
   /**
    * enclosingOperand
    * 
@@ -107,9 +82,8 @@ export class ConsiderIgnoreFragment extends CombinedFragment implements IConside
    * @relationship cross-reference
    * @opposite fragment
    */
-  public enclosingOperand?: IInteractionOperand | string = undefined;
+  public enclosingOperand?: string;
 
-  // Inherited from CombinedFragment
   /**
    * enclosingInteraction
    * 
@@ -118,9 +92,8 @@ export class ConsiderIgnoreFragment extends CombinedFragment implements IConside
    * @relationship cross-reference
    * @opposite fragment
    */
-  public enclosingInteraction?: IInteraction | string = undefined;
+  public enclosingInteraction?: string;
 
-  // Inherited from CombinedFragment
   /**
    * generalOrdering
    * 
@@ -130,7 +103,6 @@ export class ConsiderIgnoreFragment extends CombinedFragment implements IConside
    */
   public generalOrdering: Set<IGeneralOrdering> = new Set();
 
-  // Inherited from CombinedFragment
   /**
    * cfragmentGate
    * 
@@ -140,16 +112,13 @@ export class ConsiderIgnoreFragment extends CombinedFragment implements IConside
    */
   public cfragmentGate: Set<IGate> = new Set();
 
-  // Inherited from CombinedFragment
   /**
    * interactionOperator
    * 
    * @type InteractionOperatorKind
    * @multiplicity [1..1]
    */
-  public interactionOperator!: any;
-
-  // Inherited from CombinedFragment
+  public interactionOperator: InteractionOperatorKind = InteractionOperatorKind.seq;
   /**
    * operand
    * 
@@ -159,15 +128,17 @@ export class ConsiderIgnoreFragment extends CombinedFragment implements IConside
    */
   public operand: IInteractionOperand[] = [];
 
+
   constructor(init?: Partial<IConsiderIgnoreFragment>) {
     super(init);
-    this.message = init?.message ?? new Set();
+
+    this.message = init?.message ? new Set(init.message) : new Set();
   }
-  getMessage(): Set<INamedElement | string> {
+  getMessage(): Set<string> {
     return this.message;
   }
 
-  setMessage(value: Set<INamedElement | string>): void {
+  setMessage(value: Set<string>): void {
     this.message = value;
   }
 
@@ -232,9 +203,6 @@ export class ConsiderIgnoreFragment extends CombinedFragment implements IConside
   static fromJSON(json: any): ConsiderIgnoreFragment {
     const instance = new ConsiderIgnoreFragment();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

@@ -17,7 +17,7 @@ export interface ITrigger extends INamedElement {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  event: IEvent | string;
+  event: string;
   /**
    * port
    * 
@@ -25,7 +25,7 @@ export interface ITrigger extends INamedElement {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  port: Set<IPort | string>;
+  port?: Set<string>;
 }
 
 // Type aliases for Trigger

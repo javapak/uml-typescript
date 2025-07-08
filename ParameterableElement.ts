@@ -6,7 +6,6 @@
  * @abstract
  * @extends Element
  */
-import { Comment } from './Comment';
 import { Element } from './Element';
 import { IComment } from './IComment';
 import { IElement } from './IElement';
@@ -23,7 +22,7 @@ export class ParameterableElement extends Element implements IParameterableEleme
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
   /**
    * templateParameter
@@ -33,20 +32,8 @@ export class ParameterableElement extends Element implements IParameterableEleme
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from Element
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Element
   /**
    * ownedComment
    * 
@@ -56,24 +43,26 @@ export class ParameterableElement extends Element implements IParameterableEleme
    */
   public ownedComment: Set<IComment> = new Set();
 
+
   constructor(init?: Partial<IParameterableElement>) {
     super(init);
-    this.owningTemplateParameter = init?.owningTemplateParameter ?? undefined;
-    this.templateParameter = init?.templateParameter ?? undefined;
+
+    this.owningTemplateParameter = init?.owningTemplateParameter;
+    this.templateParameter = init?.templateParameter;
   }
-  getOwningTemplateParameter(): ITemplateParameter | string | undefined {
+  getOwningTemplateParameter(): string | undefined {
     return this.owningTemplateParameter;
   }
 
-  setOwningTemplateParameter(value: ITemplateParameter | string | undefined): void {
+  setOwningTemplateParameter(value: string | undefined): void {
     this.owningTemplateParameter = value;
   }
 
-  getTemplateParameter(): ITemplateParameter | string | undefined {
+  getTemplateParameter(): string | undefined {
     return this.templateParameter;
   }
 
-  setTemplateParameter(value: ITemplateParameter | string | undefined): void {
+  setTemplateParameter(value: string | undefined): void {
     this.templateParameter = value;
   }
 
@@ -144,9 +133,6 @@ export class ParameterableElement extends Element implements IParameterableEleme
   static fromJSON(json: any): ParameterableElement {
     const instance = new ParameterableElement();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

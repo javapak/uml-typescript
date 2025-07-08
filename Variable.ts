@@ -5,16 +5,11 @@
  * @package uml
  * @extends ConnectableElement, MultiplicityElement
  */
-import { Comment } from './Comment';
 import { ConnectableElement } from './ConnectableElement';
 import { IActivity } from './IActivity';
 import { IComment } from './IComment';
 import { IConnectableElement } from './IConnectableElement';
-import { IConnectorEnd } from './IConnectorEnd';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IMultiplicityElement } from './IMultiplicityElement';
-import { INamespace } from './INamespace';
 import { IStringExpression } from './IStringExpression';
 import { IStructuredActivityNode } from './IStructuredActivityNode';
 import { ITemplateParameter } from './ITemplateParameter';
@@ -36,7 +31,7 @@ export class Variable extends ConnectableElement implements IVariable {
    * @relationship cross-reference
    * @opposite variable
    */
-  public activityScope?: IActivity | string = undefined;
+  public activityScope?: string;
 
   /**
    * scope
@@ -46,20 +41,8 @@ export class Variable extends ConnectableElement implements IVariable {
    * @relationship cross-reference
    * @opposite variable
    */
-  public scope?: IStructuredActivityNode | string = undefined;
+  public scope?: string;
 
-  // Inherited from ConnectableElement
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from ConnectableElement
   /**
    * ownedComment
    * 
@@ -69,16 +52,14 @@ export class Variable extends ConnectableElement implements IVariable {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from ConnectableElement
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from ConnectableElement
   /**
    * nameExpression
    * 
@@ -86,18 +67,15 @@ export class Variable extends ConnectableElement implements IVariable {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from ConnectableElement
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from ConnectableElement
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * type
    * 
@@ -105,9 +83,8 @@ export class Variable extends ConnectableElement implements IVariable {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public type?: IType | string = undefined;
+  public type?: string;
 
-  // Inherited from ConnectableElement
   /**
    * owningTemplateParameter
    * 
@@ -116,9 +93,8 @@ export class Variable extends ConnectableElement implements IVariable {
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from ConnectableElement
   /**
    * templateParameter
    * 
@@ -127,9 +103,17 @@ export class Variable extends ConnectableElement implements IVariable {
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from MultiplicityElement
+  /**
+   * ownedComment
+   * 
+   * @type Comment
+   * @multiplicity [0..*]
+   * @relationship containment
+   */
+  public ownedComment: Set<IComment> = new Set();
+
   /**
    * isOrdered
    * 
@@ -138,7 +122,6 @@ export class Variable extends ConnectableElement implements IVariable {
    */
   public isOrdered!: boolean;
 
-  // Inherited from MultiplicityElement
   /**
    * isUnique
    * 
@@ -147,7 +130,6 @@ export class Variable extends ConnectableElement implements IVariable {
    */
   public isUnique!: boolean;
 
-  // Inherited from MultiplicityElement
   /**
    * lowerValue
    * 
@@ -155,9 +137,8 @@ export class Variable extends ConnectableElement implements IVariable {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public lowerValue?: IValueSpecification = undefined;
+  public lowerValue?: IValueSpecification;
 
-  // Inherited from MultiplicityElement
   /**
    * upperValue
    * 
@@ -165,26 +146,28 @@ export class Variable extends ConnectableElement implements IVariable {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public upperValue?: IValueSpecification = undefined;
+  public upperValue?: IValueSpecification;
+
 
   constructor(init?: Partial<IVariable>) {
     super(init);
-    this.activityScope = init?.activityScope ?? undefined;
-    this.scope = init?.scope ?? undefined;
+
+    this.activityScope = init?.activityScope;
+    this.scope = init?.scope;
   }
-  getActivityScope(): IActivity | string | undefined {
+  getActivityScope(): string | undefined {
     return this.activityScope;
   }
 
-  setActivityScope(value: IActivity | string | undefined): void {
+  setActivityScope(value: string | undefined): void {
     this.activityScope = value;
   }
 
-  getScope(): IStructuredActivityNode | string | undefined {
+  getScope(): string | undefined {
     return this.scope;
   }
 
-  setScope(value: IStructuredActivityNode | string | undefined): void {
+  setScope(value: string | undefined): void {
     this.scope = value;
   }
 
@@ -255,9 +238,6 @@ export class Variable extends ConnectableElement implements IVariable {
   static fromJSON(json: any): Variable {
     const instance = new Variable();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

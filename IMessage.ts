@@ -21,7 +21,7 @@ export interface IMessage extends INamedElement {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  argument: IValueSpecification[];
+  argument?: IValueSpecification[];
   /**
    * connector
    * 
@@ -29,7 +29,7 @@ export interface IMessage extends INamedElement {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  connector?: IConnector | string;
+  connector?: string;
   /**
    * interaction
    * 
@@ -38,14 +38,14 @@ export interface IMessage extends INamedElement {
    * @relationship cross-reference
    * @opposite message
    */
-  interaction: IInteraction | string;
+  interaction: string;
   /**
    * messageSort
    * 
    * @type MessageSort
    * @multiplicity [1..1]
    */
-  messageSort: any;
+  messageSort: MessageSort;
   /**
    * receiveEvent
    * 
@@ -53,7 +53,7 @@ export interface IMessage extends INamedElement {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  receiveEvent?: IMessageEnd | string;
+  receiveEvent?: string;
   /**
    * sendEvent
    * 
@@ -61,7 +61,7 @@ export interface IMessage extends INamedElement {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  sendEvent?: IMessageEnd | string;
+  sendEvent?: string;
   /**
    * signature
    * 
@@ -69,7 +69,7 @@ export interface IMessage extends INamedElement {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  signature?: INamedElement | string;
+  signature?: string;
 }
 
 // Type aliases for Message

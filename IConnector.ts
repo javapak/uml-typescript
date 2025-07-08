@@ -19,7 +19,7 @@ export interface IConnector extends IFeature {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  contract: Set<IBehavior | string>;
+  contract?: Set<string>;
   /**
    * end
    * 
@@ -35,7 +35,7 @@ export interface IConnector extends IFeature {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  redefinedConnector: Set<IConnector | string>;
+  redefinedConnector?: Set<string>;
   /**
    * type
    * 
@@ -43,7 +43,7 @@ export interface IConnector extends IFeature {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  type?: IAssociation | string;
+  type?: string;
 }
 
 // Type aliases for Connector

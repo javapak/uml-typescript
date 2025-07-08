@@ -11,9 +11,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialReduceAction = Partial<IReduceAction>;
 export type RequiredReduceAction = Required<IReduceAction>;
-export type ReduceActionKey = Pick<IReduceAction, 'name' | 'nameExpression'>;
-export type ReduceActionMetadata = Pick<IReduceAction, 'ownedComment' | 'visibility'>;
-export type ReduceActionSummary = Pick<IReduceAction, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type ReduceActionUnion = IReduceAction | IAction;
 export type ReduceActionFactory = () => ReduceAction;
 export type ReduceActionValidator = (instance: IReduceAction) => ValidationResult;

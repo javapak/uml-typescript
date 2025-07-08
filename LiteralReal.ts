@@ -5,13 +5,9 @@
  * @package uml
  * @extends LiteralSpecification
  */
-import { Comment } from './Comment';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { ILiteralReal } from './ILiteralReal';
 import { ILiteralSpecification } from './ILiteralSpecification';
-import { INamespace } from './INamespace';
 import { IStringExpression } from './IStringExpression';
 import { ITemplateParameter } from './ITemplateParameter';
 import { IType } from './IType';
@@ -29,18 +25,6 @@ export class LiteralReal extends LiteralSpecification implements ILiteralReal {
    */
   public value!: number;
 
-  // Inherited from LiteralSpecification
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from LiteralSpecification
   /**
    * ownedComment
    * 
@@ -50,16 +34,14 @@ export class LiteralReal extends LiteralSpecification implements ILiteralReal {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from LiteralSpecification
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from LiteralSpecification
   /**
    * nameExpression
    * 
@@ -67,18 +49,15 @@ export class LiteralReal extends LiteralSpecification implements ILiteralReal {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from LiteralSpecification
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from LiteralSpecification
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * owningTemplateParameter
    * 
@@ -87,9 +66,8 @@ export class LiteralReal extends LiteralSpecification implements ILiteralReal {
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from LiteralSpecification
   /**
    * templateParameter
    * 
@@ -98,9 +76,8 @@ export class LiteralReal extends LiteralSpecification implements ILiteralReal {
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from LiteralSpecification
   /**
    * type
    * 
@@ -108,11 +85,13 @@ export class LiteralReal extends LiteralSpecification implements ILiteralReal {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public type?: IType | string = undefined;
+  public type?: string;
+
 
   constructor(init?: Partial<ILiteralReal>) {
     super(init);
-    this.value = init?.value!;
+
+    this.value = init?.value ?? 0;
   }
   getValue(): number {
     return this.value;
@@ -183,9 +162,6 @@ export class LiteralReal extends LiteralSpecification implements ILiteralReal {
   static fromJSON(json: any): LiteralReal {
     const instance = new LiteralReal();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

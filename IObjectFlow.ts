@@ -30,7 +30,7 @@ export interface IObjectFlow extends IActivityEdge {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  selection?: IBehavior | string;
+  selection?: string;
   /**
    * transformation
    * 
@@ -38,7 +38,7 @@ export interface IObjectFlow extends IActivityEdge {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  transformation?: IBehavior | string;
+  transformation?: string;
 }
 
 // Type aliases for ObjectFlow

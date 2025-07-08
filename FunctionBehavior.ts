@@ -5,81 +5,38 @@
  * @package uml
  * @extends OpaqueBehavior
  */
-import { Behavior } from './Behavior';
-import { Classifier } from './Classifier';
-import { CollaborationUse } from './CollaborationUse';
-import { Comment } from './Comment';
-import { Connector } from './Connector';
-import { Constraint } from './Constraint';
-import { ElementImport } from './ElementImport';
-import { Generalization } from './Generalization';
 import { IBehavior } from './IBehavior';
 import { IBehavioralFeature } from './IBehavioralFeature';
-import { IBehavioredClassifier } from './IBehavioredClassifier';
-import { IClass } from './IClass';
 import { IClassifier } from './IClassifier';
 import { ICollaborationUse } from './ICollaborationUse';
 import { IComment } from './IComment';
-import { IConnectableElement } from './IConnectableElement';
 import { IConnector } from './IConnector';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IElementImport } from './IElementImport';
-import { IExtension } from './IExtension';
-import { IFeature } from './IFeature';
 import { IFunctionBehavior } from './IFunctionBehavior';
 import { IGeneralization } from './IGeneralization';
 import { IGeneralizationSet } from './IGeneralizationSet';
 import { IInterfaceRealization } from './IInterfaceRealization';
-import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IOpaqueBehavior } from './IOpaqueBehavior';
 import { IOperation } from './IOperation';
-import { IPackage } from './IPackage';
 import { IPackageImport } from './IPackageImport';
-import { IPackageableElement } from './IPackageableElement';
 import { IParameter } from './IParameter';
 import { IParameterSet } from './IParameterSet';
-import { IPort } from './IPort';
 import { IProperty } from './IProperty';
 import { IReception } from './IReception';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { ISubstitution } from './ISubstitution';
 import { ITemplateBinding } from './ITemplateBinding';
 import { ITemplateParameter } from './ITemplateParameter';
 import { ITemplateSignature } from './ITemplateSignature';
 import { IUseCase } from './IUseCase';
-import { InterfaceRealization } from './InterfaceRealization';
 import { OpaqueBehavior } from './OpaqueBehavior';
-import { Operation } from './Operation';
-import { PackageImport } from './PackageImport';
-import { Parameter } from './Parameter';
-import { ParameterSet } from './ParameterSet';
-import { Property } from './Property';
-import { Reception } from './Reception';
 import { StringExpression } from './StringExpression';
-import { Substitution } from './Substitution';
-import { TemplateBinding } from './TemplateBinding';
 import { TemplateSignature } from './TemplateSignature';
-import { UseCase } from './UseCase';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
 
 export class FunctionBehavior extends OpaqueBehavior implements IFunctionBehavior {
-  // Inherited from OpaqueBehavior
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from OpaqueBehavior
   /**
    * ownedComment
    * 
@@ -89,16 +46,14 @@ export class FunctionBehavior extends OpaqueBehavior implements IFunctionBehavio
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from OpaqueBehavior
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from OpaqueBehavior
   /**
    * nameExpression
    * 
@@ -106,18 +61,15 @@ export class FunctionBehavior extends OpaqueBehavior implements IFunctionBehavio
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from OpaqueBehavior
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from OpaqueBehavior
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * ownedRule
    * 
@@ -128,7 +80,6 @@ export class FunctionBehavior extends OpaqueBehavior implements IFunctionBehavio
    */
   public ownedRule: Set<IConstraint> = new Set();
 
-  // Inherited from OpaqueBehavior
   /**
    * elementImport
    * 
@@ -139,7 +90,6 @@ export class FunctionBehavior extends OpaqueBehavior implements IFunctionBehavio
    */
   public elementImport: Set<IElementImport> = new Set();
 
-  // Inherited from OpaqueBehavior
   /**
    * packageImport
    * 
@@ -150,7 +100,6 @@ export class FunctionBehavior extends OpaqueBehavior implements IFunctionBehavio
    */
   public packageImport: Set<IPackageImport> = new Set();
 
-  // Inherited from OpaqueBehavior
   /**
    * isLeaf
    * 
@@ -159,7 +108,6 @@ export class FunctionBehavior extends OpaqueBehavior implements IFunctionBehavio
    */
   public isLeaf!: boolean;
 
-  // Inherited from OpaqueBehavior
   /**
    * owningTemplateParameter
    * 
@@ -168,9 +116,8 @@ export class FunctionBehavior extends OpaqueBehavior implements IFunctionBehavio
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from OpaqueBehavior
   /**
    * templateParameter
    * 
@@ -179,9 +126,8 @@ export class FunctionBehavior extends OpaqueBehavior implements IFunctionBehavio
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from OpaqueBehavior
   /**
    * templateBinding
    * 
@@ -192,7 +138,6 @@ export class FunctionBehavior extends OpaqueBehavior implements IFunctionBehavio
    */
   public templateBinding: Set<ITemplateBinding> = new Set();
 
-  // Inherited from OpaqueBehavior
   /**
    * ownedTemplateSignature
    * 
@@ -201,9 +146,8 @@ export class FunctionBehavior extends OpaqueBehavior implements IFunctionBehavio
    * @relationship containment
    * @opposite template
    */
-  public ownedTemplateSignature?: ITemplateSignature = undefined;
+  public ownedTemplateSignature?: ITemplateSignature;
 
-  // Inherited from OpaqueBehavior
   /**
    * collaborationUse
    * 
@@ -213,7 +157,6 @@ export class FunctionBehavior extends OpaqueBehavior implements IFunctionBehavio
    */
   public collaborationUse: Set<ICollaborationUse> = new Set();
 
-  // Inherited from OpaqueBehavior
   /**
    * generalization
    * 
@@ -224,7 +167,6 @@ export class FunctionBehavior extends OpaqueBehavior implements IFunctionBehavio
    */
   public generalization: Set<IGeneralization> = new Set();
 
-  // Inherited from OpaqueBehavior
   /**
    * powertypeExtent
    * 
@@ -233,9 +175,8 @@ export class FunctionBehavior extends OpaqueBehavior implements IFunctionBehavio
    * @relationship cross-reference
    * @opposite powertype
    */
-  public powertypeExtent: Set<IGeneralizationSet | string> = new Set();
+  public powertypeExtent: Set<string> = new Set();
 
-  // Inherited from OpaqueBehavior
   /**
    * isAbstract
    * 
@@ -244,7 +185,6 @@ export class FunctionBehavior extends OpaqueBehavior implements IFunctionBehavio
    */
   public isAbstract!: boolean;
 
-  // Inherited from OpaqueBehavior
   /**
    * isFinalSpecialization
    * 
@@ -253,7 +193,6 @@ export class FunctionBehavior extends OpaqueBehavior implements IFunctionBehavio
    */
   public isFinalSpecialization!: boolean;
 
-  // Inherited from OpaqueBehavior
   /**
    * ownedUseCase
    * 
@@ -263,7 +202,6 @@ export class FunctionBehavior extends OpaqueBehavior implements IFunctionBehavio
    */
   public ownedUseCase: Set<IUseCase> = new Set();
 
-  // Inherited from OpaqueBehavior
   /**
    * useCase
    * 
@@ -272,9 +210,8 @@ export class FunctionBehavior extends OpaqueBehavior implements IFunctionBehavio
    * @relationship cross-reference
    * @opposite subject
    */
-  public useCase: Set<IUseCase | string> = new Set();
+  public useCase: Set<string> = new Set();
 
-  // Inherited from OpaqueBehavior
   /**
    * redefinedClassifier
    * 
@@ -282,9 +219,8 @@ export class FunctionBehavior extends OpaqueBehavior implements IFunctionBehavio
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedClassifier: Set<IClassifier | string> = new Set();
+  public redefinedClassifier: Set<string> = new Set();
 
-  // Inherited from OpaqueBehavior
   /**
    * representation
    * 
@@ -292,9 +228,8 @@ export class FunctionBehavior extends OpaqueBehavior implements IFunctionBehavio
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public representation?: ICollaborationUse | string = undefined;
+  public representation?: string;
 
-  // Inherited from OpaqueBehavior
   /**
    * substitution
    * 
@@ -305,7 +240,6 @@ export class FunctionBehavior extends OpaqueBehavior implements IFunctionBehavio
    */
   public substitution: Set<ISubstitution> = new Set();
 
-  // Inherited from OpaqueBehavior
   /**
    * ownedAttribute
    * 
@@ -315,7 +249,6 @@ export class FunctionBehavior extends OpaqueBehavior implements IFunctionBehavio
    */
   public ownedAttribute: IProperty[] = [];
 
-  // Inherited from OpaqueBehavior
   /**
    * ownedConnector
    * 
@@ -325,7 +258,6 @@ export class FunctionBehavior extends OpaqueBehavior implements IFunctionBehavio
    */
   public ownedConnector: Set<IConnector> = new Set();
 
-  // Inherited from OpaqueBehavior
   /**
    * classifierBehavior
    * 
@@ -333,9 +265,8 @@ export class FunctionBehavior extends OpaqueBehavior implements IFunctionBehavio
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public classifierBehavior?: IBehavior | string = undefined;
+  public classifierBehavior?: string;
 
-  // Inherited from OpaqueBehavior
   /**
    * interfaceRealization
    * 
@@ -346,7 +277,6 @@ export class FunctionBehavior extends OpaqueBehavior implements IFunctionBehavio
    */
   public interfaceRealization: Set<IInterfaceRealization> = new Set();
 
-  // Inherited from OpaqueBehavior
   /**
    * ownedBehavior
    * 
@@ -356,7 +286,6 @@ export class FunctionBehavior extends OpaqueBehavior implements IFunctionBehavio
    */
   public ownedBehavior: Set<IBehavior> = new Set();
 
-  // Inherited from OpaqueBehavior
   /**
    * ownedOperation
    * 
@@ -367,7 +296,6 @@ export class FunctionBehavior extends OpaqueBehavior implements IFunctionBehavio
    */
   public ownedOperation: IOperation[] = [];
 
-  // Inherited from OpaqueBehavior
   /**
    * isActive
    * 
@@ -376,7 +304,6 @@ export class FunctionBehavior extends OpaqueBehavior implements IFunctionBehavio
    */
   public isActive!: boolean;
 
-  // Inherited from OpaqueBehavior
   /**
    * nestedClassifier
    * 
@@ -386,7 +313,6 @@ export class FunctionBehavior extends OpaqueBehavior implements IFunctionBehavio
    */
   public nestedClassifier: IClassifier[] = [];
 
-  // Inherited from OpaqueBehavior
   /**
    * ownedReception
    * 
@@ -396,7 +322,6 @@ export class FunctionBehavior extends OpaqueBehavior implements IFunctionBehavio
    */
   public ownedReception: Set<IReception> = new Set();
 
-  // Inherited from OpaqueBehavior
   /**
    * specification
    * 
@@ -405,18 +330,16 @@ export class FunctionBehavior extends OpaqueBehavior implements IFunctionBehavio
    * @relationship cross-reference
    * @opposite method
    */
-  public specification?: IBehavioralFeature | string = undefined;
+  public specification?: string;
 
-  // Inherited from OpaqueBehavior
   /**
    * isReentrant
    * 
    * @type Boolean
    * @multiplicity [0..1]
    */
-  public isReentrant?: boolean = undefined;
+  public isReentrant?: boolean;
 
-  // Inherited from OpaqueBehavior
   /**
    * ownedParameter
    * 
@@ -426,7 +349,6 @@ export class FunctionBehavior extends OpaqueBehavior implements IFunctionBehavio
    */
   public ownedParameter: IParameter[] = [];
 
-  // Inherited from OpaqueBehavior
   /**
    * ownedParameterSet
    * 
@@ -436,7 +358,6 @@ export class FunctionBehavior extends OpaqueBehavior implements IFunctionBehavio
    */
   public ownedParameterSet: Set<IParameterSet> = new Set();
 
-  // Inherited from OpaqueBehavior
   /**
    * postcondition
    * 
@@ -444,9 +365,8 @@ export class FunctionBehavior extends OpaqueBehavior implements IFunctionBehavio
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public postcondition: Set<IConstraint | string> = new Set();
+  public postcondition: Set<string> = new Set();
 
-  // Inherited from OpaqueBehavior
   /**
    * precondition
    * 
@@ -454,9 +374,8 @@ export class FunctionBehavior extends OpaqueBehavior implements IFunctionBehavio
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public precondition: Set<IConstraint | string> = new Set();
+  public precondition: Set<string> = new Set();
 
-  // Inherited from OpaqueBehavior
   /**
    * redefinedBehavior
    * 
@@ -464,9 +383,8 @@ export class FunctionBehavior extends OpaqueBehavior implements IFunctionBehavio
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedBehavior: Set<IBehavior | string> = new Set();
+  public redefinedBehavior: Set<string> = new Set();
 
-  // Inherited from OpaqueBehavior
   /**
    * body
    * 
@@ -475,7 +393,6 @@ export class FunctionBehavior extends OpaqueBehavior implements IFunctionBehavio
    */
   public body: string[] = [];
 
-  // Inherited from OpaqueBehavior
   /**
    * language
    * 
@@ -484,8 +401,10 @@ export class FunctionBehavior extends OpaqueBehavior implements IFunctionBehavio
    */
   public language: string[] = [];
 
+
   constructor(init?: Partial<IFunctionBehavior>) {
     super(init);
+
   }
   /**
    * Converts this instance to a plain object matching the interface
@@ -546,9 +465,6 @@ export class FunctionBehavior extends OpaqueBehavior implements IFunctionBehavio
   static fromJSON(json: any): FunctionBehavior {
     const instance = new FunctionBehavior();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

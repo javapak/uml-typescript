@@ -5,10 +5,8 @@
  * @package uml
  * @extends TemplateParameter
  */
-import { Comment } from './Comment';
 import { IComment } from './IComment';
 import { IConnectableElementTemplateParameter } from './IConnectableElementTemplateParameter';
-import { IElement } from './IElement';
 import { IParameterableElement } from './IParameterableElement';
 import { ITemplateParameter } from './ITemplateParameter';
 import { ITemplateSignature } from './ITemplateSignature';
@@ -17,18 +15,6 @@ import { TemplateParameter } from './TemplateParameter';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 
 export class ConnectableElementTemplateParameter extends TemplateParameter implements IConnectableElementTemplateParameter {
-  // Inherited from TemplateParameter
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from TemplateParameter
   /**
    * ownedComment
    * 
@@ -38,7 +24,6 @@ export class ConnectableElementTemplateParameter extends TemplateParameter imple
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from TemplateParameter
   /**
    * default
    * 
@@ -46,9 +31,8 @@ export class ConnectableElementTemplateParameter extends TemplateParameter imple
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public default?: IParameterableElement | string = undefined;
+  public default?: string;
 
-  // Inherited from TemplateParameter
   /**
    * ownedDefault
    * 
@@ -56,9 +40,8 @@ export class ConnectableElementTemplateParameter extends TemplateParameter imple
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public ownedDefault?: IParameterableElement = undefined;
+  public ownedDefault?: IParameterableElement;
 
-  // Inherited from TemplateParameter
   /**
    * parameteredElement
    * 
@@ -67,9 +50,8 @@ export class ConnectableElementTemplateParameter extends TemplateParameter imple
    * @relationship cross-reference
    * @opposite templateParameter
    */
-  public parameteredElement!: IParameterableElement | string;
+  public parameteredElement!: string;
 
-  // Inherited from TemplateParameter
   /**
    * signature
    * 
@@ -78,9 +60,8 @@ export class ConnectableElementTemplateParameter extends TemplateParameter imple
    * @relationship cross-reference
    * @opposite ownedParameter
    */
-  public signature!: ITemplateSignature | string;
+  public signature!: string;
 
-  // Inherited from TemplateParameter
   /**
    * ownedParameteredElement
    * 
@@ -89,10 +70,12 @@ export class ConnectableElementTemplateParameter extends TemplateParameter imple
    * @relationship containment
    * @opposite owningTemplateParameter
    */
-  public ownedParameteredElement?: IParameterableElement = undefined;
+  public ownedParameteredElement?: IParameterableElement;
+
 
   constructor(init?: Partial<IConnectableElementTemplateParameter>) {
     super(init);
+
   }
   /**
    * Converts this instance to a plain object matching the interface
@@ -153,9 +136,6 @@ export class ConnectableElementTemplateParameter extends TemplateParameter imple
   static fromJSON(json: any): ConnectableElementTemplateParameter {
     const instance = new ConnectableElementTemplateParameter();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

@@ -6,13 +6,8 @@
  * @abstract
  * @extends NamedElement
  */
-import { Comment } from './Comment';
-import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { NamedElement } from './NamedElement';
@@ -29,18 +24,6 @@ export class RedefinableElement extends NamedElement implements IRedefinableElem
    */
   public isLeaf!: boolean;
 
-  // Inherited from NamedElement
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from NamedElement
   /**
    * ownedComment
    * 
@@ -50,16 +33,14 @@ export class RedefinableElement extends NamedElement implements IRedefinableElem
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from NamedElement
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from NamedElement
   /**
    * nameExpression
    * 
@@ -67,20 +48,20 @@ export class RedefinableElement extends NamedElement implements IRedefinableElem
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from NamedElement
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
+  public visibility: VisibilityKind | undefined = undefined;
 
   constructor(init?: Partial<IRedefinableElement>) {
     super(init);
-    this.isLeaf = init?.isLeaf!;
+
+    this.isLeaf = init?.isLeaf ?? false;
   }
   getIsLeaf(): boolean {
     return this.isLeaf;
@@ -151,9 +132,6 @@ export class RedefinableElement extends NamedElement implements IRedefinableElem
   static fromJSON(json: any): RedefinableElement {
     const instance = new RedefinableElement();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

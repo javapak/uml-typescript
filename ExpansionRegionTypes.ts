@@ -10,9 +10,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialExpansionRegion = Partial<IExpansionRegion>;
 export type RequiredExpansionRegion = Required<IExpansionRegion>;
-export type ExpansionRegionKey = Pick<IExpansionRegion, 'name' | 'nameExpression'>;
-export type ExpansionRegionMetadata = Pick<IExpansionRegion, 'ownedComment' | 'visibility' | 'ownedRule'>;
-export type ExpansionRegionSummary = Pick<IExpansionRegion, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type ExpansionRegionUnion = IExpansionRegion | IStructuredActivityNode;
 export type ExpansionRegionFactory = () => ExpansionRegion;
 export type ExpansionRegionValidator = (instance: IExpansionRegion) => ValidationResult;

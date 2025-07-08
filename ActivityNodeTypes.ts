@@ -13,9 +13,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialActivityNode = Partial<IActivityNode>;
 export type RequiredActivityNode = Required<IActivityNode>;
-export type ActivityNodeKey = Pick<IActivityNode, 'name' | 'nameExpression'>;
-export type ActivityNodeMetadata = Pick<IActivityNode, 'ownedComment' | 'visibility'>;
-export type ActivityNodeSummary = Pick<IActivityNode, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type ActivityNodeUnion = IActivityNode | IRedefinableElement | IActivityContent;
 export type ActivityNodeFactory = () => ActivityNode;
 export type ActivityNodeValidator = (instance: IActivityNode) => ValidationResult;

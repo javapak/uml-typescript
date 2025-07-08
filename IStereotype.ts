@@ -17,7 +17,7 @@ export interface IStereotype extends IClass {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  icon: Set<IImage>;
+  icon?: Set<IImage>;
 }
 
 // Type aliases for Stereotype

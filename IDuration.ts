@@ -25,7 +25,7 @@ export interface IDuration extends IValueSpecification {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  observation: Set<IObservation | string>;
+  observation?: Set<string>;
 }
 
 // Type aliases for Duration

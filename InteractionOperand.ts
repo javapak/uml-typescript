@@ -5,14 +5,8 @@
  * @package uml
  * @extends Namespace, InteractionFragment
  */
-import { Comment } from './Comment';
-import { Constraint } from './Constraint';
-import { ElementImport } from './ElementImport';
-import { GeneralOrdering } from './GeneralOrdering';
 import { IComment } from './IComment';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IElementImport } from './IElementImport';
 import { IGeneralOrdering } from './IGeneralOrdering';
 import { IInteraction } from './IInteraction';
@@ -20,15 +14,12 @@ import { IInteractionConstraint } from './IInteractionConstraint';
 import { IInteractionFragment } from './IInteractionFragment';
 import { IInteractionOperand } from './IInteractionOperand';
 import { ILifeline } from './ILifeline';
-import { INamedElement } from './INamedElement';
 import { INamespace } from './INamespace';
 import { IPackageImport } from './IPackageImport';
-import { IPackageableElement } from './IPackageableElement';
 import { IStringExpression } from './IStringExpression';
 import { InteractionConstraint } from './InteractionConstraint';
 import { InteractionFragment } from './InteractionFragment';
 import { Namespace } from './Namespace';
-import { PackageImport } from './PackageImport';
 import { StringExpression } from './StringExpression';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
@@ -51,20 +42,8 @@ export class InteractionOperand extends Namespace implements IInteractionOperand
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public guard?: IInteractionConstraint = undefined;
+  public guard?: IInteractionConstraint;
 
-  // Inherited from Namespace
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Namespace
   /**
    * ownedComment
    * 
@@ -74,16 +53,14 @@ export class InteractionOperand extends Namespace implements IInteractionOperand
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Namespace
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Namespace
   /**
    * nameExpression
    * 
@@ -91,18 +68,15 @@ export class InteractionOperand extends Namespace implements IInteractionOperand
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Namespace
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Namespace
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * ownedRule
    * 
@@ -113,7 +87,6 @@ export class InteractionOperand extends Namespace implements IInteractionOperand
    */
   public ownedRule: Set<IConstraint> = new Set();
 
-  // Inherited from Namespace
   /**
    * elementImport
    * 
@@ -124,7 +97,6 @@ export class InteractionOperand extends Namespace implements IInteractionOperand
    */
   public elementImport: Set<IElementImport> = new Set();
 
-  // Inherited from Namespace
   /**
    * packageImport
    * 
@@ -135,7 +107,39 @@ export class InteractionOperand extends Namespace implements IInteractionOperand
    */
   public packageImport: Set<IPackageImport> = new Set();
 
-  // Inherited from InteractionFragment
+  /**
+   * ownedComment
+   * 
+   * @type Comment
+   * @multiplicity [0..*]
+   * @relationship containment
+   */
+  public ownedComment: Set<IComment> = new Set();
+
+  /**
+   * name
+   * 
+   * @type String
+   * @multiplicity [0..1]
+   */
+  public name?: string;
+
+  /**
+   * nameExpression
+   * 
+   * @type StringExpression
+   * @multiplicity [0..1]
+   * @relationship containment
+   */
+  public nameExpression?: IStringExpression;
+
+  /**
+   * visibility
+   * 
+   * @type VisibilityKind
+   * @multiplicity [0..1]
+   */
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * covered
    * 
@@ -144,9 +148,8 @@ export class InteractionOperand extends Namespace implements IInteractionOperand
    * @relationship cross-reference
    * @opposite coveredBy
    */
-  public covered: Set<ILifeline | string> = new Set();
+  public covered: Set<string> = new Set();
 
-  // Inherited from InteractionFragment
   /**
    * enclosingOperand
    * 
@@ -155,9 +158,8 @@ export class InteractionOperand extends Namespace implements IInteractionOperand
    * @relationship cross-reference
    * @opposite fragment
    */
-  public enclosingOperand?: IInteractionOperand | string = undefined;
+  public enclosingOperand?: string;
 
-  // Inherited from InteractionFragment
   /**
    * enclosingInteraction
    * 
@@ -166,9 +168,8 @@ export class InteractionOperand extends Namespace implements IInteractionOperand
    * @relationship cross-reference
    * @opposite fragment
    */
-  public enclosingInteraction?: IInteraction | string = undefined;
+  public enclosingInteraction?: string;
 
-  // Inherited from InteractionFragment
   /**
    * generalOrdering
    * 
@@ -178,10 +179,12 @@ export class InteractionOperand extends Namespace implements IInteractionOperand
    */
   public generalOrdering: Set<IGeneralOrdering> = new Set();
 
+
   constructor(init?: Partial<IInteractionOperand>) {
     super(init);
-    this.fragment = init?.fragment ?? [];
-    this.guard = init?.guard ?? undefined;
+
+    this.fragment = init?.fragment ? [...init.fragment] : [];
+    this.guard = init?.guard;
   }
   getFragment(): IInteractionFragment[] {
     return this.fragment;
@@ -264,9 +267,6 @@ export class InteractionOperand extends Namespace implements IInteractionOperand
   static fromJSON(json: any): InteractionOperand {
     const instance = new InteractionOperand();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

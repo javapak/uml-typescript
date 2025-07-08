@@ -25,7 +25,7 @@ export interface IReclassifyObjectAction extends IAction {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  newClassifier: Set<IClassifier | string>;
+  newClassifier?: Set<string>;
   /**
    * object
    * 
@@ -41,7 +41,7 @@ export interface IReclassifyObjectAction extends IAction {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  oldClassifier: Set<IClassifier | string>;
+  oldClassifier?: Set<string>;
 }
 
 // Type aliases for ReclassifyObjectAction

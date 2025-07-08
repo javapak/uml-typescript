@@ -10,8 +10,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialTemplateSignature = Partial<ITemplateSignature>;
 export type RequiredTemplateSignature = Required<ITemplateSignature>;
-export type TemplateSignatureMetadata = Pick<ITemplateSignature, 'ownedComment' | 'ownedParameter'>;
-export type TemplateSignatureSummary = Pick<ITemplateSignature, 'eAnnotations' | 'ownedComment' | 'parameter'>;
 export type TemplateSignatureUnion = ITemplateSignature | IElement;
 export type TemplateSignatureFactory = () => TemplateSignature;
 export type TemplateSignatureValidator = (instance: ITemplateSignature) => ValidationResult;

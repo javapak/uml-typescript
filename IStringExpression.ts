@@ -17,7 +17,7 @@ export interface IStringExpression extends IExpression, ITemplateableElement {
    * @relationship cross-reference
    * @opposite subExpression
    */
-  owningExpression?: IStringExpression | string;
+  owningExpression?: string;
   /**
    * subExpression
    * 
@@ -26,7 +26,7 @@ export interface IStringExpression extends IExpression, ITemplateableElement {
    * @relationship containment
    * @opposite owningExpression
    */
-  subExpression: IStringExpression[];
+  subExpression?: IStringExpression[];
 }
 
 // Type aliases for StringExpression

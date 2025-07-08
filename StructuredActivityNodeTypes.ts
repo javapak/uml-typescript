@@ -15,9 +15,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialStructuredActivityNode = Partial<IStructuredActivityNode>;
 export type RequiredStructuredActivityNode = Required<IStructuredActivityNode>;
-export type StructuredActivityNodeKey = Pick<IStructuredActivityNode, 'name' | 'nameExpression'>;
-export type StructuredActivityNodeMetadata = Pick<IStructuredActivityNode, 'ownedComment' | 'visibility' | 'ownedRule'>;
-export type StructuredActivityNodeSummary = Pick<IStructuredActivityNode, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type StructuredActivityNodeUnion = IStructuredActivityNode | IAction | INamespace | IActivityGroup;
 export type StructuredActivityNodeFactory = () => StructuredActivityNode;
 export type StructuredActivityNodeValidator = (instance: IStructuredActivityNode) => ValidationResult;

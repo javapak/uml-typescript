@@ -5,11 +5,9 @@
  * @package uml
  * @extends MultiplicityElement
  */
-import { Comment } from './Comment';
 import { IComment } from './IComment';
 import { IConnectableElement } from './IConnectableElement';
 import { IConnectorEnd } from './IConnectorEnd';
-import { IElement } from './IElement';
 import { IMultiplicityElement } from './IMultiplicityElement';
 import { IProperty } from './IProperty';
 import { IValueSpecification } from './IValueSpecification';
@@ -25,7 +23,7 @@ export class ConnectorEnd extends MultiplicityElement implements IConnectorEnd {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public partWithPort?: IProperty | string = undefined;
+  public partWithPort?: string;
 
   /**
    * role
@@ -34,20 +32,8 @@ export class ConnectorEnd extends MultiplicityElement implements IConnectorEnd {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public role!: IConnectableElement | string;
+  public role!: string;
 
-  // Inherited from MultiplicityElement
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from MultiplicityElement
   /**
    * ownedComment
    * 
@@ -57,7 +43,6 @@ export class ConnectorEnd extends MultiplicityElement implements IConnectorEnd {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from MultiplicityElement
   /**
    * isOrdered
    * 
@@ -66,7 +51,6 @@ export class ConnectorEnd extends MultiplicityElement implements IConnectorEnd {
    */
   public isOrdered!: boolean;
 
-  // Inherited from MultiplicityElement
   /**
    * isUnique
    * 
@@ -75,7 +59,6 @@ export class ConnectorEnd extends MultiplicityElement implements IConnectorEnd {
    */
   public isUnique!: boolean;
 
-  // Inherited from MultiplicityElement
   /**
    * lowerValue
    * 
@@ -83,9 +66,8 @@ export class ConnectorEnd extends MultiplicityElement implements IConnectorEnd {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public lowerValue?: IValueSpecification = undefined;
+  public lowerValue?: IValueSpecification;
 
-  // Inherited from MultiplicityElement
   /**
    * upperValue
    * 
@@ -93,26 +75,28 @@ export class ConnectorEnd extends MultiplicityElement implements IConnectorEnd {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public upperValue?: IValueSpecification = undefined;
+  public upperValue?: IValueSpecification;
+
 
   constructor(init?: Partial<IConnectorEnd>) {
     super(init);
-    this.partWithPort = init?.partWithPort ?? undefined;
-    this.role = init?.role!;
+
+    this.partWithPort = init?.partWithPort;
+    this.role = init?.role ?? '';
   }
-  getPartWithPort(): IProperty | string | undefined {
+  getPartWithPort(): string | undefined {
     return this.partWithPort;
   }
 
-  setPartWithPort(value: IProperty | string | undefined): void {
+  setPartWithPort(value: string | undefined): void {
     this.partWithPort = value;
   }
 
-  getRole(): IConnectableElement | string {
+  getRole(): string {
     return this.role;
   }
 
-  setRole(value: IConnectableElement | string): void {
+  setRole(value: string): void {
     this.role = value;
   }
 
@@ -181,9 +165,6 @@ export class ConnectorEnd extends MultiplicityElement implements IConnectorEnd {
   static fromJSON(json: any): ConnectorEnd {
     const instance = new ConnectorEnd();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

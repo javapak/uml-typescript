@@ -5,16 +5,10 @@
  * @package uml
  * @extends ConnectableElement, MultiplicityElement
  */
-import { Comment } from './Comment';
 import { ConnectableElement } from './ConnectableElement';
 import { IComment } from './IComment';
 import { IConnectableElement } from './IConnectableElement';
-import { IConnectorEnd } from './IConnectorEnd';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IMultiplicityElement } from './IMultiplicityElement';
-import { INamespace } from './INamespace';
-import { IOperation } from './IOperation';
 import { IParameter } from './IParameter';
 import { IParameterSet } from './IParameterSet';
 import { IStringExpression } from './IStringExpression';
@@ -37,7 +31,7 @@ export class Parameter extends ConnectableElement implements IParameter {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public defaultValue?: IValueSpecification = undefined;
+  public defaultValue?: IValueSpecification;
 
   /**
    * direction
@@ -45,7 +39,7 @@ export class Parameter extends ConnectableElement implements IParameter {
    * @type ParameterDirectionKind
    * @multiplicity [1..1]
    */
-  public direction!: any;
+  public direction!: ParameterDirectionKind;
 
   /**
    * effect
@@ -53,7 +47,7 @@ export class Parameter extends ConnectableElement implements IParameter {
    * @type ParameterEffectKind
    * @multiplicity [0..1]
    */
-  public effect?: any = undefined;
+  public effect?: ParameterEffectKind;
 
   /**
    * isException
@@ -79,20 +73,8 @@ export class Parameter extends ConnectableElement implements IParameter {
    * @relationship cross-reference
    * @opposite parameter
    */
-  public parameterSet: Set<IParameterSet | string> = new Set();
+  public parameterSet: Set<string> = new Set();
 
-  // Inherited from ConnectableElement
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from ConnectableElement
   /**
    * ownedComment
    * 
@@ -102,16 +84,14 @@ export class Parameter extends ConnectableElement implements IParameter {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from ConnectableElement
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from ConnectableElement
   /**
    * nameExpression
    * 
@@ -119,18 +99,15 @@ export class Parameter extends ConnectableElement implements IParameter {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from ConnectableElement
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from ConnectableElement
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * type
    * 
@@ -138,9 +115,8 @@ export class Parameter extends ConnectableElement implements IParameter {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public type?: IType | string = undefined;
+  public type?: string;
 
-  // Inherited from ConnectableElement
   /**
    * owningTemplateParameter
    * 
@@ -149,9 +125,8 @@ export class Parameter extends ConnectableElement implements IParameter {
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from ConnectableElement
   /**
    * templateParameter
    * 
@@ -160,9 +135,17 @@ export class Parameter extends ConnectableElement implements IParameter {
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from MultiplicityElement
+  /**
+   * ownedComment
+   * 
+   * @type Comment
+   * @multiplicity [0..*]
+   * @relationship containment
+   */
+  public ownedComment: Set<IComment> = new Set();
+
   /**
    * isOrdered
    * 
@@ -171,7 +154,6 @@ export class Parameter extends ConnectableElement implements IParameter {
    */
   public isOrdered!: boolean;
 
-  // Inherited from MultiplicityElement
   /**
    * isUnique
    * 
@@ -180,7 +162,6 @@ export class Parameter extends ConnectableElement implements IParameter {
    */
   public isUnique!: boolean;
 
-  // Inherited from MultiplicityElement
   /**
    * lowerValue
    * 
@@ -188,9 +169,8 @@ export class Parameter extends ConnectableElement implements IParameter {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public lowerValue?: IValueSpecification = undefined;
+  public lowerValue?: IValueSpecification;
 
-  // Inherited from MultiplicityElement
   /**
    * upperValue
    * 
@@ -198,16 +178,18 @@ export class Parameter extends ConnectableElement implements IParameter {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public upperValue?: IValueSpecification = undefined;
+  public upperValue?: IValueSpecification;
+
 
   constructor(init?: Partial<IParameter>) {
     super(init);
-    this.defaultValue = init?.defaultValue ?? undefined;
+
+    this.defaultValue = init?.defaultValue;
     this.direction = init?.direction!;
-    this.effect = init?.effect ?? 'create';
-    this.isException = init?.isException!;
-    this.isStream = init?.isStream!;
-    this.parameterSet = init?.parameterSet ?? new Set();
+    this.effect = init?.effect;
+    this.isException = init?.isException ?? false;
+    this.isStream = init?.isStream ?? false;
+    this.parameterSet = init?.parameterSet ? new Set(init.parameterSet) : new Set();
   }
   getDefaultValue(): IValueSpecification | undefined {
     return this.defaultValue;
@@ -217,19 +199,19 @@ export class Parameter extends ConnectableElement implements IParameter {
     this.defaultValue = value;
   }
 
-  getDirection(): any {
+  getDirection(): ParameterDirectionKind {
     return this.direction;
   }
 
-  setDirection(value: any): void {
+  setDirection(value: ParameterDirectionKind): void {
     this.direction = value;
   }
 
-  getEffect(): any | undefined {
+  getEffect(): ParameterEffectKind | undefined {
     return this.effect;
   }
 
-  setEffect(value: any | undefined): void {
+  setEffect(value: ParameterEffectKind | undefined): void {
     this.effect = value;
   }
 
@@ -249,11 +231,11 @@ export class Parameter extends ConnectableElement implements IParameter {
     this.isStream = value;
   }
 
-  getParameterSet(): Set<IParameterSet | string> {
+  getParameterSet(): Set<string> {
     return this.parameterSet;
   }
 
-  setParameterSet(value: Set<IParameterSet | string>): void {
+  setParameterSet(value: Set<string>): void {
     this.parameterSet = value;
   }
 
@@ -332,9 +314,6 @@ export class Parameter extends ConnectableElement implements IParameter {
   static fromJSON(json: any): Parameter {
     const instance = new Parameter();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

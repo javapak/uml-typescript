@@ -15,7 +15,7 @@ export interface IInformationItem extends IClassifier {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  represented: Set<IClassifier | string>;
+  represented?: Set<string>;
 }
 
 // Type aliases for InformationItem

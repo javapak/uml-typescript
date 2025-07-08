@@ -5,7 +5,6 @@
  * @package uml
  * @extends Element
  */
-import { Comment } from './Comment';
 import { Element } from './Element';
 import { IComment } from './IComment';
 import { IElement } from './IElement';
@@ -19,7 +18,7 @@ export class Image extends Element implements IImage {
    * @type String
    * @multiplicity [0..1]
    */
-  public content?: string = undefined;
+  public content?: string;
 
   /**
    * format
@@ -27,7 +26,7 @@ export class Image extends Element implements IImage {
    * @type String
    * @multiplicity [0..1]
    */
-  public format?: string = undefined;
+  public format?: string;
 
   /**
    * location
@@ -35,20 +34,8 @@ export class Image extends Element implements IImage {
    * @type String
    * @multiplicity [0..1]
    */
-  public location?: string = undefined;
+  public location?: string;
 
-  // Inherited from Element
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Element
   /**
    * ownedComment
    * 
@@ -58,11 +45,13 @@ export class Image extends Element implements IImage {
    */
   public ownedComment: Set<IComment> = new Set();
 
+
   constructor(init?: Partial<IImage>) {
     super(init);
-    this.content = init?.content ?? undefined;
-    this.format = init?.format ?? undefined;
-    this.location = init?.location ?? undefined;
+
+    this.content = init?.content;
+    this.format = init?.format;
+    this.location = init?.location;
   }
   getContent(): string | undefined {
     return this.content;
@@ -159,9 +148,6 @@ export class Image extends Element implements IImage {
   static fromJSON(json: any): Image {
     const instance = new Image();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

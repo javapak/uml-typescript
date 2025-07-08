@@ -6,33 +6,20 @@
  * @extends AcceptEventAction
  */
 import { AcceptEventAction } from './AcceptEventAction';
-import { Comment } from './Comment';
-import { Constraint } from './Constraint';
-import { ExceptionHandler } from './ExceptionHandler';
 import { IAcceptCallAction } from './IAcceptCallAction';
 import { IAcceptEventAction } from './IAcceptEventAction';
-import { IActivity } from './IActivity';
 import { IActivityEdge } from './IActivityEdge';
-import { IActivityGroup } from './IActivityGroup';
 import { IActivityNode } from './IActivityNode';
 import { IActivityPartition } from './IActivityPartition';
-import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IExceptionHandler } from './IExceptionHandler';
-import { IInputPin } from './IInputPin';
 import { IInterruptibleActivityRegion } from './IInterruptibleActivityRegion';
-import { INamespace } from './INamespace';
 import { IOutputPin } from './IOutputPin';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { IStructuredActivityNode } from './IStructuredActivityNode';
 import { ITrigger } from './ITrigger';
-import { OutputPin } from './OutputPin';
 import { StringExpression } from './StringExpression';
-import { Trigger } from './Trigger';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
 
@@ -46,18 +33,6 @@ export class AcceptCallAction extends AcceptEventAction implements IAcceptCallAc
    */
   public returnInformation!: IOutputPin;
 
-  // Inherited from AcceptEventAction
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from AcceptEventAction
   /**
    * ownedComment
    * 
@@ -67,16 +42,14 @@ export class AcceptCallAction extends AcceptEventAction implements IAcceptCallAc
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from AcceptEventAction
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from AcceptEventAction
   /**
    * nameExpression
    * 
@@ -84,18 +57,15 @@ export class AcceptCallAction extends AcceptEventAction implements IAcceptCallAc
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from AcceptEventAction
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from AcceptEventAction
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * isLeaf
    * 
@@ -104,7 +74,6 @@ export class AcceptCallAction extends AcceptEventAction implements IAcceptCallAc
    */
   public isLeaf!: boolean;
 
-  // Inherited from AcceptEventAction
   /**
    * inInterruptibleRegion
    * 
@@ -113,9 +82,8 @@ export class AcceptCallAction extends AcceptEventAction implements IAcceptCallAc
    * @relationship cross-reference
    * @opposite node
    */
-  public inInterruptibleRegion: Set<IInterruptibleActivityRegion | string> = new Set();
+  public inInterruptibleRegion: Set<string> = new Set();
 
-  // Inherited from AcceptEventAction
   /**
    * inStructuredNode
    * 
@@ -124,9 +92,8 @@ export class AcceptCallAction extends AcceptEventAction implements IAcceptCallAc
    * @relationship cross-reference
    * @opposite node
    */
-  public inStructuredNode?: IStructuredActivityNode | string = undefined;
+  public inStructuredNode?: string;
 
-  // Inherited from AcceptEventAction
   /**
    * incoming
    * 
@@ -135,9 +102,8 @@ export class AcceptCallAction extends AcceptEventAction implements IAcceptCallAc
    * @relationship cross-reference
    * @opposite target
    */
-  public incoming: Set<IActivityEdge | string> = new Set();
+  public incoming: Set<string> = new Set();
 
-  // Inherited from AcceptEventAction
   /**
    * outgoing
    * 
@@ -146,9 +112,8 @@ export class AcceptCallAction extends AcceptEventAction implements IAcceptCallAc
    * @relationship cross-reference
    * @opposite source
    */
-  public outgoing: Set<IActivityEdge | string> = new Set();
+  public outgoing: Set<string> = new Set();
 
-  // Inherited from AcceptEventAction
   /**
    * redefinedNode
    * 
@@ -156,9 +121,8 @@ export class AcceptCallAction extends AcceptEventAction implements IAcceptCallAc
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedNode: Set<IActivityNode | string> = new Set();
+  public redefinedNode: Set<string> = new Set();
 
-  // Inherited from AcceptEventAction
   /**
    * inPartition
    * 
@@ -167,9 +131,8 @@ export class AcceptCallAction extends AcceptEventAction implements IAcceptCallAc
    * @relationship cross-reference
    * @opposite node
    */
-  public inPartition: Set<IActivityPartition | string> = new Set();
+  public inPartition: Set<string> = new Set();
 
-  // Inherited from AcceptEventAction
   /**
    * handler
    * 
@@ -180,7 +143,6 @@ export class AcceptCallAction extends AcceptEventAction implements IAcceptCallAc
    */
   public handler: Set<IExceptionHandler> = new Set();
 
-  // Inherited from AcceptEventAction
   /**
    * isLocallyReentrant
    * 
@@ -189,7 +151,6 @@ export class AcceptCallAction extends AcceptEventAction implements IAcceptCallAc
    */
   public isLocallyReentrant!: boolean;
 
-  // Inherited from AcceptEventAction
   /**
    * localPostcondition
    * 
@@ -199,7 +160,6 @@ export class AcceptCallAction extends AcceptEventAction implements IAcceptCallAc
    */
   public localPostcondition: Set<IConstraint> = new Set();
 
-  // Inherited from AcceptEventAction
   /**
    * localPrecondition
    * 
@@ -209,7 +169,6 @@ export class AcceptCallAction extends AcceptEventAction implements IAcceptCallAc
    */
   public localPrecondition: Set<IConstraint> = new Set();
 
-  // Inherited from AcceptEventAction
   /**
    * isUnmarshall
    * 
@@ -218,7 +177,6 @@ export class AcceptCallAction extends AcceptEventAction implements IAcceptCallAc
    */
   public isUnmarshall!: boolean;
 
-  // Inherited from AcceptEventAction
   /**
    * result
    * 
@@ -228,7 +186,6 @@ export class AcceptCallAction extends AcceptEventAction implements IAcceptCallAc
    */
   public result: IOutputPin[] = [];
 
-  // Inherited from AcceptEventAction
   /**
    * trigger
    * 
@@ -238,8 +195,10 @@ export class AcceptCallAction extends AcceptEventAction implements IAcceptCallAc
    */
   public trigger: Set<ITrigger> = new Set();
 
+
   constructor(init?: Partial<IAcceptCallAction>) {
     super(init);
+
     this.returnInformation = init?.returnInformation!;
   }
   getReturnInformation(): IOutputPin {
@@ -311,9 +270,6 @@ export class AcceptCallAction extends AcceptEventAction implements IAcceptCallAc
   static fromJSON(json: any): AcceptCallAction {
     const instance = new AcceptCallAction();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

@@ -24,7 +24,7 @@ export interface IInterface extends IClassifier {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  nestedClassifier: IClassifier[];
+  nestedClassifier?: IClassifier[];
   /**
    * ownedAttribute
    * 
@@ -33,7 +33,7 @@ export interface IInterface extends IClassifier {
    * @relationship containment
    * @opposite interface
    */
-  ownedAttribute: IProperty[];
+  ownedAttribute?: IProperty[];
   /**
    * ownedReception
    * 
@@ -41,7 +41,7 @@ export interface IInterface extends IClassifier {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  ownedReception: Set<IReception>;
+  ownedReception?: Set<IReception>;
   /**
    * protocol
    * 
@@ -57,7 +57,7 @@ export interface IInterface extends IClassifier {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  redefinedInterface: Set<IInterface | string>;
+  redefinedInterface?: Set<string>;
   /**
    * ownedOperation
    * 
@@ -66,7 +66,7 @@ export interface IInterface extends IClassifier {
    * @relationship containment
    * @opposite interface
    */
-  ownedOperation: IOperation[];
+  ownedOperation?: IOperation[];
 }
 
 // Type aliases for Interface

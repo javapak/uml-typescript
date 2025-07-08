@@ -10,9 +10,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialInvocationAction = Partial<IInvocationAction>;
 export type RequiredInvocationAction = Required<IInvocationAction>;
-export type InvocationActionKey = Pick<IInvocationAction, 'name' | 'nameExpression'>;
-export type InvocationActionMetadata = Pick<IInvocationAction, 'ownedComment' | 'visibility'>;
-export type InvocationActionSummary = Pick<IInvocationAction, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type InvocationActionUnion = IInvocationAction | IAction;
 export type InvocationActionFactory = () => InvocationAction;
 export type InvocationActionValidator = (instance: IInvocationAction) => ValidationResult;

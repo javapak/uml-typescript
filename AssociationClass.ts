@@ -6,15 +6,7 @@
  * @extends Class, Association
  */
 import { Association } from './Association';
-import { Behavior } from './Behavior';
 import { Class } from './Class';
-import { Classifier } from './Classifier';
-import { CollaborationUse } from './CollaborationUse';
-import { Comment } from './Comment';
-import { Connector } from './Connector';
-import { Constraint } from './Constraint';
-import { ElementImport } from './ElementImport';
-import { Generalization } from './Generalization';
 import { IAssociation } from './IAssociation';
 import { IAssociationClass } from './IAssociationClass';
 import { IBehavior } from './IBehavior';
@@ -22,60 +14,28 @@ import { IClass } from './IClass';
 import { IClassifier } from './IClassifier';
 import { ICollaborationUse } from './ICollaborationUse';
 import { IComment } from './IComment';
-import { IConnectableElement } from './IConnectableElement';
 import { IConnector } from './IConnector';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IElementImport } from './IElementImport';
-import { IExtension } from './IExtension';
-import { IFeature } from './IFeature';
 import { IGeneralization } from './IGeneralization';
 import { IGeneralizationSet } from './IGeneralizationSet';
 import { IInterfaceRealization } from './IInterfaceRealization';
-import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IOperation } from './IOperation';
-import { IPackage } from './IPackage';
 import { IPackageImport } from './IPackageImport';
-import { IPackageableElement } from './IPackageableElement';
-import { IPort } from './IPort';
 import { IProperty } from './IProperty';
 import { IReception } from './IReception';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { ISubstitution } from './ISubstitution';
 import { ITemplateBinding } from './ITemplateBinding';
 import { ITemplateParameter } from './ITemplateParameter';
 import { ITemplateSignature } from './ITemplateSignature';
-import { IType } from './IType';
 import { IUseCase } from './IUseCase';
-import { InterfaceRealization } from './InterfaceRealization';
-import { Operation } from './Operation';
-import { PackageImport } from './PackageImport';
-import { Property } from './Property';
-import { Reception } from './Reception';
 import { StringExpression } from './StringExpression';
-import { Substitution } from './Substitution';
-import { TemplateBinding } from './TemplateBinding';
 import { TemplateSignature } from './TemplateSignature';
-import { UseCase } from './UseCase';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
 
 export class AssociationClass extends Class implements IAssociationClass {
-  // Inherited from Class
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Class
   /**
    * ownedComment
    * 
@@ -85,16 +45,14 @@ export class AssociationClass extends Class implements IAssociationClass {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Class
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Class
   /**
    * nameExpression
    * 
@@ -102,18 +60,15 @@ export class AssociationClass extends Class implements IAssociationClass {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Class
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Class
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * ownedRule
    * 
@@ -124,7 +79,6 @@ export class AssociationClass extends Class implements IAssociationClass {
    */
   public ownedRule: Set<IConstraint> = new Set();
 
-  // Inherited from Class
   /**
    * elementImport
    * 
@@ -135,7 +89,6 @@ export class AssociationClass extends Class implements IAssociationClass {
    */
   public elementImport: Set<IElementImport> = new Set();
 
-  // Inherited from Class
   /**
    * packageImport
    * 
@@ -146,7 +99,6 @@ export class AssociationClass extends Class implements IAssociationClass {
    */
   public packageImport: Set<IPackageImport> = new Set();
 
-  // Inherited from Class
   /**
    * isLeaf
    * 
@@ -155,7 +107,6 @@ export class AssociationClass extends Class implements IAssociationClass {
    */
   public isLeaf!: boolean;
 
-  // Inherited from Class
   /**
    * owningTemplateParameter
    * 
@@ -164,9 +115,8 @@ export class AssociationClass extends Class implements IAssociationClass {
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from Class
   /**
    * templateParameter
    * 
@@ -175,9 +125,8 @@ export class AssociationClass extends Class implements IAssociationClass {
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from Class
   /**
    * templateBinding
    * 
@@ -188,7 +137,6 @@ export class AssociationClass extends Class implements IAssociationClass {
    */
   public templateBinding: Set<ITemplateBinding> = new Set();
 
-  // Inherited from Class
   /**
    * ownedTemplateSignature
    * 
@@ -197,9 +145,8 @@ export class AssociationClass extends Class implements IAssociationClass {
    * @relationship containment
    * @opposite template
    */
-  public ownedTemplateSignature?: ITemplateSignature = undefined;
+  public ownedTemplateSignature?: ITemplateSignature;
 
-  // Inherited from Class
   /**
    * collaborationUse
    * 
@@ -209,7 +156,6 @@ export class AssociationClass extends Class implements IAssociationClass {
    */
   public collaborationUse: Set<ICollaborationUse> = new Set();
 
-  // Inherited from Class
   /**
    * generalization
    * 
@@ -220,7 +166,6 @@ export class AssociationClass extends Class implements IAssociationClass {
    */
   public generalization: Set<IGeneralization> = new Set();
 
-  // Inherited from Class
   /**
    * powertypeExtent
    * 
@@ -229,9 +174,8 @@ export class AssociationClass extends Class implements IAssociationClass {
    * @relationship cross-reference
    * @opposite powertype
    */
-  public powertypeExtent: Set<IGeneralizationSet | string> = new Set();
+  public powertypeExtent: Set<string> = new Set();
 
-  // Inherited from Class
   /**
    * isAbstract
    * 
@@ -240,7 +184,6 @@ export class AssociationClass extends Class implements IAssociationClass {
    */
   public isAbstract!: boolean;
 
-  // Inherited from Class
   /**
    * isFinalSpecialization
    * 
@@ -249,7 +192,6 @@ export class AssociationClass extends Class implements IAssociationClass {
    */
   public isFinalSpecialization!: boolean;
 
-  // Inherited from Class
   /**
    * ownedUseCase
    * 
@@ -259,7 +201,6 @@ export class AssociationClass extends Class implements IAssociationClass {
    */
   public ownedUseCase: Set<IUseCase> = new Set();
 
-  // Inherited from Class
   /**
    * useCase
    * 
@@ -268,9 +209,8 @@ export class AssociationClass extends Class implements IAssociationClass {
    * @relationship cross-reference
    * @opposite subject
    */
-  public useCase: Set<IUseCase | string> = new Set();
+  public useCase: Set<string> = new Set();
 
-  // Inherited from Class
   /**
    * redefinedClassifier
    * 
@@ -278,9 +218,8 @@ export class AssociationClass extends Class implements IAssociationClass {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedClassifier: Set<IClassifier | string> = new Set();
+  public redefinedClassifier: Set<string> = new Set();
 
-  // Inherited from Class
   /**
    * representation
    * 
@@ -288,9 +227,8 @@ export class AssociationClass extends Class implements IAssociationClass {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public representation?: ICollaborationUse | string = undefined;
+  public representation?: string;
 
-  // Inherited from Class
   /**
    * substitution
    * 
@@ -301,7 +239,6 @@ export class AssociationClass extends Class implements IAssociationClass {
    */
   public substitution: Set<ISubstitution> = new Set();
 
-  // Inherited from Class
   /**
    * ownedAttribute
    * 
@@ -311,7 +248,6 @@ export class AssociationClass extends Class implements IAssociationClass {
    */
   public ownedAttribute: IProperty[] = [];
 
-  // Inherited from Class
   /**
    * ownedConnector
    * 
@@ -321,7 +257,6 @@ export class AssociationClass extends Class implements IAssociationClass {
    */
   public ownedConnector: Set<IConnector> = new Set();
 
-  // Inherited from Class
   /**
    * classifierBehavior
    * 
@@ -329,9 +264,8 @@ export class AssociationClass extends Class implements IAssociationClass {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public classifierBehavior?: IBehavior | string = undefined;
+  public classifierBehavior?: string;
 
-  // Inherited from Class
   /**
    * interfaceRealization
    * 
@@ -342,7 +276,6 @@ export class AssociationClass extends Class implements IAssociationClass {
    */
   public interfaceRealization: Set<IInterfaceRealization> = new Set();
 
-  // Inherited from Class
   /**
    * ownedBehavior
    * 
@@ -352,7 +285,6 @@ export class AssociationClass extends Class implements IAssociationClass {
    */
   public ownedBehavior: Set<IBehavior> = new Set();
 
-  // Inherited from Class
   /**
    * ownedOperation
    * 
@@ -363,7 +295,6 @@ export class AssociationClass extends Class implements IAssociationClass {
    */
   public ownedOperation: IOperation[] = [];
 
-  // Inherited from Class
   /**
    * isActive
    * 
@@ -372,7 +303,6 @@ export class AssociationClass extends Class implements IAssociationClass {
    */
   public isActive!: boolean;
 
-  // Inherited from Class
   /**
    * nestedClassifier
    * 
@@ -382,7 +312,6 @@ export class AssociationClass extends Class implements IAssociationClass {
    */
   public nestedClassifier: IClassifier[] = [];
 
-  // Inherited from Class
   /**
    * ownedReception
    * 
@@ -392,7 +321,209 @@ export class AssociationClass extends Class implements IAssociationClass {
    */
   public ownedReception: Set<IReception> = new Set();
 
-  // Inherited from Association
+  /**
+   * ownedComment
+   * 
+   * @type Comment
+   * @multiplicity [0..*]
+   * @relationship containment
+   */
+  public ownedComment: Set<IComment> = new Set();
+
+  /**
+   * name
+   * 
+   * @type String
+   * @multiplicity [0..1]
+   */
+  public name?: string;
+
+  /**
+   * nameExpression
+   * 
+   * @type StringExpression
+   * @multiplicity [0..1]
+   * @relationship containment
+   */
+  public nameExpression?: IStringExpression;
+
+  /**
+   * visibility
+   * 
+   * @type VisibilityKind
+   * @multiplicity [0..1]
+   */
+  public visibility: VisibilityKind | undefined = undefined;
+  /**
+   * ownedRule
+   * 
+   * @type Constraint
+   * @multiplicity [0..*]
+   * @relationship containment
+   * @opposite context
+   */
+  public ownedRule: Set<IConstraint> = new Set();
+
+  /**
+   * elementImport
+   * 
+   * @type ElementImport
+   * @multiplicity [0..*]
+   * @relationship containment
+   * @opposite importingNamespace
+   */
+  public elementImport: Set<IElementImport> = new Set();
+
+  /**
+   * packageImport
+   * 
+   * @type PackageImport
+   * @multiplicity [0..*]
+   * @relationship containment
+   * @opposite importingNamespace
+   */
+  public packageImport: Set<IPackageImport> = new Set();
+
+  /**
+   * isLeaf
+   * 
+   * @type Boolean
+   * @multiplicity [1..1]
+   */
+  public isLeaf!: boolean;
+
+  /**
+   * owningTemplateParameter
+   * 
+   * @type TemplateParameter
+   * @multiplicity [0..1]
+   * @relationship cross-reference
+   * @opposite ownedParameteredElement
+   */
+  public owningTemplateParameter?: string;
+
+  /**
+   * templateParameter
+   * 
+   * @type TemplateParameter
+   * @multiplicity [0..1]
+   * @relationship cross-reference
+   * @opposite parameteredElement
+   */
+  public templateParameter?: string;
+
+  /**
+   * templateBinding
+   * 
+   * @type TemplateBinding
+   * @multiplicity [0..*]
+   * @relationship containment
+   * @opposite boundElement
+   */
+  public templateBinding: Set<ITemplateBinding> = new Set();
+
+  /**
+   * ownedTemplateSignature
+   * 
+   * @type TemplateSignature
+   * @multiplicity [0..1]
+   * @relationship containment
+   * @opposite template
+   */
+  public ownedTemplateSignature?: ITemplateSignature;
+
+  /**
+   * collaborationUse
+   * 
+   * @type CollaborationUse
+   * @multiplicity [0..*]
+   * @relationship containment
+   */
+  public collaborationUse: Set<ICollaborationUse> = new Set();
+
+  /**
+   * generalization
+   * 
+   * @type Generalization
+   * @multiplicity [0..*]
+   * @relationship containment
+   * @opposite specific
+   */
+  public generalization: Set<IGeneralization> = new Set();
+
+  /**
+   * powertypeExtent
+   * 
+   * @type GeneralizationSet
+   * @multiplicity [0..*]
+   * @relationship cross-reference
+   * @opposite powertype
+   */
+  public powertypeExtent: Set<string> = new Set();
+
+  /**
+   * isAbstract
+   * 
+   * @type Boolean
+   * @multiplicity [1..1]
+   */
+  public isAbstract!: boolean;
+
+  /**
+   * isFinalSpecialization
+   * 
+   * @type Boolean
+   * @multiplicity [1..1]
+   */
+  public isFinalSpecialization!: boolean;
+
+  /**
+   * ownedUseCase
+   * 
+   * @type UseCase
+   * @multiplicity [0..*]
+   * @relationship containment
+   */
+  public ownedUseCase: Set<IUseCase> = new Set();
+
+  /**
+   * useCase
+   * 
+   * @type UseCase
+   * @multiplicity [0..*]
+   * @relationship cross-reference
+   * @opposite subject
+   */
+  public useCase: Set<string> = new Set();
+
+  /**
+   * redefinedClassifier
+   * 
+   * @type Classifier
+   * @multiplicity [0..*]
+   * @relationship cross-reference
+   */
+  public redefinedClassifier: Set<string> = new Set();
+
+  /**
+   * representation
+   * 
+   * @type CollaborationUse
+   * @multiplicity [0..1]
+   * @relationship cross-reference
+   */
+  public representation?: string;
+
+  /**
+   * substitution
+   * 
+   * @type Substitution
+   * @multiplicity [0..*]
+   * @relationship containment
+   * @opposite substitutingClassifier
+   */
+  public substitution: Set<ISubstitution> = new Set();
+
   /**
    * isDerived
    * 
@@ -401,7 +532,6 @@ export class AssociationClass extends Class implements IAssociationClass {
    */
   public isDerived!: boolean;
 
-  // Inherited from Association
   /**
    * memberEnd
    * 
@@ -410,9 +540,8 @@ export class AssociationClass extends Class implements IAssociationClass {
    * @relationship cross-reference
    * @opposite association
    */
-  public memberEnd: IProperty | string[] = [];
+  public memberEnd: string[] = [];
 
-  // Inherited from Association
   /**
    * ownedEnd
    * 
@@ -423,7 +552,6 @@ export class AssociationClass extends Class implements IAssociationClass {
    */
   public ownedEnd: IProperty[] = [];
 
-  // Inherited from Association
   /**
    * navigableOwnedEnd
    * 
@@ -431,10 +559,12 @@ export class AssociationClass extends Class implements IAssociationClass {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public navigableOwnedEnd: Set<IProperty | string> = new Set();
+  public navigableOwnedEnd: Set<string> = new Set();
+
 
   constructor(init?: Partial<IAssociationClass>) {
     super(init);
+
   }
   /**
    * Converts this instance to a plain object matching the interface
@@ -495,9 +625,6 @@ export class AssociationClass extends Class implements IAssociationClass {
   static fromJSON(json: any): AssociationClass {
     const instance = new AssociationClass();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

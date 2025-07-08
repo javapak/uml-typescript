@@ -7,31 +7,18 @@
  */
 import { BehavioralFeature } from './BehavioralFeature';
 import { CallConcurrencyKind } from './CallConcurrencyKind';
-import { Comment } from './Comment';
-import { Constraint } from './Constraint';
-import { ElementImport } from './ElementImport';
 import { IBehavior } from './IBehavior';
 import { IBehavioralFeature } from './IBehavioralFeature';
-import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IElementImport } from './IElementImport';
-import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IPackageImport } from './IPackageImport';
-import { IPackageableElement } from './IPackageableElement';
 import { IParameter } from './IParameter';
 import { IParameterSet } from './IParameterSet';
 import { IReception } from './IReception';
-import { IRedefinableElement } from './IRedefinableElement';
 import { ISignal } from './ISignal';
 import { IStringExpression } from './IStringExpression';
 import { IType } from './IType';
-import { PackageImport } from './PackageImport';
-import { Parameter } from './Parameter';
-import { ParameterSet } from './ParameterSet';
 import { StringExpression } from './StringExpression';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
@@ -44,20 +31,8 @@ export class Reception extends BehavioralFeature implements IReception {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public signal!: ISignal | string;
+  public signal!: string;
 
-  // Inherited from BehavioralFeature
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from BehavioralFeature
   /**
    * ownedComment
    * 
@@ -67,16 +42,14 @@ export class Reception extends BehavioralFeature implements IReception {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from BehavioralFeature
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from BehavioralFeature
   /**
    * nameExpression
    * 
@@ -84,18 +57,15 @@ export class Reception extends BehavioralFeature implements IReception {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from BehavioralFeature
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from BehavioralFeature
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * ownedRule
    * 
@@ -106,7 +76,6 @@ export class Reception extends BehavioralFeature implements IReception {
    */
   public ownedRule: Set<IConstraint> = new Set();
 
-  // Inherited from BehavioralFeature
   /**
    * elementImport
    * 
@@ -117,7 +86,6 @@ export class Reception extends BehavioralFeature implements IReception {
    */
   public elementImport: Set<IElementImport> = new Set();
 
-  // Inherited from BehavioralFeature
   /**
    * packageImport
    * 
@@ -128,7 +96,6 @@ export class Reception extends BehavioralFeature implements IReception {
    */
   public packageImport: Set<IPackageImport> = new Set();
 
-  // Inherited from BehavioralFeature
   /**
    * isLeaf
    * 
@@ -137,7 +104,6 @@ export class Reception extends BehavioralFeature implements IReception {
    */
   public isLeaf!: boolean;
 
-  // Inherited from BehavioralFeature
   /**
    * isStatic
    * 
@@ -146,16 +112,13 @@ export class Reception extends BehavioralFeature implements IReception {
    */
   public isStatic!: boolean;
 
-  // Inherited from BehavioralFeature
   /**
    * concurrency
    * 
    * @type CallConcurrencyKind
    * @multiplicity [1..1]
    */
-  public concurrency!: any;
-
-  // Inherited from BehavioralFeature
+  public concurrency: CallConcurrencyKind = CallConcurrencyKind.sequential;
   /**
    * isAbstract
    * 
@@ -164,7 +127,6 @@ export class Reception extends BehavioralFeature implements IReception {
    */
   public isAbstract!: boolean;
 
-  // Inherited from BehavioralFeature
   /**
    * method
    * 
@@ -173,9 +135,8 @@ export class Reception extends BehavioralFeature implements IReception {
    * @relationship cross-reference
    * @opposite specification
    */
-  public method: Set<IBehavior | string> = new Set();
+  public method: Set<string> = new Set();
 
-  // Inherited from BehavioralFeature
   /**
    * ownedParameter
    * 
@@ -185,7 +146,6 @@ export class Reception extends BehavioralFeature implements IReception {
    */
   public ownedParameter: IParameter[] = [];
 
-  // Inherited from BehavioralFeature
   /**
    * ownedParameterSet
    * 
@@ -195,7 +155,6 @@ export class Reception extends BehavioralFeature implements IReception {
    */
   public ownedParameterSet: Set<IParameterSet> = new Set();
 
-  // Inherited from BehavioralFeature
   /**
    * raisedException
    * 
@@ -203,17 +162,19 @@ export class Reception extends BehavioralFeature implements IReception {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public raisedException: Set<IType | string> = new Set();
+  public raisedException: Set<string> = new Set();
+
 
   constructor(init?: Partial<IReception>) {
     super(init);
-    this.signal = init?.signal!;
+
+    this.signal = init?.signal ?? '';
   }
-  getSignal(): ISignal | string {
+  getSignal(): string {
     return this.signal;
   }
 
-  setSignal(value: ISignal | string): void {
+  setSignal(value: string): void {
     this.signal = value;
   }
 
@@ -278,9 +239,6 @@ export class Reception extends BehavioralFeature implements IReception {
   static fromJSON(json: any): Reception {
     const instance = new Reception();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

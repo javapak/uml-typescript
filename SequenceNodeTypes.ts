@@ -9,9 +9,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialSequenceNode = Partial<ISequenceNode>;
 export type RequiredSequenceNode = Required<ISequenceNode>;
-export type SequenceNodeKey = Pick<ISequenceNode, 'name' | 'nameExpression'>;
-export type SequenceNodeMetadata = Pick<ISequenceNode, 'ownedComment' | 'visibility' | 'ownedRule'>;
-export type SequenceNodeSummary = Pick<ISequenceNode, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type SequenceNodeUnion = ISequenceNode | IStructuredActivityNode;
 export type SequenceNodeFactory = () => SequenceNode;
 export type SequenceNodeValidator = (instance: ISequenceNode) => ValidationResult;

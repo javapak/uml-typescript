@@ -16,7 +16,7 @@ export interface ISubstitution extends IRealization {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  contract: IClassifier | string;
+  contract: string;
   /**
    * substitutingClassifier
    * 
@@ -25,7 +25,7 @@ export interface ISubstitution extends IRealization {
    * @relationship cross-reference
    * @opposite substitution
    */
-  substitutingClassifier: IClassifier | string;
+  substitutingClassifier: string;
 }
 
 // Type aliases for Substitution

@@ -17,7 +17,7 @@ export interface IProfileApplication extends IDirectedRelationship {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  appliedProfile: IProfile | string;
+  appliedProfile: string;
   /**
    * isStrict
    * 
@@ -33,7 +33,7 @@ export interface IProfileApplication extends IDirectedRelationship {
    * @relationship cross-reference
    * @opposite profileApplication
    */
-  applyingPackage: IPackage | string;
+  applyingPackage: string;
 }
 
 // Type aliases for ProfileApplication

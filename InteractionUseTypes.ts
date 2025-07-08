@@ -12,9 +12,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialInteractionUse = Partial<IInteractionUse>;
 export type RequiredInteractionUse = Required<IInteractionUse>;
-export type InteractionUseKey = Pick<IInteractionUse, 'name' | 'nameExpression'>;
-export type InteractionUseMetadata = Pick<IInteractionUse, 'ownedComment' | 'visibility'>;
-export type InteractionUseSummary = Pick<IInteractionUse, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type InteractionUseUnion = IInteractionUse | IInteractionFragment;
 export type InteractionUseFactory = () => InteractionUse;
 export type InteractionUseValidator = (instance: IInteractionUse) => ValidationResult;

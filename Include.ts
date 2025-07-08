@@ -5,15 +5,11 @@
  * @package uml
  * @extends NamedElement, DirectedRelationship
  */
-import { Comment } from './Comment';
 import { DirectedRelationship } from './DirectedRelationship';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
 import { IDirectedRelationship } from './IDirectedRelationship';
-import { IElement } from './IElement';
 import { IInclude } from './IInclude';
 import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IStringExpression } from './IStringExpression';
 import { IUseCase } from './IUseCase';
 import { NamedElement } from './NamedElement';
@@ -29,7 +25,7 @@ export class Include extends NamedElement implements IInclude {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public addition!: IUseCase | string;
+  public addition!: string;
 
   /**
    * includingCase
@@ -39,20 +35,8 @@ export class Include extends NamedElement implements IInclude {
    * @relationship cross-reference
    * @opposite include
    */
-  public includingCase!: IUseCase | string;
+  public includingCase!: string;
 
-  // Inherited from NamedElement
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from NamedElement
   /**
    * ownedComment
    * 
@@ -62,16 +46,14 @@ export class Include extends NamedElement implements IInclude {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from NamedElement
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from NamedElement
   /**
    * nameExpression
    * 
@@ -79,35 +61,44 @@ export class Include extends NamedElement implements IInclude {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from NamedElement
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
+  public visibility: VisibilityKind | undefined = undefined;
+  /**
+   * ownedComment
+   * 
+   * @type Comment
+   * @multiplicity [0..*]
+   * @relationship containment
+   */
+  public ownedComment: Set<IComment> = new Set();
+
 
   constructor(init?: Partial<IInclude>) {
     super(init);
-    this.addition = init?.addition!;
-    this.includingCase = init?.includingCase!;
+
+    this.addition = init?.addition ?? '';
+    this.includingCase = init?.includingCase ?? '';
   }
-  getAddition(): IUseCase | string {
+  getAddition(): string {
     return this.addition;
   }
 
-  setAddition(value: IUseCase | string): void {
+  setAddition(value: string): void {
     this.addition = value;
   }
 
-  getIncludingCase(): IUseCase | string {
+  getIncludingCase(): string {
     return this.includingCase;
   }
 
-  setIncludingCase(value: IUseCase | string): void {
+  setIncludingCase(value: string): void {
     this.includingCase = value;
   }
 
@@ -174,9 +165,6 @@ export class Include extends NamedElement implements IInclude {
   static fromJSON(json: any): Include {
     const instance = new Include();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

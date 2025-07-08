@@ -30,7 +30,7 @@ export interface IPackage extends INamespace, IPackageableElement, ITemplateable
    * @relationship containment
    * @opposite receivingPackage
    */
-  packageMerge: Set<IPackageMerge>;
+  packageMerge?: Set<IPackageMerge>;
   /**
    * packagedElement
    * 
@@ -38,7 +38,7 @@ export interface IPackage extends INamespace, IPackageableElement, ITemplateable
    * @multiplicity [0..*]
    * @relationship containment
    */
-  packagedElement: Set<IPackageableElement>;
+  packagedElement?: Set<IPackageableElement>;
   /**
    * profileApplication
    * 
@@ -47,7 +47,7 @@ export interface IPackage extends INamespace, IPackageableElement, ITemplateable
    * @relationship containment
    * @opposite applyingPackage
    */
-  profileApplication: Set<IProfileApplication>;
+  profileApplication?: Set<IProfileApplication>;
 }
 
 // Type aliases for Package

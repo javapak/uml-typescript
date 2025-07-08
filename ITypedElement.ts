@@ -17,7 +17,7 @@ export interface ITypedElement extends INamedElement {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  type?: IType | string;
+  type?: string;
 }
 
 // Type aliases for TypedElement

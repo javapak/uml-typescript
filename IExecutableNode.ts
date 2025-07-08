@@ -19,7 +19,7 @@ export interface IExecutableNode extends IActivityNode {
    * @relationship containment
    * @opposite protectedNode
    */
-  handler: Set<IExceptionHandler>;
+  handler?: Set<IExceptionHandler>;
 }
 
 // Type aliases for ExecutableNode

@@ -37,7 +37,7 @@ export interface IPort extends IProperty {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  protocol?: IProtocolStateMachine | string;
+  protocol?: string;
   /**
    * redefinedPort
    * 
@@ -45,7 +45,7 @@ export interface IPort extends IProperty {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  redefinedPort: Set<IPort | string>;
+  redefinedPort?: Set<string>;
 }
 
 // Type aliases for Port

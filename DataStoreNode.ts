@@ -6,22 +6,14 @@
  * @extends CentralBufferNode
  */
 import { CentralBufferNode } from './CentralBufferNode';
-import { Comment } from './Comment';
-import { IActivity } from './IActivity';
 import { IActivityEdge } from './IActivityEdge';
-import { IActivityGroup } from './IActivityGroup';
 import { IActivityNode } from './IActivityNode';
 import { IActivityPartition } from './IActivityPartition';
 import { IBehavior } from './IBehavior';
 import { ICentralBufferNode } from './ICentralBufferNode';
-import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
 import { IDataStoreNode } from './IDataStoreNode';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IInterruptibleActivityRegion } from './IInterruptibleActivityRegion';
-import { INamespace } from './INamespace';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IState } from './IState';
 import { IStringExpression } from './IStringExpression';
 import { IStructuredActivityNode } from './IStructuredActivityNode';
@@ -34,18 +26,6 @@ import { ValueSpecification } from './ValueSpecification';
 import { VisibilityKind } from './VisibilityKind';
 
 export class DataStoreNode extends CentralBufferNode implements IDataStoreNode {
-  // Inherited from CentralBufferNode
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from CentralBufferNode
   /**
    * ownedComment
    * 
@@ -55,16 +35,14 @@ export class DataStoreNode extends CentralBufferNode implements IDataStoreNode {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from CentralBufferNode
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from CentralBufferNode
   /**
    * nameExpression
    * 
@@ -72,18 +50,15 @@ export class DataStoreNode extends CentralBufferNode implements IDataStoreNode {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from CentralBufferNode
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from CentralBufferNode
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * isLeaf
    * 
@@ -92,7 +67,6 @@ export class DataStoreNode extends CentralBufferNode implements IDataStoreNode {
    */
   public isLeaf!: boolean;
 
-  // Inherited from CentralBufferNode
   /**
    * inInterruptibleRegion
    * 
@@ -101,9 +75,8 @@ export class DataStoreNode extends CentralBufferNode implements IDataStoreNode {
    * @relationship cross-reference
    * @opposite node
    */
-  public inInterruptibleRegion: Set<IInterruptibleActivityRegion | string> = new Set();
+  public inInterruptibleRegion: Set<string> = new Set();
 
-  // Inherited from CentralBufferNode
   /**
    * inStructuredNode
    * 
@@ -112,9 +85,8 @@ export class DataStoreNode extends CentralBufferNode implements IDataStoreNode {
    * @relationship cross-reference
    * @opposite node
    */
-  public inStructuredNode?: IStructuredActivityNode | string = undefined;
+  public inStructuredNode?: string;
 
-  // Inherited from CentralBufferNode
   /**
    * incoming
    * 
@@ -123,9 +95,8 @@ export class DataStoreNode extends CentralBufferNode implements IDataStoreNode {
    * @relationship cross-reference
    * @opposite target
    */
-  public incoming: Set<IActivityEdge | string> = new Set();
+  public incoming: Set<string> = new Set();
 
-  // Inherited from CentralBufferNode
   /**
    * outgoing
    * 
@@ -134,9 +105,8 @@ export class DataStoreNode extends CentralBufferNode implements IDataStoreNode {
    * @relationship cross-reference
    * @opposite source
    */
-  public outgoing: Set<IActivityEdge | string> = new Set();
+  public outgoing: Set<string> = new Set();
 
-  // Inherited from CentralBufferNode
   /**
    * redefinedNode
    * 
@@ -144,9 +114,8 @@ export class DataStoreNode extends CentralBufferNode implements IDataStoreNode {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedNode: Set<IActivityNode | string> = new Set();
+  public redefinedNode: Set<string> = new Set();
 
-  // Inherited from CentralBufferNode
   /**
    * inPartition
    * 
@@ -155,9 +124,8 @@ export class DataStoreNode extends CentralBufferNode implements IDataStoreNode {
    * @relationship cross-reference
    * @opposite node
    */
-  public inPartition: Set<IActivityPartition | string> = new Set();
+  public inPartition: Set<string> = new Set();
 
-  // Inherited from CentralBufferNode
   /**
    * type
    * 
@@ -165,9 +133,8 @@ export class DataStoreNode extends CentralBufferNode implements IDataStoreNode {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public type?: IType | string = undefined;
+  public type?: string;
 
-  // Inherited from CentralBufferNode
   /**
    * inState
    * 
@@ -175,9 +142,8 @@ export class DataStoreNode extends CentralBufferNode implements IDataStoreNode {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public inState: Set<IState | string> = new Set();
+  public inState: Set<string> = new Set();
 
-  // Inherited from CentralBufferNode
   /**
    * isControlType
    * 
@@ -186,16 +152,13 @@ export class DataStoreNode extends CentralBufferNode implements IDataStoreNode {
    */
   public isControlType!: boolean;
 
-  // Inherited from CentralBufferNode
   /**
    * ordering
    * 
    * @type ObjectNodeOrderingKind
    * @multiplicity [1..1]
    */
-  public ordering!: any;
-
-  // Inherited from CentralBufferNode
+  public ordering: ObjectNodeOrderingKind = ObjectNodeOrderingKind.unordered;
   /**
    * selection
    * 
@@ -203,9 +166,8 @@ export class DataStoreNode extends CentralBufferNode implements IDataStoreNode {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public selection?: IBehavior | string = undefined;
+  public selection?: string;
 
-  // Inherited from CentralBufferNode
   /**
    * upperBound
    * 
@@ -213,10 +175,12 @@ export class DataStoreNode extends CentralBufferNode implements IDataStoreNode {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public upperBound?: IValueSpecification = undefined;
+  public upperBound?: IValueSpecification;
+
 
   constructor(init?: Partial<IDataStoreNode>) {
     super(init);
+
   }
   /**
    * Converts this instance to a plain object matching the interface
@@ -277,9 +241,6 @@ export class DataStoreNode extends CentralBufferNode implements IDataStoreNode {
   static fromJSON(json: any): DataStoreNode {
     const instance = new DataStoreNode();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

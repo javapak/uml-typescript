@@ -9,8 +9,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialLinkEndCreationData = Partial<ILinkEndCreationData>;
 export type RequiredLinkEndCreationData = Required<ILinkEndCreationData>;
-export type LinkEndCreationDataMetadata = Pick<ILinkEndCreationData, 'ownedComment'>;
-export type LinkEndCreationDataSummary = Pick<ILinkEndCreationData, 'eAnnotations' | 'ownedComment' | 'end'>;
 export type LinkEndCreationDataUnion = ILinkEndCreationData | ILinkEndData;
 export type LinkEndCreationDataFactory = () => LinkEndCreationData;
 export type LinkEndCreationDataValidator = (instance: ILinkEndCreationData) => ValidationResult;

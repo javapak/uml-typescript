@@ -8,7 +8,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialRelationship = Partial<IRelationship>;
 export type RequiredRelationship = Required<IRelationship>;
-export type RelationshipMetadata = Pick<IRelationship, 'ownedComment'>;
 export type RelationshipUnion = IRelationship | IElement;
 export type RelationshipFactory = () => Relationship;
 export type RelationshipValidator = (instance: IRelationship) => ValidationResult;

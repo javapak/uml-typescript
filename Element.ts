@@ -6,7 +6,7 @@
  * @abstract
  * @extends EModelElement
  */
-import { Comment } from './Comment';
+import { EModelElement } from './EModelElement';
 import { IComment } from './IComment';
 import { IEModelElement } from './IEModelElement';
 import { IElement } from './IElement';
@@ -22,20 +22,11 @@ export class Element extends EModelElement implements IElement {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from EModelElement
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
 
   constructor(init?: Partial<IElement>) {
     super(init);
-    this.ownedComment = init?.ownedComment ?? new Set();
+
+    this.ownedComment = init?.ownedComment ? new Set(init.ownedComment) : new Set();
   }
   getOwnedComment(): Set<IComment> {
     return this.ownedComment;
@@ -106,9 +97,6 @@ export class Element extends EModelElement implements IElement {
   static fromJSON(json: any): Element {
     const instance = new Element();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

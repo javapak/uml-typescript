@@ -5,16 +5,7 @@
  * @package uml
  * @extends Class
  */
-import { Behavior } from './Behavior';
 import { Class } from './Class';
-import { Classifier } from './Classifier';
-import { CollaborationUse } from './CollaborationUse';
-import { Comment } from './Comment';
-import { ComponentRealization } from './ComponentRealization';
-import { Connector } from './Connector';
-import { Constraint } from './Constraint';
-import { ElementImport } from './ElementImport';
-import { Generalization } from './Generalization';
 import { IBehavior } from './IBehavior';
 import { IClass } from './IClass';
 import { IClassifier } from './IClassifier';
@@ -22,45 +13,25 @@ import { ICollaborationUse } from './ICollaborationUse';
 import { IComment } from './IComment';
 import { IComponent } from './IComponent';
 import { IComponentRealization } from './IComponentRealization';
-import { IConnectableElement } from './IConnectableElement';
 import { IConnector } from './IConnector';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IElementImport } from './IElementImport';
-import { IExtension } from './IExtension';
-import { IFeature } from './IFeature';
 import { IGeneralization } from './IGeneralization';
 import { IGeneralizationSet } from './IGeneralizationSet';
-import { IInterface } from './IInterface';
 import { IInterfaceRealization } from './IInterfaceRealization';
-import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IOperation } from './IOperation';
-import { IPackage } from './IPackage';
 import { IPackageImport } from './IPackageImport';
 import { IPackageableElement } from './IPackageableElement';
-import { IPort } from './IPort';
 import { IProperty } from './IProperty';
 import { IReception } from './IReception';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { ISubstitution } from './ISubstitution';
 import { ITemplateBinding } from './ITemplateBinding';
 import { ITemplateParameter } from './ITemplateParameter';
 import { ITemplateSignature } from './ITemplateSignature';
 import { IUseCase } from './IUseCase';
-import { InterfaceRealization } from './InterfaceRealization';
-import { Operation } from './Operation';
-import { PackageImport } from './PackageImport';
-import { PackageableElement } from './PackageableElement';
-import { Property } from './Property';
-import { Reception } from './Reception';
 import { StringExpression } from './StringExpression';
-import { Substitution } from './Substitution';
-import { TemplateBinding } from './TemplateBinding';
 import { TemplateSignature } from './TemplateSignature';
-import { UseCase } from './UseCase';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
 
@@ -92,18 +63,6 @@ export class Component extends Class implements IComponent {
    */
   public realization: Set<IComponentRealization> = new Set();
 
-  // Inherited from Class
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Class
   /**
    * ownedComment
    * 
@@ -113,16 +72,14 @@ export class Component extends Class implements IComponent {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Class
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Class
   /**
    * nameExpression
    * 
@@ -130,18 +87,15 @@ export class Component extends Class implements IComponent {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Class
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Class
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * ownedRule
    * 
@@ -152,7 +106,6 @@ export class Component extends Class implements IComponent {
    */
   public ownedRule: Set<IConstraint> = new Set();
 
-  // Inherited from Class
   /**
    * elementImport
    * 
@@ -163,7 +116,6 @@ export class Component extends Class implements IComponent {
    */
   public elementImport: Set<IElementImport> = new Set();
 
-  // Inherited from Class
   /**
    * packageImport
    * 
@@ -174,7 +126,6 @@ export class Component extends Class implements IComponent {
    */
   public packageImport: Set<IPackageImport> = new Set();
 
-  // Inherited from Class
   /**
    * isLeaf
    * 
@@ -183,7 +134,6 @@ export class Component extends Class implements IComponent {
    */
   public isLeaf!: boolean;
 
-  // Inherited from Class
   /**
    * owningTemplateParameter
    * 
@@ -192,9 +142,8 @@ export class Component extends Class implements IComponent {
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from Class
   /**
    * templateParameter
    * 
@@ -203,9 +152,8 @@ export class Component extends Class implements IComponent {
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from Class
   /**
    * templateBinding
    * 
@@ -216,7 +164,6 @@ export class Component extends Class implements IComponent {
    */
   public templateBinding: Set<ITemplateBinding> = new Set();
 
-  // Inherited from Class
   /**
    * ownedTemplateSignature
    * 
@@ -225,9 +172,8 @@ export class Component extends Class implements IComponent {
    * @relationship containment
    * @opposite template
    */
-  public ownedTemplateSignature?: ITemplateSignature = undefined;
+  public ownedTemplateSignature?: ITemplateSignature;
 
-  // Inherited from Class
   /**
    * collaborationUse
    * 
@@ -237,7 +183,6 @@ export class Component extends Class implements IComponent {
    */
   public collaborationUse: Set<ICollaborationUse> = new Set();
 
-  // Inherited from Class
   /**
    * generalization
    * 
@@ -248,7 +193,6 @@ export class Component extends Class implements IComponent {
    */
   public generalization: Set<IGeneralization> = new Set();
 
-  // Inherited from Class
   /**
    * powertypeExtent
    * 
@@ -257,9 +201,8 @@ export class Component extends Class implements IComponent {
    * @relationship cross-reference
    * @opposite powertype
    */
-  public powertypeExtent: Set<IGeneralizationSet | string> = new Set();
+  public powertypeExtent: Set<string> = new Set();
 
-  // Inherited from Class
   /**
    * isAbstract
    * 
@@ -268,7 +211,6 @@ export class Component extends Class implements IComponent {
    */
   public isAbstract!: boolean;
 
-  // Inherited from Class
   /**
    * isFinalSpecialization
    * 
@@ -277,7 +219,6 @@ export class Component extends Class implements IComponent {
    */
   public isFinalSpecialization!: boolean;
 
-  // Inherited from Class
   /**
    * ownedUseCase
    * 
@@ -287,7 +228,6 @@ export class Component extends Class implements IComponent {
    */
   public ownedUseCase: Set<IUseCase> = new Set();
 
-  // Inherited from Class
   /**
    * useCase
    * 
@@ -296,9 +236,8 @@ export class Component extends Class implements IComponent {
    * @relationship cross-reference
    * @opposite subject
    */
-  public useCase: Set<IUseCase | string> = new Set();
+  public useCase: Set<string> = new Set();
 
-  // Inherited from Class
   /**
    * redefinedClassifier
    * 
@@ -306,9 +245,8 @@ export class Component extends Class implements IComponent {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedClassifier: Set<IClassifier | string> = new Set();
+  public redefinedClassifier: Set<string> = new Set();
 
-  // Inherited from Class
   /**
    * representation
    * 
@@ -316,9 +254,8 @@ export class Component extends Class implements IComponent {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public representation?: ICollaborationUse | string = undefined;
+  public representation?: string;
 
-  // Inherited from Class
   /**
    * substitution
    * 
@@ -329,7 +266,6 @@ export class Component extends Class implements IComponent {
    */
   public substitution: Set<ISubstitution> = new Set();
 
-  // Inherited from Class
   /**
    * ownedAttribute
    * 
@@ -339,7 +275,6 @@ export class Component extends Class implements IComponent {
    */
   public ownedAttribute: IProperty[] = [];
 
-  // Inherited from Class
   /**
    * ownedConnector
    * 
@@ -349,7 +284,6 @@ export class Component extends Class implements IComponent {
    */
   public ownedConnector: Set<IConnector> = new Set();
 
-  // Inherited from Class
   /**
    * classifierBehavior
    * 
@@ -357,9 +291,8 @@ export class Component extends Class implements IComponent {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public classifierBehavior?: IBehavior | string = undefined;
+  public classifierBehavior?: string;
 
-  // Inherited from Class
   /**
    * interfaceRealization
    * 
@@ -370,7 +303,6 @@ export class Component extends Class implements IComponent {
    */
   public interfaceRealization: Set<IInterfaceRealization> = new Set();
 
-  // Inherited from Class
   /**
    * ownedBehavior
    * 
@@ -380,7 +312,6 @@ export class Component extends Class implements IComponent {
    */
   public ownedBehavior: Set<IBehavior> = new Set();
 
-  // Inherited from Class
   /**
    * ownedOperation
    * 
@@ -391,7 +322,6 @@ export class Component extends Class implements IComponent {
    */
   public ownedOperation: IOperation[] = [];
 
-  // Inherited from Class
   /**
    * isActive
    * 
@@ -400,7 +330,6 @@ export class Component extends Class implements IComponent {
    */
   public isActive!: boolean;
 
-  // Inherited from Class
   /**
    * nestedClassifier
    * 
@@ -410,7 +339,6 @@ export class Component extends Class implements IComponent {
    */
   public nestedClassifier: IClassifier[] = [];
 
-  // Inherited from Class
   /**
    * ownedReception
    * 
@@ -420,11 +348,13 @@ export class Component extends Class implements IComponent {
    */
   public ownedReception: Set<IReception> = new Set();
 
+
   constructor(init?: Partial<IComponent>) {
     super(init);
-    this.isIndirectlyInstantiated = init?.isIndirectlyInstantiated!;
-    this.packagedElement = init?.packagedElement ?? new Set();
-    this.realization = init?.realization ?? new Set();
+
+    this.isIndirectlyInstantiated = init?.isIndirectlyInstantiated ?? false;
+    this.packagedElement = init?.packagedElement ? new Set(init.packagedElement) : new Set();
+    this.realization = init?.realization ? new Set(init.realization) : new Set();
   }
   getIsIndirectlyInstantiated(): boolean {
     return this.isIndirectlyInstantiated;
@@ -515,9 +445,6 @@ export class Component extends Class implements IComponent {
   static fromJSON(json: any): Component {
     const instance = new Component();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

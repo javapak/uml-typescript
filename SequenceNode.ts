@@ -5,45 +5,25 @@
  * @package uml
  * @extends StructuredActivityNode
  */
-import { ActivityEdge } from './ActivityEdge';
-import { ActivityNode } from './ActivityNode';
-import { Comment } from './Comment';
-import { Constraint } from './Constraint';
-import { ElementImport } from './ElementImport';
-import { ExceptionHandler } from './ExceptionHandler';
-import { ExecutableNode } from './ExecutableNode';
-import { IActivity } from './IActivity';
 import { IActivityEdge } from './IActivityEdge';
-import { IActivityGroup } from './IActivityGroup';
 import { IActivityNode } from './IActivityNode';
 import { IActivityPartition } from './IActivityPartition';
-import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IElementImport } from './IElementImport';
 import { IExceptionHandler } from './IExceptionHandler';
 import { IExecutableNode } from './IExecutableNode';
 import { IInputPin } from './IInputPin';
 import { IInterruptibleActivityRegion } from './IInterruptibleActivityRegion';
-import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IOutputPin } from './IOutputPin';
 import { IPackageImport } from './IPackageImport';
-import { IPackageableElement } from './IPackageableElement';
-import { IRedefinableElement } from './IRedefinableElement';
 import { ISequenceNode } from './ISequenceNode';
 import { IStringExpression } from './IStringExpression';
 import { IStructuredActivityNode } from './IStructuredActivityNode';
 import { IVariable } from './IVariable';
-import { InputPin } from './InputPin';
-import { OutputPin } from './OutputPin';
-import { PackageImport } from './PackageImport';
 import { StringExpression } from './StringExpression';
 import { StructuredActivityNode } from './StructuredActivityNode';
 import { ValidationError, ValidationResult } from './ValidationTypes';
-import { Variable } from './Variable';
 import { VisibilityKind } from './VisibilityKind';
 
 export class SequenceNode extends StructuredActivityNode implements ISequenceNode {
@@ -56,18 +36,6 @@ export class SequenceNode extends StructuredActivityNode implements ISequenceNod
    */
   public executableNode: IExecutableNode[] = [];
 
-  // Inherited from StructuredActivityNode
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from StructuredActivityNode
   /**
    * ownedComment
    * 
@@ -77,16 +45,14 @@ export class SequenceNode extends StructuredActivityNode implements ISequenceNod
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from StructuredActivityNode
   /**
    * nameExpression
    * 
@@ -94,18 +60,15 @@ export class SequenceNode extends StructuredActivityNode implements ISequenceNod
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from StructuredActivityNode
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from StructuredActivityNode
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * isLeaf
    * 
@@ -114,7 +77,6 @@ export class SequenceNode extends StructuredActivityNode implements ISequenceNod
    */
   public isLeaf!: boolean;
 
-  // Inherited from StructuredActivityNode
   /**
    * inInterruptibleRegion
    * 
@@ -123,9 +85,8 @@ export class SequenceNode extends StructuredActivityNode implements ISequenceNod
    * @relationship cross-reference
    * @opposite node
    */
-  public inInterruptibleRegion: Set<IInterruptibleActivityRegion | string> = new Set();
+  public inInterruptibleRegion: Set<string> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * inStructuredNode
    * 
@@ -134,9 +95,8 @@ export class SequenceNode extends StructuredActivityNode implements ISequenceNod
    * @relationship cross-reference
    * @opposite node
    */
-  public inStructuredNode?: IStructuredActivityNode | string = undefined;
+  public inStructuredNode?: string;
 
-  // Inherited from StructuredActivityNode
   /**
    * incoming
    * 
@@ -145,9 +105,8 @@ export class SequenceNode extends StructuredActivityNode implements ISequenceNod
    * @relationship cross-reference
    * @opposite target
    */
-  public incoming: Set<IActivityEdge | string> = new Set();
+  public incoming: Set<string> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * outgoing
    * 
@@ -156,9 +115,8 @@ export class SequenceNode extends StructuredActivityNode implements ISequenceNod
    * @relationship cross-reference
    * @opposite source
    */
-  public outgoing: Set<IActivityEdge | string> = new Set();
+  public outgoing: Set<string> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * redefinedNode
    * 
@@ -166,9 +124,8 @@ export class SequenceNode extends StructuredActivityNode implements ISequenceNod
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedNode: Set<IActivityNode | string> = new Set();
+  public redefinedNode: Set<string> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * inPartition
    * 
@@ -177,9 +134,8 @@ export class SequenceNode extends StructuredActivityNode implements ISequenceNod
    * @relationship cross-reference
    * @opposite node
    */
-  public inPartition: Set<IActivityPartition | string> = new Set();
+  public inPartition: Set<string> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * handler
    * 
@@ -190,7 +146,6 @@ export class SequenceNode extends StructuredActivityNode implements ISequenceNod
    */
   public handler: Set<IExceptionHandler> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * isLocallyReentrant
    * 
@@ -199,7 +154,6 @@ export class SequenceNode extends StructuredActivityNode implements ISequenceNod
    */
   public isLocallyReentrant!: boolean;
 
-  // Inherited from StructuredActivityNode
   /**
    * localPostcondition
    * 
@@ -209,7 +163,6 @@ export class SequenceNode extends StructuredActivityNode implements ISequenceNod
    */
   public localPostcondition: Set<IConstraint> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * localPrecondition
    * 
@@ -219,7 +172,6 @@ export class SequenceNode extends StructuredActivityNode implements ISequenceNod
    */
   public localPrecondition: Set<IConstraint> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * ownedRule
    * 
@@ -230,7 +182,6 @@ export class SequenceNode extends StructuredActivityNode implements ISequenceNod
    */
   public ownedRule: Set<IConstraint> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * elementImport
    * 
@@ -241,7 +192,6 @@ export class SequenceNode extends StructuredActivityNode implements ISequenceNod
    */
   public elementImport: Set<IElementImport> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * packageImport
    * 
@@ -252,7 +202,6 @@ export class SequenceNode extends StructuredActivityNode implements ISequenceNod
    */
   public packageImport: Set<IPackageImport> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * edge
    * 
@@ -263,7 +212,6 @@ export class SequenceNode extends StructuredActivityNode implements ISequenceNod
    */
   public edge: Set<IActivityEdge> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * mustIsolate
    * 
@@ -272,7 +220,6 @@ export class SequenceNode extends StructuredActivityNode implements ISequenceNod
    */
   public mustIsolate!: boolean;
 
-  // Inherited from StructuredActivityNode
   /**
    * structuredNodeInput
    * 
@@ -282,7 +229,6 @@ export class SequenceNode extends StructuredActivityNode implements ISequenceNod
    */
   public structuredNodeInput: Set<IInputPin> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * structuredNodeOutput
    * 
@@ -292,7 +238,6 @@ export class SequenceNode extends StructuredActivityNode implements ISequenceNod
    */
   public structuredNodeOutput: Set<IOutputPin> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * variable
    * 
@@ -303,7 +248,6 @@ export class SequenceNode extends StructuredActivityNode implements ISequenceNod
    */
   public variable: Set<IVariable> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * node
    * 
@@ -314,9 +258,11 @@ export class SequenceNode extends StructuredActivityNode implements ISequenceNod
    */
   public node: Set<IActivityNode> = new Set();
 
+
   constructor(init?: Partial<ISequenceNode>) {
     super(init);
-    this.executableNode = init?.executableNode ?? [];
+
+    this.executableNode = init?.executableNode ? [...init.executableNode] : [];
   }
   getExecutableNode(): IExecutableNode[] {
     return this.executableNode;
@@ -387,9 +333,6 @@ export class SequenceNode extends StructuredActivityNode implements ISequenceNod
   static fromJSON(json: any): SequenceNode {
     const instance = new SequenceNode();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

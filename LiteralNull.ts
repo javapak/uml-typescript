@@ -5,13 +5,9 @@
  * @package uml
  * @extends LiteralSpecification
  */
-import { Comment } from './Comment';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { ILiteralNull } from './ILiteralNull';
 import { ILiteralSpecification } from './ILiteralSpecification';
-import { INamespace } from './INamespace';
 import { IStringExpression } from './IStringExpression';
 import { ITemplateParameter } from './ITemplateParameter';
 import { IType } from './IType';
@@ -21,18 +17,6 @@ import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
 
 export class LiteralNull extends LiteralSpecification implements ILiteralNull {
-  // Inherited from LiteralSpecification
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from LiteralSpecification
   /**
    * ownedComment
    * 
@@ -42,16 +26,14 @@ export class LiteralNull extends LiteralSpecification implements ILiteralNull {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from LiteralSpecification
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from LiteralSpecification
   /**
    * nameExpression
    * 
@@ -59,18 +41,15 @@ export class LiteralNull extends LiteralSpecification implements ILiteralNull {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from LiteralSpecification
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from LiteralSpecification
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * owningTemplateParameter
    * 
@@ -79,9 +58,8 @@ export class LiteralNull extends LiteralSpecification implements ILiteralNull {
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from LiteralSpecification
   /**
    * templateParameter
    * 
@@ -90,9 +68,8 @@ export class LiteralNull extends LiteralSpecification implements ILiteralNull {
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from LiteralSpecification
   /**
    * type
    * 
@@ -100,10 +77,12 @@ export class LiteralNull extends LiteralSpecification implements ILiteralNull {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public type?: IType | string = undefined;
+  public type?: string;
+
 
   constructor(init?: Partial<ILiteralNull>) {
     super(init);
+
   }
   /**
    * Converts this instance to a plain object matching the interface
@@ -164,9 +143,6 @@ export class LiteralNull extends LiteralSpecification implements ILiteralNull {
   static fromJSON(json: any): LiteralNull {
     const instance = new LiteralNull();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

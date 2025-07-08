@@ -5,17 +5,7 @@
  * @package uml
  * @extends Behavior
  */
-import { ActivityEdge } from './ActivityEdge';
-import { ActivityGroup } from './ActivityGroup';
-import { ActivityNode } from './ActivityNode';
 import { Behavior } from './Behavior';
-import { Classifier } from './Classifier';
-import { CollaborationUse } from './CollaborationUse';
-import { Comment } from './Comment';
-import { Connector } from './Connector';
-import { Constraint } from './Constraint';
-import { ElementImport } from './ElementImport';
-import { Generalization } from './Generalization';
 import { IActivity } from './IActivity';
 import { IActivityEdge } from './IActivityEdge';
 import { IActivityGroup } from './IActivityGroup';
@@ -23,34 +13,21 @@ import { IActivityNode } from './IActivityNode';
 import { IActivityPartition } from './IActivityPartition';
 import { IBehavior } from './IBehavior';
 import { IBehavioralFeature } from './IBehavioralFeature';
-import { IBehavioredClassifier } from './IBehavioredClassifier';
-import { IClass } from './IClass';
 import { IClassifier } from './IClassifier';
 import { ICollaborationUse } from './ICollaborationUse';
 import { IComment } from './IComment';
-import { IConnectableElement } from './IConnectableElement';
 import { IConnector } from './IConnector';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IElementImport } from './IElementImport';
-import { IExtension } from './IExtension';
-import { IFeature } from './IFeature';
 import { IGeneralization } from './IGeneralization';
 import { IGeneralizationSet } from './IGeneralizationSet';
 import { IInterfaceRealization } from './IInterfaceRealization';
-import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IOperation } from './IOperation';
-import { IPackage } from './IPackage';
 import { IPackageImport } from './IPackageImport';
-import { IPackageableElement } from './IPackageableElement';
 import { IParameter } from './IParameter';
 import { IParameterSet } from './IParameterSet';
-import { IPort } from './IPort';
 import { IProperty } from './IProperty';
 import { IReception } from './IReception';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { IStructuredActivityNode } from './IStructuredActivityNode';
 import { ISubstitution } from './ISubstitution';
@@ -59,21 +36,9 @@ import { ITemplateParameter } from './ITemplateParameter';
 import { ITemplateSignature } from './ITemplateSignature';
 import { IUseCase } from './IUseCase';
 import { IVariable } from './IVariable';
-import { InterfaceRealization } from './InterfaceRealization';
-import { Operation } from './Operation';
-import { PackageImport } from './PackageImport';
-import { Parameter } from './Parameter';
-import { ParameterSet } from './ParameterSet';
-import { Property } from './Property';
-import { Reception } from './Reception';
 import { StringExpression } from './StringExpression';
-import { StructuredActivityNode } from './StructuredActivityNode';
-import { Substitution } from './Substitution';
-import { TemplateBinding } from './TemplateBinding';
 import { TemplateSignature } from './TemplateSignature';
-import { UseCase } from './UseCase';
 import { ValidationError, ValidationResult } from './ValidationTypes';
-import { Variable } from './Variable';
 import { VisibilityKind } from './VisibilityKind';
 
 export class Activity extends Behavior implements IActivity {
@@ -138,7 +103,7 @@ export class Activity extends Behavior implements IActivity {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public partition: Set<IActivityPartition | string> = new Set();
+  public partition: Set<string> = new Set();
 
   /**
    * structuredNode
@@ -149,18 +114,6 @@ export class Activity extends Behavior implements IActivity {
    */
   public structuredNode: Set<IStructuredActivityNode> = new Set();
 
-  // Inherited from Behavior
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Behavior
   /**
    * ownedComment
    * 
@@ -170,16 +123,14 @@ export class Activity extends Behavior implements IActivity {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Behavior
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Behavior
   /**
    * nameExpression
    * 
@@ -187,18 +138,15 @@ export class Activity extends Behavior implements IActivity {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Behavior
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Behavior
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * ownedRule
    * 
@@ -209,7 +157,6 @@ export class Activity extends Behavior implements IActivity {
    */
   public ownedRule: Set<IConstraint> = new Set();
 
-  // Inherited from Behavior
   /**
    * elementImport
    * 
@@ -220,7 +167,6 @@ export class Activity extends Behavior implements IActivity {
    */
   public elementImport: Set<IElementImport> = new Set();
 
-  // Inherited from Behavior
   /**
    * packageImport
    * 
@@ -231,7 +177,6 @@ export class Activity extends Behavior implements IActivity {
    */
   public packageImport: Set<IPackageImport> = new Set();
 
-  // Inherited from Behavior
   /**
    * isLeaf
    * 
@@ -240,7 +185,6 @@ export class Activity extends Behavior implements IActivity {
    */
   public isLeaf!: boolean;
 
-  // Inherited from Behavior
   /**
    * owningTemplateParameter
    * 
@@ -249,9 +193,8 @@ export class Activity extends Behavior implements IActivity {
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from Behavior
   /**
    * templateParameter
    * 
@@ -260,9 +203,8 @@ export class Activity extends Behavior implements IActivity {
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from Behavior
   /**
    * templateBinding
    * 
@@ -273,7 +215,6 @@ export class Activity extends Behavior implements IActivity {
    */
   public templateBinding: Set<ITemplateBinding> = new Set();
 
-  // Inherited from Behavior
   /**
    * ownedTemplateSignature
    * 
@@ -282,9 +223,8 @@ export class Activity extends Behavior implements IActivity {
    * @relationship containment
    * @opposite template
    */
-  public ownedTemplateSignature?: ITemplateSignature = undefined;
+  public ownedTemplateSignature?: ITemplateSignature;
 
-  // Inherited from Behavior
   /**
    * collaborationUse
    * 
@@ -294,7 +234,6 @@ export class Activity extends Behavior implements IActivity {
    */
   public collaborationUse: Set<ICollaborationUse> = new Set();
 
-  // Inherited from Behavior
   /**
    * generalization
    * 
@@ -305,7 +244,6 @@ export class Activity extends Behavior implements IActivity {
    */
   public generalization: Set<IGeneralization> = new Set();
 
-  // Inherited from Behavior
   /**
    * powertypeExtent
    * 
@@ -314,9 +252,8 @@ export class Activity extends Behavior implements IActivity {
    * @relationship cross-reference
    * @opposite powertype
    */
-  public powertypeExtent: Set<IGeneralizationSet | string> = new Set();
+  public powertypeExtent: Set<string> = new Set();
 
-  // Inherited from Behavior
   /**
    * isAbstract
    * 
@@ -325,7 +262,6 @@ export class Activity extends Behavior implements IActivity {
    */
   public isAbstract!: boolean;
 
-  // Inherited from Behavior
   /**
    * isFinalSpecialization
    * 
@@ -334,7 +270,6 @@ export class Activity extends Behavior implements IActivity {
    */
   public isFinalSpecialization!: boolean;
 
-  // Inherited from Behavior
   /**
    * ownedUseCase
    * 
@@ -344,7 +279,6 @@ export class Activity extends Behavior implements IActivity {
    */
   public ownedUseCase: Set<IUseCase> = new Set();
 
-  // Inherited from Behavior
   /**
    * useCase
    * 
@@ -353,9 +287,8 @@ export class Activity extends Behavior implements IActivity {
    * @relationship cross-reference
    * @opposite subject
    */
-  public useCase: Set<IUseCase | string> = new Set();
+  public useCase: Set<string> = new Set();
 
-  // Inherited from Behavior
   /**
    * redefinedClassifier
    * 
@@ -363,9 +296,8 @@ export class Activity extends Behavior implements IActivity {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedClassifier: Set<IClassifier | string> = new Set();
+  public redefinedClassifier: Set<string> = new Set();
 
-  // Inherited from Behavior
   /**
    * representation
    * 
@@ -373,9 +305,8 @@ export class Activity extends Behavior implements IActivity {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public representation?: ICollaborationUse | string = undefined;
+  public representation?: string;
 
-  // Inherited from Behavior
   /**
    * substitution
    * 
@@ -386,7 +317,6 @@ export class Activity extends Behavior implements IActivity {
    */
   public substitution: Set<ISubstitution> = new Set();
 
-  // Inherited from Behavior
   /**
    * ownedAttribute
    * 
@@ -396,7 +326,6 @@ export class Activity extends Behavior implements IActivity {
    */
   public ownedAttribute: IProperty[] = [];
 
-  // Inherited from Behavior
   /**
    * ownedConnector
    * 
@@ -406,7 +335,6 @@ export class Activity extends Behavior implements IActivity {
    */
   public ownedConnector: Set<IConnector> = new Set();
 
-  // Inherited from Behavior
   /**
    * classifierBehavior
    * 
@@ -414,9 +342,8 @@ export class Activity extends Behavior implements IActivity {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public classifierBehavior?: IBehavior | string = undefined;
+  public classifierBehavior?: string;
 
-  // Inherited from Behavior
   /**
    * interfaceRealization
    * 
@@ -427,7 +354,6 @@ export class Activity extends Behavior implements IActivity {
    */
   public interfaceRealization: Set<IInterfaceRealization> = new Set();
 
-  // Inherited from Behavior
   /**
    * ownedBehavior
    * 
@@ -437,7 +363,6 @@ export class Activity extends Behavior implements IActivity {
    */
   public ownedBehavior: Set<IBehavior> = new Set();
 
-  // Inherited from Behavior
   /**
    * ownedOperation
    * 
@@ -448,7 +373,6 @@ export class Activity extends Behavior implements IActivity {
    */
   public ownedOperation: IOperation[] = [];
 
-  // Inherited from Behavior
   /**
    * isActive
    * 
@@ -457,7 +381,6 @@ export class Activity extends Behavior implements IActivity {
    */
   public isActive!: boolean;
 
-  // Inherited from Behavior
   /**
    * nestedClassifier
    * 
@@ -467,7 +390,6 @@ export class Activity extends Behavior implements IActivity {
    */
   public nestedClassifier: IClassifier[] = [];
 
-  // Inherited from Behavior
   /**
    * ownedReception
    * 
@@ -477,7 +399,6 @@ export class Activity extends Behavior implements IActivity {
    */
   public ownedReception: Set<IReception> = new Set();
 
-  // Inherited from Behavior
   /**
    * specification
    * 
@@ -486,18 +407,16 @@ export class Activity extends Behavior implements IActivity {
    * @relationship cross-reference
    * @opposite method
    */
-  public specification?: IBehavioralFeature | string = undefined;
+  public specification?: string;
 
-  // Inherited from Behavior
   /**
    * isReentrant
    * 
    * @type Boolean
    * @multiplicity [0..1]
    */
-  public isReentrant?: boolean = undefined;
+  public isReentrant?: boolean;
 
-  // Inherited from Behavior
   /**
    * ownedParameter
    * 
@@ -507,7 +426,6 @@ export class Activity extends Behavior implements IActivity {
    */
   public ownedParameter: IParameter[] = [];
 
-  // Inherited from Behavior
   /**
    * ownedParameterSet
    * 
@@ -517,7 +435,6 @@ export class Activity extends Behavior implements IActivity {
    */
   public ownedParameterSet: Set<IParameterSet> = new Set();
 
-  // Inherited from Behavior
   /**
    * postcondition
    * 
@@ -525,9 +442,8 @@ export class Activity extends Behavior implements IActivity {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public postcondition: Set<IConstraint | string> = new Set();
+  public postcondition: Set<string> = new Set();
 
-  // Inherited from Behavior
   /**
    * precondition
    * 
@@ -535,9 +451,8 @@ export class Activity extends Behavior implements IActivity {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public precondition: Set<IConstraint | string> = new Set();
+  public precondition: Set<string> = new Set();
 
-  // Inherited from Behavior
   /**
    * redefinedBehavior
    * 
@@ -545,18 +460,20 @@ export class Activity extends Behavior implements IActivity {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedBehavior: Set<IBehavior | string> = new Set();
+  public redefinedBehavior: Set<string> = new Set();
+
 
   constructor(init?: Partial<IActivity>) {
     super(init);
-    this.ownedGroup = init?.ownedGroup ?? new Set();
-    this.edge = init?.edge ?? new Set();
-    this.variable = init?.variable ?? new Set();
-    this.ownedNode = init?.ownedNode ?? new Set();
-    this.isReadOnly = init?.isReadOnly!;
-    this.isSingleExecution = init?.isSingleExecution!;
-    this.partition = init?.partition ?? new Set();
-    this.structuredNode = init?.structuredNode ?? new Set();
+
+    this.ownedGroup = init?.ownedGroup ? new Set(init.ownedGroup) : new Set();
+    this.edge = init?.edge ? new Set(init.edge) : new Set();
+    this.variable = init?.variable ? new Set(init.variable) : new Set();
+    this.ownedNode = init?.ownedNode ? new Set(init.ownedNode) : new Set();
+    this.isReadOnly = init?.isReadOnly ?? false;
+    this.isSingleExecution = init?.isSingleExecution ?? false;
+    this.partition = init?.partition ? new Set(init.partition) : new Set();
+    this.structuredNode = init?.structuredNode ? new Set(init.structuredNode) : new Set();
   }
   getOwnedGroup(): Set<IActivityGroup> {
     return this.ownedGroup;
@@ -606,11 +523,11 @@ export class Activity extends Behavior implements IActivity {
     this.isSingleExecution = value;
   }
 
-  getPartition(): Set<IActivityPartition | string> {
+  getPartition(): Set<string> {
     return this.partition;
   }
 
-  setPartition(value: Set<IActivityPartition | string>): void {
+  setPartition(value: Set<string>): void {
     this.partition = value;
   }
 
@@ -697,9 +614,6 @@ export class Activity extends Behavior implements IActivity {
   static fromJSON(json: any): Activity {
     const instance = new Activity();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

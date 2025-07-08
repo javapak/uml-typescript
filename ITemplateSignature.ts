@@ -18,7 +18,7 @@ export interface ITemplateSignature extends IElement {
    * @multiplicity [1..*]
    * @relationship cross-reference
    */
-  parameter: ITemplateParameter | string[];
+  parameter: string[];
   /**
    * template
    * 
@@ -27,7 +27,7 @@ export interface ITemplateSignature extends IElement {
    * @relationship cross-reference
    * @opposite ownedTemplateSignature
    */
-  template: ITemplateableElement | string;
+  template: string;
   /**
    * ownedParameter
    * 
@@ -36,7 +36,7 @@ export interface ITemplateSignature extends IElement {
    * @relationship containment
    * @opposite signature
    */
-  ownedParameter: ITemplateParameter[];
+  ownedParameter?: ITemplateParameter[];
 }
 
 // Type aliases for TemplateSignature

@@ -6,48 +6,28 @@
  * @extends Artifact
  */
 import { Artifact } from './Artifact';
-import { CollaborationUse } from './CollaborationUse';
-import { Comment } from './Comment';
-import { Constraint } from './Constraint';
-import { ElementImport } from './ElementImport';
-import { Generalization } from './Generalization';
 import { IArtifact } from './IArtifact';
 import { IClassifier } from './IClassifier';
 import { ICollaborationUse } from './ICollaborationUse';
 import { IComment } from './IComment';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
 import { IDeployment } from './IDeployment';
 import { IDeploymentSpecification } from './IDeploymentSpecification';
-import { IElement } from './IElement';
 import { IElementImport } from './IElementImport';
-import { IFeature } from './IFeature';
 import { IGeneralization } from './IGeneralization';
 import { IGeneralizationSet } from './IGeneralizationSet';
 import { IManifestation } from './IManifestation';
-import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IOperation } from './IOperation';
-import { IPackage } from './IPackage';
 import { IPackageImport } from './IPackageImport';
-import { IPackageableElement } from './IPackageableElement';
 import { IProperty } from './IProperty';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { ISubstitution } from './ISubstitution';
 import { ITemplateBinding } from './ITemplateBinding';
 import { ITemplateParameter } from './ITemplateParameter';
 import { ITemplateSignature } from './ITemplateSignature';
 import { IUseCase } from './IUseCase';
-import { Manifestation } from './Manifestation';
-import { Operation } from './Operation';
-import { PackageImport } from './PackageImport';
-import { Property } from './Property';
 import { StringExpression } from './StringExpression';
-import { Substitution } from './Substitution';
-import { TemplateBinding } from './TemplateBinding';
 import { TemplateSignature } from './TemplateSignature';
-import { UseCase } from './UseCase';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
 
@@ -58,7 +38,7 @@ export class DeploymentSpecification extends Artifact implements IDeploymentSpec
    * @type String
    * @multiplicity [0..1]
    */
-  public deploymentLocation?: string = undefined;
+  public deploymentLocation?: string;
 
   /**
    * executionLocation
@@ -66,7 +46,7 @@ export class DeploymentSpecification extends Artifact implements IDeploymentSpec
    * @type String
    * @multiplicity [0..1]
    */
-  public executionLocation?: string = undefined;
+  public executionLocation?: string;
 
   /**
    * deployment
@@ -76,20 +56,8 @@ export class DeploymentSpecification extends Artifact implements IDeploymentSpec
    * @relationship cross-reference
    * @opposite configuration
    */
-  public deployment?: IDeployment | string = undefined;
+  public deployment?: string;
 
-  // Inherited from Artifact
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Artifact
   /**
    * ownedComment
    * 
@@ -99,16 +67,14 @@ export class DeploymentSpecification extends Artifact implements IDeploymentSpec
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Artifact
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Artifact
   /**
    * nameExpression
    * 
@@ -116,18 +82,15 @@ export class DeploymentSpecification extends Artifact implements IDeploymentSpec
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Artifact
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Artifact
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * ownedRule
    * 
@@ -138,7 +101,6 @@ export class DeploymentSpecification extends Artifact implements IDeploymentSpec
    */
   public ownedRule: Set<IConstraint> = new Set();
 
-  // Inherited from Artifact
   /**
    * elementImport
    * 
@@ -149,7 +111,6 @@ export class DeploymentSpecification extends Artifact implements IDeploymentSpec
    */
   public elementImport: Set<IElementImport> = new Set();
 
-  // Inherited from Artifact
   /**
    * packageImport
    * 
@@ -160,7 +121,6 @@ export class DeploymentSpecification extends Artifact implements IDeploymentSpec
    */
   public packageImport: Set<IPackageImport> = new Set();
 
-  // Inherited from Artifact
   /**
    * isLeaf
    * 
@@ -169,7 +129,6 @@ export class DeploymentSpecification extends Artifact implements IDeploymentSpec
    */
   public isLeaf!: boolean;
 
-  // Inherited from Artifact
   /**
    * owningTemplateParameter
    * 
@@ -178,9 +137,8 @@ export class DeploymentSpecification extends Artifact implements IDeploymentSpec
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from Artifact
   /**
    * templateParameter
    * 
@@ -189,9 +147,8 @@ export class DeploymentSpecification extends Artifact implements IDeploymentSpec
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from Artifact
   /**
    * templateBinding
    * 
@@ -202,7 +159,6 @@ export class DeploymentSpecification extends Artifact implements IDeploymentSpec
    */
   public templateBinding: Set<ITemplateBinding> = new Set();
 
-  // Inherited from Artifact
   /**
    * ownedTemplateSignature
    * 
@@ -211,9 +167,8 @@ export class DeploymentSpecification extends Artifact implements IDeploymentSpec
    * @relationship containment
    * @opposite template
    */
-  public ownedTemplateSignature?: ITemplateSignature = undefined;
+  public ownedTemplateSignature?: ITemplateSignature;
 
-  // Inherited from Artifact
   /**
    * collaborationUse
    * 
@@ -223,7 +178,6 @@ export class DeploymentSpecification extends Artifact implements IDeploymentSpec
    */
   public collaborationUse: Set<ICollaborationUse> = new Set();
 
-  // Inherited from Artifact
   /**
    * generalization
    * 
@@ -234,7 +188,6 @@ export class DeploymentSpecification extends Artifact implements IDeploymentSpec
    */
   public generalization: Set<IGeneralization> = new Set();
 
-  // Inherited from Artifact
   /**
    * powertypeExtent
    * 
@@ -243,9 +196,8 @@ export class DeploymentSpecification extends Artifact implements IDeploymentSpec
    * @relationship cross-reference
    * @opposite powertype
    */
-  public powertypeExtent: Set<IGeneralizationSet | string> = new Set();
+  public powertypeExtent: Set<string> = new Set();
 
-  // Inherited from Artifact
   /**
    * isAbstract
    * 
@@ -254,7 +206,6 @@ export class DeploymentSpecification extends Artifact implements IDeploymentSpec
    */
   public isAbstract!: boolean;
 
-  // Inherited from Artifact
   /**
    * isFinalSpecialization
    * 
@@ -263,7 +214,6 @@ export class DeploymentSpecification extends Artifact implements IDeploymentSpec
    */
   public isFinalSpecialization!: boolean;
 
-  // Inherited from Artifact
   /**
    * ownedUseCase
    * 
@@ -273,7 +223,6 @@ export class DeploymentSpecification extends Artifact implements IDeploymentSpec
    */
   public ownedUseCase: Set<IUseCase> = new Set();
 
-  // Inherited from Artifact
   /**
    * useCase
    * 
@@ -282,9 +231,8 @@ export class DeploymentSpecification extends Artifact implements IDeploymentSpec
    * @relationship cross-reference
    * @opposite subject
    */
-  public useCase: Set<IUseCase | string> = new Set();
+  public useCase: Set<string> = new Set();
 
-  // Inherited from Artifact
   /**
    * redefinedClassifier
    * 
@@ -292,9 +240,8 @@ export class DeploymentSpecification extends Artifact implements IDeploymentSpec
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedClassifier: Set<IClassifier | string> = new Set();
+  public redefinedClassifier: Set<string> = new Set();
 
-  // Inherited from Artifact
   /**
    * representation
    * 
@@ -302,9 +249,8 @@ export class DeploymentSpecification extends Artifact implements IDeploymentSpec
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public representation?: ICollaborationUse | string = undefined;
+  public representation?: string;
 
-  // Inherited from Artifact
   /**
    * substitution
    * 
@@ -315,16 +261,14 @@ export class DeploymentSpecification extends Artifact implements IDeploymentSpec
    */
   public substitution: Set<ISubstitution> = new Set();
 
-  // Inherited from Artifact
   /**
    * fileName
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public fileName?: string = undefined;
+  public fileName?: string;
 
-  // Inherited from Artifact
   /**
    * manifestation
    * 
@@ -334,7 +278,6 @@ export class DeploymentSpecification extends Artifact implements IDeploymentSpec
    */
   public manifestation: Set<IManifestation> = new Set();
 
-  // Inherited from Artifact
   /**
    * nestedArtifact
    * 
@@ -344,7 +287,6 @@ export class DeploymentSpecification extends Artifact implements IDeploymentSpec
    */
   public nestedArtifact: Set<IArtifact> = new Set();
 
-  // Inherited from Artifact
   /**
    * ownedAttribute
    * 
@@ -354,7 +296,6 @@ export class DeploymentSpecification extends Artifact implements IDeploymentSpec
    */
   public ownedAttribute: IProperty[] = [];
 
-  // Inherited from Artifact
   /**
    * ownedOperation
    * 
@@ -364,11 +305,13 @@ export class DeploymentSpecification extends Artifact implements IDeploymentSpec
    */
   public ownedOperation: IOperation[] = [];
 
+
   constructor(init?: Partial<IDeploymentSpecification>) {
     super(init);
-    this.deploymentLocation = init?.deploymentLocation ?? undefined;
-    this.executionLocation = init?.executionLocation ?? undefined;
-    this.deployment = init?.deployment ?? undefined;
+
+    this.deploymentLocation = init?.deploymentLocation;
+    this.executionLocation = init?.executionLocation;
+    this.deployment = init?.deployment;
   }
   getDeploymentLocation(): string | undefined {
     return this.deploymentLocation;
@@ -386,11 +329,11 @@ export class DeploymentSpecification extends Artifact implements IDeploymentSpec
     this.executionLocation = value;
   }
 
-  getDeployment(): IDeployment | string | undefined {
+  getDeployment(): string | undefined {
     return this.deployment;
   }
 
-  setDeployment(value: IDeployment | string | undefined): void {
+  setDeployment(value: string | undefined): void {
     this.deployment = value;
   }
 
@@ -465,9 +408,6 @@ export class DeploymentSpecification extends Artifact implements IDeploymentSpec
   static fromJSON(json: any): DeploymentSpecification {
     const instance = new DeploymentSpecification();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

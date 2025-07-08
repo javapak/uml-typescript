@@ -18,7 +18,7 @@ export interface IReplyAction extends IAction {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  replyToCall: ITrigger | string;
+  replyToCall: string;
   /**
    * replyValue
    * 
@@ -26,7 +26,7 @@ export interface IReplyAction extends IAction {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  replyValue: IInputPin[];
+  replyValue?: IInputPin[];
   /**
    * returnInformation
    * 

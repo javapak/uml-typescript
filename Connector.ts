@@ -5,21 +5,13 @@
  * @package uml
  * @extends Feature
  */
-import { Comment } from './Comment';
-import { ConnectorEnd } from './ConnectorEnd';
-import { ConnectorKind } from './ConnectorKind';
 import { Feature } from './Feature';
 import { IAssociation } from './IAssociation';
 import { IBehavior } from './IBehavior';
-import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
 import { IConnector } from './IConnector';
 import { IConnectorEnd } from './IConnectorEnd';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IFeature } from './IFeature';
-import { INamespace } from './INamespace';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { StringExpression } from './StringExpression';
 import { ValidationError, ValidationResult } from './ValidationTypes';
@@ -33,7 +25,7 @@ export class Connector extends Feature implements IConnector {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public contract: Set<IBehavior | string> = new Set();
+  public contract: Set<string> = new Set();
 
   /**
    * end
@@ -51,7 +43,7 @@ export class Connector extends Feature implements IConnector {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedConnector: Set<IConnector | string> = new Set();
+  public redefinedConnector: Set<string> = new Set();
 
   /**
    * type
@@ -60,20 +52,8 @@ export class Connector extends Feature implements IConnector {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public type?: IAssociation | string = undefined;
+  public type?: string;
 
-  // Inherited from Feature
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Feature
   /**
    * ownedComment
    * 
@@ -83,16 +63,14 @@ export class Connector extends Feature implements IConnector {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Feature
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Feature
   /**
    * nameExpression
    * 
@@ -100,18 +78,15 @@ export class Connector extends Feature implements IConnector {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Feature
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Feature
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * isLeaf
    * 
@@ -120,7 +95,6 @@ export class Connector extends Feature implements IConnector {
    */
   public isLeaf!: boolean;
 
-  // Inherited from Feature
   /**
    * isStatic
    * 
@@ -129,18 +103,20 @@ export class Connector extends Feature implements IConnector {
    */
   public isStatic!: boolean;
 
+
   constructor(init?: Partial<IConnector>) {
     super(init);
-    this.contract = init?.contract ?? new Set();
-    this.end = init?.end ?? [];
-    this.redefinedConnector = init?.redefinedConnector ?? new Set();
-    this.type = init?.type ?? undefined;
+
+    this.contract = init?.contract ? new Set(init.contract) : new Set();
+    this.end = init?.end ? [...init.end] : [];
+    this.redefinedConnector = init?.redefinedConnector ? new Set(init.redefinedConnector) : new Set();
+    this.type = init?.type;
   }
-  getContract(): Set<IBehavior | string> {
+  getContract(): Set<string> {
     return this.contract;
   }
 
-  setContract(value: Set<IBehavior | string>): void {
+  setContract(value: Set<string>): void {
     this.contract = value;
   }
 
@@ -152,19 +128,19 @@ export class Connector extends Feature implements IConnector {
     this.end = value;
   }
 
-  getRedefinedConnector(): Set<IConnector | string> {
+  getRedefinedConnector(): Set<string> {
     return this.redefinedConnector;
   }
 
-  setRedefinedConnector(value: Set<IConnector | string>): void {
+  setRedefinedConnector(value: Set<string>): void {
     this.redefinedConnector = value;
   }
 
-  getType(): IAssociation | string | undefined {
+  getType(): string | undefined {
     return this.type;
   }
 
-  setType(value: IAssociation | string | undefined): void {
+  setType(value: string | undefined): void {
     this.type = value;
   }
 
@@ -237,9 +213,6 @@ export class Connector extends Feature implements IConnector {
   static fromJSON(json: any): Connector {
     const instance = new Connector();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

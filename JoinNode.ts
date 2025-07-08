@@ -5,22 +5,14 @@
  * @package uml
  * @extends ControlNode
  */
-import { Comment } from './Comment';
 import { ControlNode } from './ControlNode';
-import { IActivity } from './IActivity';
 import { IActivityEdge } from './IActivityEdge';
-import { IActivityGroup } from './IActivityGroup';
 import { IActivityNode } from './IActivityNode';
 import { IActivityPartition } from './IActivityPartition';
-import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
 import { IControlNode } from './IControlNode';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IInterruptibleActivityRegion } from './IInterruptibleActivityRegion';
 import { IJoinNode } from './IJoinNode';
-import { INamespace } from './INamespace';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { IStructuredActivityNode } from './IStructuredActivityNode';
 import { IValueSpecification } from './IValueSpecification';
@@ -45,20 +37,8 @@ export class JoinNode extends ControlNode implements IJoinNode {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public joinSpec?: IValueSpecification = undefined;
+  public joinSpec?: IValueSpecification;
 
-  // Inherited from ControlNode
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from ControlNode
   /**
    * ownedComment
    * 
@@ -68,16 +48,14 @@ export class JoinNode extends ControlNode implements IJoinNode {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from ControlNode
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from ControlNode
   /**
    * nameExpression
    * 
@@ -85,18 +63,15 @@ export class JoinNode extends ControlNode implements IJoinNode {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from ControlNode
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from ControlNode
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * isLeaf
    * 
@@ -105,7 +80,6 @@ export class JoinNode extends ControlNode implements IJoinNode {
    */
   public isLeaf!: boolean;
 
-  // Inherited from ControlNode
   /**
    * inInterruptibleRegion
    * 
@@ -114,9 +88,8 @@ export class JoinNode extends ControlNode implements IJoinNode {
    * @relationship cross-reference
    * @opposite node
    */
-  public inInterruptibleRegion: Set<IInterruptibleActivityRegion | string> = new Set();
+  public inInterruptibleRegion: Set<string> = new Set();
 
-  // Inherited from ControlNode
   /**
    * inStructuredNode
    * 
@@ -125,9 +98,8 @@ export class JoinNode extends ControlNode implements IJoinNode {
    * @relationship cross-reference
    * @opposite node
    */
-  public inStructuredNode?: IStructuredActivityNode | string = undefined;
+  public inStructuredNode?: string;
 
-  // Inherited from ControlNode
   /**
    * incoming
    * 
@@ -136,9 +108,8 @@ export class JoinNode extends ControlNode implements IJoinNode {
    * @relationship cross-reference
    * @opposite target
    */
-  public incoming: Set<IActivityEdge | string> = new Set();
+  public incoming: Set<string> = new Set();
 
-  // Inherited from ControlNode
   /**
    * outgoing
    * 
@@ -147,9 +118,8 @@ export class JoinNode extends ControlNode implements IJoinNode {
    * @relationship cross-reference
    * @opposite source
    */
-  public outgoing: Set<IActivityEdge | string> = new Set();
+  public outgoing: Set<string> = new Set();
 
-  // Inherited from ControlNode
   /**
    * redefinedNode
    * 
@@ -157,9 +127,8 @@ export class JoinNode extends ControlNode implements IJoinNode {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedNode: Set<IActivityNode | string> = new Set();
+  public redefinedNode: Set<string> = new Set();
 
-  // Inherited from ControlNode
   /**
    * inPartition
    * 
@@ -168,12 +137,14 @@ export class JoinNode extends ControlNode implements IJoinNode {
    * @relationship cross-reference
    * @opposite node
    */
-  public inPartition: Set<IActivityPartition | string> = new Set();
+  public inPartition: Set<string> = new Set();
+
 
   constructor(init?: Partial<IJoinNode>) {
     super(init);
-    this.isCombineDuplicate = init?.isCombineDuplicate!;
-    this.joinSpec = init?.joinSpec ?? undefined;
+
+    this.isCombineDuplicate = init?.isCombineDuplicate ?? false;
+    this.joinSpec = init?.joinSpec;
   }
   getIsCombineDuplicate(): boolean {
     return this.isCombineDuplicate;
@@ -256,9 +227,6 @@ export class JoinNode extends ControlNode implements IJoinNode {
   static fromJSON(json: any): JoinNode {
     const instance = new JoinNode();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

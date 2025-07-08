@@ -15,9 +15,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialTransition = Partial<ITransition>;
 export type RequiredTransition = Required<ITransition>;
-export type TransitionKey = Pick<ITransition, 'name' | 'nameExpression'>;
-export type TransitionMetadata = Pick<ITransition, 'ownedComment' | 'visibility' | 'ownedRule'>;
-export type TransitionSummary = Pick<ITransition, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type TransitionUnion = ITransition | INamespace | IRedefinableElement;
 export type TransitionFactory = () => Transition;
 export type TransitionValidator = (instance: ITransition) => ValidationResult;

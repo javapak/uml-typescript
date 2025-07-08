@@ -5,15 +5,11 @@
  * @package uml
  * @extends Realization
  */
-import { Comment } from './Comment';
 import { IBehavioredClassifier } from './IBehavioredClassifier';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IInterface } from './IInterface';
 import { IInterfaceRealization } from './IInterfaceRealization';
 import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IOpaqueExpression } from './IOpaqueExpression';
 import { IRealization } from './IRealization';
 import { IStringExpression } from './IStringExpression';
@@ -32,7 +28,7 @@ export class InterfaceRealization extends Realization implements IInterfaceReali
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public contract!: IInterface | string;
+  public contract!: string;
 
   /**
    * implementingClassifier
@@ -42,20 +38,8 @@ export class InterfaceRealization extends Realization implements IInterfaceReali
    * @relationship cross-reference
    * @opposite interfaceRealization
    */
-  public implementingClassifier!: IBehavioredClassifier | string;
+  public implementingClassifier!: string;
 
-  // Inherited from Realization
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Realization
   /**
    * ownedComment
    * 
@@ -65,16 +49,14 @@ export class InterfaceRealization extends Realization implements IInterfaceReali
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Realization
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Realization
   /**
    * nameExpression
    * 
@@ -82,18 +64,15 @@ export class InterfaceRealization extends Realization implements IInterfaceReali
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Realization
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Realization
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * owningTemplateParameter
    * 
@@ -102,9 +81,8 @@ export class InterfaceRealization extends Realization implements IInterfaceReali
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from Realization
   /**
    * templateParameter
    * 
@@ -113,9 +91,8 @@ export class InterfaceRealization extends Realization implements IInterfaceReali
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from Realization
   /**
    * client
    * 
@@ -123,9 +100,8 @@ export class InterfaceRealization extends Realization implements IInterfaceReali
    * @multiplicity [1..*]
    * @relationship cross-reference
    */
-  public client: Set<INamedElement | string> = new Set();
+  public client: Set<string> = new Set();
 
-  // Inherited from Realization
   /**
    * supplier
    * 
@@ -133,9 +109,8 @@ export class InterfaceRealization extends Realization implements IInterfaceReali
    * @multiplicity [1..*]
    * @relationship cross-reference
    */
-  public supplier: Set<INamedElement | string> = new Set();
+  public supplier: Set<string> = new Set();
 
-  // Inherited from Realization
   /**
    * mapping
    * 
@@ -143,26 +118,28 @@ export class InterfaceRealization extends Realization implements IInterfaceReali
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public mapping?: IOpaqueExpression = undefined;
+  public mapping?: IOpaqueExpression;
+
 
   constructor(init?: Partial<IInterfaceRealization>) {
     super(init);
-    this.contract = init?.contract!;
-    this.implementingClassifier = init?.implementingClassifier!;
+
+    this.contract = init?.contract ?? '';
+    this.implementingClassifier = init?.implementingClassifier ?? '';
   }
-  getContract(): IInterface | string {
+  getContract(): string {
     return this.contract;
   }
 
-  setContract(value: IInterface | string): void {
+  setContract(value: string): void {
     this.contract = value;
   }
 
-  getImplementingClassifier(): IBehavioredClassifier | string {
+  getImplementingClassifier(): string {
     return this.implementingClassifier;
   }
 
-  setImplementingClassifier(value: IBehavioredClassifier | string): void {
+  setImplementingClassifier(value: string): void {
     this.implementingClassifier = value;
   }
 
@@ -229,9 +206,6 @@ export class InterfaceRealization extends Realization implements IInterfaceReali
   static fromJSON(json: any): InterfaceRealization {
     const instance = new InterfaceRealization();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

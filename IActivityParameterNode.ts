@@ -16,7 +16,7 @@ export interface IActivityParameterNode extends IObjectNode {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  parameter: IParameter | string;
+  parameter: string;
 }
 
 // Type aliases for ActivityParameterNode

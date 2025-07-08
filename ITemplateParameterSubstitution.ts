@@ -19,7 +19,7 @@ export interface ITemplateParameterSubstitution extends IElement {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  actual: IParameterableElement | string;
+  actual: string;
   /**
    * formal
    * 
@@ -27,7 +27,7 @@ export interface ITemplateParameterSubstitution extends IElement {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  formal: ITemplateParameter | string;
+  formal: string;
   /**
    * ownedActual
    * 
@@ -44,7 +44,7 @@ export interface ITemplateParameterSubstitution extends IElement {
    * @relationship cross-reference
    * @opposite parameterSubstitution
    */
-  templateBinding: ITemplateBinding | string;
+  templateBinding: string;
 }
 
 // Type aliases for TemplateParameterSubstitution

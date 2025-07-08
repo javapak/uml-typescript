@@ -18,7 +18,7 @@ export interface ICollaborationUse extends INamedElement {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  roleBinding: Set<IDependency>;
+  roleBinding?: Set<IDependency>;
   /**
    * type
    * 
@@ -26,7 +26,7 @@ export interface ICollaborationUse extends INamedElement {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  type: ICollaboration | string;
+  type: string;
 }
 
 // Type aliases for CollaborationUse

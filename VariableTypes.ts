@@ -11,9 +11,6 @@ import { Variable } from './Variable';
  */
 export type PartialVariable = Partial<IVariable>;
 export type RequiredVariable = Required<IVariable>;
-export type VariableKey = Pick<IVariable, 'name' | 'nameExpression'>;
-export type VariableMetadata = Pick<IVariable, 'ownedComment' | 'visibility'>;
-export type VariableSummary = Pick<IVariable, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type VariableUnion = IVariable | IConnectableElement | IMultiplicityElement;
 export type VariableFactory = () => Variable;
 export type VariableValidator = (instance: IVariable) => ValidationResult;

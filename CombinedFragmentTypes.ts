@@ -11,9 +11,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialCombinedFragment = Partial<ICombinedFragment>;
 export type RequiredCombinedFragment = Required<ICombinedFragment>;
-export type CombinedFragmentKey = Pick<ICombinedFragment, 'name' | 'nameExpression'>;
-export type CombinedFragmentMetadata = Pick<ICombinedFragment, 'ownedComment' | 'visibility'>;
-export type CombinedFragmentSummary = Pick<ICombinedFragment, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type CombinedFragmentUnion = ICombinedFragment | IInteractionFragment;
 export type CombinedFragmentFactory = () => CombinedFragment;
 export type CombinedFragmentValidator = (instance: ICombinedFragment) => ValidationResult;

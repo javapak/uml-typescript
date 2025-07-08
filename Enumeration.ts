@@ -5,48 +5,28 @@
  * @package uml
  * @extends DataType
  */
-import { CollaborationUse } from './CollaborationUse';
-import { Comment } from './Comment';
-import { Constraint } from './Constraint';
 import { DataType } from './DataType';
-import { ElementImport } from './ElementImport';
-import { EnumerationLiteral } from './EnumerationLiteral';
-import { Generalization } from './Generalization';
 import { IClassifier } from './IClassifier';
 import { ICollaborationUse } from './ICollaborationUse';
 import { IComment } from './IComment';
 import { IConstraint } from './IConstraint';
 import { IDataType } from './IDataType';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IElementImport } from './IElementImport';
 import { IEnumeration } from './IEnumeration';
 import { IEnumerationLiteral } from './IEnumerationLiteral';
-import { IFeature } from './IFeature';
 import { IGeneralization } from './IGeneralization';
 import { IGeneralizationSet } from './IGeneralizationSet';
-import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IOperation } from './IOperation';
-import { IPackage } from './IPackage';
 import { IPackageImport } from './IPackageImport';
-import { IPackageableElement } from './IPackageableElement';
 import { IProperty } from './IProperty';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { ISubstitution } from './ISubstitution';
 import { ITemplateBinding } from './ITemplateBinding';
 import { ITemplateParameter } from './ITemplateParameter';
 import { ITemplateSignature } from './ITemplateSignature';
 import { IUseCase } from './IUseCase';
-import { Operation } from './Operation';
-import { PackageImport } from './PackageImport';
-import { Property } from './Property';
 import { StringExpression } from './StringExpression';
-import { Substitution } from './Substitution';
-import { TemplateBinding } from './TemplateBinding';
 import { TemplateSignature } from './TemplateSignature';
-import { UseCase } from './UseCase';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
 
@@ -61,18 +41,6 @@ export class Enumeration extends DataType implements IEnumeration {
    */
   public ownedLiteral: IEnumerationLiteral[] = [];
 
-  // Inherited from DataType
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from DataType
   /**
    * ownedComment
    * 
@@ -82,16 +50,14 @@ export class Enumeration extends DataType implements IEnumeration {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from DataType
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from DataType
   /**
    * nameExpression
    * 
@@ -99,18 +65,15 @@ export class Enumeration extends DataType implements IEnumeration {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from DataType
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from DataType
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * ownedRule
    * 
@@ -121,7 +84,6 @@ export class Enumeration extends DataType implements IEnumeration {
    */
   public ownedRule: Set<IConstraint> = new Set();
 
-  // Inherited from DataType
   /**
    * elementImport
    * 
@@ -132,7 +94,6 @@ export class Enumeration extends DataType implements IEnumeration {
    */
   public elementImport: Set<IElementImport> = new Set();
 
-  // Inherited from DataType
   /**
    * packageImport
    * 
@@ -143,7 +104,6 @@ export class Enumeration extends DataType implements IEnumeration {
    */
   public packageImport: Set<IPackageImport> = new Set();
 
-  // Inherited from DataType
   /**
    * isLeaf
    * 
@@ -152,7 +112,6 @@ export class Enumeration extends DataType implements IEnumeration {
    */
   public isLeaf!: boolean;
 
-  // Inherited from DataType
   /**
    * owningTemplateParameter
    * 
@@ -161,9 +120,8 @@ export class Enumeration extends DataType implements IEnumeration {
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from DataType
   /**
    * templateParameter
    * 
@@ -172,9 +130,8 @@ export class Enumeration extends DataType implements IEnumeration {
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from DataType
   /**
    * templateBinding
    * 
@@ -185,7 +142,6 @@ export class Enumeration extends DataType implements IEnumeration {
    */
   public templateBinding: Set<ITemplateBinding> = new Set();
 
-  // Inherited from DataType
   /**
    * ownedTemplateSignature
    * 
@@ -194,9 +150,8 @@ export class Enumeration extends DataType implements IEnumeration {
    * @relationship containment
    * @opposite template
    */
-  public ownedTemplateSignature?: ITemplateSignature = undefined;
+  public ownedTemplateSignature?: ITemplateSignature;
 
-  // Inherited from DataType
   /**
    * collaborationUse
    * 
@@ -206,7 +161,6 @@ export class Enumeration extends DataType implements IEnumeration {
    */
   public collaborationUse: Set<ICollaborationUse> = new Set();
 
-  // Inherited from DataType
   /**
    * generalization
    * 
@@ -217,7 +171,6 @@ export class Enumeration extends DataType implements IEnumeration {
    */
   public generalization: Set<IGeneralization> = new Set();
 
-  // Inherited from DataType
   /**
    * powertypeExtent
    * 
@@ -226,9 +179,8 @@ export class Enumeration extends DataType implements IEnumeration {
    * @relationship cross-reference
    * @opposite powertype
    */
-  public powertypeExtent: Set<IGeneralizationSet | string> = new Set();
+  public powertypeExtent: Set<string> = new Set();
 
-  // Inherited from DataType
   /**
    * isAbstract
    * 
@@ -237,7 +189,6 @@ export class Enumeration extends DataType implements IEnumeration {
    */
   public isAbstract!: boolean;
 
-  // Inherited from DataType
   /**
    * isFinalSpecialization
    * 
@@ -246,7 +197,6 @@ export class Enumeration extends DataType implements IEnumeration {
    */
   public isFinalSpecialization!: boolean;
 
-  // Inherited from DataType
   /**
    * ownedUseCase
    * 
@@ -256,7 +206,6 @@ export class Enumeration extends DataType implements IEnumeration {
    */
   public ownedUseCase: Set<IUseCase> = new Set();
 
-  // Inherited from DataType
   /**
    * useCase
    * 
@@ -265,9 +214,8 @@ export class Enumeration extends DataType implements IEnumeration {
    * @relationship cross-reference
    * @opposite subject
    */
-  public useCase: Set<IUseCase | string> = new Set();
+  public useCase: Set<string> = new Set();
 
-  // Inherited from DataType
   /**
    * redefinedClassifier
    * 
@@ -275,9 +223,8 @@ export class Enumeration extends DataType implements IEnumeration {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedClassifier: Set<IClassifier | string> = new Set();
+  public redefinedClassifier: Set<string> = new Set();
 
-  // Inherited from DataType
   /**
    * representation
    * 
@@ -285,9 +232,8 @@ export class Enumeration extends DataType implements IEnumeration {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public representation?: ICollaborationUse | string = undefined;
+  public representation?: string;
 
-  // Inherited from DataType
   /**
    * substitution
    * 
@@ -298,7 +244,6 @@ export class Enumeration extends DataType implements IEnumeration {
    */
   public substitution: Set<ISubstitution> = new Set();
 
-  // Inherited from DataType
   /**
    * ownedAttribute
    * 
@@ -309,7 +254,6 @@ export class Enumeration extends DataType implements IEnumeration {
    */
   public ownedAttribute: IProperty[] = [];
 
-  // Inherited from DataType
   /**
    * ownedOperation
    * 
@@ -320,9 +264,11 @@ export class Enumeration extends DataType implements IEnumeration {
    */
   public ownedOperation: IOperation[] = [];
 
+
   constructor(init?: Partial<IEnumeration>) {
     super(init);
-    this.ownedLiteral = init?.ownedLiteral ?? [];
+
+    this.ownedLiteral = init?.ownedLiteral ? [...init.ownedLiteral] : [];
   }
   getOwnedLiteral(): IEnumerationLiteral[] {
     return this.ownedLiteral;
@@ -393,9 +339,6 @@ export class Enumeration extends DataType implements IEnumeration {
   static fromJSON(json: any): Enumeration {
     const instance = new Enumeration();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

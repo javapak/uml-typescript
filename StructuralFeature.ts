@@ -6,16 +6,10 @@
  * @abstract
  * @extends Feature, TypedElement, MultiplicityElement
  */
-import { Comment } from './Comment';
 import { Feature } from './Feature';
-import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IFeature } from './IFeature';
 import { IMultiplicityElement } from './IMultiplicityElement';
-import { INamespace } from './INamespace';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { IStructuralFeature } from './IStructuralFeature';
 import { IType } from './IType';
@@ -37,18 +31,6 @@ export class StructuralFeature extends Feature implements IStructuralFeature {
    */
   public isReadOnly!: boolean;
 
-  // Inherited from Feature
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Feature
   /**
    * ownedComment
    * 
@@ -58,16 +40,14 @@ export class StructuralFeature extends Feature implements IStructuralFeature {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Feature
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Feature
   /**
    * nameExpression
    * 
@@ -75,18 +55,15 @@ export class StructuralFeature extends Feature implements IStructuralFeature {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Feature
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Feature
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * isLeaf
    * 
@@ -95,7 +72,6 @@ export class StructuralFeature extends Feature implements IStructuralFeature {
    */
   public isLeaf!: boolean;
 
-  // Inherited from Feature
   /**
    * isStatic
    * 
@@ -104,7 +80,39 @@ export class StructuralFeature extends Feature implements IStructuralFeature {
    */
   public isStatic!: boolean;
 
-  // Inherited from TypedElement
+  /**
+   * ownedComment
+   * 
+   * @type Comment
+   * @multiplicity [0..*]
+   * @relationship containment
+   */
+  public ownedComment: Set<IComment> = new Set();
+
+  /**
+   * name
+   * 
+   * @type String
+   * @multiplicity [0..1]
+   */
+  public name?: string;
+
+  /**
+   * nameExpression
+   * 
+   * @type StringExpression
+   * @multiplicity [0..1]
+   * @relationship containment
+   */
+  public nameExpression?: IStringExpression;
+
+  /**
+   * visibility
+   * 
+   * @type VisibilityKind
+   * @multiplicity [0..1]
+   */
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * type
    * 
@@ -112,9 +120,17 @@ export class StructuralFeature extends Feature implements IStructuralFeature {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public type?: IType | string = undefined;
+  public type?: string;
 
-  // Inherited from MultiplicityElement
+  /**
+   * ownedComment
+   * 
+   * @type Comment
+   * @multiplicity [0..*]
+   * @relationship containment
+   */
+  public ownedComment: Set<IComment> = new Set();
+
   /**
    * isOrdered
    * 
@@ -123,7 +139,6 @@ export class StructuralFeature extends Feature implements IStructuralFeature {
    */
   public isOrdered!: boolean;
 
-  // Inherited from MultiplicityElement
   /**
    * isUnique
    * 
@@ -132,7 +147,6 @@ export class StructuralFeature extends Feature implements IStructuralFeature {
    */
   public isUnique!: boolean;
 
-  // Inherited from MultiplicityElement
   /**
    * lowerValue
    * 
@@ -140,9 +154,8 @@ export class StructuralFeature extends Feature implements IStructuralFeature {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public lowerValue?: IValueSpecification = undefined;
+  public lowerValue?: IValueSpecification;
 
-  // Inherited from MultiplicityElement
   /**
    * upperValue
    * 
@@ -150,11 +163,13 @@ export class StructuralFeature extends Feature implements IStructuralFeature {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public upperValue?: IValueSpecification = undefined;
+  public upperValue?: IValueSpecification;
+
 
   constructor(init?: Partial<IStructuralFeature>) {
     super(init);
-    this.isReadOnly = init?.isReadOnly!;
+
+    this.isReadOnly = init?.isReadOnly ?? false;
   }
   getIsReadOnly(): boolean {
     return this.isReadOnly;
@@ -225,9 +240,6 @@ export class StructuralFeature extends Feature implements IStructuralFeature {
   static fromJSON(json: any): StructuralFeature {
     const instance = new StructuralFeature();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

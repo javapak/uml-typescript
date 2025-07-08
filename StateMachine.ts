@@ -6,44 +6,24 @@
  * @extends Behavior
  */
 import { Behavior } from './Behavior';
-import { Classifier } from './Classifier';
-import { CollaborationUse } from './CollaborationUse';
-import { Comment } from './Comment';
-import { Connector } from './Connector';
-import { Constraint } from './Constraint';
-import { ElementImport } from './ElementImport';
-import { Generalization } from './Generalization';
 import { IBehavior } from './IBehavior';
 import { IBehavioralFeature } from './IBehavioralFeature';
-import { IBehavioredClassifier } from './IBehavioredClassifier';
-import { IClass } from './IClass';
 import { IClassifier } from './IClassifier';
 import { ICollaborationUse } from './ICollaborationUse';
 import { IComment } from './IComment';
-import { IConnectableElement } from './IConnectableElement';
 import { IConnector } from './IConnector';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IElementImport } from './IElementImport';
-import { IExtension } from './IExtension';
-import { IFeature } from './IFeature';
 import { IGeneralization } from './IGeneralization';
 import { IGeneralizationSet } from './IGeneralizationSet';
 import { IInterfaceRealization } from './IInterfaceRealization';
-import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IOperation } from './IOperation';
-import { IPackage } from './IPackage';
 import { IPackageImport } from './IPackageImport';
-import { IPackageableElement } from './IPackageableElement';
 import { IParameter } from './IParameter';
 import { IParameterSet } from './IParameterSet';
-import { IPort } from './IPort';
 import { IProperty } from './IProperty';
 import { IPseudostate } from './IPseudostate';
 import { IReception } from './IReception';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IRegion } from './IRegion';
 import { IState } from './IState';
 import { IStateMachine } from './IStateMachine';
@@ -53,20 +33,8 @@ import { ITemplateBinding } from './ITemplateBinding';
 import { ITemplateParameter } from './ITemplateParameter';
 import { ITemplateSignature } from './ITemplateSignature';
 import { IUseCase } from './IUseCase';
-import { InterfaceRealization } from './InterfaceRealization';
-import { Operation } from './Operation';
-import { PackageImport } from './PackageImport';
-import { Parameter } from './Parameter';
-import { ParameterSet } from './ParameterSet';
-import { Property } from './Property';
-import { Pseudostate } from './Pseudostate';
-import { Reception } from './Reception';
-import { Region } from './Region';
 import { StringExpression } from './StringExpression';
-import { Substitution } from './Substitution';
-import { TemplateBinding } from './TemplateBinding';
 import { TemplateSignature } from './TemplateSignature';
-import { UseCase } from './UseCase';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
 
@@ -89,7 +57,7 @@ export class StateMachine extends Behavior implements IStateMachine {
    * @relationship cross-reference
    * @opposite submachine
    */
-  public submachineState: Set<IState | string> = new Set();
+  public submachineState: Set<string> = new Set();
 
   /**
    * region
@@ -108,20 +76,8 @@ export class StateMachine extends Behavior implements IStateMachine {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public extendedStateMachine: Set<IStateMachine | string> = new Set();
+  public extendedStateMachine: Set<string> = new Set();
 
-  // Inherited from Behavior
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Behavior
   /**
    * ownedComment
    * 
@@ -131,16 +87,14 @@ export class StateMachine extends Behavior implements IStateMachine {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Behavior
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Behavior
   /**
    * nameExpression
    * 
@@ -148,18 +102,15 @@ export class StateMachine extends Behavior implements IStateMachine {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Behavior
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Behavior
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * ownedRule
    * 
@@ -170,7 +121,6 @@ export class StateMachine extends Behavior implements IStateMachine {
    */
   public ownedRule: Set<IConstraint> = new Set();
 
-  // Inherited from Behavior
   /**
    * elementImport
    * 
@@ -181,7 +131,6 @@ export class StateMachine extends Behavior implements IStateMachine {
    */
   public elementImport: Set<IElementImport> = new Set();
 
-  // Inherited from Behavior
   /**
    * packageImport
    * 
@@ -192,7 +141,6 @@ export class StateMachine extends Behavior implements IStateMachine {
    */
   public packageImport: Set<IPackageImport> = new Set();
 
-  // Inherited from Behavior
   /**
    * isLeaf
    * 
@@ -201,7 +149,6 @@ export class StateMachine extends Behavior implements IStateMachine {
    */
   public isLeaf!: boolean;
 
-  // Inherited from Behavior
   /**
    * owningTemplateParameter
    * 
@@ -210,9 +157,8 @@ export class StateMachine extends Behavior implements IStateMachine {
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from Behavior
   /**
    * templateParameter
    * 
@@ -221,9 +167,8 @@ export class StateMachine extends Behavior implements IStateMachine {
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from Behavior
   /**
    * templateBinding
    * 
@@ -234,7 +179,6 @@ export class StateMachine extends Behavior implements IStateMachine {
    */
   public templateBinding: Set<ITemplateBinding> = new Set();
 
-  // Inherited from Behavior
   /**
    * ownedTemplateSignature
    * 
@@ -243,9 +187,8 @@ export class StateMachine extends Behavior implements IStateMachine {
    * @relationship containment
    * @opposite template
    */
-  public ownedTemplateSignature?: ITemplateSignature = undefined;
+  public ownedTemplateSignature?: ITemplateSignature;
 
-  // Inherited from Behavior
   /**
    * collaborationUse
    * 
@@ -255,7 +198,6 @@ export class StateMachine extends Behavior implements IStateMachine {
    */
   public collaborationUse: Set<ICollaborationUse> = new Set();
 
-  // Inherited from Behavior
   /**
    * generalization
    * 
@@ -266,7 +208,6 @@ export class StateMachine extends Behavior implements IStateMachine {
    */
   public generalization: Set<IGeneralization> = new Set();
 
-  // Inherited from Behavior
   /**
    * powertypeExtent
    * 
@@ -275,9 +216,8 @@ export class StateMachine extends Behavior implements IStateMachine {
    * @relationship cross-reference
    * @opposite powertype
    */
-  public powertypeExtent: Set<IGeneralizationSet | string> = new Set();
+  public powertypeExtent: Set<string> = new Set();
 
-  // Inherited from Behavior
   /**
    * isAbstract
    * 
@@ -286,7 +226,6 @@ export class StateMachine extends Behavior implements IStateMachine {
    */
   public isAbstract!: boolean;
 
-  // Inherited from Behavior
   /**
    * isFinalSpecialization
    * 
@@ -295,7 +234,6 @@ export class StateMachine extends Behavior implements IStateMachine {
    */
   public isFinalSpecialization!: boolean;
 
-  // Inherited from Behavior
   /**
    * ownedUseCase
    * 
@@ -305,7 +243,6 @@ export class StateMachine extends Behavior implements IStateMachine {
    */
   public ownedUseCase: Set<IUseCase> = new Set();
 
-  // Inherited from Behavior
   /**
    * useCase
    * 
@@ -314,9 +251,8 @@ export class StateMachine extends Behavior implements IStateMachine {
    * @relationship cross-reference
    * @opposite subject
    */
-  public useCase: Set<IUseCase | string> = new Set();
+  public useCase: Set<string> = new Set();
 
-  // Inherited from Behavior
   /**
    * redefinedClassifier
    * 
@@ -324,9 +260,8 @@ export class StateMachine extends Behavior implements IStateMachine {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedClassifier: Set<IClassifier | string> = new Set();
+  public redefinedClassifier: Set<string> = new Set();
 
-  // Inherited from Behavior
   /**
    * representation
    * 
@@ -334,9 +269,8 @@ export class StateMachine extends Behavior implements IStateMachine {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public representation?: ICollaborationUse | string = undefined;
+  public representation?: string;
 
-  // Inherited from Behavior
   /**
    * substitution
    * 
@@ -347,7 +281,6 @@ export class StateMachine extends Behavior implements IStateMachine {
    */
   public substitution: Set<ISubstitution> = new Set();
 
-  // Inherited from Behavior
   /**
    * ownedAttribute
    * 
@@ -357,7 +290,6 @@ export class StateMachine extends Behavior implements IStateMachine {
    */
   public ownedAttribute: IProperty[] = [];
 
-  // Inherited from Behavior
   /**
    * ownedConnector
    * 
@@ -367,7 +299,6 @@ export class StateMachine extends Behavior implements IStateMachine {
    */
   public ownedConnector: Set<IConnector> = new Set();
 
-  // Inherited from Behavior
   /**
    * classifierBehavior
    * 
@@ -375,9 +306,8 @@ export class StateMachine extends Behavior implements IStateMachine {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public classifierBehavior?: IBehavior | string = undefined;
+  public classifierBehavior?: string;
 
-  // Inherited from Behavior
   /**
    * interfaceRealization
    * 
@@ -388,7 +318,6 @@ export class StateMachine extends Behavior implements IStateMachine {
    */
   public interfaceRealization: Set<IInterfaceRealization> = new Set();
 
-  // Inherited from Behavior
   /**
    * ownedBehavior
    * 
@@ -398,7 +327,6 @@ export class StateMachine extends Behavior implements IStateMachine {
    */
   public ownedBehavior: Set<IBehavior> = new Set();
 
-  // Inherited from Behavior
   /**
    * ownedOperation
    * 
@@ -409,7 +337,6 @@ export class StateMachine extends Behavior implements IStateMachine {
    */
   public ownedOperation: IOperation[] = [];
 
-  // Inherited from Behavior
   /**
    * isActive
    * 
@@ -418,7 +345,6 @@ export class StateMachine extends Behavior implements IStateMachine {
    */
   public isActive!: boolean;
 
-  // Inherited from Behavior
   /**
    * nestedClassifier
    * 
@@ -428,7 +354,6 @@ export class StateMachine extends Behavior implements IStateMachine {
    */
   public nestedClassifier: IClassifier[] = [];
 
-  // Inherited from Behavior
   /**
    * ownedReception
    * 
@@ -438,7 +363,6 @@ export class StateMachine extends Behavior implements IStateMachine {
    */
   public ownedReception: Set<IReception> = new Set();
 
-  // Inherited from Behavior
   /**
    * specification
    * 
@@ -447,18 +371,16 @@ export class StateMachine extends Behavior implements IStateMachine {
    * @relationship cross-reference
    * @opposite method
    */
-  public specification?: IBehavioralFeature | string = undefined;
+  public specification?: string;
 
-  // Inherited from Behavior
   /**
    * isReentrant
    * 
    * @type Boolean
    * @multiplicity [0..1]
    */
-  public isReentrant?: boolean = undefined;
+  public isReentrant?: boolean;
 
-  // Inherited from Behavior
   /**
    * ownedParameter
    * 
@@ -468,7 +390,6 @@ export class StateMachine extends Behavior implements IStateMachine {
    */
   public ownedParameter: IParameter[] = [];
 
-  // Inherited from Behavior
   /**
    * ownedParameterSet
    * 
@@ -478,7 +399,6 @@ export class StateMachine extends Behavior implements IStateMachine {
    */
   public ownedParameterSet: Set<IParameterSet> = new Set();
 
-  // Inherited from Behavior
   /**
    * postcondition
    * 
@@ -486,9 +406,8 @@ export class StateMachine extends Behavior implements IStateMachine {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public postcondition: Set<IConstraint | string> = new Set();
+  public postcondition: Set<string> = new Set();
 
-  // Inherited from Behavior
   /**
    * precondition
    * 
@@ -496,9 +415,8 @@ export class StateMachine extends Behavior implements IStateMachine {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public precondition: Set<IConstraint | string> = new Set();
+  public precondition: Set<string> = new Set();
 
-  // Inherited from Behavior
   /**
    * redefinedBehavior
    * 
@@ -506,14 +424,16 @@ export class StateMachine extends Behavior implements IStateMachine {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedBehavior: Set<IBehavior | string> = new Set();
+  public redefinedBehavior: Set<string> = new Set();
+
 
   constructor(init?: Partial<IStateMachine>) {
     super(init);
-    this.connectionPoint = init?.connectionPoint ?? new Set();
-    this.submachineState = init?.submachineState ?? new Set();
-    this.region = init?.region ?? new Set();
-    this.extendedStateMachine = init?.extendedStateMachine ?? new Set();
+
+    this.connectionPoint = init?.connectionPoint ? new Set(init.connectionPoint) : new Set();
+    this.submachineState = init?.submachineState ? new Set(init.submachineState) : new Set();
+    this.region = init?.region ? new Set(init.region) : new Set();
+    this.extendedStateMachine = init?.extendedStateMachine ? new Set(init.extendedStateMachine) : new Set();
   }
   getConnectionPoint(): Set<IPseudostate> {
     return this.connectionPoint;
@@ -523,11 +443,11 @@ export class StateMachine extends Behavior implements IStateMachine {
     this.connectionPoint = value;
   }
 
-  getSubmachineState(): Set<IState | string> {
+  getSubmachineState(): Set<string> {
     return this.submachineState;
   }
 
-  setSubmachineState(value: Set<IState | string>): void {
+  setSubmachineState(value: Set<string>): void {
     this.submachineState = value;
   }
 
@@ -539,11 +459,11 @@ export class StateMachine extends Behavior implements IStateMachine {
     this.region = value;
   }
 
-  getExtendedStateMachine(): Set<IStateMachine | string> {
+  getExtendedStateMachine(): Set<string> {
     return this.extendedStateMachine;
   }
 
-  setExtendedStateMachine(value: Set<IStateMachine | string>): void {
+  setExtendedStateMachine(value: Set<string>): void {
     this.extendedStateMachine = value;
   }
 
@@ -614,9 +534,6 @@ export class StateMachine extends Behavior implements IStateMachine {
   static fromJSON(json: any): StateMachine {
     const instance = new StateMachine();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

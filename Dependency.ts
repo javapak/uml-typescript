@@ -5,14 +5,11 @@
  * @package uml
  * @extends PackageableElement, DirectedRelationship
  */
-import { Comment } from './Comment';
 import { DirectedRelationship } from './DirectedRelationship';
 import { IComment } from './IComment';
 import { IDependency } from './IDependency';
 import { IDirectedRelationship } from './IDirectedRelationship';
-import { IElement } from './IElement';
 import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IPackageableElement } from './IPackageableElement';
 import { IStringExpression } from './IStringExpression';
 import { ITemplateParameter } from './ITemplateParameter';
@@ -29,7 +26,7 @@ export class Dependency extends PackageableElement implements IDependency {
    * @multiplicity [1..*]
    * @relationship cross-reference
    */
-  public client: Set<INamedElement | string> = new Set();
+  public client: Set<string> = new Set();
 
   /**
    * supplier
@@ -38,20 +35,8 @@ export class Dependency extends PackageableElement implements IDependency {
    * @multiplicity [1..*]
    * @relationship cross-reference
    */
-  public supplier: Set<INamedElement | string> = new Set();
+  public supplier: Set<string> = new Set();
 
-  // Inherited from PackageableElement
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from PackageableElement
   /**
    * ownedComment
    * 
@@ -61,16 +46,14 @@ export class Dependency extends PackageableElement implements IDependency {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from PackageableElement
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from PackageableElement
   /**
    * nameExpression
    * 
@@ -78,18 +61,15 @@ export class Dependency extends PackageableElement implements IDependency {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from PackageableElement
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from PackageableElement
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * owningTemplateParameter
    * 
@@ -98,9 +78,8 @@ export class Dependency extends PackageableElement implements IDependency {
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from PackageableElement
   /**
    * templateParameter
    * 
@@ -109,26 +88,37 @@ export class Dependency extends PackageableElement implements IDependency {
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
+
+  /**
+   * ownedComment
+   * 
+   * @type Comment
+   * @multiplicity [0..*]
+   * @relationship containment
+   */
+  public ownedComment: Set<IComment> = new Set();
+
 
   constructor(init?: Partial<IDependency>) {
     super(init);
-    this.client = init?.client ?? new Set();
-    this.supplier = init?.supplier ?? new Set();
+
+    this.client = init?.client ? new Set(init.client) : new Set();
+    this.supplier = init?.supplier ? new Set(init.supplier) : new Set();
   }
-  getClient(): Set<INamedElement | string> {
+  getClient(): Set<string> {
     return this.client;
   }
 
-  setClient(value: Set<INamedElement | string>): void {
+  setClient(value: Set<string>): void {
     this.client = value;
   }
 
-  getSupplier(): Set<INamedElement | string> {
+  getSupplier(): Set<string> {
     return this.supplier;
   }
 
-  setSupplier(value: Set<INamedElement | string>): void {
+  setSupplier(value: Set<string>): void {
     this.supplier = value;
   }
 
@@ -195,9 +185,6 @@ export class Dependency extends PackageableElement implements IDependency {
   static fromJSON(json: any): Dependency {
     const instance = new Dependency();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

@@ -7,61 +7,32 @@
  * @extends Class
  */
 import { Class } from './Class';
-import { Classifier } from './Classifier';
-import { CollaborationUse } from './CollaborationUse';
-import { Comment } from './Comment';
-import { Connector } from './Connector';
-import { Constraint } from './Constraint';
-import { ElementImport } from './ElementImport';
-import { Generalization } from './Generalization';
 import { IBehavior } from './IBehavior';
 import { IBehavioralFeature } from './IBehavioralFeature';
-import { IBehavioredClassifier } from './IBehavioredClassifier';
 import { IClass } from './IClass';
 import { IClassifier } from './IClassifier';
 import { ICollaborationUse } from './ICollaborationUse';
 import { IComment } from './IComment';
-import { IConnectableElement } from './IConnectableElement';
 import { IConnector } from './IConnector';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IElementImport } from './IElementImport';
-import { IExtension } from './IExtension';
-import { IFeature } from './IFeature';
 import { IGeneralization } from './IGeneralization';
 import { IGeneralizationSet } from './IGeneralizationSet';
 import { IInterfaceRealization } from './IInterfaceRealization';
-import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IOperation } from './IOperation';
-import { IPackage } from './IPackage';
 import { IPackageImport } from './IPackageImport';
-import { IPackageableElement } from './IPackageableElement';
 import { IParameter } from './IParameter';
 import { IParameterSet } from './IParameterSet';
-import { IPort } from './IPort';
 import { IProperty } from './IProperty';
 import { IReception } from './IReception';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { ISubstitution } from './ISubstitution';
 import { ITemplateBinding } from './ITemplateBinding';
 import { ITemplateParameter } from './ITemplateParameter';
 import { ITemplateSignature } from './ITemplateSignature';
 import { IUseCase } from './IUseCase';
-import { InterfaceRealization } from './InterfaceRealization';
-import { Operation } from './Operation';
-import { PackageImport } from './PackageImport';
-import { Parameter } from './Parameter';
-import { ParameterSet } from './ParameterSet';
-import { Property } from './Property';
-import { Reception } from './Reception';
 import { StringExpression } from './StringExpression';
-import { Substitution } from './Substitution';
-import { TemplateBinding } from './TemplateBinding';
 import { TemplateSignature } from './TemplateSignature';
-import { UseCase } from './UseCase';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
 
@@ -74,7 +45,7 @@ export class Behavior extends Class implements IBehavior {
    * @relationship cross-reference
    * @opposite method
    */
-  public specification?: IBehavioralFeature | string = undefined;
+  public specification?: string;
 
   /**
    * isReentrant
@@ -82,7 +53,7 @@ export class Behavior extends Class implements IBehavior {
    * @type Boolean
    * @multiplicity [0..1]
    */
-  public isReentrant?: boolean = undefined;
+  public isReentrant?: boolean;
 
   /**
    * ownedParameter
@@ -109,7 +80,7 @@ export class Behavior extends Class implements IBehavior {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public postcondition: Set<IConstraint | string> = new Set();
+  public postcondition: Set<string> = new Set();
 
   /**
    * precondition
@@ -118,7 +89,7 @@ export class Behavior extends Class implements IBehavior {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public precondition: Set<IConstraint | string> = new Set();
+  public precondition: Set<string> = new Set();
 
   /**
    * redefinedBehavior
@@ -127,20 +98,8 @@ export class Behavior extends Class implements IBehavior {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedBehavior: Set<IBehavior | string> = new Set();
+  public redefinedBehavior: Set<string> = new Set();
 
-  // Inherited from Class
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Class
   /**
    * ownedComment
    * 
@@ -150,16 +109,14 @@ export class Behavior extends Class implements IBehavior {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Class
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Class
   /**
    * nameExpression
    * 
@@ -167,18 +124,15 @@ export class Behavior extends Class implements IBehavior {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Class
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Class
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * ownedRule
    * 
@@ -189,7 +143,6 @@ export class Behavior extends Class implements IBehavior {
    */
   public ownedRule: Set<IConstraint> = new Set();
 
-  // Inherited from Class
   /**
    * elementImport
    * 
@@ -200,7 +153,6 @@ export class Behavior extends Class implements IBehavior {
    */
   public elementImport: Set<IElementImport> = new Set();
 
-  // Inherited from Class
   /**
    * packageImport
    * 
@@ -211,7 +163,6 @@ export class Behavior extends Class implements IBehavior {
    */
   public packageImport: Set<IPackageImport> = new Set();
 
-  // Inherited from Class
   /**
    * isLeaf
    * 
@@ -220,7 +171,6 @@ export class Behavior extends Class implements IBehavior {
    */
   public isLeaf!: boolean;
 
-  // Inherited from Class
   /**
    * owningTemplateParameter
    * 
@@ -229,9 +179,8 @@ export class Behavior extends Class implements IBehavior {
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from Class
   /**
    * templateParameter
    * 
@@ -240,9 +189,8 @@ export class Behavior extends Class implements IBehavior {
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from Class
   /**
    * templateBinding
    * 
@@ -253,7 +201,6 @@ export class Behavior extends Class implements IBehavior {
    */
   public templateBinding: Set<ITemplateBinding> = new Set();
 
-  // Inherited from Class
   /**
    * ownedTemplateSignature
    * 
@@ -262,9 +209,8 @@ export class Behavior extends Class implements IBehavior {
    * @relationship containment
    * @opposite template
    */
-  public ownedTemplateSignature?: ITemplateSignature = undefined;
+  public ownedTemplateSignature?: ITemplateSignature;
 
-  // Inherited from Class
   /**
    * collaborationUse
    * 
@@ -274,7 +220,6 @@ export class Behavior extends Class implements IBehavior {
    */
   public collaborationUse: Set<ICollaborationUse> = new Set();
 
-  // Inherited from Class
   /**
    * generalization
    * 
@@ -285,7 +230,6 @@ export class Behavior extends Class implements IBehavior {
    */
   public generalization: Set<IGeneralization> = new Set();
 
-  // Inherited from Class
   /**
    * powertypeExtent
    * 
@@ -294,9 +238,8 @@ export class Behavior extends Class implements IBehavior {
    * @relationship cross-reference
    * @opposite powertype
    */
-  public powertypeExtent: Set<IGeneralizationSet | string> = new Set();
+  public powertypeExtent: Set<string> = new Set();
 
-  // Inherited from Class
   /**
    * isAbstract
    * 
@@ -305,7 +248,6 @@ export class Behavior extends Class implements IBehavior {
    */
   public isAbstract!: boolean;
 
-  // Inherited from Class
   /**
    * isFinalSpecialization
    * 
@@ -314,7 +256,6 @@ export class Behavior extends Class implements IBehavior {
    */
   public isFinalSpecialization!: boolean;
 
-  // Inherited from Class
   /**
    * ownedUseCase
    * 
@@ -324,7 +265,6 @@ export class Behavior extends Class implements IBehavior {
    */
   public ownedUseCase: Set<IUseCase> = new Set();
 
-  // Inherited from Class
   /**
    * useCase
    * 
@@ -333,9 +273,8 @@ export class Behavior extends Class implements IBehavior {
    * @relationship cross-reference
    * @opposite subject
    */
-  public useCase: Set<IUseCase | string> = new Set();
+  public useCase: Set<string> = new Set();
 
-  // Inherited from Class
   /**
    * redefinedClassifier
    * 
@@ -343,9 +282,8 @@ export class Behavior extends Class implements IBehavior {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedClassifier: Set<IClassifier | string> = new Set();
+  public redefinedClassifier: Set<string> = new Set();
 
-  // Inherited from Class
   /**
    * representation
    * 
@@ -353,9 +291,8 @@ export class Behavior extends Class implements IBehavior {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public representation?: ICollaborationUse | string = undefined;
+  public representation?: string;
 
-  // Inherited from Class
   /**
    * substitution
    * 
@@ -366,7 +303,6 @@ export class Behavior extends Class implements IBehavior {
    */
   public substitution: Set<ISubstitution> = new Set();
 
-  // Inherited from Class
   /**
    * ownedAttribute
    * 
@@ -376,7 +312,6 @@ export class Behavior extends Class implements IBehavior {
    */
   public ownedAttribute: IProperty[] = [];
 
-  // Inherited from Class
   /**
    * ownedConnector
    * 
@@ -386,7 +321,6 @@ export class Behavior extends Class implements IBehavior {
    */
   public ownedConnector: Set<IConnector> = new Set();
 
-  // Inherited from Class
   /**
    * classifierBehavior
    * 
@@ -394,9 +328,8 @@ export class Behavior extends Class implements IBehavior {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public classifierBehavior?: IBehavior | string = undefined;
+  public classifierBehavior?: string;
 
-  // Inherited from Class
   /**
    * interfaceRealization
    * 
@@ -407,7 +340,6 @@ export class Behavior extends Class implements IBehavior {
    */
   public interfaceRealization: Set<IInterfaceRealization> = new Set();
 
-  // Inherited from Class
   /**
    * ownedBehavior
    * 
@@ -417,7 +349,6 @@ export class Behavior extends Class implements IBehavior {
    */
   public ownedBehavior: Set<IBehavior> = new Set();
 
-  // Inherited from Class
   /**
    * ownedOperation
    * 
@@ -428,7 +359,6 @@ export class Behavior extends Class implements IBehavior {
    */
   public ownedOperation: IOperation[] = [];
 
-  // Inherited from Class
   /**
    * isActive
    * 
@@ -437,7 +367,6 @@ export class Behavior extends Class implements IBehavior {
    */
   public isActive!: boolean;
 
-  // Inherited from Class
   /**
    * nestedClassifier
    * 
@@ -447,7 +376,6 @@ export class Behavior extends Class implements IBehavior {
    */
   public nestedClassifier: IClassifier[] = [];
 
-  // Inherited from Class
   /**
    * ownedReception
    * 
@@ -457,21 +385,23 @@ export class Behavior extends Class implements IBehavior {
    */
   public ownedReception: Set<IReception> = new Set();
 
+
   constructor(init?: Partial<IBehavior>) {
     super(init);
-    this.specification = init?.specification ?? undefined;
-    this.isReentrant = init?.isReentrant ?? true;
-    this.ownedParameter = init?.ownedParameter ?? [];
-    this.ownedParameterSet = init?.ownedParameterSet ?? new Set();
-    this.postcondition = init?.postcondition ?? new Set();
-    this.precondition = init?.precondition ?? new Set();
-    this.redefinedBehavior = init?.redefinedBehavior ?? new Set();
+
+    this.specification = init?.specification;
+    this.isReentrant = init?.isReentrant;
+    this.ownedParameter = init?.ownedParameter ? [...init.ownedParameter] : [];
+    this.ownedParameterSet = init?.ownedParameterSet ? new Set(init.ownedParameterSet) : new Set();
+    this.postcondition = init?.postcondition ? new Set(init.postcondition) : new Set();
+    this.precondition = init?.precondition ? new Set(init.precondition) : new Set();
+    this.redefinedBehavior = init?.redefinedBehavior ? new Set(init.redefinedBehavior) : new Set();
   }
-  getSpecification(): IBehavioralFeature | string | undefined {
+  getSpecification(): string | undefined {
     return this.specification;
   }
 
-  setSpecification(value: IBehavioralFeature | string | undefined): void {
+  setSpecification(value: string | undefined): void {
     this.specification = value;
   }
 
@@ -499,27 +429,27 @@ export class Behavior extends Class implements IBehavior {
     this.ownedParameterSet = value;
   }
 
-  getPostcondition(): Set<IConstraint | string> {
+  getPostcondition(): Set<string> {
     return this.postcondition;
   }
 
-  setPostcondition(value: Set<IConstraint | string>): void {
+  setPostcondition(value: Set<string>): void {
     this.postcondition = value;
   }
 
-  getPrecondition(): Set<IConstraint | string> {
+  getPrecondition(): Set<string> {
     return this.precondition;
   }
 
-  setPrecondition(value: Set<IConstraint | string>): void {
+  setPrecondition(value: Set<string>): void {
     this.precondition = value;
   }
 
-  getRedefinedBehavior(): Set<IBehavior | string> {
+  getRedefinedBehavior(): Set<string> {
     return this.redefinedBehavior;
   }
 
-  setRedefinedBehavior(value: Set<IBehavior | string>): void {
+  setRedefinedBehavior(value: Set<string>): void {
     this.redefinedBehavior = value;
   }
 
@@ -600,9 +530,6 @@ export class Behavior extends Class implements IBehavior {
   static fromJSON(json: any): Behavior {
     const instance = new Behavior();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

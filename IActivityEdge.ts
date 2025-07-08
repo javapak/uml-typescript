@@ -24,7 +24,7 @@ export interface IActivityEdge extends IRedefinableElement {
    * @relationship cross-reference
    * @opposite edge
    */
-  activity?: IActivity | string;
+  activity?: string;
   /**
    * guard
    * 
@@ -41,7 +41,7 @@ export interface IActivityEdge extends IRedefinableElement {
    * @relationship cross-reference
    * @opposite edge
    */
-  inPartition: Set<IActivityPartition | string>;
+  inPartition?: Set<string>;
   /**
    * interrupts
    * 
@@ -50,7 +50,7 @@ export interface IActivityEdge extends IRedefinableElement {
    * @relationship cross-reference
    * @opposite interruptingEdge
    */
-  interrupts?: IInterruptibleActivityRegion | string;
+  interrupts?: string;
   /**
    * inStructuredNode
    * 
@@ -59,7 +59,7 @@ export interface IActivityEdge extends IRedefinableElement {
    * @relationship cross-reference
    * @opposite edge
    */
-  inStructuredNode?: IStructuredActivityNode | string;
+  inStructuredNode?: string;
   /**
    * target
    * 
@@ -68,7 +68,7 @@ export interface IActivityEdge extends IRedefinableElement {
    * @relationship cross-reference
    * @opposite incoming
    */
-  target: IActivityNode | string;
+  target: string;
   /**
    * source
    * 
@@ -77,7 +77,7 @@ export interface IActivityEdge extends IRedefinableElement {
    * @relationship cross-reference
    * @opposite outgoing
    */
-  source: IActivityNode | string;
+  source: string;
   /**
    * redefinedEdge
    * 
@@ -85,7 +85,7 @@ export interface IActivityEdge extends IRedefinableElement {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  redefinedEdge: Set<IActivityEdge | string>;
+  redefinedEdge?: Set<string>;
   /**
    * weight
    * 

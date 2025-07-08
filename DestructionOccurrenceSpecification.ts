@@ -5,19 +5,14 @@
  * @package uml
  * @extends MessageOccurrenceSpecification
  */
-import { Comment } from './Comment';
-import { GeneralOrdering } from './GeneralOrdering';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
 import { IDestructionOccurrenceSpecification } from './IDestructionOccurrenceSpecification';
-import { IElement } from './IElement';
 import { IGeneralOrdering } from './IGeneralOrdering';
 import { IInteraction } from './IInteraction';
 import { IInteractionOperand } from './IInteractionOperand';
 import { ILifeline } from './ILifeline';
 import { IMessage } from './IMessage';
 import { IMessageOccurrenceSpecification } from './IMessageOccurrenceSpecification';
-import { INamespace } from './INamespace';
 import { IStringExpression } from './IStringExpression';
 import { MessageOccurrenceSpecification } from './MessageOccurrenceSpecification';
 import { StringExpression } from './StringExpression';
@@ -25,18 +20,6 @@ import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
 
 export class DestructionOccurrenceSpecification extends MessageOccurrenceSpecification implements IDestructionOccurrenceSpecification {
-  // Inherited from MessageOccurrenceSpecification
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from MessageOccurrenceSpecification
   /**
    * ownedComment
    * 
@@ -46,16 +29,14 @@ export class DestructionOccurrenceSpecification extends MessageOccurrenceSpecifi
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from MessageOccurrenceSpecification
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from MessageOccurrenceSpecification
   /**
    * nameExpression
    * 
@@ -63,18 +44,15 @@ export class DestructionOccurrenceSpecification extends MessageOccurrenceSpecifi
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from MessageOccurrenceSpecification
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from MessageOccurrenceSpecification
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * covered
    * 
@@ -83,9 +61,8 @@ export class DestructionOccurrenceSpecification extends MessageOccurrenceSpecifi
    * @relationship cross-reference
    * @opposite coveredBy
    */
-  public covered: Set<ILifeline | string> = new Set();
+  public covered: Set<string> = new Set();
 
-  // Inherited from MessageOccurrenceSpecification
   /**
    * enclosingOperand
    * 
@@ -94,9 +71,8 @@ export class DestructionOccurrenceSpecification extends MessageOccurrenceSpecifi
    * @relationship cross-reference
    * @opposite fragment
    */
-  public enclosingOperand?: IInteractionOperand | string = undefined;
+  public enclosingOperand?: string;
 
-  // Inherited from MessageOccurrenceSpecification
   /**
    * enclosingInteraction
    * 
@@ -105,9 +81,8 @@ export class DestructionOccurrenceSpecification extends MessageOccurrenceSpecifi
    * @relationship cross-reference
    * @opposite fragment
    */
-  public enclosingInteraction?: IInteraction | string = undefined;
+  public enclosingInteraction?: string;
 
-  // Inherited from MessageOccurrenceSpecification
   /**
    * generalOrdering
    * 
@@ -117,7 +92,6 @@ export class DestructionOccurrenceSpecification extends MessageOccurrenceSpecifi
    */
   public generalOrdering: Set<IGeneralOrdering> = new Set();
 
-  // Inherited from MessageOccurrenceSpecification
   /**
    * toAfter
    * 
@@ -126,9 +100,8 @@ export class DestructionOccurrenceSpecification extends MessageOccurrenceSpecifi
    * @relationship cross-reference
    * @opposite before
    */
-  public toAfter: Set<IGeneralOrdering | string> = new Set();
+  public toAfter: Set<string> = new Set();
 
-  // Inherited from MessageOccurrenceSpecification
   /**
    * toBefore
    * 
@@ -137,9 +110,8 @@ export class DestructionOccurrenceSpecification extends MessageOccurrenceSpecifi
    * @relationship cross-reference
    * @opposite after
    */
-  public toBefore: Set<IGeneralOrdering | string> = new Set();
+  public toBefore: Set<string> = new Set();
 
-  // Inherited from MessageOccurrenceSpecification
   /**
    * message
    * 
@@ -147,10 +119,12 @@ export class DestructionOccurrenceSpecification extends MessageOccurrenceSpecifi
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public message?: IMessage | string = undefined;
+  public message?: string;
+
 
   constructor(init?: Partial<IDestructionOccurrenceSpecification>) {
     super(init);
+
   }
   /**
    * Converts this instance to a plain object matching the interface
@@ -211,9 +185,6 @@ export class DestructionOccurrenceSpecification extends MessageOccurrenceSpecifi
   static fromJSON(json: any): DestructionOccurrenceSpecification {
     const instance = new DestructionOccurrenceSpecification();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

@@ -9,9 +9,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialRemoveStructuralFeatureValueAction = Partial<IRemoveStructuralFeatureValueAction>;
 export type RequiredRemoveStructuralFeatureValueAction = Required<IRemoveStructuralFeatureValueAction>;
-export type RemoveStructuralFeatureValueActionKey = Pick<IRemoveStructuralFeatureValueAction, 'name' | 'nameExpression'>;
-export type RemoveStructuralFeatureValueActionMetadata = Pick<IRemoveStructuralFeatureValueAction, 'ownedComment' | 'visibility'>;
-export type RemoveStructuralFeatureValueActionSummary = Pick<IRemoveStructuralFeatureValueAction, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type RemoveStructuralFeatureValueActionUnion = IRemoveStructuralFeatureValueAction | IWriteStructuralFeatureAction;
 export type RemoveStructuralFeatureValueActionFactory = () => RemoveStructuralFeatureValueAction;
 export type RemoveStructuralFeatureValueActionValidator = (instance: IRemoveStructuralFeatureValueAction) => ValidationResult;

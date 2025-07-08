@@ -13,9 +13,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialInstanceSpecification = Partial<IInstanceSpecification>;
 export type RequiredInstanceSpecification = Required<IInstanceSpecification>;
-export type InstanceSpecificationKey = Pick<IInstanceSpecification, 'name' | 'nameExpression'>;
-export type InstanceSpecificationMetadata = Pick<IInstanceSpecification, 'ownedComment' | 'visibility'>;
-export type InstanceSpecificationSummary = Pick<IInstanceSpecification, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type InstanceSpecificationUnion = IInstanceSpecification | IDeploymentTarget | IPackageableElement | IDeployedArtifact;
 export type InstanceSpecificationFactory = () => InstanceSpecification;
 export type InstanceSpecificationValidator = (instance: IInstanceSpecification) => ValidationResult;

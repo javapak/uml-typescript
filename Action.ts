@@ -6,28 +6,16 @@
  * @abstract
  * @extends ExecutableNode
  */
-import { Comment } from './Comment';
-import { Constraint } from './Constraint';
-import { ExceptionHandler } from './ExceptionHandler';
 import { ExecutableNode } from './ExecutableNode';
 import { IAction } from './IAction';
-import { IActivity } from './IActivity';
 import { IActivityEdge } from './IActivityEdge';
-import { IActivityGroup } from './IActivityGroup';
 import { IActivityNode } from './IActivityNode';
 import { IActivityPartition } from './IActivityPartition';
-import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IExceptionHandler } from './IExceptionHandler';
 import { IExecutableNode } from './IExecutableNode';
-import { IInputPin } from './IInputPin';
 import { IInterruptibleActivityRegion } from './IInterruptibleActivityRegion';
-import { INamespace } from './INamespace';
-import { IOutputPin } from './IOutputPin';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { IStructuredActivityNode } from './IStructuredActivityNode';
 import { StringExpression } from './StringExpression';
@@ -61,18 +49,6 @@ export class Action extends ExecutableNode implements IAction {
    */
   public localPrecondition: Set<IConstraint> = new Set();
 
-  // Inherited from ExecutableNode
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from ExecutableNode
   /**
    * ownedComment
    * 
@@ -82,16 +58,14 @@ export class Action extends ExecutableNode implements IAction {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from ExecutableNode
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from ExecutableNode
   /**
    * nameExpression
    * 
@@ -99,18 +73,15 @@ export class Action extends ExecutableNode implements IAction {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from ExecutableNode
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from ExecutableNode
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * isLeaf
    * 
@@ -119,7 +90,6 @@ export class Action extends ExecutableNode implements IAction {
    */
   public isLeaf!: boolean;
 
-  // Inherited from ExecutableNode
   /**
    * inInterruptibleRegion
    * 
@@ -128,9 +98,8 @@ export class Action extends ExecutableNode implements IAction {
    * @relationship cross-reference
    * @opposite node
    */
-  public inInterruptibleRegion: Set<IInterruptibleActivityRegion | string> = new Set();
+  public inInterruptibleRegion: Set<string> = new Set();
 
-  // Inherited from ExecutableNode
   /**
    * inStructuredNode
    * 
@@ -139,9 +108,8 @@ export class Action extends ExecutableNode implements IAction {
    * @relationship cross-reference
    * @opposite node
    */
-  public inStructuredNode?: IStructuredActivityNode | string = undefined;
+  public inStructuredNode?: string;
 
-  // Inherited from ExecutableNode
   /**
    * incoming
    * 
@@ -150,9 +118,8 @@ export class Action extends ExecutableNode implements IAction {
    * @relationship cross-reference
    * @opposite target
    */
-  public incoming: Set<IActivityEdge | string> = new Set();
+  public incoming: Set<string> = new Set();
 
-  // Inherited from ExecutableNode
   /**
    * outgoing
    * 
@@ -161,9 +128,8 @@ export class Action extends ExecutableNode implements IAction {
    * @relationship cross-reference
    * @opposite source
    */
-  public outgoing: Set<IActivityEdge | string> = new Set();
+  public outgoing: Set<string> = new Set();
 
-  // Inherited from ExecutableNode
   /**
    * redefinedNode
    * 
@@ -171,9 +137,8 @@ export class Action extends ExecutableNode implements IAction {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedNode: Set<IActivityNode | string> = new Set();
+  public redefinedNode: Set<string> = new Set();
 
-  // Inherited from ExecutableNode
   /**
    * inPartition
    * 
@@ -182,9 +147,8 @@ export class Action extends ExecutableNode implements IAction {
    * @relationship cross-reference
    * @opposite node
    */
-  public inPartition: Set<IActivityPartition | string> = new Set();
+  public inPartition: Set<string> = new Set();
 
-  // Inherited from ExecutableNode
   /**
    * handler
    * 
@@ -195,11 +159,13 @@ export class Action extends ExecutableNode implements IAction {
    */
   public handler: Set<IExceptionHandler> = new Set();
 
+
   constructor(init?: Partial<IAction>) {
     super(init);
-    this.isLocallyReentrant = init?.isLocallyReentrant!;
-    this.localPostcondition = init?.localPostcondition ?? new Set();
-    this.localPrecondition = init?.localPrecondition ?? new Set();
+
+    this.isLocallyReentrant = init?.isLocallyReentrant ?? false;
+    this.localPostcondition = init?.localPostcondition ? new Set(init.localPostcondition) : new Set();
+    this.localPrecondition = init?.localPrecondition ? new Set(init.localPrecondition) : new Set();
   }
   getIsLocallyReentrant(): boolean {
     return this.isLocallyReentrant;
@@ -290,9 +256,6 @@ export class Action extends ExecutableNode implements IAction {
   static fromJSON(json: any): Action {
     const instance = new Action();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

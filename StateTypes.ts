@@ -17,9 +17,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialState = Partial<IState>;
 export type RequiredState = Required<IState>;
-export type StateKey = Pick<IState, 'name' | 'nameExpression'>;
-export type StateMetadata = Pick<IState, 'ownedComment' | 'visibility' | 'ownedRule'>;
-export type StateSummary = Pick<IState, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type StateUnion = IState | INamespace | IRedefinableElement | IVertex;
 export type StateFactory = () => State;
 export type StateValidator = (instance: IState) => ValidationResult;

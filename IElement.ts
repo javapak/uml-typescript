@@ -18,7 +18,7 @@ export interface IElement extends IEModelElement {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  ownedComment: Set<IComment>;
+  ownedComment?: Set<IComment>;
 }
 
 // Type aliases for Element

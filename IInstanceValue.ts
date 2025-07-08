@@ -16,7 +16,7 @@ export interface IInstanceValue extends IValueSpecification {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  instance: IInstanceSpecification | string;
+  instance: string;
 }
 
 // Type aliases for InstanceValue

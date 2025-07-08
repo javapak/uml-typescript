@@ -9,9 +9,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialAddStructuralFeatureValueAction = Partial<IAddStructuralFeatureValueAction>;
 export type RequiredAddStructuralFeatureValueAction = Required<IAddStructuralFeatureValueAction>;
-export type AddStructuralFeatureValueActionKey = Pick<IAddStructuralFeatureValueAction, 'name' | 'nameExpression'>;
-export type AddStructuralFeatureValueActionMetadata = Pick<IAddStructuralFeatureValueAction, 'ownedComment' | 'visibility'>;
-export type AddStructuralFeatureValueActionSummary = Pick<IAddStructuralFeatureValueAction, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type AddStructuralFeatureValueActionUnion = IAddStructuralFeatureValueAction | IWriteStructuralFeatureAction;
 export type AddStructuralFeatureValueActionFactory = () => AddStructuralFeatureValueAction;
 export type AddStructuralFeatureValueActionValidator = (instance: IAddStructuralFeatureValueAction) => ValidationResult;

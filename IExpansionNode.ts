@@ -17,7 +17,7 @@ export interface IExpansionNode extends IObjectNode {
    * @relationship cross-reference
    * @opposite inputElement
    */
-  regionAsInput?: IExpansionRegion | string;
+  regionAsInput?: string;
   /**
    * regionAsOutput
    * 
@@ -26,7 +26,7 @@ export interface IExpansionNode extends IObjectNode {
    * @relationship cross-reference
    * @opposite outputElement
    */
-  regionAsOutput?: IExpansionRegion | string;
+  regionAsOutput?: string;
 }
 
 // Type aliases for ExpansionNode

@@ -28,7 +28,7 @@ export interface IClassifier extends INamespace, IRedefinableElement, IType, ITe
    * @multiplicity [0..*]
    * @relationship containment
    */
-  collaborationUse: Set<ICollaborationUse>;
+  collaborationUse?: Set<ICollaborationUse>;
   /**
    * generalization
    * 
@@ -37,7 +37,7 @@ export interface IClassifier extends INamespace, IRedefinableElement, IType, ITe
    * @relationship containment
    * @opposite specific
    */
-  generalization: Set<IGeneralization>;
+  generalization?: Set<IGeneralization>;
   /**
    * powertypeExtent
    * 
@@ -46,7 +46,7 @@ export interface IClassifier extends INamespace, IRedefinableElement, IType, ITe
    * @relationship cross-reference
    * @opposite powertype
    */
-  powertypeExtent: Set<IGeneralizationSet | string>;
+  powertypeExtent?: Set<string>;
   /**
    * isAbstract
    * 
@@ -68,7 +68,7 @@ export interface IClassifier extends INamespace, IRedefinableElement, IType, ITe
    * @multiplicity [0..*]
    * @relationship containment
    */
-  ownedUseCase: Set<IUseCase>;
+  ownedUseCase?: Set<IUseCase>;
   /**
    * useCase
    * 
@@ -77,7 +77,7 @@ export interface IClassifier extends INamespace, IRedefinableElement, IType, ITe
    * @relationship cross-reference
    * @opposite subject
    */
-  useCase: Set<IUseCase | string>;
+  useCase?: Set<string>;
   /**
    * redefinedClassifier
    * 
@@ -85,7 +85,7 @@ export interface IClassifier extends INamespace, IRedefinableElement, IType, ITe
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  redefinedClassifier: Set<IClassifier | string>;
+  redefinedClassifier?: Set<string>;
   /**
    * representation
    * 
@@ -93,7 +93,7 @@ export interface IClassifier extends INamespace, IRedefinableElement, IType, ITe
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  representation?: ICollaborationUse | string;
+  representation?: string;
   /**
    * substitution
    * 
@@ -102,7 +102,7 @@ export interface IClassifier extends INamespace, IRedefinableElement, IType, ITe
    * @relationship containment
    * @opposite substitutingClassifier
    */
-  substitution: Set<ISubstitution>;
+  substitution?: Set<ISubstitution>;
 }
 
 // Type aliases for Classifier

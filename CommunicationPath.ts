@@ -6,60 +6,29 @@
  * @extends Association
  */
 import { Association } from './Association';
-import { CollaborationUse } from './CollaborationUse';
-import { Comment } from './Comment';
-import { Constraint } from './Constraint';
-import { ElementImport } from './ElementImport';
-import { Generalization } from './Generalization';
 import { IAssociation } from './IAssociation';
 import { IClassifier } from './IClassifier';
 import { ICollaborationUse } from './ICollaborationUse';
 import { IComment } from './IComment';
 import { ICommunicationPath } from './ICommunicationPath';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IElementImport } from './IElementImport';
-import { IFeature } from './IFeature';
 import { IGeneralization } from './IGeneralization';
 import { IGeneralizationSet } from './IGeneralizationSet';
-import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
-import { IPackage } from './IPackage';
 import { IPackageImport } from './IPackageImport';
-import { IPackageableElement } from './IPackageableElement';
 import { IProperty } from './IProperty';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { ISubstitution } from './ISubstitution';
 import { ITemplateBinding } from './ITemplateBinding';
 import { ITemplateParameter } from './ITemplateParameter';
 import { ITemplateSignature } from './ITemplateSignature';
-import { IType } from './IType';
 import { IUseCase } from './IUseCase';
-import { PackageImport } from './PackageImport';
-import { Property } from './Property';
 import { StringExpression } from './StringExpression';
-import { Substitution } from './Substitution';
-import { TemplateBinding } from './TemplateBinding';
 import { TemplateSignature } from './TemplateSignature';
-import { UseCase } from './UseCase';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
 
 export class CommunicationPath extends Association implements ICommunicationPath {
-  // Inherited from Association
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Association
   /**
    * ownedComment
    * 
@@ -69,16 +38,14 @@ export class CommunicationPath extends Association implements ICommunicationPath
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Association
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Association
   /**
    * nameExpression
    * 
@@ -86,18 +53,15 @@ export class CommunicationPath extends Association implements ICommunicationPath
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Association
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Association
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * ownedRule
    * 
@@ -108,7 +72,6 @@ export class CommunicationPath extends Association implements ICommunicationPath
    */
   public ownedRule: Set<IConstraint> = new Set();
 
-  // Inherited from Association
   /**
    * elementImport
    * 
@@ -119,7 +82,6 @@ export class CommunicationPath extends Association implements ICommunicationPath
    */
   public elementImport: Set<IElementImport> = new Set();
 
-  // Inherited from Association
   /**
    * packageImport
    * 
@@ -130,7 +92,6 @@ export class CommunicationPath extends Association implements ICommunicationPath
    */
   public packageImport: Set<IPackageImport> = new Set();
 
-  // Inherited from Association
   /**
    * isLeaf
    * 
@@ -139,7 +100,6 @@ export class CommunicationPath extends Association implements ICommunicationPath
    */
   public isLeaf!: boolean;
 
-  // Inherited from Association
   /**
    * owningTemplateParameter
    * 
@@ -148,9 +108,8 @@ export class CommunicationPath extends Association implements ICommunicationPath
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from Association
   /**
    * templateParameter
    * 
@@ -159,9 +118,8 @@ export class CommunicationPath extends Association implements ICommunicationPath
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from Association
   /**
    * templateBinding
    * 
@@ -172,7 +130,6 @@ export class CommunicationPath extends Association implements ICommunicationPath
    */
   public templateBinding: Set<ITemplateBinding> = new Set();
 
-  // Inherited from Association
   /**
    * ownedTemplateSignature
    * 
@@ -181,9 +138,8 @@ export class CommunicationPath extends Association implements ICommunicationPath
    * @relationship containment
    * @opposite template
    */
-  public ownedTemplateSignature?: ITemplateSignature = undefined;
+  public ownedTemplateSignature?: ITemplateSignature;
 
-  // Inherited from Association
   /**
    * collaborationUse
    * 
@@ -193,7 +149,6 @@ export class CommunicationPath extends Association implements ICommunicationPath
    */
   public collaborationUse: Set<ICollaborationUse> = new Set();
 
-  // Inherited from Association
   /**
    * generalization
    * 
@@ -204,7 +159,6 @@ export class CommunicationPath extends Association implements ICommunicationPath
    */
   public generalization: Set<IGeneralization> = new Set();
 
-  // Inherited from Association
   /**
    * powertypeExtent
    * 
@@ -213,9 +167,8 @@ export class CommunicationPath extends Association implements ICommunicationPath
    * @relationship cross-reference
    * @opposite powertype
    */
-  public powertypeExtent: Set<IGeneralizationSet | string> = new Set();
+  public powertypeExtent: Set<string> = new Set();
 
-  // Inherited from Association
   /**
    * isAbstract
    * 
@@ -224,7 +177,6 @@ export class CommunicationPath extends Association implements ICommunicationPath
    */
   public isAbstract!: boolean;
 
-  // Inherited from Association
   /**
    * isFinalSpecialization
    * 
@@ -233,7 +185,6 @@ export class CommunicationPath extends Association implements ICommunicationPath
    */
   public isFinalSpecialization!: boolean;
 
-  // Inherited from Association
   /**
    * ownedUseCase
    * 
@@ -243,7 +194,6 @@ export class CommunicationPath extends Association implements ICommunicationPath
    */
   public ownedUseCase: Set<IUseCase> = new Set();
 
-  // Inherited from Association
   /**
    * useCase
    * 
@@ -252,9 +202,8 @@ export class CommunicationPath extends Association implements ICommunicationPath
    * @relationship cross-reference
    * @opposite subject
    */
-  public useCase: Set<IUseCase | string> = new Set();
+  public useCase: Set<string> = new Set();
 
-  // Inherited from Association
   /**
    * redefinedClassifier
    * 
@@ -262,9 +211,8 @@ export class CommunicationPath extends Association implements ICommunicationPath
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedClassifier: Set<IClassifier | string> = new Set();
+  public redefinedClassifier: Set<string> = new Set();
 
-  // Inherited from Association
   /**
    * representation
    * 
@@ -272,9 +220,8 @@ export class CommunicationPath extends Association implements ICommunicationPath
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public representation?: ICollaborationUse | string = undefined;
+  public representation?: string;
 
-  // Inherited from Association
   /**
    * substitution
    * 
@@ -285,7 +232,6 @@ export class CommunicationPath extends Association implements ICommunicationPath
    */
   public substitution: Set<ISubstitution> = new Set();
 
-  // Inherited from Association
   /**
    * isDerived
    * 
@@ -294,7 +240,6 @@ export class CommunicationPath extends Association implements ICommunicationPath
    */
   public isDerived!: boolean;
 
-  // Inherited from Association
   /**
    * memberEnd
    * 
@@ -303,9 +248,8 @@ export class CommunicationPath extends Association implements ICommunicationPath
    * @relationship cross-reference
    * @opposite association
    */
-  public memberEnd: IProperty | string[] = [];
+  public memberEnd: string[] = [];
 
-  // Inherited from Association
   /**
    * ownedEnd
    * 
@@ -316,7 +260,6 @@ export class CommunicationPath extends Association implements ICommunicationPath
    */
   public ownedEnd: IProperty[] = [];
 
-  // Inherited from Association
   /**
    * navigableOwnedEnd
    * 
@@ -324,10 +267,12 @@ export class CommunicationPath extends Association implements ICommunicationPath
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public navigableOwnedEnd: Set<IProperty | string> = new Set();
+  public navigableOwnedEnd: Set<string> = new Set();
+
 
   constructor(init?: Partial<ICommunicationPath>) {
     super(init);
+
   }
   /**
    * Converts this instance to a plain object matching the interface
@@ -388,9 +333,6 @@ export class CommunicationPath extends Association implements ICommunicationPath
   static fromJSON(json: any): CommunicationPath {
     const instance = new CommunicationPath();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

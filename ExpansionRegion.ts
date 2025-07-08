@@ -5,45 +5,26 @@
  * @package uml
  * @extends StructuredActivityNode
  */
-import { ActivityEdge } from './ActivityEdge';
-import { ActivityNode } from './ActivityNode';
-import { Comment } from './Comment';
-import { Constraint } from './Constraint';
-import { ElementImport } from './ElementImport';
-import { ExceptionHandler } from './ExceptionHandler';
 import { ExpansionKind } from './ExpansionKind';
-import { IActivity } from './IActivity';
 import { IActivityEdge } from './IActivityEdge';
-import { IActivityGroup } from './IActivityGroup';
 import { IActivityNode } from './IActivityNode';
 import { IActivityPartition } from './IActivityPartition';
-import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IElementImport } from './IElementImport';
 import { IExceptionHandler } from './IExceptionHandler';
 import { IExpansionNode } from './IExpansionNode';
 import { IExpansionRegion } from './IExpansionRegion';
 import { IInputPin } from './IInputPin';
 import { IInterruptibleActivityRegion } from './IInterruptibleActivityRegion';
-import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IOutputPin } from './IOutputPin';
 import { IPackageImport } from './IPackageImport';
-import { IPackageableElement } from './IPackageableElement';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { IStructuredActivityNode } from './IStructuredActivityNode';
 import { IVariable } from './IVariable';
-import { InputPin } from './InputPin';
-import { OutputPin } from './OutputPin';
-import { PackageImport } from './PackageImport';
 import { StringExpression } from './StringExpression';
 import { StructuredActivityNode } from './StructuredActivityNode';
 import { ValidationError, ValidationResult } from './ValidationTypes';
-import { Variable } from './Variable';
 import { VisibilityKind } from './VisibilityKind';
 
 export class ExpansionRegion extends StructuredActivityNode implements IExpansionRegion {
@@ -53,7 +34,7 @@ export class ExpansionRegion extends StructuredActivityNode implements IExpansio
    * @type ExpansionKind
    * @multiplicity [1..1]
    */
-  public mode!: any;
+  public mode!: ExpansionKind;
 
   /**
    * outputElement
@@ -63,7 +44,7 @@ export class ExpansionRegion extends StructuredActivityNode implements IExpansio
    * @relationship cross-reference
    * @opposite regionAsOutput
    */
-  public outputElement: Set<IExpansionNode | string> = new Set();
+  public outputElement: Set<string> = new Set();
 
   /**
    * inputElement
@@ -73,20 +54,8 @@ export class ExpansionRegion extends StructuredActivityNode implements IExpansio
    * @relationship cross-reference
    * @opposite regionAsInput
    */
-  public inputElement: Set<IExpansionNode | string> = new Set();
+  public inputElement: Set<string> = new Set();
 
-  // Inherited from StructuredActivityNode
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from StructuredActivityNode
   /**
    * ownedComment
    * 
@@ -96,16 +65,14 @@ export class ExpansionRegion extends StructuredActivityNode implements IExpansio
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from StructuredActivityNode
   /**
    * nameExpression
    * 
@@ -113,18 +80,15 @@ export class ExpansionRegion extends StructuredActivityNode implements IExpansio
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from StructuredActivityNode
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from StructuredActivityNode
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * isLeaf
    * 
@@ -133,7 +97,6 @@ export class ExpansionRegion extends StructuredActivityNode implements IExpansio
    */
   public isLeaf!: boolean;
 
-  // Inherited from StructuredActivityNode
   /**
    * inInterruptibleRegion
    * 
@@ -142,9 +105,8 @@ export class ExpansionRegion extends StructuredActivityNode implements IExpansio
    * @relationship cross-reference
    * @opposite node
    */
-  public inInterruptibleRegion: Set<IInterruptibleActivityRegion | string> = new Set();
+  public inInterruptibleRegion: Set<string> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * inStructuredNode
    * 
@@ -153,9 +115,8 @@ export class ExpansionRegion extends StructuredActivityNode implements IExpansio
    * @relationship cross-reference
    * @opposite node
    */
-  public inStructuredNode?: IStructuredActivityNode | string = undefined;
+  public inStructuredNode?: string;
 
-  // Inherited from StructuredActivityNode
   /**
    * incoming
    * 
@@ -164,9 +125,8 @@ export class ExpansionRegion extends StructuredActivityNode implements IExpansio
    * @relationship cross-reference
    * @opposite target
    */
-  public incoming: Set<IActivityEdge | string> = new Set();
+  public incoming: Set<string> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * outgoing
    * 
@@ -175,9 +135,8 @@ export class ExpansionRegion extends StructuredActivityNode implements IExpansio
    * @relationship cross-reference
    * @opposite source
    */
-  public outgoing: Set<IActivityEdge | string> = new Set();
+  public outgoing: Set<string> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * redefinedNode
    * 
@@ -185,9 +144,8 @@ export class ExpansionRegion extends StructuredActivityNode implements IExpansio
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedNode: Set<IActivityNode | string> = new Set();
+  public redefinedNode: Set<string> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * inPartition
    * 
@@ -196,9 +154,8 @@ export class ExpansionRegion extends StructuredActivityNode implements IExpansio
    * @relationship cross-reference
    * @opposite node
    */
-  public inPartition: Set<IActivityPartition | string> = new Set();
+  public inPartition: Set<string> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * handler
    * 
@@ -209,7 +166,6 @@ export class ExpansionRegion extends StructuredActivityNode implements IExpansio
    */
   public handler: Set<IExceptionHandler> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * isLocallyReentrant
    * 
@@ -218,7 +174,6 @@ export class ExpansionRegion extends StructuredActivityNode implements IExpansio
    */
   public isLocallyReentrant!: boolean;
 
-  // Inherited from StructuredActivityNode
   /**
    * localPostcondition
    * 
@@ -228,7 +183,6 @@ export class ExpansionRegion extends StructuredActivityNode implements IExpansio
    */
   public localPostcondition: Set<IConstraint> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * localPrecondition
    * 
@@ -238,7 +192,6 @@ export class ExpansionRegion extends StructuredActivityNode implements IExpansio
    */
   public localPrecondition: Set<IConstraint> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * ownedRule
    * 
@@ -249,7 +202,6 @@ export class ExpansionRegion extends StructuredActivityNode implements IExpansio
    */
   public ownedRule: Set<IConstraint> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * elementImport
    * 
@@ -260,7 +212,6 @@ export class ExpansionRegion extends StructuredActivityNode implements IExpansio
    */
   public elementImport: Set<IElementImport> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * packageImport
    * 
@@ -271,7 +222,6 @@ export class ExpansionRegion extends StructuredActivityNode implements IExpansio
    */
   public packageImport: Set<IPackageImport> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * edge
    * 
@@ -282,7 +232,6 @@ export class ExpansionRegion extends StructuredActivityNode implements IExpansio
    */
   public edge: Set<IActivityEdge> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * mustIsolate
    * 
@@ -291,7 +240,6 @@ export class ExpansionRegion extends StructuredActivityNode implements IExpansio
    */
   public mustIsolate!: boolean;
 
-  // Inherited from StructuredActivityNode
   /**
    * structuredNodeInput
    * 
@@ -301,7 +249,6 @@ export class ExpansionRegion extends StructuredActivityNode implements IExpansio
    */
   public structuredNodeInput: Set<IInputPin> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * structuredNodeOutput
    * 
@@ -311,7 +258,6 @@ export class ExpansionRegion extends StructuredActivityNode implements IExpansio
    */
   public structuredNodeOutput: Set<IOutputPin> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * variable
    * 
@@ -322,7 +268,6 @@ export class ExpansionRegion extends StructuredActivityNode implements IExpansio
    */
   public variable: Set<IVariable> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * node
    * 
@@ -333,33 +278,35 @@ export class ExpansionRegion extends StructuredActivityNode implements IExpansio
    */
   public node: Set<IActivityNode> = new Set();
 
+
   constructor(init?: Partial<IExpansionRegion>) {
     super(init);
+
     this.mode = init?.mode!;
-    this.outputElement = init?.outputElement ?? new Set();
-    this.inputElement = init?.inputElement ?? new Set();
+    this.outputElement = init?.outputElement ? new Set(init.outputElement) : new Set();
+    this.inputElement = init?.inputElement ? new Set(init.inputElement) : new Set();
   }
-  getMode(): any {
+  getMode(): ExpansionKind {
     return this.mode;
   }
 
-  setMode(value: any): void {
+  setMode(value: ExpansionKind): void {
     this.mode = value;
   }
 
-  getOutputElement(): Set<IExpansionNode | string> {
+  getOutputElement(): Set<string> {
     return this.outputElement;
   }
 
-  setOutputElement(value: Set<IExpansionNode | string>): void {
+  setOutputElement(value: Set<string>): void {
     this.outputElement = value;
   }
 
-  getInputElement(): Set<IExpansionNode | string> {
+  getInputElement(): Set<string> {
     return this.inputElement;
   }
 
-  setInputElement(value: Set<IExpansionNode | string>): void {
+  setInputElement(value: Set<string>): void {
     this.inputElement = value;
   }
 
@@ -428,9 +375,6 @@ export class ExpansionRegion extends StructuredActivityNode implements IExpansio
   static fromJSON(json: any): ExpansionRegion {
     const instance = new ExpansionRegion();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

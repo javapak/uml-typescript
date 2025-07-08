@@ -6,32 +6,20 @@
  * @extends CallAction
  */
 import { CallAction } from './CallAction';
-import { Comment } from './Comment';
-import { Constraint } from './Constraint';
-import { ExceptionHandler } from './ExceptionHandler';
-import { IActivity } from './IActivity';
 import { IActivityEdge } from './IActivityEdge';
-import { IActivityGroup } from './IActivityGroup';
 import { IActivityNode } from './IActivityNode';
 import { IActivityPartition } from './IActivityPartition';
 import { ICallAction } from './ICallAction';
-import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IExceptionHandler } from './IExceptionHandler';
 import { IInputPin } from './IInputPin';
 import { IInterruptibleActivityRegion } from './IInterruptibleActivityRegion';
-import { INamespace } from './INamespace';
 import { IOutputPin } from './IOutputPin';
 import { IPort } from './IPort';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IStartObjectBehaviorAction } from './IStartObjectBehaviorAction';
 import { IStringExpression } from './IStringExpression';
 import { IStructuredActivityNode } from './IStructuredActivityNode';
-import { InputPin } from './InputPin';
-import { OutputPin } from './OutputPin';
 import { StringExpression } from './StringExpression';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
@@ -46,18 +34,6 @@ export class StartObjectBehaviorAction extends CallAction implements IStartObjec
    */
   public object!: IInputPin;
 
-  // Inherited from CallAction
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from CallAction
   /**
    * ownedComment
    * 
@@ -67,16 +43,14 @@ export class StartObjectBehaviorAction extends CallAction implements IStartObjec
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from CallAction
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from CallAction
   /**
    * nameExpression
    * 
@@ -84,18 +58,15 @@ export class StartObjectBehaviorAction extends CallAction implements IStartObjec
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from CallAction
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from CallAction
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * isLeaf
    * 
@@ -104,7 +75,6 @@ export class StartObjectBehaviorAction extends CallAction implements IStartObjec
    */
   public isLeaf!: boolean;
 
-  // Inherited from CallAction
   /**
    * inInterruptibleRegion
    * 
@@ -113,9 +83,8 @@ export class StartObjectBehaviorAction extends CallAction implements IStartObjec
    * @relationship cross-reference
    * @opposite node
    */
-  public inInterruptibleRegion: Set<IInterruptibleActivityRegion | string> = new Set();
+  public inInterruptibleRegion: Set<string> = new Set();
 
-  // Inherited from CallAction
   /**
    * inStructuredNode
    * 
@@ -124,9 +93,8 @@ export class StartObjectBehaviorAction extends CallAction implements IStartObjec
    * @relationship cross-reference
    * @opposite node
    */
-  public inStructuredNode?: IStructuredActivityNode | string = undefined;
+  public inStructuredNode?: string;
 
-  // Inherited from CallAction
   /**
    * incoming
    * 
@@ -135,9 +103,8 @@ export class StartObjectBehaviorAction extends CallAction implements IStartObjec
    * @relationship cross-reference
    * @opposite target
    */
-  public incoming: Set<IActivityEdge | string> = new Set();
+  public incoming: Set<string> = new Set();
 
-  // Inherited from CallAction
   /**
    * outgoing
    * 
@@ -146,9 +113,8 @@ export class StartObjectBehaviorAction extends CallAction implements IStartObjec
    * @relationship cross-reference
    * @opposite source
    */
-  public outgoing: Set<IActivityEdge | string> = new Set();
+  public outgoing: Set<string> = new Set();
 
-  // Inherited from CallAction
   /**
    * redefinedNode
    * 
@@ -156,9 +122,8 @@ export class StartObjectBehaviorAction extends CallAction implements IStartObjec
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedNode: Set<IActivityNode | string> = new Set();
+  public redefinedNode: Set<string> = new Set();
 
-  // Inherited from CallAction
   /**
    * inPartition
    * 
@@ -167,9 +132,8 @@ export class StartObjectBehaviorAction extends CallAction implements IStartObjec
    * @relationship cross-reference
    * @opposite node
    */
-  public inPartition: Set<IActivityPartition | string> = new Set();
+  public inPartition: Set<string> = new Set();
 
-  // Inherited from CallAction
   /**
    * handler
    * 
@@ -180,7 +144,6 @@ export class StartObjectBehaviorAction extends CallAction implements IStartObjec
    */
   public handler: Set<IExceptionHandler> = new Set();
 
-  // Inherited from CallAction
   /**
    * isLocallyReentrant
    * 
@@ -189,7 +152,6 @@ export class StartObjectBehaviorAction extends CallAction implements IStartObjec
    */
   public isLocallyReentrant!: boolean;
 
-  // Inherited from CallAction
   /**
    * localPostcondition
    * 
@@ -199,7 +161,6 @@ export class StartObjectBehaviorAction extends CallAction implements IStartObjec
    */
   public localPostcondition: Set<IConstraint> = new Set();
 
-  // Inherited from CallAction
   /**
    * localPrecondition
    * 
@@ -209,7 +170,6 @@ export class StartObjectBehaviorAction extends CallAction implements IStartObjec
    */
   public localPrecondition: Set<IConstraint> = new Set();
 
-  // Inherited from CallAction
   /**
    * argument
    * 
@@ -219,7 +179,6 @@ export class StartObjectBehaviorAction extends CallAction implements IStartObjec
    */
   public argument: IInputPin[] = [];
 
-  // Inherited from CallAction
   /**
    * onPort
    * 
@@ -227,9 +186,8 @@ export class StartObjectBehaviorAction extends CallAction implements IStartObjec
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public onPort?: IPort | string = undefined;
+  public onPort?: string;
 
-  // Inherited from CallAction
   /**
    * isSynchronous
    * 
@@ -238,7 +196,6 @@ export class StartObjectBehaviorAction extends CallAction implements IStartObjec
    */
   public isSynchronous!: boolean;
 
-  // Inherited from CallAction
   /**
    * result
    * 
@@ -248,8 +205,10 @@ export class StartObjectBehaviorAction extends CallAction implements IStartObjec
    */
   public result: IOutputPin[] = [];
 
+
   constructor(init?: Partial<IStartObjectBehaviorAction>) {
     super(init);
+
     this.object = init?.object!;
   }
   getObject(): IInputPin {
@@ -321,9 +280,6 @@ export class StartObjectBehaviorAction extends CallAction implements IStartObjec
   static fromJSON(json: any): StartObjectBehaviorAction {
     const instance = new StartObjectBehaviorAction();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

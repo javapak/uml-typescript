@@ -27,7 +27,7 @@ export interface IStructuralFeatureAction extends IAction {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  structuralFeature: IStructuralFeature | string;
+  structuralFeature: string;
 }
 
 // Type aliases for StructuralFeatureAction

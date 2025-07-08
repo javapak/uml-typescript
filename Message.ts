@@ -5,24 +5,18 @@
  * @package uml
  * @extends NamedElement
  */
-import { Comment } from './Comment';
 import { IComment } from './IComment';
 import { IConnector } from './IConnector';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IInteraction } from './IInteraction';
 import { IMessage } from './IMessage';
 import { IMessageEnd } from './IMessageEnd';
 import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IStringExpression } from './IStringExpression';
 import { IValueSpecification } from './IValueSpecification';
-import { MessageKind } from './MessageKind';
 import { MessageSort } from './MessageSort';
 import { NamedElement } from './NamedElement';
 import { StringExpression } from './StringExpression';
 import { ValidationError, ValidationResult } from './ValidationTypes';
-import { ValueSpecification } from './ValueSpecification';
 import { VisibilityKind } from './VisibilityKind';
 
 export class Message extends NamedElement implements IMessage {
@@ -42,7 +36,7 @@ export class Message extends NamedElement implements IMessage {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public connector?: IConnector | string = undefined;
+  public connector?: string;
 
   /**
    * interaction
@@ -52,7 +46,7 @@ export class Message extends NamedElement implements IMessage {
    * @relationship cross-reference
    * @opposite message
    */
-  public interaction!: IInteraction | string;
+  public interaction!: string;
 
   /**
    * messageSort
@@ -60,7 +54,7 @@ export class Message extends NamedElement implements IMessage {
    * @type MessageSort
    * @multiplicity [1..1]
    */
-  public messageSort!: any;
+  public messageSort!: MessageSort;
 
   /**
    * receiveEvent
@@ -69,7 +63,7 @@ export class Message extends NamedElement implements IMessage {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public receiveEvent?: IMessageEnd | string = undefined;
+  public receiveEvent?: string;
 
   /**
    * sendEvent
@@ -78,7 +72,7 @@ export class Message extends NamedElement implements IMessage {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public sendEvent?: IMessageEnd | string = undefined;
+  public sendEvent?: string;
 
   /**
    * signature
@@ -87,20 +81,8 @@ export class Message extends NamedElement implements IMessage {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public signature?: INamedElement | string = undefined;
+  public signature?: string;
 
-  // Inherited from NamedElement
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from NamedElement
   /**
    * ownedComment
    * 
@@ -110,16 +92,14 @@ export class Message extends NamedElement implements IMessage {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from NamedElement
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from NamedElement
   /**
    * nameExpression
    * 
@@ -127,26 +107,26 @@ export class Message extends NamedElement implements IMessage {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from NamedElement
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
+  public visibility: VisibilityKind | undefined = undefined;
 
   constructor(init?: Partial<IMessage>) {
     super(init);
-    this.argument = init?.argument ?? [];
-    this.connector = init?.connector ?? undefined;
-    this.interaction = init?.interaction!;
+
+    this.argument = init?.argument ? [...init.argument] : [];
+    this.connector = init?.connector;
+    this.interaction = init?.interaction ?? '';
     this.messageSort = init?.messageSort!;
-    this.receiveEvent = init?.receiveEvent ?? undefined;
-    this.sendEvent = init?.sendEvent ?? undefined;
-    this.signature = init?.signature ?? undefined;
+    this.receiveEvent = init?.receiveEvent;
+    this.sendEvent = init?.sendEvent;
+    this.signature = init?.signature;
   }
   getArgument(): IValueSpecification[] {
     return this.argument;
@@ -156,51 +136,51 @@ export class Message extends NamedElement implements IMessage {
     this.argument = value;
   }
 
-  getConnector(): IConnector | string | undefined {
+  getConnector(): string | undefined {
     return this.connector;
   }
 
-  setConnector(value: IConnector | string | undefined): void {
+  setConnector(value: string | undefined): void {
     this.connector = value;
   }
 
-  getInteraction(): IInteraction | string {
+  getInteraction(): string {
     return this.interaction;
   }
 
-  setInteraction(value: IInteraction | string): void {
+  setInteraction(value: string): void {
     this.interaction = value;
   }
 
-  getMessageSort(): any {
+  getMessageSort(): MessageSort {
     return this.messageSort;
   }
 
-  setMessageSort(value: any): void {
+  setMessageSort(value: MessageSort): void {
     this.messageSort = value;
   }
 
-  getReceiveEvent(): IMessageEnd | string | undefined {
+  getReceiveEvent(): string | undefined {
     return this.receiveEvent;
   }
 
-  setReceiveEvent(value: IMessageEnd | string | undefined): void {
+  setReceiveEvent(value: string | undefined): void {
     this.receiveEvent = value;
   }
 
-  getSendEvent(): IMessageEnd | string | undefined {
+  getSendEvent(): string | undefined {
     return this.sendEvent;
   }
 
-  setSendEvent(value: IMessageEnd | string | undefined): void {
+  setSendEvent(value: string | undefined): void {
     this.sendEvent = value;
   }
 
-  getSignature(): INamedElement | string | undefined {
+  getSignature(): string | undefined {
     return this.signature;
   }
 
-  setSignature(value: INamedElement | string | undefined): void {
+  setSignature(value: string | undefined): void {
     this.signature = value;
   }
 
@@ -285,9 +265,6 @@ export class Message extends NamedElement implements IMessage {
   static fromJSON(json: any): Message {
     const instance = new Message();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

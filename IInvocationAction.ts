@@ -19,7 +19,7 @@ export interface IInvocationAction extends IAction {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  argument: IInputPin[];
+  argument?: IInputPin[];
   /**
    * onPort
    * 
@@ -27,7 +27,7 @@ export interface IInvocationAction extends IAction {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  onPort?: IPort | string;
+  onPort?: string;
 }
 
 // Type aliases for InvocationAction

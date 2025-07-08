@@ -6,27 +6,15 @@
  * @abstract
  * @extends Namespace, RedefinableElement, Type, TemplateableElement
  */
-import { CollaborationUse } from './CollaborationUse';
-import { Comment } from './Comment';
-import { Constraint } from './Constraint';
-import { ElementImport } from './ElementImport';
-import { Generalization } from './Generalization';
 import { IClassifier } from './IClassifier';
 import { ICollaborationUse } from './ICollaborationUse';
 import { IComment } from './IComment';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IElementImport } from './IElementImport';
-import { IFeature } from './IFeature';
 import { IGeneralization } from './IGeneralization';
 import { IGeneralizationSet } from './IGeneralizationSet';
-import { INamedElement } from './INamedElement';
 import { INamespace } from './INamespace';
-import { IPackage } from './IPackage';
 import { IPackageImport } from './IPackageImport';
-import { IPackageableElement } from './IPackageableElement';
-import { IProperty } from './IProperty';
 import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { ISubstitution } from './ISubstitution';
@@ -37,15 +25,11 @@ import { ITemplateableElement } from './ITemplateableElement';
 import { IType } from './IType';
 import { IUseCase } from './IUseCase';
 import { Namespace } from './Namespace';
-import { PackageImport } from './PackageImport';
 import { RedefinableElement } from './RedefinableElement';
 import { StringExpression } from './StringExpression';
-import { Substitution } from './Substitution';
-import { TemplateBinding } from './TemplateBinding';
 import { TemplateSignature } from './TemplateSignature';
 import { TemplateableElement } from './TemplateableElement';
 import { Type } from './Type';
-import { UseCase } from './UseCase';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
 
@@ -77,7 +61,7 @@ export class Classifier extends Namespace implements IClassifier {
    * @relationship cross-reference
    * @opposite powertype
    */
-  public powertypeExtent: Set<IGeneralizationSet | string> = new Set();
+  public powertypeExtent: Set<string> = new Set();
 
   /**
    * isAbstract
@@ -112,7 +96,7 @@ export class Classifier extends Namespace implements IClassifier {
    * @relationship cross-reference
    * @opposite subject
    */
-  public useCase: Set<IUseCase | string> = new Set();
+  public useCase: Set<string> = new Set();
 
   /**
    * redefinedClassifier
@@ -121,7 +105,7 @@ export class Classifier extends Namespace implements IClassifier {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedClassifier: Set<IClassifier | string> = new Set();
+  public redefinedClassifier: Set<string> = new Set();
 
   /**
    * representation
@@ -130,7 +114,7 @@ export class Classifier extends Namespace implements IClassifier {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public representation?: ICollaborationUse | string = undefined;
+  public representation?: string;
 
   /**
    * substitution
@@ -142,18 +126,6 @@ export class Classifier extends Namespace implements IClassifier {
    */
   public substitution: Set<ISubstitution> = new Set();
 
-  // Inherited from Namespace
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Namespace
   /**
    * ownedComment
    * 
@@ -163,16 +135,14 @@ export class Classifier extends Namespace implements IClassifier {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Namespace
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Namespace
   /**
    * nameExpression
    * 
@@ -180,18 +150,15 @@ export class Classifier extends Namespace implements IClassifier {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Namespace
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Namespace
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * ownedRule
    * 
@@ -202,7 +169,6 @@ export class Classifier extends Namespace implements IClassifier {
    */
   public ownedRule: Set<IConstraint> = new Set();
 
-  // Inherited from Namespace
   /**
    * elementImport
    * 
@@ -213,7 +179,6 @@ export class Classifier extends Namespace implements IClassifier {
    */
   public elementImport: Set<IElementImport> = new Set();
 
-  // Inherited from Namespace
   /**
    * packageImport
    * 
@@ -224,7 +189,39 @@ export class Classifier extends Namespace implements IClassifier {
    */
   public packageImport: Set<IPackageImport> = new Set();
 
-  // Inherited from RedefinableElement
+  /**
+   * ownedComment
+   * 
+   * @type Comment
+   * @multiplicity [0..*]
+   * @relationship containment
+   */
+  public ownedComment: Set<IComment> = new Set();
+
+  /**
+   * name
+   * 
+   * @type String
+   * @multiplicity [0..1]
+   */
+  public name?: string;
+
+  /**
+   * nameExpression
+   * 
+   * @type StringExpression
+   * @multiplicity [0..1]
+   * @relationship containment
+   */
+  public nameExpression?: IStringExpression;
+
+  /**
+   * visibility
+   * 
+   * @type VisibilityKind
+   * @multiplicity [0..1]
+   */
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * isLeaf
    * 
@@ -233,7 +230,39 @@ export class Classifier extends Namespace implements IClassifier {
    */
   public isLeaf!: boolean;
 
-  // Inherited from Type
+  /**
+   * ownedComment
+   * 
+   * @type Comment
+   * @multiplicity [0..*]
+   * @relationship containment
+   */
+  public ownedComment: Set<IComment> = new Set();
+
+  /**
+   * name
+   * 
+   * @type String
+   * @multiplicity [0..1]
+   */
+  public name?: string;
+
+  /**
+   * nameExpression
+   * 
+   * @type StringExpression
+   * @multiplicity [0..1]
+   * @relationship containment
+   */
+  public nameExpression?: IStringExpression;
+
+  /**
+   * visibility
+   * 
+   * @type VisibilityKind
+   * @multiplicity [0..1]
+   */
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * owningTemplateParameter
    * 
@@ -242,9 +271,8 @@ export class Classifier extends Namespace implements IClassifier {
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from Type
   /**
    * templateParameter
    * 
@@ -253,9 +281,17 @@ export class Classifier extends Namespace implements IClassifier {
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from TemplateableElement
+  /**
+   * ownedComment
+   * 
+   * @type Comment
+   * @multiplicity [0..*]
+   * @relationship containment
+   */
+  public ownedComment: Set<IComment> = new Set();
+
   /**
    * templateBinding
    * 
@@ -266,7 +302,6 @@ export class Classifier extends Namespace implements IClassifier {
    */
   public templateBinding: Set<ITemplateBinding> = new Set();
 
-  // Inherited from TemplateableElement
   /**
    * ownedTemplateSignature
    * 
@@ -275,20 +310,22 @@ export class Classifier extends Namespace implements IClassifier {
    * @relationship containment
    * @opposite template
    */
-  public ownedTemplateSignature?: ITemplateSignature = undefined;
+  public ownedTemplateSignature?: ITemplateSignature;
+
 
   constructor(init?: Partial<IClassifier>) {
     super(init);
-    this.collaborationUse = init?.collaborationUse ?? new Set();
-    this.generalization = init?.generalization ?? new Set();
-    this.powertypeExtent = init?.powertypeExtent ?? new Set();
-    this.isAbstract = init?.isAbstract!;
-    this.isFinalSpecialization = init?.isFinalSpecialization!;
-    this.ownedUseCase = init?.ownedUseCase ?? new Set();
-    this.useCase = init?.useCase ?? new Set();
-    this.redefinedClassifier = init?.redefinedClassifier ?? new Set();
-    this.representation = init?.representation ?? undefined;
-    this.substitution = init?.substitution ?? new Set();
+
+    this.collaborationUse = init?.collaborationUse ? new Set(init.collaborationUse) : new Set();
+    this.generalization = init?.generalization ? new Set(init.generalization) : new Set();
+    this.powertypeExtent = init?.powertypeExtent ? new Set(init.powertypeExtent) : new Set();
+    this.isAbstract = init?.isAbstract ?? false;
+    this.isFinalSpecialization = init?.isFinalSpecialization ?? false;
+    this.ownedUseCase = init?.ownedUseCase ? new Set(init.ownedUseCase) : new Set();
+    this.useCase = init?.useCase ? new Set(init.useCase) : new Set();
+    this.redefinedClassifier = init?.redefinedClassifier ? new Set(init.redefinedClassifier) : new Set();
+    this.representation = init?.representation;
+    this.substitution = init?.substitution ? new Set(init.substitution) : new Set();
   }
   getCollaborationUse(): Set<ICollaborationUse> {
     return this.collaborationUse;
@@ -306,11 +343,11 @@ export class Classifier extends Namespace implements IClassifier {
     this.generalization = value;
   }
 
-  getPowertypeExtent(): Set<IGeneralizationSet | string> {
+  getPowertypeExtent(): Set<string> {
     return this.powertypeExtent;
   }
 
-  setPowertypeExtent(value: Set<IGeneralizationSet | string>): void {
+  setPowertypeExtent(value: Set<string>): void {
     this.powertypeExtent = value;
   }
 
@@ -338,27 +375,27 @@ export class Classifier extends Namespace implements IClassifier {
     this.ownedUseCase = value;
   }
 
-  getUseCase(): Set<IUseCase | string> {
+  getUseCase(): Set<string> {
     return this.useCase;
   }
 
-  setUseCase(value: Set<IUseCase | string>): void {
+  setUseCase(value: Set<string>): void {
     this.useCase = value;
   }
 
-  getRedefinedClassifier(): Set<IClassifier | string> {
+  getRedefinedClassifier(): Set<string> {
     return this.redefinedClassifier;
   }
 
-  setRedefinedClassifier(value: Set<IClassifier | string>): void {
+  setRedefinedClassifier(value: Set<string>): void {
     this.redefinedClassifier = value;
   }
 
-  getRepresentation(): ICollaborationUse | string | undefined {
+  getRepresentation(): string | undefined {
     return this.representation;
   }
 
-  setRepresentation(value: ICollaborationUse | string | undefined): void {
+  setRepresentation(value: string | undefined): void {
     this.representation = value;
   }
 
@@ -451,9 +488,6 @@ export class Classifier extends Namespace implements IClassifier {
   static fromJSON(json: any): Classifier {
     const instance = new Classifier();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

@@ -10,9 +10,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialSendSignalAction = Partial<ISendSignalAction>;
 export type RequiredSendSignalAction = Required<ISendSignalAction>;
-export type SendSignalActionKey = Pick<ISendSignalAction, 'name' | 'nameExpression'>;
-export type SendSignalActionMetadata = Pick<ISendSignalAction, 'ownedComment' | 'visibility'>;
-export type SendSignalActionSummary = Pick<ISendSignalAction, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type SendSignalActionUnion = ISendSignalAction | IInvocationAction;
 export type SendSignalActionFactory = () => SendSignalAction;
 export type SendSignalActionValidator = (instance: ISendSignalAction) => ValidationResult;

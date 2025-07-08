@@ -9,9 +9,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialProtocolTransition = Partial<IProtocolTransition>;
 export type RequiredProtocolTransition = Required<IProtocolTransition>;
-export type ProtocolTransitionKey = Pick<IProtocolTransition, 'name' | 'nameExpression'>;
-export type ProtocolTransitionMetadata = Pick<IProtocolTransition, 'ownedComment' | 'visibility' | 'ownedRule'>;
-export type ProtocolTransitionSummary = Pick<IProtocolTransition, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type ProtocolTransitionUnion = IProtocolTransition | ITransition;
 export type ProtocolTransitionFactory = () => ProtocolTransition;
 export type ProtocolTransitionValidator = (instance: IProtocolTransition) => ValidationResult;

@@ -9,9 +9,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialExecutableNode = Partial<IExecutableNode>;
 export type RequiredExecutableNode = Required<IExecutableNode>;
-export type ExecutableNodeKey = Pick<IExecutableNode, 'name' | 'nameExpression'>;
-export type ExecutableNodeMetadata = Pick<IExecutableNode, 'ownedComment' | 'visibility'>;
-export type ExecutableNodeSummary = Pick<IExecutableNode, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type ExecutableNodeUnion = IExecutableNode | IActivityNode;
 export type ExecutableNodeFactory = () => ExecutableNode;
 export type ExecutableNodeValidator = (instance: IExecutableNode) => ValidationResult;

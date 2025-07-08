@@ -5,14 +5,9 @@
  * @package uml
  * @extends ValueSpecification
  */
-import { Comment } from './Comment';
 import { IBehavior } from './IBehavior';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
-import { INamespace } from './INamespace';
 import { IOpaqueExpression } from './IOpaqueExpression';
-import { IParameter } from './IParameter';
 import { IStringExpression } from './IStringExpression';
 import { ITemplateParameter } from './ITemplateParameter';
 import { IType } from './IType';
@@ -30,7 +25,7 @@ export class OpaqueExpression extends ValueSpecification implements IOpaqueExpre
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public behavior?: IBehavior | string = undefined;
+  public behavior?: string;
 
   /**
    * body
@@ -48,18 +43,6 @@ export class OpaqueExpression extends ValueSpecification implements IOpaqueExpre
    */
   public language: string[] = [];
 
-  // Inherited from ValueSpecification
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from ValueSpecification
   /**
    * ownedComment
    * 
@@ -69,16 +52,14 @@ export class OpaqueExpression extends ValueSpecification implements IOpaqueExpre
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from ValueSpecification
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from ValueSpecification
   /**
    * nameExpression
    * 
@@ -86,18 +67,15 @@ export class OpaqueExpression extends ValueSpecification implements IOpaqueExpre
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from ValueSpecification
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from ValueSpecification
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * owningTemplateParameter
    * 
@@ -106,9 +84,8 @@ export class OpaqueExpression extends ValueSpecification implements IOpaqueExpre
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from ValueSpecification
   /**
    * templateParameter
    * 
@@ -117,9 +94,8 @@ export class OpaqueExpression extends ValueSpecification implements IOpaqueExpre
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from ValueSpecification
   /**
    * type
    * 
@@ -127,19 +103,21 @@ export class OpaqueExpression extends ValueSpecification implements IOpaqueExpre
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public type?: IType | string = undefined;
+  public type?: string;
+
 
   constructor(init?: Partial<IOpaqueExpression>) {
     super(init);
-    this.behavior = init?.behavior ?? undefined;
-    this.body = init?.body ?? [];
-    this.language = init?.language ?? [];
+
+    this.behavior = init?.behavior;
+    this.body = init?.body ? [...init.body] : [];
+    this.language = init?.language ? [...init.language] : [];
   }
-  getBehavior(): IBehavior | string | undefined {
+  getBehavior(): string | undefined {
     return this.behavior;
   }
 
-  setBehavior(value: IBehavior | string | undefined): void {
+  setBehavior(value: string | undefined): void {
     this.behavior = value;
   }
 
@@ -226,9 +204,6 @@ export class OpaqueExpression extends ValueSpecification implements IOpaqueExpre
   static fromJSON(json: any): OpaqueExpression {
     const instance = new OpaqueExpression();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

@@ -18,7 +18,7 @@ export interface IProtocolStateMachine extends IStateMachine {
    * @relationship containment
    * @opposite specificMachine
    */
-  conformance: Set<IProtocolConformance>;
+  conformance?: Set<IProtocolConformance>;
 }
 
 // Type aliases for ProtocolStateMachine

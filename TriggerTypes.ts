@@ -10,9 +10,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialTrigger = Partial<ITrigger>;
 export type RequiredTrigger = Required<ITrigger>;
-export type TriggerKey = Pick<ITrigger, 'name' | 'nameExpression'>;
-export type TriggerMetadata = Pick<ITrigger, 'ownedComment' | 'visibility'>;
-export type TriggerSummary = Pick<ITrigger, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type TriggerUnion = ITrigger | INamedElement;
 export type TriggerFactory = () => Trigger;
 export type TriggerValidator = (instance: ITrigger) => ValidationResult;

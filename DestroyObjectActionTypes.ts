@@ -9,9 +9,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialDestroyObjectAction = Partial<IDestroyObjectAction>;
 export type RequiredDestroyObjectAction = Required<IDestroyObjectAction>;
-export type DestroyObjectActionKey = Pick<IDestroyObjectAction, 'name' | 'nameExpression'>;
-export type DestroyObjectActionMetadata = Pick<IDestroyObjectAction, 'ownedComment' | 'visibility'>;
-export type DestroyObjectActionSummary = Pick<IDestroyObjectAction, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type DestroyObjectActionUnion = IDestroyObjectAction | IAction;
 export type DestroyObjectActionFactory = () => DestroyObjectAction;
 export type DestroyObjectActionValidator = (instance: IDestroyObjectAction) => ValidationResult;

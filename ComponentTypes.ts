@@ -10,9 +10,7 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialComponent = Partial<IComponent>;
 export type RequiredComponent = Required<IComponent>;
-export type ComponentKey = Pick<IComponent, 'name' | 'nameExpression'>;
-export type ComponentMetadata = Pick<IComponent, 'ownedComment' | 'visibility' | 'ownedRule' | 'ownedTemplateSignature' | 'ownedUseCase' | 'ownedAttribute' | 'ownedConnector' | 'ownedBehavior' | 'ownedOperation' | 'ownedReception'>;
-export type ComponentSummary = Pick<IComponent, 'eAnnotations' | 'ownedComment' | 'name'>;
+export type ComponentKey = Pick<IComponent, 'provided'>;
 export type ComponentUnion = IComponent | IClass;
 export type ComponentFactory = () => Component;
 export type ComponentValidator = (instance: IComponent) => ValidationResult;

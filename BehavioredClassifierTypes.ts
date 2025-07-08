@@ -10,9 +10,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialBehavioredClassifier = Partial<IBehavioredClassifier>;
 export type RequiredBehavioredClassifier = Required<IBehavioredClassifier>;
-export type BehavioredClassifierKey = Pick<IBehavioredClassifier, 'name' | 'nameExpression'>;
-export type BehavioredClassifierMetadata = Pick<IBehavioredClassifier, 'ownedComment' | 'visibility' | 'ownedRule' | 'ownedTemplateSignature' | 'ownedUseCase' | 'ownedBehavior'>;
-export type BehavioredClassifierSummary = Pick<IBehavioredClassifier, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type BehavioredClassifierUnion = IBehavioredClassifier | IClassifier;
 export type BehavioredClassifierFactory = () => BehavioredClassifier;
 export type BehavioredClassifierValidator = (instance: IBehavioredClassifier) => ValidationResult;

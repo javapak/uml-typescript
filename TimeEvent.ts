@@ -5,13 +5,9 @@
  * @package uml
  * @extends Event
  */
-import { Comment } from './Comment';
 import { Event } from './Event';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IEvent } from './IEvent';
-import { INamespace } from './INamespace';
 import { IStringExpression } from './IStringExpression';
 import { ITemplateParameter } from './ITemplateParameter';
 import { ITimeEvent } from './ITimeEvent';
@@ -39,18 +35,6 @@ export class TimeEvent extends Event implements ITimeEvent {
    */
   public when!: ITimeExpression;
 
-  // Inherited from Event
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Event
   /**
    * ownedComment
    * 
@@ -60,16 +44,14 @@ export class TimeEvent extends Event implements ITimeEvent {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Event
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Event
   /**
    * nameExpression
    * 
@@ -77,18 +59,15 @@ export class TimeEvent extends Event implements ITimeEvent {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Event
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Event
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * owningTemplateParameter
    * 
@@ -97,9 +76,8 @@ export class TimeEvent extends Event implements ITimeEvent {
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from Event
   /**
    * templateParameter
    * 
@@ -108,11 +86,13 @@ export class TimeEvent extends Event implements ITimeEvent {
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
+
 
   constructor(init?: Partial<ITimeEvent>) {
     super(init);
-    this.isRelative = init?.isRelative!;
+
+    this.isRelative = init?.isRelative ?? false;
     this.when = init?.when!;
   }
   getIsRelative(): boolean {
@@ -194,9 +174,6 @@ export class TimeEvent extends Event implements ITimeEvent {
   static fromJSON(json: any): TimeEvent {
     const instance = new TimeEvent();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

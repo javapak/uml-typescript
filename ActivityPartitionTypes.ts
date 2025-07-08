@@ -11,9 +11,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialActivityPartition = Partial<IActivityPartition>;
 export type RequiredActivityPartition = Required<IActivityPartition>;
-export type ActivityPartitionKey = Pick<IActivityPartition, 'name' | 'nameExpression'>;
-export type ActivityPartitionMetadata = Pick<IActivityPartition, 'ownedComment' | 'visibility'>;
-export type ActivityPartitionSummary = Pick<IActivityPartition, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type ActivityPartitionUnion = IActivityPartition | IActivityGroup;
 export type ActivityPartitionFactory = () => ActivityPartition;
 export type ActivityPartitionValidator = (instance: IActivityPartition) => ValidationResult;

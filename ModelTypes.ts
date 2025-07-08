@@ -8,9 +8,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialModel = Partial<IModel>;
 export type RequiredModel = Required<IModel>;
-export type ModelKey = Pick<IModel, 'name' | 'nameExpression'>;
-export type ModelMetadata = Pick<IModel, 'ownedComment' | 'visibility' | 'ownedRule' | 'ownedTemplateSignature'>;
-export type ModelSummary = Pick<IModel, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type ModelUnion = IModel | IPackage;
 export type ModelFactory = () => Model;
 export type ModelValidator = (instance: IModel) => ValidationResult;

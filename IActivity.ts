@@ -26,7 +26,7 @@ export interface IActivity extends IBehavior {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  ownedGroup: Set<IActivityGroup>;
+  ownedGroup?: Set<IActivityGroup>;
   /**
    * edge
    * 
@@ -35,7 +35,7 @@ export interface IActivity extends IBehavior {
    * @relationship containment
    * @opposite activity
    */
-  edge: Set<IActivityEdge>;
+  edge?: Set<IActivityEdge>;
   /**
    * variable
    * 
@@ -44,7 +44,7 @@ export interface IActivity extends IBehavior {
    * @relationship containment
    * @opposite activityScope
    */
-  variable: Set<IVariable>;
+  variable?: Set<IVariable>;
   /**
    * ownedNode
    * 
@@ -52,7 +52,7 @@ export interface IActivity extends IBehavior {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  ownedNode: Set<IActivityNode>;
+  ownedNode?: Set<IActivityNode>;
   /**
    * isReadOnly
    * 
@@ -74,7 +74,7 @@ export interface IActivity extends IBehavior {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  partition: Set<IActivityPartition | string>;
+  partition?: Set<string>;
   /**
    * structuredNode
    * 
@@ -82,7 +82,7 @@ export interface IActivity extends IBehavior {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  structuredNode: Set<IStructuredActivityNode>;
+  structuredNode?: Set<IStructuredActivityNode>;
 }
 
 // Type aliases for Activity

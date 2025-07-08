@@ -18,7 +18,7 @@ export interface ICallOperationAction extends ICallAction {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  operation: IOperation | string;
+  operation: string;
   /**
    * target
    * 

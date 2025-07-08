@@ -17,7 +17,7 @@ export interface IClause extends IElement {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  body: Set<IExecutableNode | string>;
+  body?: Set<string>;
   /**
    * bodyOutput
    * 
@@ -25,7 +25,7 @@ export interface IClause extends IElement {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  bodyOutput: IOutputPin | string[];
+  bodyOutput?: string[];
   /**
    * decider
    * 
@@ -33,7 +33,7 @@ export interface IClause extends IElement {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  decider: IOutputPin | string;
+  decider: string;
   /**
    * predecessorClause
    * 
@@ -42,7 +42,7 @@ export interface IClause extends IElement {
    * @relationship cross-reference
    * @opposite successorClause
    */
-  predecessorClause: Set<IClause | string>;
+  predecessorClause?: Set<string>;
   /**
    * successorClause
    * 
@@ -51,7 +51,7 @@ export interface IClause extends IElement {
    * @relationship cross-reference
    * @opposite predecessorClause
    */
-  successorClause: Set<IClause | string>;
+  successorClause?: Set<string>;
   /**
    * test
    * 
@@ -59,7 +59,7 @@ export interface IClause extends IElement {
    * @multiplicity [1..*]
    * @relationship cross-reference
    */
-  test: Set<IExecutableNode | string>;
+  test: Set<string>;
 }
 
 // Type aliases for Clause

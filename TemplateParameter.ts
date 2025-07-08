@@ -5,7 +5,6 @@
  * @package uml
  * @extends Element
  */
-import { Comment } from './Comment';
 import { Element } from './Element';
 import { IComment } from './IComment';
 import { IElement } from './IElement';
@@ -23,7 +22,7 @@ export class TemplateParameter extends Element implements ITemplateParameter {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public default?: IParameterableElement | string = undefined;
+  public default?: string;
 
   /**
    * ownedDefault
@@ -32,7 +31,7 @@ export class TemplateParameter extends Element implements ITemplateParameter {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public ownedDefault?: IParameterableElement = undefined;
+  public ownedDefault?: IParameterableElement;
 
   /**
    * parameteredElement
@@ -42,7 +41,7 @@ export class TemplateParameter extends Element implements ITemplateParameter {
    * @relationship cross-reference
    * @opposite templateParameter
    */
-  public parameteredElement!: IParameterableElement | string;
+  public parameteredElement!: string;
 
   /**
    * signature
@@ -52,7 +51,7 @@ export class TemplateParameter extends Element implements ITemplateParameter {
    * @relationship cross-reference
    * @opposite ownedParameter
    */
-  public signature!: ITemplateSignature | string;
+  public signature!: string;
 
   /**
    * ownedParameteredElement
@@ -62,20 +61,8 @@ export class TemplateParameter extends Element implements ITemplateParameter {
    * @relationship containment
    * @opposite owningTemplateParameter
    */
-  public ownedParameteredElement?: IParameterableElement = undefined;
+  public ownedParameteredElement?: IParameterableElement;
 
-  // Inherited from Element
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Element
   /**
    * ownedComment
    * 
@@ -85,19 +72,21 @@ export class TemplateParameter extends Element implements ITemplateParameter {
    */
   public ownedComment: Set<IComment> = new Set();
 
+
   constructor(init?: Partial<ITemplateParameter>) {
     super(init);
-    this.default = init?.default ?? undefined;
-    this.ownedDefault = init?.ownedDefault ?? undefined;
-    this.parameteredElement = init?.parameteredElement!;
-    this.signature = init?.signature!;
-    this.ownedParameteredElement = init?.ownedParameteredElement ?? undefined;
+
+    this.default = init?.default;
+    this.ownedDefault = init?.ownedDefault;
+    this.parameteredElement = init?.parameteredElement ?? '';
+    this.signature = init?.signature ?? '';
+    this.ownedParameteredElement = init?.ownedParameteredElement;
   }
-  getDefault(): IParameterableElement | string | undefined {
+  getDefault(): string | undefined {
     return this.default;
   }
 
-  setDefault(value: IParameterableElement | string | undefined): void {
+  setDefault(value: string | undefined): void {
     this.default = value;
   }
 
@@ -109,19 +98,19 @@ export class TemplateParameter extends Element implements ITemplateParameter {
     this.ownedDefault = value;
   }
 
-  getParameteredElement(): IParameterableElement | string {
+  getParameteredElement(): string {
     return this.parameteredElement;
   }
 
-  setParameteredElement(value: IParameterableElement | string): void {
+  setParameteredElement(value: string): void {
     this.parameteredElement = value;
   }
 
-  getSignature(): ITemplateSignature | string {
+  getSignature(): string {
     return this.signature;
   }
 
-  setSignature(value: ITemplateSignature | string): void {
+  setSignature(value: string): void {
     this.signature = value;
   }
 
@@ -208,9 +197,6 @@ export class TemplateParameter extends Element implements ITemplateParameter {
   static fromJSON(json: any): TemplateParameter {
     const instance = new TemplateParameter();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

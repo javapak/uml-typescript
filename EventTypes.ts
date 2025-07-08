@@ -8,9 +8,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialEvent = Partial<IEvent>;
 export type RequiredEvent = Required<IEvent>;
-export type EventKey = Pick<IEvent, 'name' | 'nameExpression'>;
-export type EventMetadata = Pick<IEvent, 'ownedComment' | 'visibility'>;
-export type EventSummary = Pick<IEvent, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type EventUnion = IEvent | IPackageableElement;
 export type EventFactory = () => Event;
 export type EventValidator = (instance: IEvent) => ValidationResult;

@@ -10,9 +10,6 @@ import { ValueSpecificationAction } from './ValueSpecificationAction';
  */
 export type PartialValueSpecificationAction = Partial<IValueSpecificationAction>;
 export type RequiredValueSpecificationAction = Required<IValueSpecificationAction>;
-export type ValueSpecificationActionKey = Pick<IValueSpecificationAction, 'name' | 'nameExpression'>;
-export type ValueSpecificationActionMetadata = Pick<IValueSpecificationAction, 'ownedComment' | 'visibility'>;
-export type ValueSpecificationActionSummary = Pick<IValueSpecificationAction, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type ValueSpecificationActionUnion = IValueSpecificationAction | IAction;
 export type ValueSpecificationActionFactory = () => ValueSpecificationAction;
 export type ValueSpecificationActionValidator = (instance: IValueSpecificationAction) => ValidationResult;

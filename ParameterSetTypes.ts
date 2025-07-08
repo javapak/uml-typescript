@@ -10,9 +10,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialParameterSet = Partial<IParameterSet>;
 export type RequiredParameterSet = Required<IParameterSet>;
-export type ParameterSetKey = Pick<IParameterSet, 'name' | 'nameExpression'>;
-export type ParameterSetMetadata = Pick<IParameterSet, 'ownedComment' | 'visibility'>;
-export type ParameterSetSummary = Pick<IParameterSet, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type ParameterSetUnion = IParameterSet | INamedElement;
 export type ParameterSetFactory = () => ParameterSet;
 export type ParameterSetValidator = (instance: IParameterSet) => ValidationResult;

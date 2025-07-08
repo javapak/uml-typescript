@@ -6,14 +6,10 @@
  * @abstract
  * @extends NamedElement
  */
-import { Comment } from './Comment';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IMessage } from './IMessage';
 import { IMessageEnd } from './IMessageEnd';
 import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IStringExpression } from './IStringExpression';
 import { NamedElement } from './NamedElement';
 import { StringExpression } from './StringExpression';
@@ -28,20 +24,8 @@ export class MessageEnd extends NamedElement implements IMessageEnd {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public message?: IMessage | string = undefined;
+  public message?: string;
 
-  // Inherited from NamedElement
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from NamedElement
   /**
    * ownedComment
    * 
@@ -51,16 +35,14 @@ export class MessageEnd extends NamedElement implements IMessageEnd {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from NamedElement
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from NamedElement
   /**
    * nameExpression
    * 
@@ -68,26 +50,26 @@ export class MessageEnd extends NamedElement implements IMessageEnd {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from NamedElement
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
+  public visibility: VisibilityKind | undefined = undefined;
 
   constructor(init?: Partial<IMessageEnd>) {
     super(init);
-    this.message = init?.message ?? undefined;
+
+    this.message = init?.message;
   }
-  getMessage(): IMessage | string | undefined {
+  getMessage(): string | undefined {
     return this.message;
   }
 
-  setMessage(value: IMessage | string | undefined): void {
+  setMessage(value: string | undefined): void {
     this.message = value;
   }
 
@@ -154,9 +136,6 @@ export class MessageEnd extends NamedElement implements IMessageEnd {
   static fromJSON(json: any): MessageEnd {
     const instance = new MessageEnd();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

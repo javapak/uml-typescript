@@ -11,8 +11,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialTemplateBinding = Partial<ITemplateBinding>;
 export type RequiredTemplateBinding = Required<ITemplateBinding>;
-export type TemplateBindingMetadata = Pick<ITemplateBinding, 'ownedComment'>;
-export type TemplateBindingSummary = Pick<ITemplateBinding, 'eAnnotations' | 'ownedComment' | 'parameterSubstitution'>;
 export type TemplateBindingUnion = ITemplateBinding | IDirectedRelationship;
 export type TemplateBindingFactory = () => TemplateBinding;
 export type TemplateBindingValidator = (instance: ITemplateBinding) => ValidationResult;

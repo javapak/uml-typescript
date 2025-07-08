@@ -5,11 +5,9 @@
  * @package uml
  * @extends TemplateParameter
  */
-import { Comment } from './Comment';
 import { IClassifier } from './IClassifier';
 import { IClassifierTemplateParameter } from './IClassifierTemplateParameter';
 import { IComment } from './IComment';
-import { IElement } from './IElement';
 import { IParameterableElement } from './IParameterableElement';
 import { ITemplateParameter } from './ITemplateParameter';
 import { ITemplateSignature } from './ITemplateSignature';
@@ -33,20 +31,8 @@ export class ClassifierTemplateParameter extends TemplateParameter implements IC
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public constrainingClassifier: Set<IClassifier | string> = new Set();
+  public constrainingClassifier: Set<string> = new Set();
 
-  // Inherited from TemplateParameter
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from TemplateParameter
   /**
    * ownedComment
    * 
@@ -56,7 +42,6 @@ export class ClassifierTemplateParameter extends TemplateParameter implements IC
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from TemplateParameter
   /**
    * default
    * 
@@ -64,9 +49,8 @@ export class ClassifierTemplateParameter extends TemplateParameter implements IC
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public default?: IParameterableElement | string = undefined;
+  public default?: string;
 
-  // Inherited from TemplateParameter
   /**
    * ownedDefault
    * 
@@ -74,9 +58,8 @@ export class ClassifierTemplateParameter extends TemplateParameter implements IC
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public ownedDefault?: IParameterableElement = undefined;
+  public ownedDefault?: IParameterableElement;
 
-  // Inherited from TemplateParameter
   /**
    * parameteredElement
    * 
@@ -85,9 +68,8 @@ export class ClassifierTemplateParameter extends TemplateParameter implements IC
    * @relationship cross-reference
    * @opposite templateParameter
    */
-  public parameteredElement!: IParameterableElement | string;
+  public parameteredElement!: string;
 
-  // Inherited from TemplateParameter
   /**
    * signature
    * 
@@ -96,9 +78,8 @@ export class ClassifierTemplateParameter extends TemplateParameter implements IC
    * @relationship cross-reference
    * @opposite ownedParameter
    */
-  public signature!: ITemplateSignature | string;
+  public signature!: string;
 
-  // Inherited from TemplateParameter
   /**
    * ownedParameteredElement
    * 
@@ -107,12 +88,14 @@ export class ClassifierTemplateParameter extends TemplateParameter implements IC
    * @relationship containment
    * @opposite owningTemplateParameter
    */
-  public ownedParameteredElement?: IParameterableElement = undefined;
+  public ownedParameteredElement?: IParameterableElement;
+
 
   constructor(init?: Partial<IClassifierTemplateParameter>) {
     super(init);
-    this.allowSubstitutable = init?.allowSubstitutable!;
-    this.constrainingClassifier = init?.constrainingClassifier ?? new Set();
+
+    this.allowSubstitutable = init?.allowSubstitutable ?? false;
+    this.constrainingClassifier = init?.constrainingClassifier ? new Set(init.constrainingClassifier) : new Set();
   }
   getAllowSubstitutable(): boolean {
     return this.allowSubstitutable;
@@ -122,11 +105,11 @@ export class ClassifierTemplateParameter extends TemplateParameter implements IC
     this.allowSubstitutable = value;
   }
 
-  getConstrainingClassifier(): Set<IClassifier | string> {
+  getConstrainingClassifier(): Set<string> {
     return this.constrainingClassifier;
   }
 
-  setConstrainingClassifier(value: Set<IClassifier | string>): void {
+  setConstrainingClassifier(value: Set<string>): void {
     this.constrainingClassifier = value;
   }
 
@@ -193,9 +176,6 @@ export class ClassifierTemplateParameter extends TemplateParameter implements IC
   static fromJSON(json: any): ClassifierTemplateParameter {
     const instance = new ClassifierTemplateParameter();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

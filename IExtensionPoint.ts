@@ -17,7 +17,7 @@ export interface IExtensionPoint extends IRedefinableElement {
    * @relationship cross-reference
    * @opposite extensionPoint
    */
-  useCase: IUseCase | string;
+  useCase: string;
 }
 
 // Type aliases for ExtensionPoint

@@ -13,9 +13,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialMessage = Partial<IMessage>;
 export type RequiredMessage = Required<IMessage>;
-export type MessageKey = Pick<IMessage, 'name' | 'nameExpression'>;
-export type MessageMetadata = Pick<IMessage, 'ownedComment' | 'visibility'>;
-export type MessageSummary = Pick<IMessage, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type MessageUnion = IMessage | INamedElement;
 export type MessageFactory = () => Message;
 export type MessageValidator = (instance: IMessage) => ValidationResult;

@@ -10,9 +10,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialStructuralFeature = Partial<IStructuralFeature>;
 export type RequiredStructuralFeature = Required<IStructuralFeature>;
-export type StructuralFeatureKey = Pick<IStructuralFeature, 'name' | 'nameExpression'>;
-export type StructuralFeatureMetadata = Pick<IStructuralFeature, 'ownedComment' | 'visibility'>;
-export type StructuralFeatureSummary = Pick<IStructuralFeature, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type StructuralFeatureUnion = IStructuralFeature | IFeature | ITypedElement | IMultiplicityElement;
 export type StructuralFeatureFactory = () => StructuralFeature;
 export type StructuralFeatureValidator = (instance: IStructuralFeature) => ValidationResult;

@@ -17,7 +17,7 @@ export interface IConnectionPointReference extends IVertex {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  entry: Set<IPseudostate | string>;
+  entry?: Set<string>;
   /**
    * exit
    * 
@@ -25,7 +25,7 @@ export interface IConnectionPointReference extends IVertex {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  exit: Set<IPseudostate | string>;
+  exit?: Set<string>;
   /**
    * state
    * 
@@ -34,7 +34,7 @@ export interface IConnectionPointReference extends IVertex {
    * @relationship cross-reference
    * @opposite connection
    */
-  state?: IState | string;
+  state?: string;
 }
 
 // Type aliases for ConnectionPointReference

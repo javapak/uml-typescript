@@ -5,7 +5,6 @@
  * @package uml
  * @extends Element
  */
-import { Comment } from './Comment';
 import { Element } from './Element';
 import { IComment } from './IComment';
 import { IElement } from './IElement';
@@ -13,7 +12,6 @@ import { IInputPin } from './IInputPin';
 import { ILinkEndData } from './ILinkEndData';
 import { IProperty } from './IProperty';
 import { IQualifierValue } from './IQualifierValue';
-import { QualifierValue } from './QualifierValue';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 
 export class LinkEndData extends Element implements ILinkEndData {
@@ -24,7 +22,7 @@ export class LinkEndData extends Element implements ILinkEndData {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public end!: IProperty | string;
+  public end!: string;
 
   /**
    * qualifier
@@ -42,20 +40,8 @@ export class LinkEndData extends Element implements ILinkEndData {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public value?: IInputPin | string = undefined;
+  public value?: string;
 
-  // Inherited from Element
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Element
   /**
    * ownedComment
    * 
@@ -65,17 +51,19 @@ export class LinkEndData extends Element implements ILinkEndData {
    */
   public ownedComment: Set<IComment> = new Set();
 
+
   constructor(init?: Partial<ILinkEndData>) {
     super(init);
-    this.end = init?.end!;
-    this.qualifier = init?.qualifier ?? new Set();
-    this.value = init?.value ?? undefined;
+
+    this.end = init?.end ?? '';
+    this.qualifier = init?.qualifier ? new Set(init.qualifier) : new Set();
+    this.value = init?.value;
   }
-  getEnd(): IProperty | string {
+  getEnd(): string {
     return this.end;
   }
 
-  setEnd(value: IProperty | string): void {
+  setEnd(value: string): void {
     this.end = value;
   }
 
@@ -87,11 +75,11 @@ export class LinkEndData extends Element implements ILinkEndData {
     this.qualifier = value;
   }
 
-  getValue(): IInputPin | string | undefined {
+  getValue(): string | undefined {
     return this.value;
   }
 
-  setValue(value: IInputPin | string | undefined): void {
+  setValue(value: string | undefined): void {
     this.value = value;
   }
 
@@ -162,9 +150,6 @@ export class LinkEndData extends Element implements ILinkEndData {
   static fromJSON(json: any): LinkEndData {
     const instance = new LinkEndData();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

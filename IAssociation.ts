@@ -26,7 +26,7 @@ export interface IAssociation extends IClassifier, IRelationship {
    * @relationship cross-reference
    * @opposite association
    */
-  memberEnd: IProperty | string[];
+  memberEnd: string[];
   /**
    * ownedEnd
    * 
@@ -35,7 +35,7 @@ export interface IAssociation extends IClassifier, IRelationship {
    * @relationship containment
    * @opposite owningAssociation
    */
-  ownedEnd: IProperty[];
+  ownedEnd?: IProperty[];
   /**
    * navigableOwnedEnd
    * 
@@ -43,7 +43,7 @@ export interface IAssociation extends IClassifier, IRelationship {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  navigableOwnedEnd: Set<IProperty | string>;
+  navigableOwnedEnd?: Set<string>;
 }
 
 // Type aliases for Association

@@ -5,12 +5,8 @@
  * @package uml
  * @extends ValueSpecification
  */
-import { Comment } from './Comment';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
 import { IDuration } from './IDuration';
-import { IElement } from './IElement';
-import { INamespace } from './INamespace';
 import { IObservation } from './IObservation';
 import { IStringExpression } from './IStringExpression';
 import { ITemplateParameter } from './ITemplateParameter';
@@ -29,7 +25,7 @@ export class Duration extends ValueSpecification implements IDuration {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public expr?: IValueSpecification = undefined;
+  public expr?: IValueSpecification;
 
   /**
    * observation
@@ -38,20 +34,8 @@ export class Duration extends ValueSpecification implements IDuration {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public observation: Set<IObservation | string> = new Set();
+  public observation: Set<string> = new Set();
 
-  // Inherited from ValueSpecification
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from ValueSpecification
   /**
    * ownedComment
    * 
@@ -61,16 +45,14 @@ export class Duration extends ValueSpecification implements IDuration {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from ValueSpecification
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from ValueSpecification
   /**
    * nameExpression
    * 
@@ -78,18 +60,15 @@ export class Duration extends ValueSpecification implements IDuration {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from ValueSpecification
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from ValueSpecification
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * owningTemplateParameter
    * 
@@ -98,9 +77,8 @@ export class Duration extends ValueSpecification implements IDuration {
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from ValueSpecification
   /**
    * templateParameter
    * 
@@ -109,9 +87,8 @@ export class Duration extends ValueSpecification implements IDuration {
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from ValueSpecification
   /**
    * type
    * 
@@ -119,12 +96,14 @@ export class Duration extends ValueSpecification implements IDuration {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public type?: IType | string = undefined;
+  public type?: string;
+
 
   constructor(init?: Partial<IDuration>) {
     super(init);
-    this.expr = init?.expr ?? undefined;
-    this.observation = init?.observation ?? new Set();
+
+    this.expr = init?.expr;
+    this.observation = init?.observation ? new Set(init.observation) : new Set();
   }
   getExpr(): IValueSpecification | undefined {
     return this.expr;
@@ -134,11 +113,11 @@ export class Duration extends ValueSpecification implements IDuration {
     this.expr = value;
   }
 
-  getObservation(): Set<IObservation | string> {
+  getObservation(): Set<string> {
     return this.observation;
   }
 
-  setObservation(value: Set<IObservation | string>): void {
+  setObservation(value: Set<string>): void {
     this.observation = value;
   }
 
@@ -207,9 +186,6 @@ export class Duration extends ValueSpecification implements IDuration {
   static fromJSON(json: any): Duration {
     const instance = new Duration();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

@@ -11,9 +11,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialConnector = Partial<IConnector>;
 export type RequiredConnector = Required<IConnector>;
-export type ConnectorKey = Pick<IConnector, 'name' | 'nameExpression'>;
-export type ConnectorMetadata = Pick<IConnector, 'ownedComment' | 'visibility'>;
-export type ConnectorSummary = Pick<IConnector, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type ConnectorUnion = IConnector | IFeature;
 export type ConnectorFactory = () => Connector;
 export type ConnectorValidator = (instance: IConnector) => ValidationResult;

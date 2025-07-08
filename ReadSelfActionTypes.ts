@@ -9,9 +9,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialReadSelfAction = Partial<IReadSelfAction>;
 export type RequiredReadSelfAction = Required<IReadSelfAction>;
-export type ReadSelfActionKey = Pick<IReadSelfAction, 'name' | 'nameExpression'>;
-export type ReadSelfActionMetadata = Pick<IReadSelfAction, 'ownedComment' | 'visibility'>;
-export type ReadSelfActionSummary = Pick<IReadSelfAction, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type ReadSelfActionUnion = IReadSelfAction | IAction;
 export type ReadSelfActionFactory = () => ReadSelfAction;
 export type ReadSelfActionValidator = (instance: IReadSelfAction) => ValidationResult;

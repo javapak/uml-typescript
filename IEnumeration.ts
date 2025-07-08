@@ -18,7 +18,7 @@ export interface IEnumeration extends IDataType {
    * @relationship containment
    * @opposite enumeration
    */
-  ownedLiteral: IEnumerationLiteral[];
+  ownedLiteral?: IEnumerationLiteral[];
 }
 
 // Type aliases for Enumeration

@@ -17,7 +17,7 @@ export interface IDecisionNode extends IControlNode {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  decisionInput?: IBehavior | string;
+  decisionInput?: string;
   /**
    * decisionInputFlow
    * 
@@ -25,7 +25,7 @@ export interface IDecisionNode extends IControlNode {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  decisionInputFlow?: IObjectFlow | string;
+  decisionInputFlow?: string;
 }
 
 // Type aliases for DecisionNode

@@ -17,7 +17,7 @@ export interface IGeneralization extends IDirectedRelationship {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  general: IClassifier | string;
+  general: string;
   /**
    * generalizationSet
    * 
@@ -26,7 +26,7 @@ export interface IGeneralization extends IDirectedRelationship {
    * @relationship cross-reference
    * @opposite generalization
    */
-  generalizationSet: Set<IGeneralizationSet | string>;
+  generalizationSet?: Set<string>;
   /**
    * isSubstitutable
    * 
@@ -42,7 +42,7 @@ export interface IGeneralization extends IDirectedRelationship {
    * @relationship cross-reference
    * @opposite generalization
    */
-  specific: IClassifier | string;
+  specific: string;
 }
 
 // Type aliases for Generalization

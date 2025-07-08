@@ -8,8 +8,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialComment = Partial<IComment>;
 export type RequiredComment = Required<IComment>;
-export type CommentMetadata = Pick<IComment, 'ownedComment'>;
-export type CommentSummary = Pick<IComment, 'eAnnotations' | 'ownedComment' | 'annotatedElement'>;
 export type CommentUnion = IComment | IElement;
 export type CommentFactory = () => Comment;
 export type CommentValidator = (instance: IComment) => ValidationResult;

@@ -5,26 +5,15 @@
  * @package uml
  * @extends WriteVariableAction
  */
-import { Comment } from './Comment';
-import { Constraint } from './Constraint';
-import { ExceptionHandler } from './ExceptionHandler';
-import { IActivity } from './IActivity';
 import { IActivityEdge } from './IActivityEdge';
-import { IActivityGroup } from './IActivityGroup';
 import { IActivityNode } from './IActivityNode';
 import { IActivityPartition } from './IActivityPartition';
 import { IAddVariableValueAction } from './IAddVariableValueAction';
-import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IExceptionHandler } from './IExceptionHandler';
 import { IInputPin } from './IInputPin';
 import { IInterruptibleActivityRegion } from './IInterruptibleActivityRegion';
-import { INamespace } from './INamespace';
-import { IOutputPin } from './IOutputPin';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { IStructuredActivityNode } from './IStructuredActivityNode';
 import { IVariable } from './IVariable';
@@ -43,7 +32,7 @@ export class AddVariableValueAction extends WriteVariableAction implements IAddV
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public insertAt?: IInputPin = undefined;
+  public insertAt?: IInputPin;
 
   /**
    * isReplaceAll
@@ -53,18 +42,6 @@ export class AddVariableValueAction extends WriteVariableAction implements IAddV
    */
   public isReplaceAll!: boolean;
 
-  // Inherited from WriteVariableAction
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from WriteVariableAction
   /**
    * ownedComment
    * 
@@ -74,16 +51,14 @@ export class AddVariableValueAction extends WriteVariableAction implements IAddV
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from WriteVariableAction
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from WriteVariableAction
   /**
    * nameExpression
    * 
@@ -91,18 +66,15 @@ export class AddVariableValueAction extends WriteVariableAction implements IAddV
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from WriteVariableAction
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from WriteVariableAction
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * isLeaf
    * 
@@ -111,7 +83,6 @@ export class AddVariableValueAction extends WriteVariableAction implements IAddV
    */
   public isLeaf!: boolean;
 
-  // Inherited from WriteVariableAction
   /**
    * inInterruptibleRegion
    * 
@@ -120,9 +91,8 @@ export class AddVariableValueAction extends WriteVariableAction implements IAddV
    * @relationship cross-reference
    * @opposite node
    */
-  public inInterruptibleRegion: Set<IInterruptibleActivityRegion | string> = new Set();
+  public inInterruptibleRegion: Set<string> = new Set();
 
-  // Inherited from WriteVariableAction
   /**
    * inStructuredNode
    * 
@@ -131,9 +101,8 @@ export class AddVariableValueAction extends WriteVariableAction implements IAddV
    * @relationship cross-reference
    * @opposite node
    */
-  public inStructuredNode?: IStructuredActivityNode | string = undefined;
+  public inStructuredNode?: string;
 
-  // Inherited from WriteVariableAction
   /**
    * incoming
    * 
@@ -142,9 +111,8 @@ export class AddVariableValueAction extends WriteVariableAction implements IAddV
    * @relationship cross-reference
    * @opposite target
    */
-  public incoming: Set<IActivityEdge | string> = new Set();
+  public incoming: Set<string> = new Set();
 
-  // Inherited from WriteVariableAction
   /**
    * outgoing
    * 
@@ -153,9 +121,8 @@ export class AddVariableValueAction extends WriteVariableAction implements IAddV
    * @relationship cross-reference
    * @opposite source
    */
-  public outgoing: Set<IActivityEdge | string> = new Set();
+  public outgoing: Set<string> = new Set();
 
-  // Inherited from WriteVariableAction
   /**
    * redefinedNode
    * 
@@ -163,9 +130,8 @@ export class AddVariableValueAction extends WriteVariableAction implements IAddV
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedNode: Set<IActivityNode | string> = new Set();
+  public redefinedNode: Set<string> = new Set();
 
-  // Inherited from WriteVariableAction
   /**
    * inPartition
    * 
@@ -174,9 +140,8 @@ export class AddVariableValueAction extends WriteVariableAction implements IAddV
    * @relationship cross-reference
    * @opposite node
    */
-  public inPartition: Set<IActivityPartition | string> = new Set();
+  public inPartition: Set<string> = new Set();
 
-  // Inherited from WriteVariableAction
   /**
    * handler
    * 
@@ -187,7 +152,6 @@ export class AddVariableValueAction extends WriteVariableAction implements IAddV
    */
   public handler: Set<IExceptionHandler> = new Set();
 
-  // Inherited from WriteVariableAction
   /**
    * isLocallyReentrant
    * 
@@ -196,7 +160,6 @@ export class AddVariableValueAction extends WriteVariableAction implements IAddV
    */
   public isLocallyReentrant!: boolean;
 
-  // Inherited from WriteVariableAction
   /**
    * localPostcondition
    * 
@@ -206,7 +169,6 @@ export class AddVariableValueAction extends WriteVariableAction implements IAddV
    */
   public localPostcondition: Set<IConstraint> = new Set();
 
-  // Inherited from WriteVariableAction
   /**
    * localPrecondition
    * 
@@ -216,7 +178,6 @@ export class AddVariableValueAction extends WriteVariableAction implements IAddV
    */
   public localPrecondition: Set<IConstraint> = new Set();
 
-  // Inherited from WriteVariableAction
   /**
    * variable
    * 
@@ -224,9 +185,8 @@ export class AddVariableValueAction extends WriteVariableAction implements IAddV
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public variable!: IVariable | string;
+  public variable!: string;
 
-  // Inherited from WriteVariableAction
   /**
    * value
    * 
@@ -234,12 +194,14 @@ export class AddVariableValueAction extends WriteVariableAction implements IAddV
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public value?: IInputPin = undefined;
+  public value?: IInputPin;
+
 
   constructor(init?: Partial<IAddVariableValueAction>) {
     super(init);
-    this.insertAt = init?.insertAt ?? undefined;
-    this.isReplaceAll = init?.isReplaceAll!;
+
+    this.insertAt = init?.insertAt;
+    this.isReplaceAll = init?.isReplaceAll ?? false;
   }
   getInsertAt(): IInputPin | undefined {
     return this.insertAt;
@@ -322,9 +284,6 @@ export class AddVariableValueAction extends WriteVariableAction implements IAddV
   static fromJSON(json: any): AddVariableValueAction {
     const instance = new AddVariableValueAction();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

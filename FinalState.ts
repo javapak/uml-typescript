@@ -6,53 +6,25 @@
  * @extends State
  */
 import { Behavior } from './Behavior';
-import { Comment } from './Comment';
-import { ConnectionPointReference } from './ConnectionPointReference';
-import { Constraint } from './Constraint';
-import { ElementImport } from './ElementImport';
 import { IBehavior } from './IBehavior';
-import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
 import { IConnectionPointReference } from './IConnectionPointReference';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IElementImport } from './IElementImport';
 import { IFinalState } from './IFinalState';
-import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IPackageImport } from './IPackageImport';
-import { IPackageableElement } from './IPackageableElement';
 import { IPseudostate } from './IPseudostate';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IRegion } from './IRegion';
 import { IState } from './IState';
 import { IStateMachine } from './IStateMachine';
 import { IStringExpression } from './IStringExpression';
-import { ITransition } from './ITransition';
 import { ITrigger } from './ITrigger';
-import { PackageImport } from './PackageImport';
-import { Pseudostate } from './Pseudostate';
-import { Region } from './Region';
 import { State } from './State';
 import { StringExpression } from './StringExpression';
-import { Trigger } from './Trigger';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
 
 export class FinalState extends State implements IFinalState {
-  // Inherited from State
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from State
   /**
    * ownedComment
    * 
@@ -62,16 +34,14 @@ export class FinalState extends State implements IFinalState {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from State
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from State
   /**
    * nameExpression
    * 
@@ -79,18 +49,15 @@ export class FinalState extends State implements IFinalState {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from State
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from State
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * ownedRule
    * 
@@ -101,7 +68,6 @@ export class FinalState extends State implements IFinalState {
    */
   public ownedRule: Set<IConstraint> = new Set();
 
-  // Inherited from State
   /**
    * elementImport
    * 
@@ -112,7 +78,6 @@ export class FinalState extends State implements IFinalState {
    */
   public elementImport: Set<IElementImport> = new Set();
 
-  // Inherited from State
   /**
    * packageImport
    * 
@@ -123,7 +88,6 @@ export class FinalState extends State implements IFinalState {
    */
   public packageImport: Set<IPackageImport> = new Set();
 
-  // Inherited from State
   /**
    * isLeaf
    * 
@@ -132,7 +96,6 @@ export class FinalState extends State implements IFinalState {
    */
   public isLeaf!: boolean;
 
-  // Inherited from State
   /**
    * container
    * 
@@ -141,9 +104,8 @@ export class FinalState extends State implements IFinalState {
    * @relationship cross-reference
    * @opposite subvertex
    */
-  public container?: IRegion | string = undefined;
+  public container?: string;
 
-  // Inherited from State
   /**
    * connection
    * 
@@ -154,7 +116,6 @@ export class FinalState extends State implements IFinalState {
    */
   public connection: Set<IConnectionPointReference> = new Set();
 
-  // Inherited from State
   /**
    * connectionPoint
    * 
@@ -165,7 +126,6 @@ export class FinalState extends State implements IFinalState {
    */
   public connectionPoint: Set<IPseudostate> = new Set();
 
-  // Inherited from State
   /**
    * deferrableTrigger
    * 
@@ -175,7 +135,6 @@ export class FinalState extends State implements IFinalState {
    */
   public deferrableTrigger: Set<ITrigger> = new Set();
 
-  // Inherited from State
   /**
    * doActivity
    * 
@@ -183,9 +142,8 @@ export class FinalState extends State implements IFinalState {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public doActivity?: IBehavior = undefined;
+  public doActivity?: IBehavior;
 
-  // Inherited from State
   /**
    * entry
    * 
@@ -193,9 +151,8 @@ export class FinalState extends State implements IFinalState {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public entry?: IBehavior = undefined;
+  public entry?: IBehavior;
 
-  // Inherited from State
   /**
    * exit
    * 
@@ -203,9 +160,8 @@ export class FinalState extends State implements IFinalState {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public exit?: IBehavior = undefined;
+  public exit?: IBehavior;
 
-  // Inherited from State
   /**
    * redefinedState
    * 
@@ -213,9 +169,8 @@ export class FinalState extends State implements IFinalState {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public redefinedState?: IState | string = undefined;
+  public redefinedState?: string;
 
-  // Inherited from State
   /**
    * stateInvariant
    * 
@@ -223,9 +178,8 @@ export class FinalState extends State implements IFinalState {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public stateInvariant?: IConstraint | string = undefined;
+  public stateInvariant?: string;
 
-  // Inherited from State
   /**
    * submachine
    * 
@@ -234,9 +188,8 @@ export class FinalState extends State implements IFinalState {
    * @relationship cross-reference
    * @opposite submachineState
    */
-  public submachine?: IStateMachine | string = undefined;
+  public submachine?: string;
 
-  // Inherited from State
   /**
    * region
    * 
@@ -247,8 +200,10 @@ export class FinalState extends State implements IFinalState {
    */
   public region: Set<IRegion> = new Set();
 
+
   constructor(init?: Partial<IFinalState>) {
     super(init);
+
   }
   /**
    * Converts this instance to a plain object matching the interface
@@ -309,9 +264,6 @@ export class FinalState extends State implements IFinalState {
   static fromJSON(json: any): FinalState {
     const instance = new FinalState();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

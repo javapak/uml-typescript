@@ -10,9 +10,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialOpaqueAction = Partial<IOpaqueAction>;
 export type RequiredOpaqueAction = Required<IOpaqueAction>;
-export type OpaqueActionKey = Pick<IOpaqueAction, 'name' | 'nameExpression'>;
-export type OpaqueActionMetadata = Pick<IOpaqueAction, 'ownedComment' | 'visibility'>;
-export type OpaqueActionSummary = Pick<IOpaqueAction, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type OpaqueActionUnion = IOpaqueAction | IAction;
 export type OpaqueActionFactory = () => OpaqueAction;
 export type OpaqueActionValidator = (instance: IOpaqueAction) => ValidationResult;

@@ -28,7 +28,7 @@ export interface IExtend extends INamedElement, IDirectedRelationship {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  extendedCase: IUseCase | string;
+  extendedCase: string;
   /**
    * extensionLocation
    * 
@@ -36,7 +36,7 @@ export interface IExtend extends INamedElement, IDirectedRelationship {
    * @multiplicity [1..*]
    * @relationship cross-reference
    */
-  extensionLocation: IExtensionPoint | string[];
+  extensionLocation: string[];
   /**
    * extension
    * 
@@ -45,7 +45,7 @@ export interface IExtend extends INamedElement, IDirectedRelationship {
    * @relationship cross-reference
    * @opposite extend
    */
-  extension: IUseCase | string;
+  extension: string;
 }
 
 // Type aliases for Extend

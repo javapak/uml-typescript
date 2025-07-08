@@ -5,22 +5,14 @@
  * @package uml
  * @extends FinalNode
  */
-import { Comment } from './Comment';
 import { FinalNode } from './FinalNode';
-import { IActivity } from './IActivity';
 import { IActivityEdge } from './IActivityEdge';
 import { IActivityFinalNode } from './IActivityFinalNode';
-import { IActivityGroup } from './IActivityGroup';
 import { IActivityNode } from './IActivityNode';
 import { IActivityPartition } from './IActivityPartition';
-import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IFinalNode } from './IFinalNode';
 import { IInterruptibleActivityRegion } from './IInterruptibleActivityRegion';
-import { INamespace } from './INamespace';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { IStructuredActivityNode } from './IStructuredActivityNode';
 import { StringExpression } from './StringExpression';
@@ -28,18 +20,6 @@ import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
 
 export class ActivityFinalNode extends FinalNode implements IActivityFinalNode {
-  // Inherited from FinalNode
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from FinalNode
   /**
    * ownedComment
    * 
@@ -49,16 +29,14 @@ export class ActivityFinalNode extends FinalNode implements IActivityFinalNode {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from FinalNode
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from FinalNode
   /**
    * nameExpression
    * 
@@ -66,18 +44,15 @@ export class ActivityFinalNode extends FinalNode implements IActivityFinalNode {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from FinalNode
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from FinalNode
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * isLeaf
    * 
@@ -86,7 +61,6 @@ export class ActivityFinalNode extends FinalNode implements IActivityFinalNode {
    */
   public isLeaf!: boolean;
 
-  // Inherited from FinalNode
   /**
    * inInterruptibleRegion
    * 
@@ -95,9 +69,8 @@ export class ActivityFinalNode extends FinalNode implements IActivityFinalNode {
    * @relationship cross-reference
    * @opposite node
    */
-  public inInterruptibleRegion: Set<IInterruptibleActivityRegion | string> = new Set();
+  public inInterruptibleRegion: Set<string> = new Set();
 
-  // Inherited from FinalNode
   /**
    * inStructuredNode
    * 
@@ -106,9 +79,8 @@ export class ActivityFinalNode extends FinalNode implements IActivityFinalNode {
    * @relationship cross-reference
    * @opposite node
    */
-  public inStructuredNode?: IStructuredActivityNode | string = undefined;
+  public inStructuredNode?: string;
 
-  // Inherited from FinalNode
   /**
    * incoming
    * 
@@ -117,9 +89,8 @@ export class ActivityFinalNode extends FinalNode implements IActivityFinalNode {
    * @relationship cross-reference
    * @opposite target
    */
-  public incoming: Set<IActivityEdge | string> = new Set();
+  public incoming: Set<string> = new Set();
 
-  // Inherited from FinalNode
   /**
    * outgoing
    * 
@@ -128,9 +99,8 @@ export class ActivityFinalNode extends FinalNode implements IActivityFinalNode {
    * @relationship cross-reference
    * @opposite source
    */
-  public outgoing: Set<IActivityEdge | string> = new Set();
+  public outgoing: Set<string> = new Set();
 
-  // Inherited from FinalNode
   /**
    * redefinedNode
    * 
@@ -138,9 +108,8 @@ export class ActivityFinalNode extends FinalNode implements IActivityFinalNode {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedNode: Set<IActivityNode | string> = new Set();
+  public redefinedNode: Set<string> = new Set();
 
-  // Inherited from FinalNode
   /**
    * inPartition
    * 
@@ -149,10 +118,12 @@ export class ActivityFinalNode extends FinalNode implements IActivityFinalNode {
    * @relationship cross-reference
    * @opposite node
    */
-  public inPartition: Set<IActivityPartition | string> = new Set();
+  public inPartition: Set<string> = new Set();
+
 
   constructor(init?: Partial<IActivityFinalNode>) {
     super(init);
+
   }
   /**
    * Converts this instance to a plain object matching the interface
@@ -213,9 +184,6 @@ export class ActivityFinalNode extends FinalNode implements IActivityFinalNode {
   static fromJSON(json: any): ActivityFinalNode {
     const instance = new ActivityFinalNode();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

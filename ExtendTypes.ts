@@ -12,9 +12,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialExtend = Partial<IExtend>;
 export type RequiredExtend = Required<IExtend>;
-export type ExtendKey = Pick<IExtend, 'name' | 'nameExpression'>;
-export type ExtendMetadata = Pick<IExtend, 'ownedComment' | 'visibility'>;
-export type ExtendSummary = Pick<IExtend, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type ExtendUnion = IExtend | INamedElement | IDirectedRelationship;
 export type ExtendFactory = () => Extend;
 export type ExtendValidator = (instance: IExtend) => ValidationResult;

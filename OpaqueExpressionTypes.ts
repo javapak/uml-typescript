@@ -9,9 +9,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialOpaqueExpression = Partial<IOpaqueExpression>;
 export type RequiredOpaqueExpression = Required<IOpaqueExpression>;
-export type OpaqueExpressionKey = Pick<IOpaqueExpression, 'name' | 'nameExpression'>;
-export type OpaqueExpressionMetadata = Pick<IOpaqueExpression, 'ownedComment' | 'visibility'>;
-export type OpaqueExpressionSummary = Pick<IOpaqueExpression, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type OpaqueExpressionUnion = IOpaqueExpression | IValueSpecification;
 export type OpaqueExpressionFactory = () => OpaqueExpression;
 export type OpaqueExpressionValidator = (instance: IOpaqueExpression) => ValidationResult;

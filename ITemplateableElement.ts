@@ -21,7 +21,7 @@ export interface ITemplateableElement extends IElement {
    * @relationship containment
    * @opposite boundElement
    */
-  templateBinding: Set<ITemplateBinding>;
+  templateBinding?: Set<ITemplateBinding>;
   /**
    * ownedTemplateSignature
    * 

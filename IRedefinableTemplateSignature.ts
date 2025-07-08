@@ -16,7 +16,7 @@ export interface IRedefinableTemplateSignature extends IRedefinableElement, ITem
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  extendedSignature: Set<IRedefinableTemplateSignature | string>;
+  extendedSignature?: Set<string>;
 }
 
 // Type aliases for RedefinableTemplateSignature

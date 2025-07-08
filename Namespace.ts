@@ -6,21 +6,14 @@
  * @abstract
  * @extends NamedElement
  */
-import { Comment } from './Comment';
-import { Constraint } from './Constraint';
-import { ElementImport } from './ElementImport';
 import { IComment } from './IComment';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IElementImport } from './IElementImport';
 import { INamedElement } from './INamedElement';
 import { INamespace } from './INamespace';
 import { IPackageImport } from './IPackageImport';
-import { IPackageableElement } from './IPackageableElement';
 import { IStringExpression } from './IStringExpression';
 import { NamedElement } from './NamedElement';
-import { PackageImport } from './PackageImport';
 import { StringExpression } from './StringExpression';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
@@ -56,18 +49,6 @@ export class Namespace extends NamedElement implements INamespace {
    */
   public packageImport: Set<IPackageImport> = new Set();
 
-  // Inherited from NamedElement
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from NamedElement
   /**
    * ownedComment
    * 
@@ -77,16 +58,14 @@ export class Namespace extends NamedElement implements INamespace {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from NamedElement
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from NamedElement
   /**
    * nameExpression
    * 
@@ -94,22 +73,22 @@ export class Namespace extends NamedElement implements INamespace {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from NamedElement
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
+  public visibility: VisibilityKind | undefined = undefined;
 
   constructor(init?: Partial<INamespace>) {
     super(init);
-    this.ownedRule = init?.ownedRule ?? new Set();
-    this.elementImport = init?.elementImport ?? new Set();
-    this.packageImport = init?.packageImport ?? new Set();
+
+    this.ownedRule = init?.ownedRule ? new Set(init.ownedRule) : new Set();
+    this.elementImport = init?.elementImport ? new Set(init.elementImport) : new Set();
+    this.packageImport = init?.packageImport ? new Set(init.packageImport) : new Set();
   }
   getOwnedRule(): Set<IConstraint> {
     return this.ownedRule;
@@ -200,9 +179,6 @@ export class Namespace extends NamedElement implements INamespace {
   static fromJSON(json: any): Namespace {
     const instance = new Namespace();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

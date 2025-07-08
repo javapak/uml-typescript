@@ -6,28 +6,18 @@
  * @extends Action
  */
 import { Action } from './Action';
-import { Comment } from './Comment';
-import { Constraint } from './Constraint';
-import { ExceptionHandler } from './ExceptionHandler';
 import { IAction } from './IAction';
-import { IActivity } from './IActivity';
 import { IActivityEdge } from './IActivityEdge';
-import { IActivityGroup } from './IActivityGroup';
 import { IActivityNode } from './IActivityNode';
 import { IActivityPartition } from './IActivityPartition';
-import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IExceptionHandler } from './IExceptionHandler';
 import { IInputPin } from './IInputPin';
 import { IInterruptibleActivityRegion } from './IInterruptibleActivityRegion';
-import { INamespace } from './INamespace';
 import { IOutputPin } from './IOutputPin';
 import { IProperty } from './IProperty';
 import { IReadLinkObjectEndQualifierAction } from './IReadLinkObjectEndQualifierAction';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { IStructuredActivityNode } from './IStructuredActivityNode';
 import { InputPin } from './InputPin';
@@ -53,7 +43,7 @@ export class ReadLinkObjectEndQualifierAction extends Action implements IReadLin
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public qualifier!: IProperty | string;
+  public qualifier!: string;
 
   /**
    * result
@@ -64,18 +54,6 @@ export class ReadLinkObjectEndQualifierAction extends Action implements IReadLin
    */
   public result!: IOutputPin;
 
-  // Inherited from Action
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Action
   /**
    * ownedComment
    * 
@@ -85,16 +63,14 @@ export class ReadLinkObjectEndQualifierAction extends Action implements IReadLin
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Action
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Action
   /**
    * nameExpression
    * 
@@ -102,18 +78,15 @@ export class ReadLinkObjectEndQualifierAction extends Action implements IReadLin
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Action
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Action
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * isLeaf
    * 
@@ -122,7 +95,6 @@ export class ReadLinkObjectEndQualifierAction extends Action implements IReadLin
    */
   public isLeaf!: boolean;
 
-  // Inherited from Action
   /**
    * inInterruptibleRegion
    * 
@@ -131,9 +103,8 @@ export class ReadLinkObjectEndQualifierAction extends Action implements IReadLin
    * @relationship cross-reference
    * @opposite node
    */
-  public inInterruptibleRegion: Set<IInterruptibleActivityRegion | string> = new Set();
+  public inInterruptibleRegion: Set<string> = new Set();
 
-  // Inherited from Action
   /**
    * inStructuredNode
    * 
@@ -142,9 +113,8 @@ export class ReadLinkObjectEndQualifierAction extends Action implements IReadLin
    * @relationship cross-reference
    * @opposite node
    */
-  public inStructuredNode?: IStructuredActivityNode | string = undefined;
+  public inStructuredNode?: string;
 
-  // Inherited from Action
   /**
    * incoming
    * 
@@ -153,9 +123,8 @@ export class ReadLinkObjectEndQualifierAction extends Action implements IReadLin
    * @relationship cross-reference
    * @opposite target
    */
-  public incoming: Set<IActivityEdge | string> = new Set();
+  public incoming: Set<string> = new Set();
 
-  // Inherited from Action
   /**
    * outgoing
    * 
@@ -164,9 +133,8 @@ export class ReadLinkObjectEndQualifierAction extends Action implements IReadLin
    * @relationship cross-reference
    * @opposite source
    */
-  public outgoing: Set<IActivityEdge | string> = new Set();
+  public outgoing: Set<string> = new Set();
 
-  // Inherited from Action
   /**
    * redefinedNode
    * 
@@ -174,9 +142,8 @@ export class ReadLinkObjectEndQualifierAction extends Action implements IReadLin
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedNode: Set<IActivityNode | string> = new Set();
+  public redefinedNode: Set<string> = new Set();
 
-  // Inherited from Action
   /**
    * inPartition
    * 
@@ -185,9 +152,8 @@ export class ReadLinkObjectEndQualifierAction extends Action implements IReadLin
    * @relationship cross-reference
    * @opposite node
    */
-  public inPartition: Set<IActivityPartition | string> = new Set();
+  public inPartition: Set<string> = new Set();
 
-  // Inherited from Action
   /**
    * handler
    * 
@@ -198,7 +164,6 @@ export class ReadLinkObjectEndQualifierAction extends Action implements IReadLin
    */
   public handler: Set<IExceptionHandler> = new Set();
 
-  // Inherited from Action
   /**
    * isLocallyReentrant
    * 
@@ -207,7 +172,6 @@ export class ReadLinkObjectEndQualifierAction extends Action implements IReadLin
    */
   public isLocallyReentrant!: boolean;
 
-  // Inherited from Action
   /**
    * localPostcondition
    * 
@@ -217,7 +181,6 @@ export class ReadLinkObjectEndQualifierAction extends Action implements IReadLin
    */
   public localPostcondition: Set<IConstraint> = new Set();
 
-  // Inherited from Action
   /**
    * localPrecondition
    * 
@@ -227,10 +190,12 @@ export class ReadLinkObjectEndQualifierAction extends Action implements IReadLin
    */
   public localPrecondition: Set<IConstraint> = new Set();
 
+
   constructor(init?: Partial<IReadLinkObjectEndQualifierAction>) {
     super(init);
+
     this.object = init?.object!;
-    this.qualifier = init?.qualifier!;
+    this.qualifier = init?.qualifier ?? '';
     this.result = init?.result!;
   }
   getObject(): IInputPin {
@@ -241,11 +206,11 @@ export class ReadLinkObjectEndQualifierAction extends Action implements IReadLin
     this.object = value;
   }
 
-  getQualifier(): IProperty | string {
+  getQualifier(): string {
     return this.qualifier;
   }
 
-  setQualifier(value: IProperty | string): void {
+  setQualifier(value: string): void {
     this.qualifier = value;
   }
 
@@ -322,9 +287,6 @@ export class ReadLinkObjectEndQualifierAction extends Action implements IReadLin
   static fromJSON(json: any): ReadLinkObjectEndQualifierAction {
     const instance = new ReadLinkObjectEndQualifierAction();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

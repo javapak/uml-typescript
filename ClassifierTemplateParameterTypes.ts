@@ -9,8 +9,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialClassifierTemplateParameter = Partial<IClassifierTemplateParameter>;
 export type RequiredClassifierTemplateParameter = Required<IClassifierTemplateParameter>;
-export type ClassifierTemplateParameterMetadata = Pick<IClassifierTemplateParameter, 'ownedComment' | 'ownedDefault' | 'ownedParameteredElement'>;
-export type ClassifierTemplateParameterSummary = Pick<IClassifierTemplateParameter, 'eAnnotations' | 'ownedComment' | 'default'>;
 export type ClassifierTemplateParameterUnion = IClassifierTemplateParameter | ITemplateParameter;
 export type ClassifierTemplateParameterFactory = () => ClassifierTemplateParameter;
 export type ClassifierTemplateParameterValidator = (instance: IClassifierTemplateParameter) => ValidationResult;

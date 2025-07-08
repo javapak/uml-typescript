@@ -25,7 +25,7 @@ export interface ICallAction extends IInvocationAction {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  result: IOutputPin[];
+  result?: IOutputPin[];
 }
 
 // Type aliases for CallAction

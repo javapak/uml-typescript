@@ -9,9 +9,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialConsiderIgnoreFragment = Partial<IConsiderIgnoreFragment>;
 export type RequiredConsiderIgnoreFragment = Required<IConsiderIgnoreFragment>;
-export type ConsiderIgnoreFragmentKey = Pick<IConsiderIgnoreFragment, 'name' | 'nameExpression'>;
-export type ConsiderIgnoreFragmentMetadata = Pick<IConsiderIgnoreFragment, 'ownedComment' | 'visibility'>;
-export type ConsiderIgnoreFragmentSummary = Pick<IConsiderIgnoreFragment, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type ConsiderIgnoreFragmentUnion = IConsiderIgnoreFragment | ICombinedFragment;
 export type ConsiderIgnoreFragmentFactory = () => ConsiderIgnoreFragment;
 export type ConsiderIgnoreFragmentValidator = (instance: IConsiderIgnoreFragment) => ValidationResult;

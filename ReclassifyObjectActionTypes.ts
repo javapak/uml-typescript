@@ -10,9 +10,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialReclassifyObjectAction = Partial<IReclassifyObjectAction>;
 export type RequiredReclassifyObjectAction = Required<IReclassifyObjectAction>;
-export type ReclassifyObjectActionKey = Pick<IReclassifyObjectAction, 'name' | 'nameExpression'>;
-export type ReclassifyObjectActionMetadata = Pick<IReclassifyObjectAction, 'ownedComment' | 'visibility'>;
-export type ReclassifyObjectActionSummary = Pick<IReclassifyObjectAction, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type ReclassifyObjectActionUnion = IReclassifyObjectAction | IAction;
 export type ReclassifyObjectActionFactory = () => ReclassifyObjectAction;
 export type ReclassifyObjectActionValidator = (instance: IReclassifyObjectAction) => ValidationResult;

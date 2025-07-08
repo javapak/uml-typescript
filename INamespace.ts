@@ -23,7 +23,7 @@ export interface INamespace extends INamedElement {
    * @relationship containment
    * @opposite context
    */
-  ownedRule: Set<IConstraint>;
+  ownedRule?: Set<IConstraint>;
   /**
    * elementImport
    * 
@@ -32,7 +32,7 @@ export interface INamespace extends INamedElement {
    * @relationship containment
    * @opposite importingNamespace
    */
-  elementImport: Set<IElementImport>;
+  elementImport?: Set<IElementImport>;
   /**
    * packageImport
    * 
@@ -41,7 +41,7 @@ export interface INamespace extends INamedElement {
    * @relationship containment
    * @opposite importingNamespace
    */
-  packageImport: Set<IPackageImport>;
+  packageImport?: Set<IPackageImport>;
 }
 
 // Type aliases for Namespace

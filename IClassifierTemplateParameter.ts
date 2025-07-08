@@ -23,7 +23,7 @@ export interface IClassifierTemplateParameter extends ITemplateParameter {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  constrainingClassifier: Set<IClassifier | string>;
+  constrainingClassifier?: Set<string>;
 }
 
 // Type aliases for ClassifierTemplateParameter

@@ -5,13 +5,9 @@
  * @package uml
  * @extends MessageEvent
  */
-import { Comment } from './Comment';
 import { ICallEvent } from './ICallEvent';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IMessageEvent } from './IMessageEvent';
-import { INamespace } from './INamespace';
 import { IOperation } from './IOperation';
 import { IStringExpression } from './IStringExpression';
 import { ITemplateParameter } from './ITemplateParameter';
@@ -28,20 +24,8 @@ export class CallEvent extends MessageEvent implements ICallEvent {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public operation!: IOperation | string;
+  public operation!: string;
 
-  // Inherited from MessageEvent
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from MessageEvent
   /**
    * ownedComment
    * 
@@ -51,16 +35,14 @@ export class CallEvent extends MessageEvent implements ICallEvent {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from MessageEvent
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from MessageEvent
   /**
    * nameExpression
    * 
@@ -68,18 +50,15 @@ export class CallEvent extends MessageEvent implements ICallEvent {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from MessageEvent
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from MessageEvent
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * owningTemplateParameter
    * 
@@ -88,9 +67,8 @@ export class CallEvent extends MessageEvent implements ICallEvent {
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from MessageEvent
   /**
    * templateParameter
    * 
@@ -99,17 +77,19 @@ export class CallEvent extends MessageEvent implements ICallEvent {
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
+
 
   constructor(init?: Partial<ICallEvent>) {
     super(init);
-    this.operation = init?.operation!;
+
+    this.operation = init?.operation ?? '';
   }
-  getOperation(): IOperation | string {
+  getOperation(): string {
     return this.operation;
   }
 
-  setOperation(value: IOperation | string): void {
+  setOperation(value: string): void {
     this.operation = value;
   }
 
@@ -174,9 +154,6 @@ export class CallEvent extends MessageEvent implements ICallEvent {
   static fromJSON(json: any): CallEvent {
     const instance = new CallEvent();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

@@ -1,5 +1,4 @@
 import { EModelElement } from './EModelElement';
-import { IEAnnotation } from './IEAnnotation';
 import { IEModelElement } from './IEModelElement';
 import { ValidationResult } from './ValidationTypes';
 

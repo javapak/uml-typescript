@@ -5,24 +5,17 @@
  * @package uml
  * @extends InstanceSpecification
  */
-import { Comment } from './Comment';
-import { Deployment } from './Deployment';
 import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
 import { IDeployment } from './IDeployment';
-import { IElement } from './IElement';
 import { IEnumeration } from './IEnumeration';
 import { IEnumerationLiteral } from './IEnumerationLiteral';
 import { IInstanceSpecification } from './IInstanceSpecification';
-import { INamespace } from './INamespace';
-import { IPackageableElement } from './IPackageableElement';
 import { ISlot } from './ISlot';
 import { IStringExpression } from './IStringExpression';
 import { ITemplateParameter } from './ITemplateParameter';
 import { IValueSpecification } from './IValueSpecification';
 import { InstanceSpecification } from './InstanceSpecification';
-import { Slot } from './Slot';
 import { StringExpression } from './StringExpression';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 import { ValueSpecification } from './ValueSpecification';
@@ -37,20 +30,8 @@ export class EnumerationLiteral extends InstanceSpecification implements IEnumer
    * @relationship cross-reference
    * @opposite ownedLiteral
    */
-  public enumeration!: IEnumeration | string;
+  public enumeration!: string;
 
-  // Inherited from InstanceSpecification
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from InstanceSpecification
   /**
    * ownedComment
    * 
@@ -60,16 +41,14 @@ export class EnumerationLiteral extends InstanceSpecification implements IEnumer
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from InstanceSpecification
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from InstanceSpecification
   /**
    * nameExpression
    * 
@@ -77,18 +56,15 @@ export class EnumerationLiteral extends InstanceSpecification implements IEnumer
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from InstanceSpecification
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from InstanceSpecification
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * deployment
    * 
@@ -99,7 +75,6 @@ export class EnumerationLiteral extends InstanceSpecification implements IEnumer
    */
   public deployment: Set<IDeployment> = new Set();
 
-  // Inherited from InstanceSpecification
   /**
    * owningTemplateParameter
    * 
@@ -108,9 +83,8 @@ export class EnumerationLiteral extends InstanceSpecification implements IEnumer
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from InstanceSpecification
   /**
    * templateParameter
    * 
@@ -119,9 +93,8 @@ export class EnumerationLiteral extends InstanceSpecification implements IEnumer
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from InstanceSpecification
   /**
    * classifier
    * 
@@ -129,9 +102,8 @@ export class EnumerationLiteral extends InstanceSpecification implements IEnumer
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public classifier: Set<IClassifier | string> = new Set();
+  public classifier: Set<string> = new Set();
 
-  // Inherited from InstanceSpecification
   /**
    * slot
    * 
@@ -142,7 +114,6 @@ export class EnumerationLiteral extends InstanceSpecification implements IEnumer
    */
   public slot: Set<ISlot> = new Set();
 
-  // Inherited from InstanceSpecification
   /**
    * specification
    * 
@@ -150,17 +121,19 @@ export class EnumerationLiteral extends InstanceSpecification implements IEnumer
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public specification?: IValueSpecification = undefined;
+  public specification?: IValueSpecification;
+
 
   constructor(init?: Partial<IEnumerationLiteral>) {
     super(init);
-    this.enumeration = init?.enumeration!;
+
+    this.enumeration = init?.enumeration ?? '';
   }
-  getEnumeration(): IEnumeration | string {
+  getEnumeration(): string {
     return this.enumeration;
   }
 
-  setEnumeration(value: IEnumeration | string): void {
+  setEnumeration(value: string): void {
     this.enumeration = value;
   }
 
@@ -225,9 +198,6 @@ export class EnumerationLiteral extends InstanceSpecification implements IEnumer
   static fromJSON(json: any): EnumerationLiteral {
     const instance = new EnumerationLiteral();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

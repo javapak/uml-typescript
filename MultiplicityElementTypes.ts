@@ -9,8 +9,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialMultiplicityElement = Partial<IMultiplicityElement>;
 export type RequiredMultiplicityElement = Required<IMultiplicityElement>;
-export type MultiplicityElementMetadata = Pick<IMultiplicityElement, 'ownedComment'>;
-export type MultiplicityElementSummary = Pick<IMultiplicityElement, 'eAnnotations' | 'ownedComment' | 'isOrdered'>;
 export type MultiplicityElementUnion = IMultiplicityElement | IElement;
 export type MultiplicityElementFactory = () => MultiplicityElement;
 export type MultiplicityElementValidator = (instance: IMultiplicityElement) => ValidationResult;

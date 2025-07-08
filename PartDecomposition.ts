@@ -5,19 +5,13 @@
  * @package uml
  * @extends InteractionUse
  */
-import { Comment } from './Comment';
-import { Gate } from './Gate';
-import { GeneralOrdering } from './GeneralOrdering';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IGate } from './IGate';
 import { IGeneralOrdering } from './IGeneralOrdering';
 import { IInteraction } from './IInteraction';
 import { IInteractionOperand } from './IInteractionOperand';
 import { IInteractionUse } from './IInteractionUse';
 import { ILifeline } from './ILifeline';
-import { INamespace } from './INamespace';
 import { IPartDecomposition } from './IPartDecomposition';
 import { IProperty } from './IProperty';
 import { IStringExpression } from './IStringExpression';
@@ -25,22 +19,9 @@ import { IValueSpecification } from './IValueSpecification';
 import { InteractionUse } from './InteractionUse';
 import { StringExpression } from './StringExpression';
 import { ValidationError, ValidationResult } from './ValidationTypes';
-import { ValueSpecification } from './ValueSpecification';
 import { VisibilityKind } from './VisibilityKind';
 
 export class PartDecomposition extends InteractionUse implements IPartDecomposition {
-  // Inherited from InteractionUse
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from InteractionUse
   /**
    * ownedComment
    * 
@@ -50,16 +31,14 @@ export class PartDecomposition extends InteractionUse implements IPartDecomposit
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from InteractionUse
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from InteractionUse
   /**
    * nameExpression
    * 
@@ -67,18 +46,15 @@ export class PartDecomposition extends InteractionUse implements IPartDecomposit
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from InteractionUse
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from InteractionUse
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * covered
    * 
@@ -87,9 +63,8 @@ export class PartDecomposition extends InteractionUse implements IPartDecomposit
    * @relationship cross-reference
    * @opposite coveredBy
    */
-  public covered: Set<ILifeline | string> = new Set();
+  public covered: Set<string> = new Set();
 
-  // Inherited from InteractionUse
   /**
    * enclosingOperand
    * 
@@ -98,9 +73,8 @@ export class PartDecomposition extends InteractionUse implements IPartDecomposit
    * @relationship cross-reference
    * @opposite fragment
    */
-  public enclosingOperand?: IInteractionOperand | string = undefined;
+  public enclosingOperand?: string;
 
-  // Inherited from InteractionUse
   /**
    * enclosingInteraction
    * 
@@ -109,9 +83,8 @@ export class PartDecomposition extends InteractionUse implements IPartDecomposit
    * @relationship cross-reference
    * @opposite fragment
    */
-  public enclosingInteraction?: IInteraction | string = undefined;
+  public enclosingInteraction?: string;
 
-  // Inherited from InteractionUse
   /**
    * generalOrdering
    * 
@@ -121,7 +94,6 @@ export class PartDecomposition extends InteractionUse implements IPartDecomposit
    */
   public generalOrdering: Set<IGeneralOrdering> = new Set();
 
-  // Inherited from InteractionUse
   /**
    * actualGate
    * 
@@ -131,7 +103,6 @@ export class PartDecomposition extends InteractionUse implements IPartDecomposit
    */
   public actualGate: Set<IGate> = new Set();
 
-  // Inherited from InteractionUse
   /**
    * argument
    * 
@@ -141,7 +112,6 @@ export class PartDecomposition extends InteractionUse implements IPartDecomposit
    */
   public argument: IValueSpecification[] = [];
 
-  // Inherited from InteractionUse
   /**
    * refersTo
    * 
@@ -149,9 +119,8 @@ export class PartDecomposition extends InteractionUse implements IPartDecomposit
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public refersTo!: IInteraction | string;
+  public refersTo!: string;
 
-  // Inherited from InteractionUse
   /**
    * returnValue
    * 
@@ -159,9 +128,8 @@ export class PartDecomposition extends InteractionUse implements IPartDecomposit
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public returnValue?: IValueSpecification = undefined;
+  public returnValue?: IValueSpecification;
 
-  // Inherited from InteractionUse
   /**
    * returnValueRecipient
    * 
@@ -169,10 +137,12 @@ export class PartDecomposition extends InteractionUse implements IPartDecomposit
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public returnValueRecipient?: IProperty | string = undefined;
+  public returnValueRecipient?: string;
+
 
   constructor(init?: Partial<IPartDecomposition>) {
     super(init);
+
   }
   /**
    * Converts this instance to a plain object matching the interface
@@ -233,9 +203,6 @@ export class PartDecomposition extends InteractionUse implements IPartDecomposit
   static fromJSON(json: any): PartDecomposition {
     const instance = new PartDecomposition();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

@@ -7,17 +7,10 @@
  * @extends NamedElement, ActivityContent
  */
 import { ActivityContent } from './ActivityContent';
-import { Comment } from './Comment';
-import { IActivity } from './IActivity';
 import { IActivityContent } from './IActivityContent';
-import { IActivityEdge } from './IActivityEdge';
 import { IActivityGroup } from './IActivityGroup';
-import { IActivityNode } from './IActivityNode';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IStringExpression } from './IStringExpression';
 import { NamedElement } from './NamedElement';
 import { StringExpression } from './StringExpression';
@@ -25,18 +18,6 @@ import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
 
 export class ActivityGroup extends NamedElement implements IActivityGroup {
-  // Inherited from NamedElement
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from NamedElement
   /**
    * ownedComment
    * 
@@ -46,16 +27,14 @@ export class ActivityGroup extends NamedElement implements IActivityGroup {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from NamedElement
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from NamedElement
   /**
    * nameExpression
    * 
@@ -63,19 +42,19 @@ export class ActivityGroup extends NamedElement implements IActivityGroup {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from NamedElement
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
+  public visibility: VisibilityKind | undefined = undefined;
 
   constructor(init?: Partial<IActivityGroup>) {
     super(init);
+
   }
   /**
    * Converts this instance to a plain object matching the interface
@@ -136,9 +115,6 @@ export class ActivityGroup extends NamedElement implements IActivityGroup {
   static fromJSON(json: any): ActivityGroup {
     const instance = new ActivityGroup();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

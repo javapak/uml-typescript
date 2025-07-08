@@ -41,7 +41,7 @@ export interface IConditionalNode extends IStructuredActivityNode {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  result: IOutputPin[];
+  result?: IOutputPin[];
 }
 
 // Type aliases for ConditionalNode

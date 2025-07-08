@@ -6,23 +6,15 @@
  * @extends InputPin
  */
 import { Action } from './Action';
-import { Comment } from './Comment';
 import { IAction } from './IAction';
 import { IActionInputPin } from './IActionInputPin';
-import { IActivity } from './IActivity';
 import { IActivityEdge } from './IActivityEdge';
-import { IActivityGroup } from './IActivityGroup';
 import { IActivityNode } from './IActivityNode';
 import { IActivityPartition } from './IActivityPartition';
 import { IBehavior } from './IBehavior';
-import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IInputPin } from './IInputPin';
 import { IInterruptibleActivityRegion } from './IInterruptibleActivityRegion';
-import { INamespace } from './INamespace';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IState } from './IState';
 import { IStringExpression } from './IStringExpression';
 import { IStructuredActivityNode } from './IStructuredActivityNode';
@@ -45,18 +37,6 @@ export class ActionInputPin extends InputPin implements IActionInputPin {
    */
   public fromAction!: IAction;
 
-  // Inherited from InputPin
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from InputPin
   /**
    * ownedComment
    * 
@@ -66,16 +46,14 @@ export class ActionInputPin extends InputPin implements IActionInputPin {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from InputPin
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from InputPin
   /**
    * nameExpression
    * 
@@ -83,18 +61,15 @@ export class ActionInputPin extends InputPin implements IActionInputPin {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from InputPin
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from InputPin
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * isLeaf
    * 
@@ -103,7 +78,6 @@ export class ActionInputPin extends InputPin implements IActionInputPin {
    */
   public isLeaf!: boolean;
 
-  // Inherited from InputPin
   /**
    * inInterruptibleRegion
    * 
@@ -112,9 +86,8 @@ export class ActionInputPin extends InputPin implements IActionInputPin {
    * @relationship cross-reference
    * @opposite node
    */
-  public inInterruptibleRegion: Set<IInterruptibleActivityRegion | string> = new Set();
+  public inInterruptibleRegion: Set<string> = new Set();
 
-  // Inherited from InputPin
   /**
    * inStructuredNode
    * 
@@ -123,9 +96,8 @@ export class ActionInputPin extends InputPin implements IActionInputPin {
    * @relationship cross-reference
    * @opposite node
    */
-  public inStructuredNode?: IStructuredActivityNode | string = undefined;
+  public inStructuredNode?: string;
 
-  // Inherited from InputPin
   /**
    * incoming
    * 
@@ -134,9 +106,8 @@ export class ActionInputPin extends InputPin implements IActionInputPin {
    * @relationship cross-reference
    * @opposite target
    */
-  public incoming: Set<IActivityEdge | string> = new Set();
+  public incoming: Set<string> = new Set();
 
-  // Inherited from InputPin
   /**
    * outgoing
    * 
@@ -145,9 +116,8 @@ export class ActionInputPin extends InputPin implements IActionInputPin {
    * @relationship cross-reference
    * @opposite source
    */
-  public outgoing: Set<IActivityEdge | string> = new Set();
+  public outgoing: Set<string> = new Set();
 
-  // Inherited from InputPin
   /**
    * redefinedNode
    * 
@@ -155,9 +125,8 @@ export class ActionInputPin extends InputPin implements IActionInputPin {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedNode: Set<IActivityNode | string> = new Set();
+  public redefinedNode: Set<string> = new Set();
 
-  // Inherited from InputPin
   /**
    * inPartition
    * 
@@ -166,9 +135,8 @@ export class ActionInputPin extends InputPin implements IActionInputPin {
    * @relationship cross-reference
    * @opposite node
    */
-  public inPartition: Set<IActivityPartition | string> = new Set();
+  public inPartition: Set<string> = new Set();
 
-  // Inherited from InputPin
   /**
    * type
    * 
@@ -176,9 +144,8 @@ export class ActionInputPin extends InputPin implements IActionInputPin {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public type?: IType | string = undefined;
+  public type?: string;
 
-  // Inherited from InputPin
   /**
    * inState
    * 
@@ -186,9 +153,8 @@ export class ActionInputPin extends InputPin implements IActionInputPin {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public inState: Set<IState | string> = new Set();
+  public inState: Set<string> = new Set();
 
-  // Inherited from InputPin
   /**
    * isControlType
    * 
@@ -197,16 +163,13 @@ export class ActionInputPin extends InputPin implements IActionInputPin {
    */
   public isControlType!: boolean;
 
-  // Inherited from InputPin
   /**
    * ordering
    * 
    * @type ObjectNodeOrderingKind
    * @multiplicity [1..1]
    */
-  public ordering!: any;
-
-  // Inherited from InputPin
+  public ordering: ObjectNodeOrderingKind = ObjectNodeOrderingKind.unordered;
   /**
    * selection
    * 
@@ -214,9 +177,8 @@ export class ActionInputPin extends InputPin implements IActionInputPin {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public selection?: IBehavior | string = undefined;
+  public selection?: string;
 
-  // Inherited from InputPin
   /**
    * upperBound
    * 
@@ -224,9 +186,8 @@ export class ActionInputPin extends InputPin implements IActionInputPin {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public upperBound?: IValueSpecification = undefined;
+  public upperBound?: IValueSpecification;
 
-  // Inherited from InputPin
   /**
    * isOrdered
    * 
@@ -235,7 +196,6 @@ export class ActionInputPin extends InputPin implements IActionInputPin {
    */
   public isOrdered!: boolean;
 
-  // Inherited from InputPin
   /**
    * isUnique
    * 
@@ -244,7 +204,6 @@ export class ActionInputPin extends InputPin implements IActionInputPin {
    */
   public isUnique!: boolean;
 
-  // Inherited from InputPin
   /**
    * lowerValue
    * 
@@ -252,9 +211,8 @@ export class ActionInputPin extends InputPin implements IActionInputPin {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public lowerValue?: IValueSpecification = undefined;
+  public lowerValue?: IValueSpecification;
 
-  // Inherited from InputPin
   /**
    * upperValue
    * 
@@ -262,9 +220,8 @@ export class ActionInputPin extends InputPin implements IActionInputPin {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public upperValue?: IValueSpecification = undefined;
+  public upperValue?: IValueSpecification;
 
-  // Inherited from InputPin
   /**
    * isControl
    * 
@@ -273,8 +230,10 @@ export class ActionInputPin extends InputPin implements IActionInputPin {
    */
   public isControl!: boolean;
 
+
   constructor(init?: Partial<IActionInputPin>) {
     super(init);
+
     this.fromAction = init?.fromAction!;
   }
   getFromAction(): IAction {
@@ -346,9 +305,6 @@ export class ActionInputPin extends InputPin implements IActionInputPin {
   static fromJSON(json: any): ActionInputPin {
     const instance = new ActionInputPin();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

@@ -5,15 +5,11 @@
  * @package uml
  * @extends NamedElement
  */
-import { Comment } from './Comment';
-import { Dependency } from './Dependency';
 import { ICollaboration } from './ICollaboration';
 import { ICollaborationUse } from './ICollaborationUse';
 import { IComment } from './IComment';
 import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IStringExpression } from './IStringExpression';
 import { NamedElement } from './NamedElement';
 import { StringExpression } from './StringExpression';
@@ -37,20 +33,8 @@ export class CollaborationUse extends NamedElement implements ICollaborationUse 
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public type!: ICollaboration | string;
+  public type!: string;
 
-  // Inherited from NamedElement
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from NamedElement
   /**
    * ownedComment
    * 
@@ -60,16 +44,14 @@ export class CollaborationUse extends NamedElement implements ICollaborationUse 
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from NamedElement
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from NamedElement
   /**
    * nameExpression
    * 
@@ -77,21 +59,21 @@ export class CollaborationUse extends NamedElement implements ICollaborationUse 
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from NamedElement
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
+  public visibility: VisibilityKind | undefined = undefined;
 
   constructor(init?: Partial<ICollaborationUse>) {
     super(init);
-    this.roleBinding = init?.roleBinding ?? new Set();
-    this.type = init?.type!;
+
+    this.roleBinding = init?.roleBinding ? new Set(init.roleBinding) : new Set();
+    this.type = init?.type ?? '';
   }
   getRoleBinding(): Set<IDependency> {
     return this.roleBinding;
@@ -101,11 +83,11 @@ export class CollaborationUse extends NamedElement implements ICollaborationUse 
     this.roleBinding = value;
   }
 
-  getType(): ICollaboration | string {
+  getType(): string {
     return this.type;
   }
 
-  setType(value: ICollaboration | string): void {
+  setType(value: string): void {
     this.type = value;
   }
 
@@ -172,9 +154,6 @@ export class CollaborationUse extends NamedElement implements ICollaborationUse 
   static fromJSON(json: any): CollaborationUse {
     const instance = new CollaborationUse();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

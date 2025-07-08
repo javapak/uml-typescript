@@ -20,7 +20,7 @@ export interface IReadLinkObjectEndAction extends IAction {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  end: IProperty | string;
+  end: string;
   /**
    * object
    * 

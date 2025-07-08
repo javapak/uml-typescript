@@ -10,9 +10,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialReplyAction = Partial<IReplyAction>;
 export type RequiredReplyAction = Required<IReplyAction>;
-export type ReplyActionKey = Pick<IReplyAction, 'name' | 'nameExpression'>;
-export type ReplyActionMetadata = Pick<IReplyAction, 'ownedComment' | 'visibility'>;
-export type ReplyActionSummary = Pick<IReplyAction, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type ReplyActionUnion = IReplyAction | IAction;
 export type ReplyActionFactory = () => ReplyAction;
 export type ReplyActionValidator = (instance: IReplyAction) => ValidationResult;

@@ -20,7 +20,7 @@ export interface IDeployment extends IDependency {
    * @relationship containment
    * @opposite deployment
    */
-  configuration: Set<IDeploymentSpecification>;
+  configuration?: Set<IDeploymentSpecification>;
   /**
    * deployedArtifact
    * 
@@ -28,7 +28,7 @@ export interface IDeployment extends IDependency {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  deployedArtifact: Set<IDeployedArtifact | string>;
+  deployedArtifact?: Set<string>;
   /**
    * location
    * 
@@ -37,7 +37,7 @@ export interface IDeployment extends IDependency {
    * @relationship cross-reference
    * @opposite deployment
    */
-  location: IDeploymentTarget | string;
+  location: string;
 }
 
 // Type aliases for Deployment

@@ -5,14 +5,11 @@
  * @package uml
  * @extends Dependency
  */
-import { Comment } from './Comment';
 import { Dependency } from './Dependency';
 import { IAbstraction } from './IAbstraction';
 import { IComment } from './IComment';
 import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IOpaqueExpression } from './IOpaqueExpression';
 import { IStringExpression } from './IStringExpression';
 import { ITemplateParameter } from './ITemplateParameter';
@@ -29,20 +26,8 @@ export class Abstraction extends Dependency implements IAbstraction {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public mapping?: IOpaqueExpression = undefined;
+  public mapping?: IOpaqueExpression;
 
-  // Inherited from Dependency
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Dependency
   /**
    * ownedComment
    * 
@@ -52,16 +37,14 @@ export class Abstraction extends Dependency implements IAbstraction {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Dependency
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Dependency
   /**
    * nameExpression
    * 
@@ -69,18 +52,15 @@ export class Abstraction extends Dependency implements IAbstraction {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Dependency
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Dependency
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * owningTemplateParameter
    * 
@@ -89,9 +69,8 @@ export class Abstraction extends Dependency implements IAbstraction {
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from Dependency
   /**
    * templateParameter
    * 
@@ -100,9 +79,8 @@ export class Abstraction extends Dependency implements IAbstraction {
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from Dependency
   /**
    * client
    * 
@@ -110,9 +88,8 @@ export class Abstraction extends Dependency implements IAbstraction {
    * @multiplicity [1..*]
    * @relationship cross-reference
    */
-  public client: Set<INamedElement | string> = new Set();
+  public client: Set<string> = new Set();
 
-  // Inherited from Dependency
   /**
    * supplier
    * 
@@ -120,11 +97,13 @@ export class Abstraction extends Dependency implements IAbstraction {
    * @multiplicity [1..*]
    * @relationship cross-reference
    */
-  public supplier: Set<INamedElement | string> = new Set();
+  public supplier: Set<string> = new Set();
+
 
   constructor(init?: Partial<IAbstraction>) {
     super(init);
-    this.mapping = init?.mapping ?? undefined;
+
+    this.mapping = init?.mapping;
   }
   getMapping(): IOpaqueExpression | undefined {
     return this.mapping;
@@ -197,9 +176,6 @@ export class Abstraction extends Dependency implements IAbstraction {
   static fromJSON(json: any): Abstraction {
     const instance = new Abstraction();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

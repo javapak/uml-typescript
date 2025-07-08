@@ -22,7 +22,7 @@ export interface IInformationFlow extends IPackageableElement, IDirectedRelation
    * @multiplicity [1..*]
    * @relationship cross-reference
    */
-  conveyed: Set<IClassifier | string>;
+  conveyed: Set<string>;
   /**
    * informationSource
    * 
@@ -30,7 +30,7 @@ export interface IInformationFlow extends IPackageableElement, IDirectedRelation
    * @multiplicity [1..*]
    * @relationship cross-reference
    */
-  informationSource: Set<INamedElement | string>;
+  informationSource: Set<string>;
   /**
    * informationTarget
    * 
@@ -38,7 +38,7 @@ export interface IInformationFlow extends IPackageableElement, IDirectedRelation
    * @multiplicity [1..*]
    * @relationship cross-reference
    */
-  informationTarget: Set<INamedElement | string>;
+  informationTarget: Set<string>;
   /**
    * realization
    * 
@@ -46,7 +46,7 @@ export interface IInformationFlow extends IPackageableElement, IDirectedRelation
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  realization: Set<IRelationship | string>;
+  realization?: Set<string>;
   /**
    * realizingActivityEdge
    * 
@@ -54,7 +54,7 @@ export interface IInformationFlow extends IPackageableElement, IDirectedRelation
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  realizingActivityEdge: Set<IActivityEdge | string>;
+  realizingActivityEdge?: Set<string>;
   /**
    * realizingConnector
    * 
@@ -62,7 +62,7 @@ export interface IInformationFlow extends IPackageableElement, IDirectedRelation
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  realizingConnector: Set<IConnector | string>;
+  realizingConnector?: Set<string>;
   /**
    * realizingMessage
    * 
@@ -70,7 +70,7 @@ export interface IInformationFlow extends IPackageableElement, IDirectedRelation
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  realizingMessage: Set<IMessage | string>;
+  realizingMessage?: Set<string>;
 }
 
 // Type aliases for InformationFlow

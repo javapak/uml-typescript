@@ -16,7 +16,7 @@ export interface IProtocolTransition extends ITransition {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  postCondition?: IConstraint | string;
+  postCondition?: string;
   /**
    * preCondition
    * 
@@ -24,7 +24,7 @@ export interface IProtocolTransition extends ITransition {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  preCondition?: IConstraint | string;
+  preCondition?: string;
 }
 
 // Type aliases for ProtocolTransition

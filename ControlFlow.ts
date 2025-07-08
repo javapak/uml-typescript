@@ -6,20 +6,13 @@
  * @extends ActivityEdge
  */
 import { ActivityEdge } from './ActivityEdge';
-import { Comment } from './Comment';
 import { IActivity } from './IActivity';
 import { IActivityEdge } from './IActivityEdge';
-import { IActivityGroup } from './IActivityGroup';
 import { IActivityNode } from './IActivityNode';
 import { IActivityPartition } from './IActivityPartition';
-import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
 import { IControlFlow } from './IControlFlow';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IInterruptibleActivityRegion } from './IInterruptibleActivityRegion';
-import { INamespace } from './INamespace';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { IStructuredActivityNode } from './IStructuredActivityNode';
 import { IValueSpecification } from './IValueSpecification';
@@ -29,18 +22,6 @@ import { ValueSpecification } from './ValueSpecification';
 import { VisibilityKind } from './VisibilityKind';
 
 export class ControlFlow extends ActivityEdge implements IControlFlow {
-  // Inherited from ActivityEdge
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from ActivityEdge
   /**
    * ownedComment
    * 
@@ -50,16 +31,14 @@ export class ControlFlow extends ActivityEdge implements IControlFlow {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from ActivityEdge
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from ActivityEdge
   /**
    * nameExpression
    * 
@@ -67,18 +46,15 @@ export class ControlFlow extends ActivityEdge implements IControlFlow {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from ActivityEdge
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from ActivityEdge
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * isLeaf
    * 
@@ -87,7 +63,6 @@ export class ControlFlow extends ActivityEdge implements IControlFlow {
    */
   public isLeaf!: boolean;
 
-  // Inherited from ActivityEdge
   /**
    * activity
    * 
@@ -96,9 +71,8 @@ export class ControlFlow extends ActivityEdge implements IControlFlow {
    * @relationship cross-reference
    * @opposite edge
    */
-  public activity?: IActivity | string = undefined;
+  public activity?: string;
 
-  // Inherited from ActivityEdge
   /**
    * guard
    * 
@@ -106,9 +80,8 @@ export class ControlFlow extends ActivityEdge implements IControlFlow {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public guard?: IValueSpecification = undefined;
+  public guard?: IValueSpecification;
 
-  // Inherited from ActivityEdge
   /**
    * inPartition
    * 
@@ -117,9 +90,8 @@ export class ControlFlow extends ActivityEdge implements IControlFlow {
    * @relationship cross-reference
    * @opposite edge
    */
-  public inPartition: Set<IActivityPartition | string> = new Set();
+  public inPartition: Set<string> = new Set();
 
-  // Inherited from ActivityEdge
   /**
    * interrupts
    * 
@@ -128,9 +100,8 @@ export class ControlFlow extends ActivityEdge implements IControlFlow {
    * @relationship cross-reference
    * @opposite interruptingEdge
    */
-  public interrupts?: IInterruptibleActivityRegion | string = undefined;
+  public interrupts?: string;
 
-  // Inherited from ActivityEdge
   /**
    * inStructuredNode
    * 
@@ -139,9 +110,8 @@ export class ControlFlow extends ActivityEdge implements IControlFlow {
    * @relationship cross-reference
    * @opposite edge
    */
-  public inStructuredNode?: IStructuredActivityNode | string = undefined;
+  public inStructuredNode?: string;
 
-  // Inherited from ActivityEdge
   /**
    * target
    * 
@@ -150,9 +120,8 @@ export class ControlFlow extends ActivityEdge implements IControlFlow {
    * @relationship cross-reference
    * @opposite incoming
    */
-  public target!: IActivityNode | string;
+  public target!: string;
 
-  // Inherited from ActivityEdge
   /**
    * source
    * 
@@ -161,9 +130,8 @@ export class ControlFlow extends ActivityEdge implements IControlFlow {
    * @relationship cross-reference
    * @opposite outgoing
    */
-  public source!: IActivityNode | string;
+  public source!: string;
 
-  // Inherited from ActivityEdge
   /**
    * redefinedEdge
    * 
@@ -171,9 +139,8 @@ export class ControlFlow extends ActivityEdge implements IControlFlow {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedEdge: Set<IActivityEdge | string> = new Set();
+  public redefinedEdge: Set<string> = new Set();
 
-  // Inherited from ActivityEdge
   /**
    * weight
    * 
@@ -181,10 +148,12 @@ export class ControlFlow extends ActivityEdge implements IControlFlow {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public weight?: IValueSpecification = undefined;
+  public weight?: IValueSpecification;
+
 
   constructor(init?: Partial<IControlFlow>) {
     super(init);
+
   }
   /**
    * Converts this instance to a plain object matching the interface
@@ -245,9 +214,6 @@ export class ControlFlow extends ActivityEdge implements IControlFlow {
   static fromJSON(json: any): ControlFlow {
     const instance = new ControlFlow();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

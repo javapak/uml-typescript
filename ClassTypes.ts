@@ -12,9 +12,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialClass = Partial<IClass>;
 export type RequiredClass = Required<IClass>;
-export type ClassKey = Pick<IClass, 'name' | 'nameExpression'>;
-export type ClassMetadata = Pick<IClass, 'ownedComment' | 'visibility' | 'ownedRule' | 'ownedTemplateSignature' | 'ownedUseCase' | 'ownedAttribute' | 'ownedConnector' | 'ownedBehavior' | 'ownedOperation' | 'ownedReception'>;
-export type ClassSummary = Pick<IClass, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type ClassUnion = IClass | IEncapsulatedClassifier | IBehavioredClassifier;
 export type ClassFactory = () => Class;
 export type ClassValidator = (instance: IClass) => ValidationResult;

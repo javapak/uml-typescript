@@ -19,7 +19,7 @@ export interface ILinkEndData extends IElement {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  end: IProperty | string;
+  end: string;
   /**
    * qualifier
    * 
@@ -27,7 +27,7 @@ export interface ILinkEndData extends IElement {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  qualifier: Set<IQualifierValue>;
+  qualifier?: Set<IQualifierValue>;
   /**
    * value
    * 
@@ -35,7 +35,7 @@ export interface ILinkEndData extends IElement {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  value?: IInputPin | string;
+  value?: string;
 }
 
 // Type aliases for LinkEndData

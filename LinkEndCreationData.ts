@@ -5,16 +5,13 @@
  * @package uml
  * @extends LinkEndData
  */
-import { Comment } from './Comment';
 import { IComment } from './IComment';
-import { IElement } from './IElement';
 import { IInputPin } from './IInputPin';
 import { ILinkEndCreationData } from './ILinkEndCreationData';
 import { ILinkEndData } from './ILinkEndData';
 import { IProperty } from './IProperty';
 import { IQualifierValue } from './IQualifierValue';
 import { LinkEndData } from './LinkEndData';
-import { QualifierValue } from './QualifierValue';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 
 export class LinkEndCreationData extends LinkEndData implements ILinkEndCreationData {
@@ -25,7 +22,7 @@ export class LinkEndCreationData extends LinkEndData implements ILinkEndCreation
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public insertAt?: IInputPin | string = undefined;
+  public insertAt?: string;
 
   /**
    * isReplaceAll
@@ -35,18 +32,6 @@ export class LinkEndCreationData extends LinkEndData implements ILinkEndCreation
    */
   public isReplaceAll!: boolean;
 
-  // Inherited from LinkEndData
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from LinkEndData
   /**
    * ownedComment
    * 
@@ -56,7 +41,6 @@ export class LinkEndCreationData extends LinkEndData implements ILinkEndCreation
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from LinkEndData
   /**
    * end
    * 
@@ -64,9 +48,8 @@ export class LinkEndCreationData extends LinkEndData implements ILinkEndCreation
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public end!: IProperty | string;
+  public end!: string;
 
-  // Inherited from LinkEndData
   /**
    * qualifier
    * 
@@ -76,7 +59,6 @@ export class LinkEndCreationData extends LinkEndData implements ILinkEndCreation
    */
   public qualifier: Set<IQualifierValue> = new Set();
 
-  // Inherited from LinkEndData
   /**
    * value
    * 
@@ -84,18 +66,20 @@ export class LinkEndCreationData extends LinkEndData implements ILinkEndCreation
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public value?: IInputPin | string = undefined;
+  public value?: string;
+
 
   constructor(init?: Partial<ILinkEndCreationData>) {
     super(init);
-    this.insertAt = init?.insertAt ?? undefined;
-    this.isReplaceAll = init?.isReplaceAll!;
+
+    this.insertAt = init?.insertAt;
+    this.isReplaceAll = init?.isReplaceAll ?? false;
   }
-  getInsertAt(): IInputPin | string | undefined {
+  getInsertAt(): string | undefined {
     return this.insertAt;
   }
 
-  setInsertAt(value: IInputPin | string | undefined): void {
+  setInsertAt(value: string | undefined): void {
     this.insertAt = value;
   }
 
@@ -172,9 +156,6 @@ export class LinkEndCreationData extends LinkEndData implements ILinkEndCreation
   static fromJSON(json: any): LinkEndCreationData {
     const instance = new LinkEndCreationData();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

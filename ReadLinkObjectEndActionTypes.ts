@@ -11,9 +11,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialReadLinkObjectEndAction = Partial<IReadLinkObjectEndAction>;
 export type RequiredReadLinkObjectEndAction = Required<IReadLinkObjectEndAction>;
-export type ReadLinkObjectEndActionKey = Pick<IReadLinkObjectEndAction, 'name' | 'nameExpression'>;
-export type ReadLinkObjectEndActionMetadata = Pick<IReadLinkObjectEndAction, 'ownedComment' | 'visibility'>;
-export type ReadLinkObjectEndActionSummary = Pick<IReadLinkObjectEndAction, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type ReadLinkObjectEndActionUnion = IReadLinkObjectEndAction | IAction;
 export type ReadLinkObjectEndActionFactory = () => ReadLinkObjectEndAction;
 export type ReadLinkObjectEndActionValidator = (instance: IReadLinkObjectEndAction) => ValidationResult;

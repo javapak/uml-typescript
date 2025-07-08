@@ -17,7 +17,7 @@ export interface ISignal extends IClassifier {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  ownedAttribute: IProperty[];
+  ownedAttribute?: IProperty[];
 }
 
 // Type aliases for Signal

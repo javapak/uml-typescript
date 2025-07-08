@@ -6,48 +6,28 @@
  * @extends Classifier, DeployedArtifact
  */
 import { Classifier } from './Classifier';
-import { CollaborationUse } from './CollaborationUse';
-import { Comment } from './Comment';
-import { Constraint } from './Constraint';
 import { DeployedArtifact } from './DeployedArtifact';
-import { ElementImport } from './ElementImport';
-import { Generalization } from './Generalization';
 import { IArtifact } from './IArtifact';
 import { IClassifier } from './IClassifier';
 import { ICollaborationUse } from './ICollaborationUse';
 import { IComment } from './IComment';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
 import { IDeployedArtifact } from './IDeployedArtifact';
-import { IElement } from './IElement';
 import { IElementImport } from './IElementImport';
-import { IFeature } from './IFeature';
 import { IGeneralization } from './IGeneralization';
 import { IGeneralizationSet } from './IGeneralizationSet';
 import { IManifestation } from './IManifestation';
-import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IOperation } from './IOperation';
-import { IPackage } from './IPackage';
 import { IPackageImport } from './IPackageImport';
-import { IPackageableElement } from './IPackageableElement';
 import { IProperty } from './IProperty';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { ISubstitution } from './ISubstitution';
 import { ITemplateBinding } from './ITemplateBinding';
 import { ITemplateParameter } from './ITemplateParameter';
 import { ITemplateSignature } from './ITemplateSignature';
 import { IUseCase } from './IUseCase';
-import { Manifestation } from './Manifestation';
-import { Operation } from './Operation';
-import { PackageImport } from './PackageImport';
-import { Property } from './Property';
 import { StringExpression } from './StringExpression';
-import { Substitution } from './Substitution';
-import { TemplateBinding } from './TemplateBinding';
 import { TemplateSignature } from './TemplateSignature';
-import { UseCase } from './UseCase';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
 
@@ -58,7 +38,7 @@ export class Artifact extends Classifier implements IArtifact {
    * @type String
    * @multiplicity [0..1]
    */
-  public fileName?: string = undefined;
+  public fileName?: string;
 
   /**
    * manifestation
@@ -96,18 +76,6 @@ export class Artifact extends Classifier implements IArtifact {
    */
   public ownedOperation: IOperation[] = [];
 
-  // Inherited from Classifier
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Classifier
   /**
    * ownedComment
    * 
@@ -117,16 +85,14 @@ export class Artifact extends Classifier implements IArtifact {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Classifier
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Classifier
   /**
    * nameExpression
    * 
@@ -134,18 +100,15 @@ export class Artifact extends Classifier implements IArtifact {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Classifier
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Classifier
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * ownedRule
    * 
@@ -156,7 +119,6 @@ export class Artifact extends Classifier implements IArtifact {
    */
   public ownedRule: Set<IConstraint> = new Set();
 
-  // Inherited from Classifier
   /**
    * elementImport
    * 
@@ -167,7 +129,6 @@ export class Artifact extends Classifier implements IArtifact {
    */
   public elementImport: Set<IElementImport> = new Set();
 
-  // Inherited from Classifier
   /**
    * packageImport
    * 
@@ -178,7 +139,6 @@ export class Artifact extends Classifier implements IArtifact {
    */
   public packageImport: Set<IPackageImport> = new Set();
 
-  // Inherited from Classifier
   /**
    * isLeaf
    * 
@@ -187,7 +147,6 @@ export class Artifact extends Classifier implements IArtifact {
    */
   public isLeaf!: boolean;
 
-  // Inherited from Classifier
   /**
    * owningTemplateParameter
    * 
@@ -196,9 +155,8 @@ export class Artifact extends Classifier implements IArtifact {
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from Classifier
   /**
    * templateParameter
    * 
@@ -207,9 +165,8 @@ export class Artifact extends Classifier implements IArtifact {
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from Classifier
   /**
    * templateBinding
    * 
@@ -220,7 +177,6 @@ export class Artifact extends Classifier implements IArtifact {
    */
   public templateBinding: Set<ITemplateBinding> = new Set();
 
-  // Inherited from Classifier
   /**
    * ownedTemplateSignature
    * 
@@ -229,9 +185,8 @@ export class Artifact extends Classifier implements IArtifact {
    * @relationship containment
    * @opposite template
    */
-  public ownedTemplateSignature?: ITemplateSignature = undefined;
+  public ownedTemplateSignature?: ITemplateSignature;
 
-  // Inherited from Classifier
   /**
    * collaborationUse
    * 
@@ -241,7 +196,6 @@ export class Artifact extends Classifier implements IArtifact {
    */
   public collaborationUse: Set<ICollaborationUse> = new Set();
 
-  // Inherited from Classifier
   /**
    * generalization
    * 
@@ -252,7 +206,6 @@ export class Artifact extends Classifier implements IArtifact {
    */
   public generalization: Set<IGeneralization> = new Set();
 
-  // Inherited from Classifier
   /**
    * powertypeExtent
    * 
@@ -261,9 +214,8 @@ export class Artifact extends Classifier implements IArtifact {
    * @relationship cross-reference
    * @opposite powertype
    */
-  public powertypeExtent: Set<IGeneralizationSet | string> = new Set();
+  public powertypeExtent: Set<string> = new Set();
 
-  // Inherited from Classifier
   /**
    * isAbstract
    * 
@@ -272,7 +224,6 @@ export class Artifact extends Classifier implements IArtifact {
    */
   public isAbstract!: boolean;
 
-  // Inherited from Classifier
   /**
    * isFinalSpecialization
    * 
@@ -281,7 +232,6 @@ export class Artifact extends Classifier implements IArtifact {
    */
   public isFinalSpecialization!: boolean;
 
-  // Inherited from Classifier
   /**
    * ownedUseCase
    * 
@@ -291,7 +241,6 @@ export class Artifact extends Classifier implements IArtifact {
    */
   public ownedUseCase: Set<IUseCase> = new Set();
 
-  // Inherited from Classifier
   /**
    * useCase
    * 
@@ -300,9 +249,8 @@ export class Artifact extends Classifier implements IArtifact {
    * @relationship cross-reference
    * @opposite subject
    */
-  public useCase: Set<IUseCase | string> = new Set();
+  public useCase: Set<string> = new Set();
 
-  // Inherited from Classifier
   /**
    * redefinedClassifier
    * 
@@ -310,9 +258,8 @@ export class Artifact extends Classifier implements IArtifact {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedClassifier: Set<IClassifier | string> = new Set();
+  public redefinedClassifier: Set<string> = new Set();
 
-  // Inherited from Classifier
   /**
    * representation
    * 
@@ -320,9 +267,8 @@ export class Artifact extends Classifier implements IArtifact {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public representation?: ICollaborationUse | string = undefined;
+  public representation?: string;
 
-  // Inherited from Classifier
   /**
    * substitution
    * 
@@ -333,13 +279,48 @@ export class Artifact extends Classifier implements IArtifact {
    */
   public substitution: Set<ISubstitution> = new Set();
 
+  /**
+   * ownedComment
+   * 
+   * @type Comment
+   * @multiplicity [0..*]
+   * @relationship containment
+   */
+  public ownedComment: Set<IComment> = new Set();
+
+  /**
+   * name
+   * 
+   * @type String
+   * @multiplicity [0..1]
+   */
+  public name?: string;
+
+  /**
+   * nameExpression
+   * 
+   * @type StringExpression
+   * @multiplicity [0..1]
+   * @relationship containment
+   */
+  public nameExpression?: IStringExpression;
+
+  /**
+   * visibility
+   * 
+   * @type VisibilityKind
+   * @multiplicity [0..1]
+   */
+  public visibility: VisibilityKind | undefined = undefined;
+
   constructor(init?: Partial<IArtifact>) {
     super(init);
-    this.fileName = init?.fileName ?? undefined;
-    this.manifestation = init?.manifestation ?? new Set();
-    this.nestedArtifact = init?.nestedArtifact ?? new Set();
-    this.ownedAttribute = init?.ownedAttribute ?? [];
-    this.ownedOperation = init?.ownedOperation ?? [];
+
+    this.fileName = init?.fileName;
+    this.manifestation = init?.manifestation ? new Set(init.manifestation) : new Set();
+    this.nestedArtifact = init?.nestedArtifact ? new Set(init.nestedArtifact) : new Set();
+    this.ownedAttribute = init?.ownedAttribute ? [...init.ownedAttribute] : [];
+    this.ownedOperation = init?.ownedOperation ? [...init.ownedOperation] : [];
   }
   getFileName(): string | undefined {
     return this.fileName;
@@ -452,9 +433,6 @@ export class Artifact extends Classifier implements IArtifact {
   static fromJSON(json: any): Artifact {
     const instance = new Artifact();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

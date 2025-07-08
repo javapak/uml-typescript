@@ -9,9 +9,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialActivityGroup = Partial<IActivityGroup>;
 export type RequiredActivityGroup = Required<IActivityGroup>;
-export type ActivityGroupKey = Pick<IActivityGroup, 'name' | 'nameExpression'>;
-export type ActivityGroupMetadata = Pick<IActivityGroup, 'ownedComment' | 'visibility'>;
-export type ActivityGroupSummary = Pick<IActivityGroup, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type ActivityGroupUnion = IActivityGroup | INamedElement | IActivityContent;
 export type ActivityGroupFactory = () => ActivityGroup;
 export type ActivityGroupValidator = (instance: IActivityGroup) => ValidationResult;

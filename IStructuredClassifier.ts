@@ -20,7 +20,7 @@ export interface IStructuredClassifier extends IClassifier {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  ownedAttribute: IProperty[];
+  ownedAttribute?: IProperty[];
   /**
    * ownedConnector
    * 
@@ -28,7 +28,7 @@ export interface IStructuredClassifier extends IClassifier {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  ownedConnector: Set<IConnector>;
+  ownedConnector?: Set<IConnector>;
 }
 
 // Type aliases for StructuredClassifier

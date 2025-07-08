@@ -16,7 +16,7 @@ export interface ILinkEndDestructionData extends ILinkEndData {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  destroyAt?: IInputPin | string;
+  destroyAt?: string;
   /**
    * isDestroyDuplicates
    * 

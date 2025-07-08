@@ -18,7 +18,7 @@ export interface ITemplateParameter extends IElement {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  default?: IParameterableElement | string;
+  default?: string;
   /**
    * ownedDefault
    * 
@@ -35,7 +35,7 @@ export interface ITemplateParameter extends IElement {
    * @relationship cross-reference
    * @opposite templateParameter
    */
-  parameteredElement: IParameterableElement | string;
+  parameteredElement: string;
   /**
    * signature
    * 
@@ -44,7 +44,7 @@ export interface ITemplateParameter extends IElement {
    * @relationship cross-reference
    * @opposite ownedParameter
    */
-  signature: ITemplateSignature | string;
+  signature: string;
   /**
    * ownedParameteredElement
    * 

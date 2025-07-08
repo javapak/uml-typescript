@@ -22,7 +22,7 @@ export interface IInteractionFragment extends INamedElement {
    * @relationship cross-reference
    * @opposite coveredBy
    */
-  covered: Set<ILifeline | string>;
+  covered?: Set<string>;
   /**
    * enclosingOperand
    * 
@@ -31,7 +31,7 @@ export interface IInteractionFragment extends INamedElement {
    * @relationship cross-reference
    * @opposite fragment
    */
-  enclosingOperand?: IInteractionOperand | string;
+  enclosingOperand?: string;
   /**
    * enclosingInteraction
    * 
@@ -40,7 +40,7 @@ export interface IInteractionFragment extends INamedElement {
    * @relationship cross-reference
    * @opposite fragment
    */
-  enclosingInteraction?: IInteraction | string;
+  enclosingInteraction?: string;
   /**
    * generalOrdering
    * 
@@ -48,7 +48,7 @@ export interface IInteractionFragment extends INamedElement {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  generalOrdering: Set<IGeneralOrdering>;
+  generalOrdering?: Set<IGeneralOrdering>;
 }
 
 // Type aliases for InteractionFragment

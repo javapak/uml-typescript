@@ -26,7 +26,7 @@ export interface IAcceptEventAction extends IAction {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  result: IOutputPin[];
+  result?: IOutputPin[];
   /**
    * trigger
    * 

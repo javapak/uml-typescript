@@ -17,7 +17,7 @@ export interface IExecutionSpecification extends IInteractionFragment {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  finish: IOccurrenceSpecification | string;
+  finish: string;
   /**
    * start
    * 
@@ -25,7 +25,7 @@ export interface IExecutionSpecification extends IInteractionFragment {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  start: IOccurrenceSpecification | string;
+  start: string;
 }
 
 // Type aliases for ExecutionSpecification

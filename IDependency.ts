@@ -17,7 +17,7 @@ export interface IDependency extends IPackageableElement, IDirectedRelationship 
    * @multiplicity [1..*]
    * @relationship cross-reference
    */
-  client: Set<INamedElement | string>;
+  client: Set<string>;
   /**
    * supplier
    * 
@@ -25,7 +25,7 @@ export interface IDependency extends IPackageableElement, IDirectedRelationship 
    * @multiplicity [1..*]
    * @relationship cross-reference
    */
-  supplier: Set<INamedElement | string>;
+  supplier: Set<string>;
 }
 
 // Type aliases for Dependency

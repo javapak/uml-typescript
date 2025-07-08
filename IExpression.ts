@@ -16,7 +16,7 @@ export interface IExpression extends IValueSpecification {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  operand: IValueSpecification[];
+  operand?: IValueSpecification[];
   /**
    * symbol
    * 

@@ -5,60 +5,33 @@
  * @package uml
  * @extends EncapsulatedClassifier, BehavioredClassifier
  */
-import { Behavior } from './Behavior';
 import { BehavioredClassifier } from './BehavioredClassifier';
-import { Classifier } from './Classifier';
-import { CollaborationUse } from './CollaborationUse';
-import { Comment } from './Comment';
-import { Connector } from './Connector';
-import { Constraint } from './Constraint';
-import { ElementImport } from './ElementImport';
 import { EncapsulatedClassifier } from './EncapsulatedClassifier';
-import { Generalization } from './Generalization';
 import { IBehavior } from './IBehavior';
 import { IBehavioredClassifier } from './IBehavioredClassifier';
 import { IClass } from './IClass';
 import { IClassifier } from './IClassifier';
 import { ICollaborationUse } from './ICollaborationUse';
 import { IComment } from './IComment';
-import { IConnectableElement } from './IConnectableElement';
 import { IConnector } from './IConnector';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IElementImport } from './IElementImport';
 import { IEncapsulatedClassifier } from './IEncapsulatedClassifier';
-import { IExtension } from './IExtension';
-import { IFeature } from './IFeature';
 import { IGeneralization } from './IGeneralization';
 import { IGeneralizationSet } from './IGeneralizationSet';
 import { IInterfaceRealization } from './IInterfaceRealization';
-import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IOperation } from './IOperation';
-import { IPackage } from './IPackage';
 import { IPackageImport } from './IPackageImport';
-import { IPackageableElement } from './IPackageableElement';
-import { IPort } from './IPort';
 import { IProperty } from './IProperty';
 import { IReception } from './IReception';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { ISubstitution } from './ISubstitution';
 import { ITemplateBinding } from './ITemplateBinding';
 import { ITemplateParameter } from './ITemplateParameter';
 import { ITemplateSignature } from './ITemplateSignature';
 import { IUseCase } from './IUseCase';
-import { InterfaceRealization } from './InterfaceRealization';
-import { Operation } from './Operation';
-import { PackageImport } from './PackageImport';
-import { Property } from './Property';
-import { Reception } from './Reception';
 import { StringExpression } from './StringExpression';
-import { Substitution } from './Substitution';
-import { TemplateBinding } from './TemplateBinding';
 import { TemplateSignature } from './TemplateSignature';
-import { UseCase } from './UseCase';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
 
@@ -99,18 +72,6 @@ export class Class extends EncapsulatedClassifier implements IClass {
    */
   public ownedReception: Set<IReception> = new Set();
 
-  // Inherited from EncapsulatedClassifier
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from EncapsulatedClassifier
   /**
    * ownedComment
    * 
@@ -120,16 +81,14 @@ export class Class extends EncapsulatedClassifier implements IClass {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from EncapsulatedClassifier
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from EncapsulatedClassifier
   /**
    * nameExpression
    * 
@@ -137,18 +96,15 @@ export class Class extends EncapsulatedClassifier implements IClass {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from EncapsulatedClassifier
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from EncapsulatedClassifier
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * ownedRule
    * 
@@ -159,7 +115,6 @@ export class Class extends EncapsulatedClassifier implements IClass {
    */
   public ownedRule: Set<IConstraint> = new Set();
 
-  // Inherited from EncapsulatedClassifier
   /**
    * elementImport
    * 
@@ -170,7 +125,6 @@ export class Class extends EncapsulatedClassifier implements IClass {
    */
   public elementImport: Set<IElementImport> = new Set();
 
-  // Inherited from EncapsulatedClassifier
   /**
    * packageImport
    * 
@@ -181,7 +135,6 @@ export class Class extends EncapsulatedClassifier implements IClass {
    */
   public packageImport: Set<IPackageImport> = new Set();
 
-  // Inherited from EncapsulatedClassifier
   /**
    * isLeaf
    * 
@@ -190,7 +143,6 @@ export class Class extends EncapsulatedClassifier implements IClass {
    */
   public isLeaf!: boolean;
 
-  // Inherited from EncapsulatedClassifier
   /**
    * owningTemplateParameter
    * 
@@ -199,9 +151,8 @@ export class Class extends EncapsulatedClassifier implements IClass {
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from EncapsulatedClassifier
   /**
    * templateParameter
    * 
@@ -210,9 +161,8 @@ export class Class extends EncapsulatedClassifier implements IClass {
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from EncapsulatedClassifier
   /**
    * templateBinding
    * 
@@ -223,7 +173,6 @@ export class Class extends EncapsulatedClassifier implements IClass {
    */
   public templateBinding: Set<ITemplateBinding> = new Set();
 
-  // Inherited from EncapsulatedClassifier
   /**
    * ownedTemplateSignature
    * 
@@ -232,9 +181,8 @@ export class Class extends EncapsulatedClassifier implements IClass {
    * @relationship containment
    * @opposite template
    */
-  public ownedTemplateSignature?: ITemplateSignature = undefined;
+  public ownedTemplateSignature?: ITemplateSignature;
 
-  // Inherited from EncapsulatedClassifier
   /**
    * collaborationUse
    * 
@@ -244,7 +192,6 @@ export class Class extends EncapsulatedClassifier implements IClass {
    */
   public collaborationUse: Set<ICollaborationUse> = new Set();
 
-  // Inherited from EncapsulatedClassifier
   /**
    * generalization
    * 
@@ -255,7 +202,6 @@ export class Class extends EncapsulatedClassifier implements IClass {
    */
   public generalization: Set<IGeneralization> = new Set();
 
-  // Inherited from EncapsulatedClassifier
   /**
    * powertypeExtent
    * 
@@ -264,9 +210,8 @@ export class Class extends EncapsulatedClassifier implements IClass {
    * @relationship cross-reference
    * @opposite powertype
    */
-  public powertypeExtent: Set<IGeneralizationSet | string> = new Set();
+  public powertypeExtent: Set<string> = new Set();
 
-  // Inherited from EncapsulatedClassifier
   /**
    * isAbstract
    * 
@@ -275,7 +220,6 @@ export class Class extends EncapsulatedClassifier implements IClass {
    */
   public isAbstract!: boolean;
 
-  // Inherited from EncapsulatedClassifier
   /**
    * isFinalSpecialization
    * 
@@ -284,7 +228,6 @@ export class Class extends EncapsulatedClassifier implements IClass {
    */
   public isFinalSpecialization!: boolean;
 
-  // Inherited from EncapsulatedClassifier
   /**
    * ownedUseCase
    * 
@@ -294,7 +237,6 @@ export class Class extends EncapsulatedClassifier implements IClass {
    */
   public ownedUseCase: Set<IUseCase> = new Set();
 
-  // Inherited from EncapsulatedClassifier
   /**
    * useCase
    * 
@@ -303,9 +245,8 @@ export class Class extends EncapsulatedClassifier implements IClass {
    * @relationship cross-reference
    * @opposite subject
    */
-  public useCase: Set<IUseCase | string> = new Set();
+  public useCase: Set<string> = new Set();
 
-  // Inherited from EncapsulatedClassifier
   /**
    * redefinedClassifier
    * 
@@ -313,9 +254,8 @@ export class Class extends EncapsulatedClassifier implements IClass {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedClassifier: Set<IClassifier | string> = new Set();
+  public redefinedClassifier: Set<string> = new Set();
 
-  // Inherited from EncapsulatedClassifier
   /**
    * representation
    * 
@@ -323,9 +263,8 @@ export class Class extends EncapsulatedClassifier implements IClass {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public representation?: ICollaborationUse | string = undefined;
+  public representation?: string;
 
-  // Inherited from EncapsulatedClassifier
   /**
    * substitution
    * 
@@ -336,7 +275,6 @@ export class Class extends EncapsulatedClassifier implements IClass {
    */
   public substitution: Set<ISubstitution> = new Set();
 
-  // Inherited from EncapsulatedClassifier
   /**
    * ownedAttribute
    * 
@@ -346,7 +284,6 @@ export class Class extends EncapsulatedClassifier implements IClass {
    */
   public ownedAttribute: IProperty[] = [];
 
-  // Inherited from EncapsulatedClassifier
   /**
    * ownedConnector
    * 
@@ -356,7 +293,209 @@ export class Class extends EncapsulatedClassifier implements IClass {
    */
   public ownedConnector: Set<IConnector> = new Set();
 
-  // Inherited from BehavioredClassifier
+  /**
+   * ownedComment
+   * 
+   * @type Comment
+   * @multiplicity [0..*]
+   * @relationship containment
+   */
+  public ownedComment: Set<IComment> = new Set();
+
+  /**
+   * name
+   * 
+   * @type String
+   * @multiplicity [0..1]
+   */
+  public name?: string;
+
+  /**
+   * nameExpression
+   * 
+   * @type StringExpression
+   * @multiplicity [0..1]
+   * @relationship containment
+   */
+  public nameExpression?: IStringExpression;
+
+  /**
+   * visibility
+   * 
+   * @type VisibilityKind
+   * @multiplicity [0..1]
+   */
+  public visibility: VisibilityKind | undefined = undefined;
+  /**
+   * ownedRule
+   * 
+   * @type Constraint
+   * @multiplicity [0..*]
+   * @relationship containment
+   * @opposite context
+   */
+  public ownedRule: Set<IConstraint> = new Set();
+
+  /**
+   * elementImport
+   * 
+   * @type ElementImport
+   * @multiplicity [0..*]
+   * @relationship containment
+   * @opposite importingNamespace
+   */
+  public elementImport: Set<IElementImport> = new Set();
+
+  /**
+   * packageImport
+   * 
+   * @type PackageImport
+   * @multiplicity [0..*]
+   * @relationship containment
+   * @opposite importingNamespace
+   */
+  public packageImport: Set<IPackageImport> = new Set();
+
+  /**
+   * isLeaf
+   * 
+   * @type Boolean
+   * @multiplicity [1..1]
+   */
+  public isLeaf!: boolean;
+
+  /**
+   * owningTemplateParameter
+   * 
+   * @type TemplateParameter
+   * @multiplicity [0..1]
+   * @relationship cross-reference
+   * @opposite ownedParameteredElement
+   */
+  public owningTemplateParameter?: string;
+
+  /**
+   * templateParameter
+   * 
+   * @type TemplateParameter
+   * @multiplicity [0..1]
+   * @relationship cross-reference
+   * @opposite parameteredElement
+   */
+  public templateParameter?: string;
+
+  /**
+   * templateBinding
+   * 
+   * @type TemplateBinding
+   * @multiplicity [0..*]
+   * @relationship containment
+   * @opposite boundElement
+   */
+  public templateBinding: Set<ITemplateBinding> = new Set();
+
+  /**
+   * ownedTemplateSignature
+   * 
+   * @type TemplateSignature
+   * @multiplicity [0..1]
+   * @relationship containment
+   * @opposite template
+   */
+  public ownedTemplateSignature?: ITemplateSignature;
+
+  /**
+   * collaborationUse
+   * 
+   * @type CollaborationUse
+   * @multiplicity [0..*]
+   * @relationship containment
+   */
+  public collaborationUse: Set<ICollaborationUse> = new Set();
+
+  /**
+   * generalization
+   * 
+   * @type Generalization
+   * @multiplicity [0..*]
+   * @relationship containment
+   * @opposite specific
+   */
+  public generalization: Set<IGeneralization> = new Set();
+
+  /**
+   * powertypeExtent
+   * 
+   * @type GeneralizationSet
+   * @multiplicity [0..*]
+   * @relationship cross-reference
+   * @opposite powertype
+   */
+  public powertypeExtent: Set<string> = new Set();
+
+  /**
+   * isAbstract
+   * 
+   * @type Boolean
+   * @multiplicity [1..1]
+   */
+  public isAbstract!: boolean;
+
+  /**
+   * isFinalSpecialization
+   * 
+   * @type Boolean
+   * @multiplicity [1..1]
+   */
+  public isFinalSpecialization!: boolean;
+
+  /**
+   * ownedUseCase
+   * 
+   * @type UseCase
+   * @multiplicity [0..*]
+   * @relationship containment
+   */
+  public ownedUseCase: Set<IUseCase> = new Set();
+
+  /**
+   * useCase
+   * 
+   * @type UseCase
+   * @multiplicity [0..*]
+   * @relationship cross-reference
+   * @opposite subject
+   */
+  public useCase: Set<string> = new Set();
+
+  /**
+   * redefinedClassifier
+   * 
+   * @type Classifier
+   * @multiplicity [0..*]
+   * @relationship cross-reference
+   */
+  public redefinedClassifier: Set<string> = new Set();
+
+  /**
+   * representation
+   * 
+   * @type CollaborationUse
+   * @multiplicity [0..1]
+   * @relationship cross-reference
+   */
+  public representation?: string;
+
+  /**
+   * substitution
+   * 
+   * @type Substitution
+   * @multiplicity [0..*]
+   * @relationship containment
+   * @opposite substitutingClassifier
+   */
+  public substitution: Set<ISubstitution> = new Set();
+
   /**
    * classifierBehavior
    * 
@@ -364,9 +503,8 @@ export class Class extends EncapsulatedClassifier implements IClass {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public classifierBehavior?: IBehavior | string = undefined;
+  public classifierBehavior?: string;
 
-  // Inherited from BehavioredClassifier
   /**
    * interfaceRealization
    * 
@@ -377,7 +515,6 @@ export class Class extends EncapsulatedClassifier implements IClass {
    */
   public interfaceRealization: Set<IInterfaceRealization> = new Set();
 
-  // Inherited from BehavioredClassifier
   /**
    * ownedBehavior
    * 
@@ -387,12 +524,14 @@ export class Class extends EncapsulatedClassifier implements IClass {
    */
   public ownedBehavior: Set<IBehavior> = new Set();
 
+
   constructor(init?: Partial<IClass>) {
     super(init);
-    this.ownedOperation = init?.ownedOperation ?? [];
-    this.isActive = init?.isActive!;
-    this.nestedClassifier = init?.nestedClassifier ?? [];
-    this.ownedReception = init?.ownedReception ?? new Set();
+
+    this.ownedOperation = init?.ownedOperation ? [...init.ownedOperation] : [];
+    this.isActive = init?.isActive ?? false;
+    this.nestedClassifier = init?.nestedClassifier ? [...init.nestedClassifier] : [];
+    this.ownedReception = init?.ownedReception ? new Set(init.ownedReception) : new Set();
   }
   getOwnedOperation(): IOperation[] {
     return this.ownedOperation;
@@ -493,9 +632,6 @@ export class Class extends EncapsulatedClassifier implements IClass {
   static fromJSON(json: any): Class {
     const instance = new Class();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

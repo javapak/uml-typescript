@@ -17,7 +17,7 @@ export interface IInclude extends INamedElement, IDirectedRelationship {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  addition: IUseCase | string;
+  addition: string;
   /**
    * includingCase
    * 
@@ -26,7 +26,7 @@ export interface IInclude extends INamedElement, IDirectedRelationship {
    * @relationship cross-reference
    * @opposite include
    */
-  includingCase: IUseCase | string;
+  includingCase: string;
 }
 
 // Type aliases for Include

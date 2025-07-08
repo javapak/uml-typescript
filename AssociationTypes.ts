@@ -10,9 +10,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialAssociation = Partial<IAssociation>;
 export type RequiredAssociation = Required<IAssociation>;
-export type AssociationKey = Pick<IAssociation, 'name' | 'nameExpression'>;
-export type AssociationMetadata = Pick<IAssociation, 'ownedComment' | 'visibility' | 'ownedRule' | 'ownedTemplateSignature' | 'ownedUseCase' | 'ownedEnd'>;
-export type AssociationSummary = Pick<IAssociation, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type AssociationUnion = IAssociation | IClassifier | IRelationship;
 export type AssociationFactory = () => Association;
 export type AssociationValidator = (instance: IAssociation) => ValidationResult;

@@ -16,7 +16,7 @@ export interface INode extends IClass, IDeploymentTarget {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  nestedNode: Set<INode>;
+  nestedNode?: Set<INode>;
 }
 
 // Type aliases for Node

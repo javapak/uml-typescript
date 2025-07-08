@@ -5,13 +5,9 @@
  * @package uml
  * @extends Expression, TemplateableElement
  */
-import { Comment } from './Comment';
 import { Expression } from './Expression';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IExpression } from './IExpression';
-import { INamespace } from './INamespace';
 import { IStringExpression } from './IStringExpression';
 import { ITemplateBinding } from './ITemplateBinding';
 import { ITemplateParameter } from './ITemplateParameter';
@@ -19,11 +15,10 @@ import { ITemplateSignature } from './ITemplateSignature';
 import { ITemplateableElement } from './ITemplateableElement';
 import { IType } from './IType';
 import { IValueSpecification } from './IValueSpecification';
-import { TemplateBinding } from './TemplateBinding';
+import { StringExpression } from './StringExpression';
 import { TemplateSignature } from './TemplateSignature';
 import { TemplateableElement } from './TemplateableElement';
 import { ValidationError, ValidationResult } from './ValidationTypes';
-import { ValueSpecification } from './ValueSpecification';
 import { VisibilityKind } from './VisibilityKind';
 
 export class StringExpression extends Expression implements IStringExpression {
@@ -35,7 +30,7 @@ export class StringExpression extends Expression implements IStringExpression {
    * @relationship cross-reference
    * @opposite subExpression
    */
-  public owningExpression?: IStringExpression | string = undefined;
+  public owningExpression?: string;
 
   /**
    * subExpression
@@ -47,18 +42,6 @@ export class StringExpression extends Expression implements IStringExpression {
    */
   public subExpression: IStringExpression[] = [];
 
-  // Inherited from Expression
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Expression
   /**
    * ownedComment
    * 
@@ -68,16 +51,14 @@ export class StringExpression extends Expression implements IStringExpression {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Expression
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Expression
   /**
    * nameExpression
    * 
@@ -85,18 +66,15 @@ export class StringExpression extends Expression implements IStringExpression {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Expression
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Expression
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * owningTemplateParameter
    * 
@@ -105,9 +83,8 @@ export class StringExpression extends Expression implements IStringExpression {
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from Expression
   /**
    * templateParameter
    * 
@@ -116,9 +93,8 @@ export class StringExpression extends Expression implements IStringExpression {
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from Expression
   /**
    * type
    * 
@@ -126,9 +102,8 @@ export class StringExpression extends Expression implements IStringExpression {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public type?: IType | string = undefined;
+  public type?: string;
 
-  // Inherited from Expression
   /**
    * operand
    * 
@@ -138,16 +113,23 @@ export class StringExpression extends Expression implements IStringExpression {
    */
   public operand: IValueSpecification[] = [];
 
-  // Inherited from Expression
   /**
    * symbol
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public symbol?: string = undefined;
+  public symbol?: string;
 
-  // Inherited from TemplateableElement
+  /**
+   * ownedComment
+   * 
+   * @type Comment
+   * @multiplicity [0..*]
+   * @relationship containment
+   */
+  public ownedComment: Set<IComment> = new Set();
+
   /**
    * templateBinding
    * 
@@ -158,7 +140,6 @@ export class StringExpression extends Expression implements IStringExpression {
    */
   public templateBinding: Set<ITemplateBinding> = new Set();
 
-  // Inherited from TemplateableElement
   /**
    * ownedTemplateSignature
    * 
@@ -167,18 +148,20 @@ export class StringExpression extends Expression implements IStringExpression {
    * @relationship containment
    * @opposite template
    */
-  public ownedTemplateSignature?: ITemplateSignature = undefined;
+  public ownedTemplateSignature?: ITemplateSignature;
+
 
   constructor(init?: Partial<IStringExpression>) {
     super(init);
-    this.owningExpression = init?.owningExpression ?? undefined;
-    this.subExpression = init?.subExpression ?? [];
+
+    this.owningExpression = init?.owningExpression;
+    this.subExpression = init?.subExpression ? [...init.subExpression] : [];
   }
-  getOwningExpression(): IStringExpression | string | undefined {
+  getOwningExpression(): string | undefined {
     return this.owningExpression;
   }
 
-  setOwningExpression(value: IStringExpression | string | undefined): void {
+  setOwningExpression(value: string | undefined): void {
     this.owningExpression = value;
   }
 
@@ -255,9 +238,6 @@ export class StringExpression extends Expression implements IStringExpression {
   static fromJSON(json: any): StringExpression {
     const instance = new StringExpression();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

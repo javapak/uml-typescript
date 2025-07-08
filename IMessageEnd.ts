@@ -17,7 +17,7 @@ export interface IMessageEnd extends INamedElement {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  message?: IMessage | string;
+  message?: string;
 }
 
 // Type aliases for MessageEnd

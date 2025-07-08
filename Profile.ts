@@ -5,35 +5,21 @@
  * @package uml
  * @extends Package
  */
-import { Comment } from './Comment';
-import { Constraint } from './Constraint';
-import { ElementImport } from './ElementImport';
 import { IComment } from './IComment';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IElementImport } from './IElementImport';
-import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IPackage } from './IPackage';
 import { IPackageImport } from './IPackageImport';
 import { IPackageMerge } from './IPackageMerge';
 import { IPackageableElement } from './IPackageableElement';
 import { IProfile } from './IProfile';
 import { IProfileApplication } from './IProfileApplication';
-import { IStereotype } from './IStereotype';
 import { IStringExpression } from './IStringExpression';
 import { ITemplateBinding } from './ITemplateBinding';
 import { ITemplateParameter } from './ITemplateParameter';
 import { ITemplateSignature } from './ITemplateSignature';
-import { IType } from './IType';
 import { Package } from './Package';
-import { PackageImport } from './PackageImport';
-import { PackageMerge } from './PackageMerge';
-import { PackageableElement } from './PackageableElement';
-import { ProfileApplication } from './ProfileApplication';
 import { StringExpression } from './StringExpression';
-import { TemplateBinding } from './TemplateBinding';
 import { TemplateSignature } from './TemplateSignature';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
@@ -46,7 +32,7 @@ export class Profile extends Package implements IProfile {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public metaclassReference: Set<IElementImport | string> = new Set();
+  public metaclassReference: Set<string> = new Set();
 
   /**
    * metamodelReference
@@ -55,20 +41,8 @@ export class Profile extends Package implements IProfile {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public metamodelReference: Set<IPackageImport | string> = new Set();
+  public metamodelReference: Set<string> = new Set();
 
-  // Inherited from Package
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Package
   /**
    * ownedComment
    * 
@@ -78,16 +52,14 @@ export class Profile extends Package implements IProfile {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Package
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Package
   /**
    * nameExpression
    * 
@@ -95,18 +67,15 @@ export class Profile extends Package implements IProfile {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Package
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Package
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * ownedRule
    * 
@@ -117,7 +86,6 @@ export class Profile extends Package implements IProfile {
    */
   public ownedRule: Set<IConstraint> = new Set();
 
-  // Inherited from Package
   /**
    * elementImport
    * 
@@ -128,7 +96,6 @@ export class Profile extends Package implements IProfile {
    */
   public elementImport: Set<IElementImport> = new Set();
 
-  // Inherited from Package
   /**
    * packageImport
    * 
@@ -139,7 +106,6 @@ export class Profile extends Package implements IProfile {
    */
   public packageImport: Set<IPackageImport> = new Set();
 
-  // Inherited from Package
   /**
    * owningTemplateParameter
    * 
@@ -148,9 +114,8 @@ export class Profile extends Package implements IProfile {
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from Package
   /**
    * templateParameter
    * 
@@ -159,9 +124,8 @@ export class Profile extends Package implements IProfile {
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from Package
   /**
    * templateBinding
    * 
@@ -172,7 +136,6 @@ export class Profile extends Package implements IProfile {
    */
   public templateBinding: Set<ITemplateBinding> = new Set();
 
-  // Inherited from Package
   /**
    * ownedTemplateSignature
    * 
@@ -181,18 +144,16 @@ export class Profile extends Package implements IProfile {
    * @relationship containment
    * @opposite template
    */
-  public ownedTemplateSignature?: ITemplateSignature = undefined;
+  public ownedTemplateSignature?: ITemplateSignature;
 
-  // Inherited from Package
   /**
    * URI
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public URI?: string = undefined;
+  public URI?: string;
 
-  // Inherited from Package
   /**
    * packageMerge
    * 
@@ -203,7 +164,6 @@ export class Profile extends Package implements IProfile {
    */
   public packageMerge: Set<IPackageMerge> = new Set();
 
-  // Inherited from Package
   /**
    * packagedElement
    * 
@@ -213,7 +173,6 @@ export class Profile extends Package implements IProfile {
    */
   public packagedElement: Set<IPackageableElement> = new Set();
 
-  // Inherited from Package
   /**
    * profileApplication
    * 
@@ -224,24 +183,26 @@ export class Profile extends Package implements IProfile {
    */
   public profileApplication: Set<IProfileApplication> = new Set();
 
+
   constructor(init?: Partial<IProfile>) {
     super(init);
-    this.metaclassReference = init?.metaclassReference ?? new Set();
-    this.metamodelReference = init?.metamodelReference ?? new Set();
+
+    this.metaclassReference = init?.metaclassReference ? new Set(init.metaclassReference) : new Set();
+    this.metamodelReference = init?.metamodelReference ? new Set(init.metamodelReference) : new Set();
   }
-  getMetaclassReference(): Set<IElementImport | string> {
+  getMetaclassReference(): Set<string> {
     return this.metaclassReference;
   }
 
-  setMetaclassReference(value: Set<IElementImport | string>): void {
+  setMetaclassReference(value: Set<string>): void {
     this.metaclassReference = value;
   }
 
-  getMetamodelReference(): Set<IPackageImport | string> {
+  getMetamodelReference(): Set<string> {
     return this.metamodelReference;
   }
 
-  setMetamodelReference(value: Set<IPackageImport | string>): void {
+  setMetamodelReference(value: Set<string>): void {
     this.metamodelReference = value;
   }
 
@@ -308,9 +269,6 @@ export class Profile extends Package implements IProfile {
   static fromJSON(json: any): Profile {
     const instance = new Profile();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

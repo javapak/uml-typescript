@@ -11,8 +11,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialSlot = Partial<ISlot>;
 export type RequiredSlot = Required<ISlot>;
-export type SlotMetadata = Pick<ISlot, 'ownedComment'>;
-export type SlotSummary = Pick<ISlot, 'eAnnotations' | 'ownedComment' | 'definingFeature'>;
 export type SlotUnion = ISlot | IElement;
 export type SlotFactory = () => Slot;
 export type SlotValidator = (instance: ISlot) => ValidationResult;

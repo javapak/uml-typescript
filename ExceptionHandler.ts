@@ -5,7 +5,6 @@
  * @package uml
  * @extends Element
  */
-import { Comment } from './Comment';
 import { Element } from './Element';
 import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
@@ -23,7 +22,7 @@ export class ExceptionHandler extends Element implements IExceptionHandler {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public exceptionInput!: IObjectNode | string;
+  public exceptionInput!: string;
 
   /**
    * exceptionType
@@ -32,7 +31,7 @@ export class ExceptionHandler extends Element implements IExceptionHandler {
    * @multiplicity [1..*]
    * @relationship cross-reference
    */
-  public exceptionType: Set<IClassifier | string> = new Set();
+  public exceptionType: Set<string> = new Set();
 
   /**
    * handlerBody
@@ -41,7 +40,7 @@ export class ExceptionHandler extends Element implements IExceptionHandler {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public handlerBody!: IExecutableNode | string;
+  public handlerBody!: string;
 
   /**
    * protectedNode
@@ -51,20 +50,8 @@ export class ExceptionHandler extends Element implements IExceptionHandler {
    * @relationship cross-reference
    * @opposite handler
    */
-  public protectedNode!: IExecutableNode | string;
+  public protectedNode!: string;
 
-  // Inherited from Element
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Element
   /**
    * ownedComment
    * 
@@ -74,42 +61,44 @@ export class ExceptionHandler extends Element implements IExceptionHandler {
    */
   public ownedComment: Set<IComment> = new Set();
 
+
   constructor(init?: Partial<IExceptionHandler>) {
     super(init);
-    this.exceptionInput = init?.exceptionInput!;
-    this.exceptionType = init?.exceptionType ?? new Set();
-    this.handlerBody = init?.handlerBody!;
-    this.protectedNode = init?.protectedNode!;
+
+    this.exceptionInput = init?.exceptionInput ?? '';
+    this.exceptionType = init?.exceptionType ? new Set(init.exceptionType) : new Set();
+    this.handlerBody = init?.handlerBody ?? '';
+    this.protectedNode = init?.protectedNode ?? '';
   }
-  getExceptionInput(): IObjectNode | string {
+  getExceptionInput(): string {
     return this.exceptionInput;
   }
 
-  setExceptionInput(value: IObjectNode | string): void {
+  setExceptionInput(value: string): void {
     this.exceptionInput = value;
   }
 
-  getExceptionType(): Set<IClassifier | string> {
+  getExceptionType(): Set<string> {
     return this.exceptionType;
   }
 
-  setExceptionType(value: Set<IClassifier | string>): void {
+  setExceptionType(value: Set<string>): void {
     this.exceptionType = value;
   }
 
-  getHandlerBody(): IExecutableNode | string {
+  getHandlerBody(): string {
     return this.handlerBody;
   }
 
-  setHandlerBody(value: IExecutableNode | string): void {
+  setHandlerBody(value: string): void {
     this.handlerBody = value;
   }
 
-  getProtectedNode(): IExecutableNode | string {
+  getProtectedNode(): string {
     return this.protectedNode;
   }
 
-  setProtectedNode(value: IExecutableNode | string): void {
+  setProtectedNode(value: string): void {
     this.protectedNode = value;
   }
 
@@ -180,9 +169,6 @@ export class ExceptionHandler extends Element implements IExceptionHandler {
   static fromJSON(json: any): ExceptionHandler {
     const instance = new ExceptionHandler();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

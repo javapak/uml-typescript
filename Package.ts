@@ -5,35 +5,23 @@
  * @package uml
  * @extends Namespace, PackageableElement, TemplateableElement
  */
-import { Comment } from './Comment';
-import { Constraint } from './Constraint';
-import { ElementImport } from './ElementImport';
 import { IComment } from './IComment';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IElementImport } from './IElementImport';
-import { INamedElement } from './INamedElement';
 import { INamespace } from './INamespace';
 import { IPackage } from './IPackage';
 import { IPackageImport } from './IPackageImport';
 import { IPackageMerge } from './IPackageMerge';
 import { IPackageableElement } from './IPackageableElement';
 import { IProfileApplication } from './IProfileApplication';
-import { IStereotype } from './IStereotype';
 import { IStringExpression } from './IStringExpression';
 import { ITemplateBinding } from './ITemplateBinding';
 import { ITemplateParameter } from './ITemplateParameter';
 import { ITemplateSignature } from './ITemplateSignature';
 import { ITemplateableElement } from './ITemplateableElement';
-import { IType } from './IType';
 import { Namespace } from './Namespace';
-import { PackageImport } from './PackageImport';
-import { PackageMerge } from './PackageMerge';
 import { PackageableElement } from './PackageableElement';
-import { ProfileApplication } from './ProfileApplication';
 import { StringExpression } from './StringExpression';
-import { TemplateBinding } from './TemplateBinding';
 import { TemplateSignature } from './TemplateSignature';
 import { TemplateableElement } from './TemplateableElement';
 import { ValidationError, ValidationResult } from './ValidationTypes';
@@ -46,7 +34,7 @@ export class Package extends Namespace implements IPackage {
    * @type String
    * @multiplicity [0..1]
    */
-  public URI?: string = undefined;
+  public URI?: string;
 
   /**
    * packageMerge
@@ -77,18 +65,6 @@ export class Package extends Namespace implements IPackage {
    */
   public profileApplication: Set<IProfileApplication> = new Set();
 
-  // Inherited from Namespace
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Namespace
   /**
    * ownedComment
    * 
@@ -98,16 +74,14 @@ export class Package extends Namespace implements IPackage {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Namespace
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Namespace
   /**
    * nameExpression
    * 
@@ -115,18 +89,15 @@ export class Package extends Namespace implements IPackage {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Namespace
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Namespace
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * ownedRule
    * 
@@ -137,7 +108,6 @@ export class Package extends Namespace implements IPackage {
    */
   public ownedRule: Set<IConstraint> = new Set();
 
-  // Inherited from Namespace
   /**
    * elementImport
    * 
@@ -148,7 +118,6 @@ export class Package extends Namespace implements IPackage {
    */
   public elementImport: Set<IElementImport> = new Set();
 
-  // Inherited from Namespace
   /**
    * packageImport
    * 
@@ -159,7 +128,39 @@ export class Package extends Namespace implements IPackage {
    */
   public packageImport: Set<IPackageImport> = new Set();
 
-  // Inherited from PackageableElement
+  /**
+   * ownedComment
+   * 
+   * @type Comment
+   * @multiplicity [0..*]
+   * @relationship containment
+   */
+  public ownedComment: Set<IComment> = new Set();
+
+  /**
+   * name
+   * 
+   * @type String
+   * @multiplicity [0..1]
+   */
+  public name?: string;
+
+  /**
+   * nameExpression
+   * 
+   * @type StringExpression
+   * @multiplicity [0..1]
+   * @relationship containment
+   */
+  public nameExpression?: IStringExpression;
+
+  /**
+   * visibility
+   * 
+   * @type VisibilityKind
+   * @multiplicity [0..1]
+   */
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * owningTemplateParameter
    * 
@@ -168,9 +169,8 @@ export class Package extends Namespace implements IPackage {
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from PackageableElement
   /**
    * templateParameter
    * 
@@ -179,9 +179,17 @@ export class Package extends Namespace implements IPackage {
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from TemplateableElement
+  /**
+   * ownedComment
+   * 
+   * @type Comment
+   * @multiplicity [0..*]
+   * @relationship containment
+   */
+  public ownedComment: Set<IComment> = new Set();
+
   /**
    * templateBinding
    * 
@@ -192,7 +200,6 @@ export class Package extends Namespace implements IPackage {
    */
   public templateBinding: Set<ITemplateBinding> = new Set();
 
-  // Inherited from TemplateableElement
   /**
    * ownedTemplateSignature
    * 
@@ -201,14 +208,16 @@ export class Package extends Namespace implements IPackage {
    * @relationship containment
    * @opposite template
    */
-  public ownedTemplateSignature?: ITemplateSignature = undefined;
+  public ownedTemplateSignature?: ITemplateSignature;
+
 
   constructor(init?: Partial<IPackage>) {
     super(init);
-    this.URI = init?.URI ?? undefined;
-    this.packageMerge = init?.packageMerge ?? new Set();
-    this.packagedElement = init?.packagedElement ?? new Set();
-    this.profileApplication = init?.profileApplication ?? new Set();
+
+    this.URI = init?.URI;
+    this.packageMerge = init?.packageMerge ? new Set(init.packageMerge) : new Set();
+    this.packagedElement = init?.packagedElement ? new Set(init.packagedElement) : new Set();
+    this.profileApplication = init?.profileApplication ? new Set(init.profileApplication) : new Set();
   }
   getURI(): string | undefined {
     return this.URI;
@@ -311,9 +320,6 @@ export class Package extends Namespace implements IPackage {
   static fromJSON(json: any): Package {
     const instance = new Package();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

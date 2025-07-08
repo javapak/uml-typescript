@@ -6,27 +6,18 @@
  * @extends Action
  */
 import { Action } from './Action';
-import { Comment } from './Comment';
-import { Constraint } from './Constraint';
-import { ExceptionHandler } from './ExceptionHandler';
 import { IAction } from './IAction';
-import { IActivity } from './IActivity';
 import { IActivityEdge } from './IActivityEdge';
-import { IActivityGroup } from './IActivityGroup';
 import { IActivityNode } from './IActivityNode';
 import { IActivityPartition } from './IActivityPartition';
 import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IExceptionHandler } from './IExceptionHandler';
 import { IInputPin } from './IInputPin';
 import { IInterruptibleActivityRegion } from './IInterruptibleActivityRegion';
-import { INamespace } from './INamespace';
 import { IOutputPin } from './IOutputPin';
 import { IReadIsClassifiedObjectAction } from './IReadIsClassifiedObjectAction';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { IStructuredActivityNode } from './IStructuredActivityNode';
 import { InputPin } from './InputPin';
@@ -43,7 +34,7 @@ export class ReadIsClassifiedObjectAction extends Action implements IReadIsClass
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public classifier!: IClassifier | string;
+  public classifier!: string;
 
   /**
    * isDirect
@@ -71,18 +62,6 @@ export class ReadIsClassifiedObjectAction extends Action implements IReadIsClass
    */
   public result!: IOutputPin;
 
-  // Inherited from Action
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Action
   /**
    * ownedComment
    * 
@@ -92,16 +71,14 @@ export class ReadIsClassifiedObjectAction extends Action implements IReadIsClass
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Action
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Action
   /**
    * nameExpression
    * 
@@ -109,18 +86,15 @@ export class ReadIsClassifiedObjectAction extends Action implements IReadIsClass
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Action
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Action
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * isLeaf
    * 
@@ -129,7 +103,6 @@ export class ReadIsClassifiedObjectAction extends Action implements IReadIsClass
    */
   public isLeaf!: boolean;
 
-  // Inherited from Action
   /**
    * inInterruptibleRegion
    * 
@@ -138,9 +111,8 @@ export class ReadIsClassifiedObjectAction extends Action implements IReadIsClass
    * @relationship cross-reference
    * @opposite node
    */
-  public inInterruptibleRegion: Set<IInterruptibleActivityRegion | string> = new Set();
+  public inInterruptibleRegion: Set<string> = new Set();
 
-  // Inherited from Action
   /**
    * inStructuredNode
    * 
@@ -149,9 +121,8 @@ export class ReadIsClassifiedObjectAction extends Action implements IReadIsClass
    * @relationship cross-reference
    * @opposite node
    */
-  public inStructuredNode?: IStructuredActivityNode | string = undefined;
+  public inStructuredNode?: string;
 
-  // Inherited from Action
   /**
    * incoming
    * 
@@ -160,9 +131,8 @@ export class ReadIsClassifiedObjectAction extends Action implements IReadIsClass
    * @relationship cross-reference
    * @opposite target
    */
-  public incoming: Set<IActivityEdge | string> = new Set();
+  public incoming: Set<string> = new Set();
 
-  // Inherited from Action
   /**
    * outgoing
    * 
@@ -171,9 +141,8 @@ export class ReadIsClassifiedObjectAction extends Action implements IReadIsClass
    * @relationship cross-reference
    * @opposite source
    */
-  public outgoing: Set<IActivityEdge | string> = new Set();
+  public outgoing: Set<string> = new Set();
 
-  // Inherited from Action
   /**
    * redefinedNode
    * 
@@ -181,9 +150,8 @@ export class ReadIsClassifiedObjectAction extends Action implements IReadIsClass
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedNode: Set<IActivityNode | string> = new Set();
+  public redefinedNode: Set<string> = new Set();
 
-  // Inherited from Action
   /**
    * inPartition
    * 
@@ -192,9 +160,8 @@ export class ReadIsClassifiedObjectAction extends Action implements IReadIsClass
    * @relationship cross-reference
    * @opposite node
    */
-  public inPartition: Set<IActivityPartition | string> = new Set();
+  public inPartition: Set<string> = new Set();
 
-  // Inherited from Action
   /**
    * handler
    * 
@@ -205,7 +172,6 @@ export class ReadIsClassifiedObjectAction extends Action implements IReadIsClass
    */
   public handler: Set<IExceptionHandler> = new Set();
 
-  // Inherited from Action
   /**
    * isLocallyReentrant
    * 
@@ -214,7 +180,6 @@ export class ReadIsClassifiedObjectAction extends Action implements IReadIsClass
    */
   public isLocallyReentrant!: boolean;
 
-  // Inherited from Action
   /**
    * localPostcondition
    * 
@@ -224,7 +189,6 @@ export class ReadIsClassifiedObjectAction extends Action implements IReadIsClass
    */
   public localPostcondition: Set<IConstraint> = new Set();
 
-  // Inherited from Action
   /**
    * localPrecondition
    * 
@@ -234,18 +198,20 @@ export class ReadIsClassifiedObjectAction extends Action implements IReadIsClass
    */
   public localPrecondition: Set<IConstraint> = new Set();
 
+
   constructor(init?: Partial<IReadIsClassifiedObjectAction>) {
     super(init);
-    this.classifier = init?.classifier!;
-    this.isDirect = init?.isDirect!;
+
+    this.classifier = init?.classifier ?? '';
+    this.isDirect = init?.isDirect ?? false;
     this.object = init?.object!;
     this.result = init?.result!;
   }
-  getClassifier(): IClassifier | string {
+  getClassifier(): string {
     return this.classifier;
   }
 
-  setClassifier(value: IClassifier | string): void {
+  setClassifier(value: string): void {
     this.classifier = value;
   }
 
@@ -340,9 +306,6 @@ export class ReadIsClassifiedObjectAction extends Action implements IReadIsClass
   static fromJSON(json: any): ReadIsClassifiedObjectAction {
     const instance = new ReadIsClassifiedObjectAction();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

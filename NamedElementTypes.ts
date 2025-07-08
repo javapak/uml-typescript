@@ -10,9 +10,9 @@ import { VisibilityKind } from './VisibilityKind';
  */
 export type PartialNamedElement = Partial<INamedElement>;
 export type RequiredNamedElement = Required<INamedElement>;
-export type NamedElementKey = Pick<INamedElement, 'name' | 'nameExpression'>;
-export type NamedElementMetadata = Pick<INamedElement, 'ownedComment' | 'visibility'>;
-export type NamedElementSummary = Pick<INamedElement, 'eAnnotations' | 'ownedComment' | 'name'>;
+export type NamedElementKey = Pick<INamedElement, 'name' | 'nameExpression' | 'namespace' | 'qualifiedName'>;
+export type NamedElementMetadata = Pick<INamedElement, 'visibility'>;
+export type NamedElementSummary = Pick<INamedElement, 'name' | 'nameExpression' | 'namespace' | 'qualifiedName'>;
 export type NamedElementUnion = INamedElement | IElement;
 export type NamedElementFactory = () => NamedElement;
 export type NamedElementValidator = (instance: INamedElement) => ValidationResult;

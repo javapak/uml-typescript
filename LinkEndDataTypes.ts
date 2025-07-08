@@ -11,8 +11,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialLinkEndData = Partial<ILinkEndData>;
 export type RequiredLinkEndData = Required<ILinkEndData>;
-export type LinkEndDataMetadata = Pick<ILinkEndData, 'ownedComment'>;
-export type LinkEndDataSummary = Pick<ILinkEndData, 'eAnnotations' | 'ownedComment' | 'end'>;
 export type LinkEndDataUnion = ILinkEndData | IElement;
 export type LinkEndDataFactory = () => LinkEndData;
 export type LinkEndDataValidator = (instance: ILinkEndData) => ValidationResult;

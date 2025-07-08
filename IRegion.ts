@@ -22,7 +22,7 @@ export interface IRegion extends INamespace, IRedefinableElement {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  extendedRegion?: IRegion | string;
+  extendedRegion?: string;
   /**
    * state
    * 
@@ -31,7 +31,7 @@ export interface IRegion extends INamespace, IRedefinableElement {
    * @relationship cross-reference
    * @opposite region
    */
-  state?: IState | string;
+  state?: string;
   /**
    * stateMachine
    * 
@@ -40,7 +40,7 @@ export interface IRegion extends INamespace, IRedefinableElement {
    * @relationship cross-reference
    * @opposite region
    */
-  stateMachine?: IStateMachine | string;
+  stateMachine?: string;
   /**
    * transition
    * 
@@ -49,7 +49,7 @@ export interface IRegion extends INamespace, IRedefinableElement {
    * @relationship containment
    * @opposite container
    */
-  transition: Set<ITransition>;
+  transition?: Set<ITransition>;
   /**
    * subvertex
    * 
@@ -58,7 +58,7 @@ export interface IRegion extends INamespace, IRedefinableElement {
    * @relationship containment
    * @opposite container
    */
-  subvertex: Set<IVertex>;
+  subvertex?: Set<IVertex>;
 }
 
 // Type aliases for Region

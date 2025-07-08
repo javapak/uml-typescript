@@ -16,7 +16,7 @@ export interface ICallBehaviorAction extends ICallAction {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  behavior: IBehavior | string;
+  behavior: string;
 }
 
 // Type aliases for CallBehaviorAction

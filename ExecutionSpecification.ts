@@ -6,18 +6,13 @@
  * @abstract
  * @extends InteractionFragment
  */
-import { Comment } from './Comment';
-import { GeneralOrdering } from './GeneralOrdering';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IExecutionSpecification } from './IExecutionSpecification';
 import { IGeneralOrdering } from './IGeneralOrdering';
 import { IInteraction } from './IInteraction';
 import { IInteractionFragment } from './IInteractionFragment';
 import { IInteractionOperand } from './IInteractionOperand';
 import { ILifeline } from './ILifeline';
-import { INamespace } from './INamespace';
 import { IOccurrenceSpecification } from './IOccurrenceSpecification';
 import { IStringExpression } from './IStringExpression';
 import { InteractionFragment } from './InteractionFragment';
@@ -33,7 +28,7 @@ export class ExecutionSpecification extends InteractionFragment implements IExec
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public finish!: IOccurrenceSpecification | string;
+  public finish!: string;
 
   /**
    * start
@@ -42,20 +37,8 @@ export class ExecutionSpecification extends InteractionFragment implements IExec
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public start!: IOccurrenceSpecification | string;
+  public start!: string;
 
-  // Inherited from InteractionFragment
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from InteractionFragment
   /**
    * ownedComment
    * 
@@ -65,16 +48,14 @@ export class ExecutionSpecification extends InteractionFragment implements IExec
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from InteractionFragment
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from InteractionFragment
   /**
    * nameExpression
    * 
@@ -82,18 +63,15 @@ export class ExecutionSpecification extends InteractionFragment implements IExec
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from InteractionFragment
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from InteractionFragment
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * covered
    * 
@@ -102,9 +80,8 @@ export class ExecutionSpecification extends InteractionFragment implements IExec
    * @relationship cross-reference
    * @opposite coveredBy
    */
-  public covered: Set<ILifeline | string> = new Set();
+  public covered: Set<string> = new Set();
 
-  // Inherited from InteractionFragment
   /**
    * enclosingOperand
    * 
@@ -113,9 +90,8 @@ export class ExecutionSpecification extends InteractionFragment implements IExec
    * @relationship cross-reference
    * @opposite fragment
    */
-  public enclosingOperand?: IInteractionOperand | string = undefined;
+  public enclosingOperand?: string;
 
-  // Inherited from InteractionFragment
   /**
    * enclosingInteraction
    * 
@@ -124,9 +100,8 @@ export class ExecutionSpecification extends InteractionFragment implements IExec
    * @relationship cross-reference
    * @opposite fragment
    */
-  public enclosingInteraction?: IInteraction | string = undefined;
+  public enclosingInteraction?: string;
 
-  // Inherited from InteractionFragment
   /**
    * generalOrdering
    * 
@@ -136,24 +111,26 @@ export class ExecutionSpecification extends InteractionFragment implements IExec
    */
   public generalOrdering: Set<IGeneralOrdering> = new Set();
 
+
   constructor(init?: Partial<IExecutionSpecification>) {
     super(init);
-    this.finish = init?.finish!;
-    this.start = init?.start!;
+
+    this.finish = init?.finish ?? '';
+    this.start = init?.start ?? '';
   }
-  getFinish(): IOccurrenceSpecification | string {
+  getFinish(): string {
     return this.finish;
   }
 
-  setFinish(value: IOccurrenceSpecification | string): void {
+  setFinish(value: string): void {
     this.finish = value;
   }
 
-  getStart(): IOccurrenceSpecification | string {
+  getStart(): string {
     return this.start;
   }
 
-  setStart(value: IOccurrenceSpecification | string): void {
+  setStart(value: string): void {
     this.start = value;
   }
 
@@ -220,9 +197,6 @@ export class ExecutionSpecification extends InteractionFragment implements IExec
   static fromJSON(json: any): ExecutionSpecification {
     const instance = new ExecutionSpecification();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

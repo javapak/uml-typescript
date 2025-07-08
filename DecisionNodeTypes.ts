@@ -10,9 +10,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialDecisionNode = Partial<IDecisionNode>;
 export type RequiredDecisionNode = Required<IDecisionNode>;
-export type DecisionNodeKey = Pick<IDecisionNode, 'name' | 'nameExpression'>;
-export type DecisionNodeMetadata = Pick<IDecisionNode, 'ownedComment' | 'visibility'>;
-export type DecisionNodeSummary = Pick<IDecisionNode, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type DecisionNodeUnion = IDecisionNode | IControlNode;
 export type DecisionNodeFactory = () => DecisionNode;
 export type DecisionNodeValidator = (instance: IDecisionNode) => ValidationResult;

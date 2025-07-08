@@ -25,7 +25,7 @@ export interface IElementImport extends IDirectedRelationship {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  importedElement: IPackageableElement | string;
+  importedElement: string;
   /**
    * importingNamespace
    * 
@@ -34,14 +34,14 @@ export interface IElementImport extends IDirectedRelationship {
    * @relationship cross-reference
    * @opposite elementImport
    */
-  importingNamespace: INamespace | string;
+  importingNamespace: string;
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [1..1]
    */
-  visibility: any;
+  visibility: VisibilityKind;
 }
 
 // Type aliases for ElementImport

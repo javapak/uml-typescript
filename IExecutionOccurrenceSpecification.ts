@@ -16,7 +16,7 @@ export interface IExecutionOccurrenceSpecification extends IOccurrenceSpecificat
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  execution: IExecutionSpecification | string;
+  execution: string;
 }
 
 // Type aliases for ExecutionOccurrenceSpecification

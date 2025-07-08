@@ -6,33 +6,20 @@
  * @extends Transition
  */
 import { Behavior } from './Behavior';
-import { Comment } from './Comment';
-import { Constraint } from './Constraint';
-import { ElementImport } from './ElementImport';
 import { IBehavior } from './IBehavior';
-import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IElementImport } from './IElementImport';
-import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
-import { IOperation } from './IOperation';
 import { IPackageImport } from './IPackageImport';
-import { IPackageableElement } from './IPackageableElement';
 import { IProtocolTransition } from './IProtocolTransition';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IRegion } from './IRegion';
 import { IStringExpression } from './IStringExpression';
 import { ITransition } from './ITransition';
 import { ITrigger } from './ITrigger';
 import { IVertex } from './IVertex';
-import { PackageImport } from './PackageImport';
 import { StringExpression } from './StringExpression';
 import { Transition } from './Transition';
 import { TransitionKind } from './TransitionKind';
-import { Trigger } from './Trigger';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
 
@@ -44,7 +31,7 @@ export class ProtocolTransition extends Transition implements IProtocolTransitio
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public postCondition?: IConstraint | string = undefined;
+  public postCondition?: string;
 
   /**
    * preCondition
@@ -53,20 +40,8 @@ export class ProtocolTransition extends Transition implements IProtocolTransitio
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public preCondition?: IConstraint | string = undefined;
+  public preCondition?: string;
 
-  // Inherited from Transition
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Transition
   /**
    * ownedComment
    * 
@@ -76,16 +51,14 @@ export class ProtocolTransition extends Transition implements IProtocolTransitio
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Transition
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Transition
   /**
    * nameExpression
    * 
@@ -93,18 +66,15 @@ export class ProtocolTransition extends Transition implements IProtocolTransitio
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Transition
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Transition
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * ownedRule
    * 
@@ -115,7 +85,6 @@ export class ProtocolTransition extends Transition implements IProtocolTransitio
    */
   public ownedRule: Set<IConstraint> = new Set();
 
-  // Inherited from Transition
   /**
    * elementImport
    * 
@@ -126,7 +95,6 @@ export class ProtocolTransition extends Transition implements IProtocolTransitio
    */
   public elementImport: Set<IElementImport> = new Set();
 
-  // Inherited from Transition
   /**
    * packageImport
    * 
@@ -137,7 +105,6 @@ export class ProtocolTransition extends Transition implements IProtocolTransitio
    */
   public packageImport: Set<IPackageImport> = new Set();
 
-  // Inherited from Transition
   /**
    * isLeaf
    * 
@@ -146,7 +113,6 @@ export class ProtocolTransition extends Transition implements IProtocolTransitio
    */
   public isLeaf!: boolean;
 
-  // Inherited from Transition
   /**
    * effect
    * 
@@ -154,9 +120,8 @@ export class ProtocolTransition extends Transition implements IProtocolTransitio
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public effect?: IBehavior = undefined;
+  public effect?: IBehavior;
 
-  // Inherited from Transition
   /**
    * guard
    * 
@@ -164,18 +129,15 @@ export class ProtocolTransition extends Transition implements IProtocolTransitio
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public guard?: IConstraint | string = undefined;
+  public guard?: string;
 
-  // Inherited from Transition
   /**
    * kind
    * 
    * @type TransitionKind
    * @multiplicity [1..1]
    */
-  public kind!: any;
-
-  // Inherited from Transition
+  public kind: TransitionKind = TransitionKind.internal;
   /**
    * redefinedTransition
    * 
@@ -183,9 +145,8 @@ export class ProtocolTransition extends Transition implements IProtocolTransitio
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public redefinedTransition?: ITransition | string = undefined;
+  public redefinedTransition?: string;
 
-  // Inherited from Transition
   /**
    * source
    * 
@@ -193,9 +154,8 @@ export class ProtocolTransition extends Transition implements IProtocolTransitio
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public source!: IVertex | string;
+  public source!: string;
 
-  // Inherited from Transition
   /**
    * target
    * 
@@ -203,9 +163,8 @@ export class ProtocolTransition extends Transition implements IProtocolTransitio
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public target!: IVertex | string;
+  public target!: string;
 
-  // Inherited from Transition
   /**
    * trigger
    * 
@@ -215,7 +174,6 @@ export class ProtocolTransition extends Transition implements IProtocolTransitio
    */
   public trigger: Set<ITrigger> = new Set();
 
-  // Inherited from Transition
   /**
    * container
    * 
@@ -224,26 +182,28 @@ export class ProtocolTransition extends Transition implements IProtocolTransitio
    * @relationship cross-reference
    * @opposite transition
    */
-  public container!: IRegion | string;
+  public container!: string;
+
 
   constructor(init?: Partial<IProtocolTransition>) {
     super(init);
-    this.postCondition = init?.postCondition ?? undefined;
-    this.preCondition = init?.preCondition ?? undefined;
+
+    this.postCondition = init?.postCondition;
+    this.preCondition = init?.preCondition;
   }
-  getPostCondition(): IConstraint | string | undefined {
+  getPostCondition(): string | undefined {
     return this.postCondition;
   }
 
-  setPostCondition(value: IConstraint | string | undefined): void {
+  setPostCondition(value: string | undefined): void {
     this.postCondition = value;
   }
 
-  getPreCondition(): IConstraint | string | undefined {
+  getPreCondition(): string | undefined {
     return this.preCondition;
   }
 
-  setPreCondition(value: IConstraint | string | undefined): void {
+  setPreCondition(value: string | undefined): void {
     this.preCondition = value;
   }
 
@@ -314,9 +274,6 @@ export class ProtocolTransition extends Transition implements IProtocolTransitio
   static fromJSON(json: any): ProtocolTransition {
     const instance = new ProtocolTransition();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

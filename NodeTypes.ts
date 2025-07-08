@@ -9,9 +9,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialNode = Partial<INode>;
 export type RequiredNode = Required<INode>;
-export type NodeKey = Pick<INode, 'name' | 'nameExpression'>;
-export type NodeMetadata = Pick<INode, 'ownedComment' | 'visibility' | 'ownedRule' | 'ownedTemplateSignature' | 'ownedUseCase' | 'ownedAttribute' | 'ownedConnector' | 'ownedBehavior' | 'ownedOperation' | 'ownedReception'>;
-export type NodeSummary = Pick<INode, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type NodeUnion = INode | IClass | IDeploymentTarget;
 export type NodeFactory = () => Node;
 export type NodeValidator = (instance: INode) => ValidationResult;

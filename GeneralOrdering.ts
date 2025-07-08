@@ -5,13 +5,9 @@
  * @package uml
  * @extends NamedElement
  */
-import { Comment } from './Comment';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IGeneralOrdering } from './IGeneralOrdering';
 import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IOccurrenceSpecification } from './IOccurrenceSpecification';
 import { IStringExpression } from './IStringExpression';
 import { NamedElement } from './NamedElement';
@@ -28,7 +24,7 @@ export class GeneralOrdering extends NamedElement implements IGeneralOrdering {
    * @relationship cross-reference
    * @opposite toBefore
    */
-  public after!: IOccurrenceSpecification | string;
+  public after!: string;
 
   /**
    * before
@@ -38,20 +34,8 @@ export class GeneralOrdering extends NamedElement implements IGeneralOrdering {
    * @relationship cross-reference
    * @opposite toAfter
    */
-  public before!: IOccurrenceSpecification | string;
+  public before!: string;
 
-  // Inherited from NamedElement
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from NamedElement
   /**
    * ownedComment
    * 
@@ -61,16 +45,14 @@ export class GeneralOrdering extends NamedElement implements IGeneralOrdering {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from NamedElement
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from NamedElement
   /**
    * nameExpression
    * 
@@ -78,35 +60,35 @@ export class GeneralOrdering extends NamedElement implements IGeneralOrdering {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from NamedElement
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
+  public visibility: VisibilityKind | undefined = undefined;
 
   constructor(init?: Partial<IGeneralOrdering>) {
     super(init);
-    this.after = init?.after!;
-    this.before = init?.before!;
+
+    this.after = init?.after ?? '';
+    this.before = init?.before ?? '';
   }
-  getAfter(): IOccurrenceSpecification | string {
+  getAfter(): string {
     return this.after;
   }
 
-  setAfter(value: IOccurrenceSpecification | string): void {
+  setAfter(value: string): void {
     this.after = value;
   }
 
-  getBefore(): IOccurrenceSpecification | string {
+  getBefore(): string {
     return this.before;
   }
 
-  setBefore(value: IOccurrenceSpecification | string): void {
+  setBefore(value: string): void {
     this.before = value;
   }
 
@@ -173,9 +155,6 @@ export class GeneralOrdering extends NamedElement implements IGeneralOrdering {
   static fromJSON(json: any): GeneralOrdering {
     const instance = new GeneralOrdering();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

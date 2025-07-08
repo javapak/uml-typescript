@@ -5,12 +5,8 @@
  * @package uml
  * @extends ValueSpecification
  */
-import { Comment } from './Comment';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IExpression } from './IExpression';
-import { INamespace } from './INamespace';
 import { IStringExpression } from './IStringExpression';
 import { ITemplateParameter } from './ITemplateParameter';
 import { IType } from './IType';
@@ -36,20 +32,8 @@ export class Expression extends ValueSpecification implements IExpression {
    * @type String
    * @multiplicity [0..1]
    */
-  public symbol?: string = undefined;
+  public symbol?: string;
 
-  // Inherited from ValueSpecification
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from ValueSpecification
   /**
    * ownedComment
    * 
@@ -59,16 +43,14 @@ export class Expression extends ValueSpecification implements IExpression {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from ValueSpecification
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from ValueSpecification
   /**
    * nameExpression
    * 
@@ -76,18 +58,15 @@ export class Expression extends ValueSpecification implements IExpression {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from ValueSpecification
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from ValueSpecification
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * owningTemplateParameter
    * 
@@ -96,9 +75,8 @@ export class Expression extends ValueSpecification implements IExpression {
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from ValueSpecification
   /**
    * templateParameter
    * 
@@ -107,9 +85,8 @@ export class Expression extends ValueSpecification implements IExpression {
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from ValueSpecification
   /**
    * type
    * 
@@ -117,12 +94,14 @@ export class Expression extends ValueSpecification implements IExpression {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public type?: IType | string = undefined;
+  public type?: string;
+
 
   constructor(init?: Partial<IExpression>) {
     super(init);
-    this.operand = init?.operand ?? [];
-    this.symbol = init?.symbol ?? undefined;
+
+    this.operand = init?.operand ? [...init.operand] : [];
+    this.symbol = init?.symbol;
   }
   getOperand(): IValueSpecification[] {
     return this.operand;
@@ -205,9 +184,6 @@ export class Expression extends ValueSpecification implements IExpression {
   static fromJSON(json: any): Expression {
     const instance = new Expression();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

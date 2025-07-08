@@ -15,9 +15,7 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialProperty = Partial<IProperty>;
 export type RequiredProperty = Required<IProperty>;
-export type PropertyKey = Pick<IProperty, 'name' | 'nameExpression' | 'isID'>;
-export type PropertyMetadata = Pick<IProperty, 'ownedComment' | 'visibility'>;
-export type PropertySummary = Pick<IProperty, 'eAnnotations' | 'ownedComment' | 'name'>;
+export type PropertyKey = Pick<IProperty, 'isID'>;
 export type PropertyUnion = IProperty | IStructuralFeature | IConnectableElement | IDeploymentTarget;
 export type PropertyFactory = () => Property;
 export type PropertyValidator = (instance: IProperty) => ValidationResult;

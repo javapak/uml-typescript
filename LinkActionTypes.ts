@@ -10,9 +10,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialLinkAction = Partial<ILinkAction>;
 export type RequiredLinkAction = Required<ILinkAction>;
-export type LinkActionKey = Pick<ILinkAction, 'name' | 'nameExpression'>;
-export type LinkActionMetadata = Pick<ILinkAction, 'ownedComment' | 'visibility'>;
-export type LinkActionSummary = Pick<ILinkAction, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type LinkActionUnion = ILinkAction | IAction;
 export type LinkActionFactory = () => LinkAction;
 export type LinkActionValidator = (instance: ILinkAction) => ValidationResult;

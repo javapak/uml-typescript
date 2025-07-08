@@ -35,7 +35,7 @@ export interface IReduceAction extends IAction {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  reducer: IBehavior | string;
+  reducer: string;
   /**
    * result
    * 

@@ -5,22 +5,14 @@
  * @package uml
  * @extends Pin
  */
-import { Comment } from './Comment';
-import { IActivity } from './IActivity';
 import { IActivityEdge } from './IActivityEdge';
-import { IActivityGroup } from './IActivityGroup';
 import { IActivityNode } from './IActivityNode';
 import { IActivityPartition } from './IActivityPartition';
 import { IBehavior } from './IBehavior';
-import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IInputPin } from './IInputPin';
 import { IInterruptibleActivityRegion } from './IInterruptibleActivityRegion';
-import { INamespace } from './INamespace';
 import { IPin } from './IPin';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IState } from './IState';
 import { IStringExpression } from './IStringExpression';
 import { IStructuredActivityNode } from './IStructuredActivityNode';
@@ -34,18 +26,6 @@ import { ValueSpecification } from './ValueSpecification';
 import { VisibilityKind } from './VisibilityKind';
 
 export class InputPin extends Pin implements IInputPin {
-  // Inherited from Pin
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Pin
   /**
    * ownedComment
    * 
@@ -55,16 +35,14 @@ export class InputPin extends Pin implements IInputPin {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Pin
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Pin
   /**
    * nameExpression
    * 
@@ -72,18 +50,15 @@ export class InputPin extends Pin implements IInputPin {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Pin
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Pin
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * isLeaf
    * 
@@ -92,7 +67,6 @@ export class InputPin extends Pin implements IInputPin {
    */
   public isLeaf!: boolean;
 
-  // Inherited from Pin
   /**
    * inInterruptibleRegion
    * 
@@ -101,9 +75,8 @@ export class InputPin extends Pin implements IInputPin {
    * @relationship cross-reference
    * @opposite node
    */
-  public inInterruptibleRegion: Set<IInterruptibleActivityRegion | string> = new Set();
+  public inInterruptibleRegion: Set<string> = new Set();
 
-  // Inherited from Pin
   /**
    * inStructuredNode
    * 
@@ -112,9 +85,8 @@ export class InputPin extends Pin implements IInputPin {
    * @relationship cross-reference
    * @opposite node
    */
-  public inStructuredNode?: IStructuredActivityNode | string = undefined;
+  public inStructuredNode?: string;
 
-  // Inherited from Pin
   /**
    * incoming
    * 
@@ -123,9 +95,8 @@ export class InputPin extends Pin implements IInputPin {
    * @relationship cross-reference
    * @opposite target
    */
-  public incoming: Set<IActivityEdge | string> = new Set();
+  public incoming: Set<string> = new Set();
 
-  // Inherited from Pin
   /**
    * outgoing
    * 
@@ -134,9 +105,8 @@ export class InputPin extends Pin implements IInputPin {
    * @relationship cross-reference
    * @opposite source
    */
-  public outgoing: Set<IActivityEdge | string> = new Set();
+  public outgoing: Set<string> = new Set();
 
-  // Inherited from Pin
   /**
    * redefinedNode
    * 
@@ -144,9 +114,8 @@ export class InputPin extends Pin implements IInputPin {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedNode: Set<IActivityNode | string> = new Set();
+  public redefinedNode: Set<string> = new Set();
 
-  // Inherited from Pin
   /**
    * inPartition
    * 
@@ -155,9 +124,8 @@ export class InputPin extends Pin implements IInputPin {
    * @relationship cross-reference
    * @opposite node
    */
-  public inPartition: Set<IActivityPartition | string> = new Set();
+  public inPartition: Set<string> = new Set();
 
-  // Inherited from Pin
   /**
    * type
    * 
@@ -165,9 +133,8 @@ export class InputPin extends Pin implements IInputPin {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public type?: IType | string = undefined;
+  public type?: string;
 
-  // Inherited from Pin
   /**
    * inState
    * 
@@ -175,9 +142,8 @@ export class InputPin extends Pin implements IInputPin {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public inState: Set<IState | string> = new Set();
+  public inState: Set<string> = new Set();
 
-  // Inherited from Pin
   /**
    * isControlType
    * 
@@ -186,16 +152,13 @@ export class InputPin extends Pin implements IInputPin {
    */
   public isControlType!: boolean;
 
-  // Inherited from Pin
   /**
    * ordering
    * 
    * @type ObjectNodeOrderingKind
    * @multiplicity [1..1]
    */
-  public ordering!: any;
-
-  // Inherited from Pin
+  public ordering: ObjectNodeOrderingKind = ObjectNodeOrderingKind.unordered;
   /**
    * selection
    * 
@@ -203,9 +166,8 @@ export class InputPin extends Pin implements IInputPin {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public selection?: IBehavior | string = undefined;
+  public selection?: string;
 
-  // Inherited from Pin
   /**
    * upperBound
    * 
@@ -213,9 +175,8 @@ export class InputPin extends Pin implements IInputPin {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public upperBound?: IValueSpecification = undefined;
+  public upperBound?: IValueSpecification;
 
-  // Inherited from Pin
   /**
    * isOrdered
    * 
@@ -224,7 +185,6 @@ export class InputPin extends Pin implements IInputPin {
    */
   public isOrdered!: boolean;
 
-  // Inherited from Pin
   /**
    * isUnique
    * 
@@ -233,7 +193,6 @@ export class InputPin extends Pin implements IInputPin {
    */
   public isUnique!: boolean;
 
-  // Inherited from Pin
   /**
    * lowerValue
    * 
@@ -241,9 +200,8 @@ export class InputPin extends Pin implements IInputPin {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public lowerValue?: IValueSpecification = undefined;
+  public lowerValue?: IValueSpecification;
 
-  // Inherited from Pin
   /**
    * upperValue
    * 
@@ -251,9 +209,8 @@ export class InputPin extends Pin implements IInputPin {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public upperValue?: IValueSpecification = undefined;
+  public upperValue?: IValueSpecification;
 
-  // Inherited from Pin
   /**
    * isControl
    * 
@@ -262,8 +219,10 @@ export class InputPin extends Pin implements IInputPin {
    */
   public isControl!: boolean;
 
+
   constructor(init?: Partial<IInputPin>) {
     super(init);
+
   }
   /**
    * Converts this instance to a plain object matching the interface
@@ -324,9 +283,6 @@ export class InputPin extends Pin implements IInputPin {
   static fromJSON(json: any): InputPin {
     const instance = new InputPin();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

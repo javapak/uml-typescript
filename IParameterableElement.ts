@@ -18,7 +18,7 @@ export interface IParameterableElement extends IElement {
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  owningTemplateParameter?: ITemplateParameter | string;
+  owningTemplateParameter?: string;
   /**
    * templateParameter
    * 
@@ -27,7 +27,7 @@ export interface IParameterableElement extends IElement {
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  templateParameter?: ITemplateParameter | string;
+  templateParameter?: string;
 }
 
 // Type aliases for ParameterableElement

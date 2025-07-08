@@ -16,7 +16,7 @@ export interface ISignalEvent extends IMessageEvent {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  signal: ISignal | string;
+  signal: string;
 }
 
 // Type aliases for SignalEvent

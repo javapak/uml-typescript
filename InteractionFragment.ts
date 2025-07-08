@@ -6,18 +6,13 @@
  * @abstract
  * @extends NamedElement
  */
-import { Comment } from './Comment';
-import { GeneralOrdering } from './GeneralOrdering';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IGeneralOrdering } from './IGeneralOrdering';
 import { IInteraction } from './IInteraction';
 import { IInteractionFragment } from './IInteractionFragment';
 import { IInteractionOperand } from './IInteractionOperand';
 import { ILifeline } from './ILifeline';
 import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IStringExpression } from './IStringExpression';
 import { NamedElement } from './NamedElement';
 import { StringExpression } from './StringExpression';
@@ -33,7 +28,7 @@ export class InteractionFragment extends NamedElement implements IInteractionFra
    * @relationship cross-reference
    * @opposite coveredBy
    */
-  public covered: Set<ILifeline | string> = new Set();
+  public covered: Set<string> = new Set();
 
   /**
    * enclosingOperand
@@ -43,7 +38,7 @@ export class InteractionFragment extends NamedElement implements IInteractionFra
    * @relationship cross-reference
    * @opposite fragment
    */
-  public enclosingOperand?: IInteractionOperand | string = undefined;
+  public enclosingOperand?: string;
 
   /**
    * enclosingInteraction
@@ -53,7 +48,7 @@ export class InteractionFragment extends NamedElement implements IInteractionFra
    * @relationship cross-reference
    * @opposite fragment
    */
-  public enclosingInteraction?: IInteraction | string = undefined;
+  public enclosingInteraction?: string;
 
   /**
    * generalOrdering
@@ -64,18 +59,6 @@ export class InteractionFragment extends NamedElement implements IInteractionFra
    */
   public generalOrdering: Set<IGeneralOrdering> = new Set();
 
-  // Inherited from NamedElement
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from NamedElement
   /**
    * ownedComment
    * 
@@ -85,16 +68,14 @@ export class InteractionFragment extends NamedElement implements IInteractionFra
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from NamedElement
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from NamedElement
   /**
    * nameExpression
    * 
@@ -102,45 +83,45 @@ export class InteractionFragment extends NamedElement implements IInteractionFra
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from NamedElement
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
+  public visibility: VisibilityKind | undefined = undefined;
 
   constructor(init?: Partial<IInteractionFragment>) {
     super(init);
-    this.covered = init?.covered ?? new Set();
-    this.enclosingOperand = init?.enclosingOperand ?? undefined;
-    this.enclosingInteraction = init?.enclosingInteraction ?? undefined;
-    this.generalOrdering = init?.generalOrdering ?? new Set();
+
+    this.covered = init?.covered ? new Set(init.covered) : new Set();
+    this.enclosingOperand = init?.enclosingOperand;
+    this.enclosingInteraction = init?.enclosingInteraction;
+    this.generalOrdering = init?.generalOrdering ? new Set(init.generalOrdering) : new Set();
   }
-  getCovered(): Set<ILifeline | string> {
+  getCovered(): Set<string> {
     return this.covered;
   }
 
-  setCovered(value: Set<ILifeline | string>): void {
+  setCovered(value: Set<string>): void {
     this.covered = value;
   }
 
-  getEnclosingOperand(): IInteractionOperand | string | undefined {
+  getEnclosingOperand(): string | undefined {
     return this.enclosingOperand;
   }
 
-  setEnclosingOperand(value: IInteractionOperand | string | undefined): void {
+  setEnclosingOperand(value: string | undefined): void {
     this.enclosingOperand = value;
   }
 
-  getEnclosingInteraction(): IInteraction | string | undefined {
+  getEnclosingInteraction(): string | undefined {
     return this.enclosingInteraction;
   }
 
-  setEnclosingInteraction(value: IInteraction | string | undefined): void {
+  setEnclosingInteraction(value: string | undefined): void {
     this.enclosingInteraction = value;
   }
 
@@ -223,9 +204,6 @@ export class InteractionFragment extends NamedElement implements IInteractionFra
   static fromJSON(json: any): InteractionFragment {
     const instance = new InteractionFragment();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

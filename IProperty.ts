@@ -24,7 +24,7 @@ export interface IProperty extends IStructuralFeature, IConnectableElement, IDep
    * @relationship cross-reference
    * @opposite ownedAttribute
    */
-  datatype?: IDataType | string;
+  datatype?: string;
   /**
    * interface
    * 
@@ -33,14 +33,14 @@ export interface IProperty extends IStructuralFeature, IConnectableElement, IDep
    * @relationship cross-reference
    * @opposite ownedAttribute
    */
-  interface?: IInterface | string;
+  interface?: string;
   /**
    * aggregation
    * 
    * @type AggregationKind
    * @multiplicity [1..1]
    */
-  aggregation: any;
+  aggregation: AggregationKind;
   /**
    * associationEnd
    * 
@@ -49,7 +49,7 @@ export interface IProperty extends IStructuralFeature, IConnectableElement, IDep
    * @relationship cross-reference
    * @opposite qualifier
    */
-  associationEnd?: IProperty | string;
+  associationEnd?: string;
   /**
    * qualifier
    * 
@@ -58,7 +58,7 @@ export interface IProperty extends IStructuralFeature, IConnectableElement, IDep
    * @relationship containment
    * @opposite associationEnd
    */
-  qualifier: IProperty[];
+  qualifier?: IProperty[];
   /**
    * defaultValue
    * 
@@ -96,7 +96,7 @@ export interface IProperty extends IStructuralFeature, IConnectableElement, IDep
    * @relationship cross-reference
    * @opposite ownedEnd
    */
-  owningAssociation?: IAssociation | string;
+  owningAssociation?: string;
   /**
    * redefinedProperty
    * 
@@ -104,7 +104,7 @@ export interface IProperty extends IStructuralFeature, IConnectableElement, IDep
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  redefinedProperty: Set<IProperty | string>;
+  redefinedProperty?: Set<string>;
   /**
    * subsettedProperty
    * 
@@ -112,7 +112,7 @@ export interface IProperty extends IStructuralFeature, IConnectableElement, IDep
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  subsettedProperty: Set<IProperty | string>;
+  subsettedProperty?: Set<string>;
   /**
    * association
    * 
@@ -121,7 +121,7 @@ export interface IProperty extends IStructuralFeature, IConnectableElement, IDep
    * @relationship cross-reference
    * @opposite memberEnd
    */
-  association?: IAssociation | string;
+  association?: string;
 }
 
 // Type aliases for Property

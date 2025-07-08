@@ -22,7 +22,7 @@ export interface IInstanceSpecification extends IDeploymentTarget, IPackageableE
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  classifier: Set<IClassifier | string>;
+  classifier?: Set<string>;
   /**
    * slot
    * 
@@ -31,7 +31,7 @@ export interface IInstanceSpecification extends IDeploymentTarget, IPackageableE
    * @relationship containment
    * @opposite owningInstance
    */
-  slot: Set<ISlot>;
+  slot?: Set<ISlot>;
   /**
    * specification
    * 

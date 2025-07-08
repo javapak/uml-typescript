@@ -18,7 +18,7 @@ export interface IExceptionHandler extends IElement {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  exceptionInput: IObjectNode | string;
+  exceptionInput: string;
   /**
    * exceptionType
    * 
@@ -26,7 +26,7 @@ export interface IExceptionHandler extends IElement {
    * @multiplicity [1..*]
    * @relationship cross-reference
    */
-  exceptionType: Set<IClassifier | string>;
+  exceptionType: Set<string>;
   /**
    * handlerBody
    * 
@@ -34,7 +34,7 @@ export interface IExceptionHandler extends IElement {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  handlerBody: IExecutableNode | string;
+  handlerBody: string;
   /**
    * protectedNode
    * 
@@ -43,7 +43,7 @@ export interface IExceptionHandler extends IElement {
    * @relationship cross-reference
    * @opposite handler
    */
-  protectedNode: IExecutableNode | string;
+  protectedNode: string;
 }
 
 // Type aliases for ExceptionHandler

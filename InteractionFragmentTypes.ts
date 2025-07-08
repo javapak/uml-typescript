@@ -12,9 +12,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialInteractionFragment = Partial<IInteractionFragment>;
 export type RequiredInteractionFragment = Required<IInteractionFragment>;
-export type InteractionFragmentKey = Pick<IInteractionFragment, 'name' | 'nameExpression'>;
-export type InteractionFragmentMetadata = Pick<IInteractionFragment, 'ownedComment' | 'visibility'>;
-export type InteractionFragmentSummary = Pick<IInteractionFragment, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type InteractionFragmentUnion = IInteractionFragment | INamedElement;
 export type InteractionFragmentFactory = () => InteractionFragment;
 export type InteractionFragmentValidator = (instance: IInteractionFragment) => ValidationResult;

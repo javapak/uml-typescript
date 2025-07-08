@@ -16,7 +16,7 @@ export interface IPackageMerge extends IDirectedRelationship {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  mergedPackage: IPackage | string;
+  mergedPackage: string;
   /**
    * receivingPackage
    * 
@@ -25,7 +25,7 @@ export interface IPackageMerge extends IDirectedRelationship {
    * @relationship cross-reference
    * @opposite packageMerge
    */
-  receivingPackage: IPackage | string;
+  receivingPackage: string;
 }
 
 // Type aliases for PackageMerge

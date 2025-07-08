@@ -6,13 +6,8 @@
  * @abstract
  * @extends TypedElement, ParameterableElement
  */
-import { Comment } from './Comment';
 import { IComment } from './IComment';
 import { IConnectableElement } from './IConnectableElement';
-import { IConnectorEnd } from './IConnectorEnd';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
-import { INamespace } from './INamespace';
 import { IParameterableElement } from './IParameterableElement';
 import { IStringExpression } from './IStringExpression';
 import { ITemplateParameter } from './ITemplateParameter';
@@ -25,18 +20,6 @@ import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
 
 export class ConnectableElement extends TypedElement implements IConnectableElement {
-  // Inherited from TypedElement
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from TypedElement
   /**
    * ownedComment
    * 
@@ -46,16 +29,14 @@ export class ConnectableElement extends TypedElement implements IConnectableElem
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from TypedElement
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from TypedElement
   /**
    * nameExpression
    * 
@@ -63,18 +44,15 @@ export class ConnectableElement extends TypedElement implements IConnectableElem
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from TypedElement
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from TypedElement
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * type
    * 
@@ -82,9 +60,17 @@ export class ConnectableElement extends TypedElement implements IConnectableElem
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public type?: IType | string = undefined;
+  public type?: string;
 
-  // Inherited from ParameterableElement
+  /**
+   * ownedComment
+   * 
+   * @type Comment
+   * @multiplicity [0..*]
+   * @relationship containment
+   */
+  public ownedComment: Set<IComment> = new Set();
+
   /**
    * owningTemplateParameter
    * 
@@ -93,9 +79,8 @@ export class ConnectableElement extends TypedElement implements IConnectableElem
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from ParameterableElement
   /**
    * templateParameter
    * 
@@ -104,10 +89,12 @@ export class ConnectableElement extends TypedElement implements IConnectableElem
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
+
 
   constructor(init?: Partial<IConnectableElement>) {
     super(init);
+
   }
   /**
    * Converts this instance to a plain object matching the interface
@@ -168,9 +155,6 @@ export class ConnectableElement extends TypedElement implements IConnectableElem
   static fromJSON(json: any): ConnectableElement {
     const instance = new ConnectableElement();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

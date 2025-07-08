@@ -15,9 +15,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialInformationFlow = Partial<IInformationFlow>;
 export type RequiredInformationFlow = Required<IInformationFlow>;
-export type InformationFlowKey = Pick<IInformationFlow, 'name' | 'nameExpression'>;
-export type InformationFlowMetadata = Pick<IInformationFlow, 'ownedComment' | 'visibility'>;
-export type InformationFlowSummary = Pick<IInformationFlow, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type InformationFlowUnion = IInformationFlow | IPackageableElement | IDirectedRelationship;
 export type InformationFlowFactory = () => InformationFlow;
 export type InformationFlowValidator = (instance: IInformationFlow) => ValidationResult;

@@ -6,61 +6,29 @@
  * @extends Association
  */
 import { Association } from './Association';
-import { CollaborationUse } from './CollaborationUse';
-import { Comment } from './Comment';
-import { Constraint } from './Constraint';
-import { ElementImport } from './ElementImport';
-import { Generalization } from './Generalization';
 import { IAssociation } from './IAssociation';
-import { IClass } from './IClass';
 import { IClassifier } from './IClassifier';
 import { ICollaborationUse } from './ICollaborationUse';
 import { IComment } from './IComment';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IElementImport } from './IElementImport';
 import { IExtension } from './IExtension';
-import { IFeature } from './IFeature';
 import { IGeneralization } from './IGeneralization';
 import { IGeneralizationSet } from './IGeneralizationSet';
-import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
-import { IPackage } from './IPackage';
 import { IPackageImport } from './IPackageImport';
-import { IPackageableElement } from './IPackageableElement';
 import { IProperty } from './IProperty';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { ISubstitution } from './ISubstitution';
 import { ITemplateBinding } from './ITemplateBinding';
 import { ITemplateParameter } from './ITemplateParameter';
 import { ITemplateSignature } from './ITemplateSignature';
-import { IType } from './IType';
 import { IUseCase } from './IUseCase';
-import { PackageImport } from './PackageImport';
-import { Property } from './Property';
 import { StringExpression } from './StringExpression';
-import { Substitution } from './Substitution';
-import { TemplateBinding } from './TemplateBinding';
 import { TemplateSignature } from './TemplateSignature';
-import { UseCase } from './UseCase';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
 
 export class Extension extends Association implements IExtension {
-  // Inherited from Association
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Association
   /**
    * ownedComment
    * 
@@ -70,16 +38,14 @@ export class Extension extends Association implements IExtension {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Association
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Association
   /**
    * nameExpression
    * 
@@ -87,18 +53,15 @@ export class Extension extends Association implements IExtension {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Association
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Association
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * ownedRule
    * 
@@ -109,7 +72,6 @@ export class Extension extends Association implements IExtension {
    */
   public ownedRule: Set<IConstraint> = new Set();
 
-  // Inherited from Association
   /**
    * elementImport
    * 
@@ -120,7 +82,6 @@ export class Extension extends Association implements IExtension {
    */
   public elementImport: Set<IElementImport> = new Set();
 
-  // Inherited from Association
   /**
    * packageImport
    * 
@@ -131,7 +92,6 @@ export class Extension extends Association implements IExtension {
    */
   public packageImport: Set<IPackageImport> = new Set();
 
-  // Inherited from Association
   /**
    * isLeaf
    * 
@@ -140,7 +100,6 @@ export class Extension extends Association implements IExtension {
    */
   public isLeaf!: boolean;
 
-  // Inherited from Association
   /**
    * owningTemplateParameter
    * 
@@ -149,9 +108,8 @@ export class Extension extends Association implements IExtension {
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from Association
   /**
    * templateParameter
    * 
@@ -160,9 +118,8 @@ export class Extension extends Association implements IExtension {
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from Association
   /**
    * templateBinding
    * 
@@ -173,7 +130,6 @@ export class Extension extends Association implements IExtension {
    */
   public templateBinding: Set<ITemplateBinding> = new Set();
 
-  // Inherited from Association
   /**
    * ownedTemplateSignature
    * 
@@ -182,9 +138,8 @@ export class Extension extends Association implements IExtension {
    * @relationship containment
    * @opposite template
    */
-  public ownedTemplateSignature?: ITemplateSignature = undefined;
+  public ownedTemplateSignature?: ITemplateSignature;
 
-  // Inherited from Association
   /**
    * collaborationUse
    * 
@@ -194,7 +149,6 @@ export class Extension extends Association implements IExtension {
    */
   public collaborationUse: Set<ICollaborationUse> = new Set();
 
-  // Inherited from Association
   /**
    * generalization
    * 
@@ -205,7 +159,6 @@ export class Extension extends Association implements IExtension {
    */
   public generalization: Set<IGeneralization> = new Set();
 
-  // Inherited from Association
   /**
    * powertypeExtent
    * 
@@ -214,9 +167,8 @@ export class Extension extends Association implements IExtension {
    * @relationship cross-reference
    * @opposite powertype
    */
-  public powertypeExtent: Set<IGeneralizationSet | string> = new Set();
+  public powertypeExtent: Set<string> = new Set();
 
-  // Inherited from Association
   /**
    * isAbstract
    * 
@@ -225,7 +177,6 @@ export class Extension extends Association implements IExtension {
    */
   public isAbstract!: boolean;
 
-  // Inherited from Association
   /**
    * isFinalSpecialization
    * 
@@ -234,7 +185,6 @@ export class Extension extends Association implements IExtension {
    */
   public isFinalSpecialization!: boolean;
 
-  // Inherited from Association
   /**
    * ownedUseCase
    * 
@@ -244,7 +194,6 @@ export class Extension extends Association implements IExtension {
    */
   public ownedUseCase: Set<IUseCase> = new Set();
 
-  // Inherited from Association
   /**
    * useCase
    * 
@@ -253,9 +202,8 @@ export class Extension extends Association implements IExtension {
    * @relationship cross-reference
    * @opposite subject
    */
-  public useCase: Set<IUseCase | string> = new Set();
+  public useCase: Set<string> = new Set();
 
-  // Inherited from Association
   /**
    * redefinedClassifier
    * 
@@ -263,9 +211,8 @@ export class Extension extends Association implements IExtension {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedClassifier: Set<IClassifier | string> = new Set();
+  public redefinedClassifier: Set<string> = new Set();
 
-  // Inherited from Association
   /**
    * representation
    * 
@@ -273,9 +220,8 @@ export class Extension extends Association implements IExtension {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public representation?: ICollaborationUse | string = undefined;
+  public representation?: string;
 
-  // Inherited from Association
   /**
    * substitution
    * 
@@ -286,7 +232,6 @@ export class Extension extends Association implements IExtension {
    */
   public substitution: Set<ISubstitution> = new Set();
 
-  // Inherited from Association
   /**
    * isDerived
    * 
@@ -295,7 +240,6 @@ export class Extension extends Association implements IExtension {
    */
   public isDerived!: boolean;
 
-  // Inherited from Association
   /**
    * memberEnd
    * 
@@ -304,9 +248,8 @@ export class Extension extends Association implements IExtension {
    * @relationship cross-reference
    * @opposite association
    */
-  public memberEnd: IProperty | string[] = [];
+  public memberEnd: string[] = [];
 
-  // Inherited from Association
   /**
    * ownedEnd
    * 
@@ -317,7 +260,6 @@ export class Extension extends Association implements IExtension {
    */
   public ownedEnd: IProperty[] = [];
 
-  // Inherited from Association
   /**
    * navigableOwnedEnd
    * 
@@ -325,10 +267,12 @@ export class Extension extends Association implements IExtension {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public navigableOwnedEnd: Set<IProperty | string> = new Set();
+  public navigableOwnedEnd: Set<string> = new Set();
+
 
   constructor(init?: Partial<IExtension>) {
     super(init);
+
   }
   /**
    * Converts this instance to a plain object matching the interface
@@ -389,9 +333,6 @@ export class Extension extends Association implements IExtension {
   static fromJSON(json: any): Extension {
     const instance = new Extension();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

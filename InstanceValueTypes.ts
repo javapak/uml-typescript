@@ -9,9 +9,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialInstanceValue = Partial<IInstanceValue>;
 export type RequiredInstanceValue = Required<IInstanceValue>;
-export type InstanceValueKey = Pick<IInstanceValue, 'name' | 'nameExpression'>;
-export type InstanceValueMetadata = Pick<IInstanceValue, 'ownedComment' | 'visibility'>;
-export type InstanceValueSummary = Pick<IInstanceValue, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type InstanceValueUnion = IInstanceValue | IValueSpecification;
 export type InstanceValueFactory = () => InstanceValue;
 export type InstanceValueValidator = (instance: IInstanceValue) => ValidationResult;

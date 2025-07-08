@@ -5,11 +5,9 @@
  * @package uml
  * @extends Constraint
  */
-import { Comment } from './Comment';
 import { Constraint } from './Constraint';
 import { IComment } from './IComment';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
 import { IElement } from './IElement';
 import { IInteractionConstraint } from './IInteractionConstraint';
 import { INamespace } from './INamespace';
@@ -29,7 +27,7 @@ export class InteractionConstraint extends Constraint implements IInteractionCon
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public maxint?: IValueSpecification = undefined;
+  public maxint?: IValueSpecification;
 
   /**
    * minint
@@ -38,20 +36,8 @@ export class InteractionConstraint extends Constraint implements IInteractionCon
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public minint?: IValueSpecification = undefined;
+  public minint?: IValueSpecification;
 
-  // Inherited from Constraint
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Constraint
   /**
    * ownedComment
    * 
@@ -61,16 +47,14 @@ export class InteractionConstraint extends Constraint implements IInteractionCon
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Constraint
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Constraint
   /**
    * nameExpression
    * 
@@ -78,18 +62,15 @@ export class InteractionConstraint extends Constraint implements IInteractionCon
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Constraint
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Constraint
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * owningTemplateParameter
    * 
@@ -98,9 +79,8 @@ export class InteractionConstraint extends Constraint implements IInteractionCon
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from Constraint
   /**
    * templateParameter
    * 
@@ -109,9 +89,8 @@ export class InteractionConstraint extends Constraint implements IInteractionCon
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from Constraint
   /**
    * constrainedElement
    * 
@@ -119,9 +98,8 @@ export class InteractionConstraint extends Constraint implements IInteractionCon
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public constrainedElement: IElement | string[] = [];
+  public constrainedElement: string[] = [];
 
-  // Inherited from Constraint
   /**
    * context
    * 
@@ -130,9 +108,8 @@ export class InteractionConstraint extends Constraint implements IInteractionCon
    * @relationship cross-reference
    * @opposite ownedRule
    */
-  public context?: INamespace | string = undefined;
+  public context?: string;
 
-  // Inherited from Constraint
   /**
    * specification
    * 
@@ -142,10 +119,12 @@ export class InteractionConstraint extends Constraint implements IInteractionCon
    */
   public specification!: IValueSpecification;
 
+
   constructor(init?: Partial<IInteractionConstraint>) {
     super(init);
-    this.maxint = init?.maxint ?? undefined;
-    this.minint = init?.minint ?? undefined;
+
+    this.maxint = init?.maxint;
+    this.minint = init?.minint;
   }
   getMaxint(): IValueSpecification | undefined {
     return this.maxint;
@@ -230,9 +209,6 @@ export class InteractionConstraint extends Constraint implements IInteractionCon
   static fromJSON(json: any): InteractionConstraint {
     const instance = new InteractionConstraint();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

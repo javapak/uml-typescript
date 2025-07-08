@@ -5,12 +5,8 @@
  * @package uml
  * @extends Interval
  */
-import { Comment } from './Comment';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IInterval } from './IInterval';
-import { INamespace } from './INamespace';
 import { IStringExpression } from './IStringExpression';
 import { ITemplateParameter } from './ITemplateParameter';
 import { ITimeInterval } from './ITimeInterval';
@@ -22,18 +18,6 @@ import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
 
 export class TimeInterval extends Interval implements ITimeInterval {
-  // Inherited from Interval
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Interval
   /**
    * ownedComment
    * 
@@ -43,16 +27,14 @@ export class TimeInterval extends Interval implements ITimeInterval {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Interval
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Interval
   /**
    * nameExpression
    * 
@@ -60,18 +42,15 @@ export class TimeInterval extends Interval implements ITimeInterval {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Interval
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Interval
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * owningTemplateParameter
    * 
@@ -80,9 +59,8 @@ export class TimeInterval extends Interval implements ITimeInterval {
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from Interval
   /**
    * templateParameter
    * 
@@ -91,9 +69,8 @@ export class TimeInterval extends Interval implements ITimeInterval {
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from Interval
   /**
    * type
    * 
@@ -101,9 +78,8 @@ export class TimeInterval extends Interval implements ITimeInterval {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public type?: IType | string = undefined;
+  public type?: string;
 
-  // Inherited from Interval
   /**
    * max
    * 
@@ -111,9 +87,8 @@ export class TimeInterval extends Interval implements ITimeInterval {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public max!: IValueSpecification | string;
+  public max!: string;
 
-  // Inherited from Interval
   /**
    * min
    * 
@@ -121,10 +96,12 @@ export class TimeInterval extends Interval implements ITimeInterval {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public min!: IValueSpecification | string;
+  public min!: string;
+
 
   constructor(init?: Partial<ITimeInterval>) {
     super(init);
+
   }
   /**
    * Converts this instance to a plain object matching the interface
@@ -185,9 +162,6 @@ export class TimeInterval extends Interval implements ITimeInterval {
   static fromJSON(json: any): TimeInterval {
     const instance = new TimeInterval();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

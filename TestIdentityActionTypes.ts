@@ -10,9 +10,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialTestIdentityAction = Partial<ITestIdentityAction>;
 export type RequiredTestIdentityAction = Required<ITestIdentityAction>;
-export type TestIdentityActionKey = Pick<ITestIdentityAction, 'name' | 'nameExpression'>;
-export type TestIdentityActionMetadata = Pick<ITestIdentityAction, 'ownedComment' | 'visibility'>;
-export type TestIdentityActionSummary = Pick<ITestIdentityAction, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type TestIdentityActionUnion = ITestIdentityAction | IAction;
 export type TestIdentityActionFactory = () => TestIdentityAction;
 export type TestIdentityActionValidator = (instance: ITestIdentityAction) => ValidationResult;

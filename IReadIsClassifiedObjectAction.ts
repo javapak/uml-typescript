@@ -20,7 +20,7 @@ export interface IReadIsClassifiedObjectAction extends IAction {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  classifier: IClassifier | string;
+  classifier: string;
   /**
    * isDirect
    * 

@@ -5,14 +5,10 @@
  * @package uml
  * @extends MessageEnd
  */
-import { Comment } from './Comment';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IGate } from './IGate';
 import { IMessage } from './IMessage';
 import { IMessageEnd } from './IMessageEnd';
-import { INamespace } from './INamespace';
 import { IStringExpression } from './IStringExpression';
 import { MessageEnd } from './MessageEnd';
 import { StringExpression } from './StringExpression';
@@ -20,18 +16,6 @@ import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
 
 export class Gate extends MessageEnd implements IGate {
-  // Inherited from MessageEnd
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from MessageEnd
   /**
    * ownedComment
    * 
@@ -41,16 +25,14 @@ export class Gate extends MessageEnd implements IGate {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from MessageEnd
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from MessageEnd
   /**
    * nameExpression
    * 
@@ -58,18 +40,15 @@ export class Gate extends MessageEnd implements IGate {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from MessageEnd
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from MessageEnd
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * message
    * 
@@ -77,10 +56,12 @@ export class Gate extends MessageEnd implements IGate {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public message?: IMessage | string = undefined;
+  public message?: string;
+
 
   constructor(init?: Partial<IGate>) {
     super(init);
+
   }
   /**
    * Converts this instance to a plain object matching the interface
@@ -141,9 +122,6 @@ export class Gate extends MessageEnd implements IGate {
   static fromJSON(json: any): Gate {
     const instance = new Gate();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

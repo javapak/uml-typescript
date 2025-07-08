@@ -6,26 +6,16 @@
  * @extends StructuralFeature, ConnectableElement, DeploymentTarget
  */
 import { AggregationKind } from './AggregationKind';
-import { Comment } from './Comment';
 import { ConnectableElement } from './ConnectableElement';
-import { Deployment } from './Deployment';
 import { DeploymentTarget } from './DeploymentTarget';
 import { IAssociation } from './IAssociation';
-import { IClass } from './IClass';
-import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
 import { IConnectableElement } from './IConnectableElement';
-import { IConnectorEnd } from './IConnectorEnd';
 import { IDataType } from './IDataType';
-import { IDependency } from './IDependency';
 import { IDeployment } from './IDeployment';
 import { IDeploymentTarget } from './IDeploymentTarget';
-import { IElement } from './IElement';
 import { IInterface } from './IInterface';
-import { INamespace } from './INamespace';
-import { IPackageableElement } from './IPackageableElement';
 import { IProperty } from './IProperty';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { IStructuralFeature } from './IStructuralFeature';
 import { ITemplateParameter } from './ITemplateParameter';
@@ -46,7 +36,7 @@ export class Property extends StructuralFeature implements IProperty {
    * @relationship cross-reference
    * @opposite ownedAttribute
    */
-  public datatype?: IDataType | string = undefined;
+  public datatype?: string;
 
   /**
    * interface
@@ -56,7 +46,7 @@ export class Property extends StructuralFeature implements IProperty {
    * @relationship cross-reference
    * @opposite ownedAttribute
    */
-  public interface?: IInterface | string = undefined;
+  public interface?: string;
 
   /**
    * aggregation
@@ -64,7 +54,7 @@ export class Property extends StructuralFeature implements IProperty {
    * @type AggregationKind
    * @multiplicity [1..1]
    */
-  public aggregation!: any;
+  public aggregation!: AggregationKind;
 
   /**
    * associationEnd
@@ -74,7 +64,7 @@ export class Property extends StructuralFeature implements IProperty {
    * @relationship cross-reference
    * @opposite qualifier
    */
-  public associationEnd?: IProperty | string = undefined;
+  public associationEnd?: string;
 
   /**
    * qualifier
@@ -93,7 +83,7 @@ export class Property extends StructuralFeature implements IProperty {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public defaultValue?: IValueSpecification = undefined;
+  public defaultValue?: IValueSpecification;
 
   /**
    * isDerived
@@ -127,7 +117,7 @@ export class Property extends StructuralFeature implements IProperty {
    * @relationship cross-reference
    * @opposite ownedEnd
    */
-  public owningAssociation?: IAssociation | string = undefined;
+  public owningAssociation?: string;
 
   /**
    * redefinedProperty
@@ -136,7 +126,7 @@ export class Property extends StructuralFeature implements IProperty {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedProperty: Set<IProperty | string> = new Set();
+  public redefinedProperty: Set<string> = new Set();
 
   /**
    * subsettedProperty
@@ -145,7 +135,7 @@ export class Property extends StructuralFeature implements IProperty {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public subsettedProperty: Set<IProperty | string> = new Set();
+  public subsettedProperty: Set<string> = new Set();
 
   /**
    * association
@@ -155,20 +145,8 @@ export class Property extends StructuralFeature implements IProperty {
    * @relationship cross-reference
    * @opposite memberEnd
    */
-  public association?: IAssociation | string = undefined;
+  public association?: string;
 
-  // Inherited from StructuralFeature
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from StructuralFeature
   /**
    * ownedComment
    * 
@@ -178,16 +156,14 @@ export class Property extends StructuralFeature implements IProperty {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from StructuralFeature
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from StructuralFeature
   /**
    * nameExpression
    * 
@@ -195,18 +171,15 @@ export class Property extends StructuralFeature implements IProperty {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from StructuralFeature
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from StructuralFeature
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * isLeaf
    * 
@@ -215,7 +188,6 @@ export class Property extends StructuralFeature implements IProperty {
    */
   public isLeaf!: boolean;
 
-  // Inherited from StructuralFeature
   /**
    * isStatic
    * 
@@ -224,7 +196,6 @@ export class Property extends StructuralFeature implements IProperty {
    */
   public isStatic!: boolean;
 
-  // Inherited from StructuralFeature
   /**
    * type
    * 
@@ -232,9 +203,8 @@ export class Property extends StructuralFeature implements IProperty {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public type?: IType | string = undefined;
+  public type?: string;
 
-  // Inherited from StructuralFeature
   /**
    * isOrdered
    * 
@@ -243,7 +213,6 @@ export class Property extends StructuralFeature implements IProperty {
    */
   public isOrdered!: boolean;
 
-  // Inherited from StructuralFeature
   /**
    * isUnique
    * 
@@ -252,7 +221,6 @@ export class Property extends StructuralFeature implements IProperty {
    */
   public isUnique!: boolean;
 
-  // Inherited from StructuralFeature
   /**
    * lowerValue
    * 
@@ -260,9 +228,8 @@ export class Property extends StructuralFeature implements IProperty {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public lowerValue?: IValueSpecification = undefined;
+  public lowerValue?: IValueSpecification;
 
-  // Inherited from StructuralFeature
   /**
    * upperValue
    * 
@@ -270,9 +237,8 @@ export class Property extends StructuralFeature implements IProperty {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public upperValue?: IValueSpecification = undefined;
+  public upperValue?: IValueSpecification;
 
-  // Inherited from StructuralFeature
   /**
    * isReadOnly
    * 
@@ -281,7 +247,48 @@ export class Property extends StructuralFeature implements IProperty {
    */
   public isReadOnly!: boolean;
 
-  // Inherited from ConnectableElement
+  /**
+   * ownedComment
+   * 
+   * @type Comment
+   * @multiplicity [0..*]
+   * @relationship containment
+   */
+  public ownedComment: Set<IComment> = new Set();
+
+  /**
+   * name
+   * 
+   * @type String
+   * @multiplicity [0..1]
+   */
+  public name?: string;
+
+  /**
+   * nameExpression
+   * 
+   * @type StringExpression
+   * @multiplicity [0..1]
+   * @relationship containment
+   */
+  public nameExpression?: IStringExpression;
+
+  /**
+   * visibility
+   * 
+   * @type VisibilityKind
+   * @multiplicity [0..1]
+   */
+  public visibility: VisibilityKind | undefined = undefined;
+  /**
+   * type
+   * 
+   * @type Type
+   * @multiplicity [0..1]
+   * @relationship cross-reference
+   */
+  public type?: string;
+
   /**
    * owningTemplateParameter
    * 
@@ -290,9 +297,8 @@ export class Property extends StructuralFeature implements IProperty {
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from ConnectableElement
   /**
    * templateParameter
    * 
@@ -301,9 +307,41 @@ export class Property extends StructuralFeature implements IProperty {
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from DeploymentTarget
+  /**
+   * ownedComment
+   * 
+   * @type Comment
+   * @multiplicity [0..*]
+   * @relationship containment
+   */
+  public ownedComment: Set<IComment> = new Set();
+
+  /**
+   * name
+   * 
+   * @type String
+   * @multiplicity [0..1]
+   */
+  public name?: string;
+
+  /**
+   * nameExpression
+   * 
+   * @type StringExpression
+   * @multiplicity [0..1]
+   * @relationship containment
+   */
+  public nameExpression?: IStringExpression;
+
+  /**
+   * visibility
+   * 
+   * @type VisibilityKind
+   * @multiplicity [0..1]
+   */
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * deployment
    * 
@@ -314,51 +352,53 @@ export class Property extends StructuralFeature implements IProperty {
    */
   public deployment: Set<IDeployment> = new Set();
 
+
   constructor(init?: Partial<IProperty>) {
     super(init);
-    this.datatype = init?.datatype ?? undefined;
-    this.interface = init?.interface ?? undefined;
+
+    this.datatype = init?.datatype;
+    this.interface = init?.interface;
     this.aggregation = init?.aggregation!;
-    this.associationEnd = init?.associationEnd ?? undefined;
-    this.qualifier = init?.qualifier ?? [];
-    this.defaultValue = init?.defaultValue ?? undefined;
-    this.isDerived = init?.isDerived!;
-    this.isDerivedUnion = init?.isDerivedUnion!;
-    this.isID = init?.isID!;
-    this.owningAssociation = init?.owningAssociation ?? undefined;
-    this.redefinedProperty = init?.redefinedProperty ?? new Set();
-    this.subsettedProperty = init?.subsettedProperty ?? new Set();
-    this.association = init?.association ?? undefined;
+    this.associationEnd = init?.associationEnd;
+    this.qualifier = init?.qualifier ? [...init.qualifier] : [];
+    this.defaultValue = init?.defaultValue;
+    this.isDerived = init?.isDerived ?? false;
+    this.isDerivedUnion = init?.isDerivedUnion ?? false;
+    this.isID = init?.isID ?? false;
+    this.owningAssociation = init?.owningAssociation;
+    this.redefinedProperty = init?.redefinedProperty ? new Set(init.redefinedProperty) : new Set();
+    this.subsettedProperty = init?.subsettedProperty ? new Set(init.subsettedProperty) : new Set();
+    this.association = init?.association;
   }
-  getDatatype(): IDataType | string | undefined {
+  getDatatype(): string | undefined {
     return this.datatype;
   }
 
-  setDatatype(value: IDataType | string | undefined): void {
+  setDatatype(value: string | undefined): void {
     this.datatype = value;
   }
 
-  getInterface(): IInterface | string | undefined {
+  getInterface(): string | undefined {
     return this.interface;
   }
 
-  setInterface(value: IInterface | string | undefined): void {
+  setInterface(value: string | undefined): void {
     this.interface = value;
   }
 
-  getAggregation(): any {
+  getAggregation(): AggregationKind {
     return this.aggregation;
   }
 
-  setAggregation(value: any): void {
+  setAggregation(value: AggregationKind): void {
     this.aggregation = value;
   }
 
-  getAssociationEnd(): IProperty | string | undefined {
+  getAssociationEnd(): string | undefined {
     return this.associationEnd;
   }
 
-  setAssociationEnd(value: IProperty | string | undefined): void {
+  setAssociationEnd(value: string | undefined): void {
     this.associationEnd = value;
   }
 
@@ -402,35 +442,35 @@ export class Property extends StructuralFeature implements IProperty {
     this.isID = value;
   }
 
-  getOwningAssociation(): IAssociation | string | undefined {
+  getOwningAssociation(): string | undefined {
     return this.owningAssociation;
   }
 
-  setOwningAssociation(value: IAssociation | string | undefined): void {
+  setOwningAssociation(value: string | undefined): void {
     this.owningAssociation = value;
   }
 
-  getRedefinedProperty(): Set<IProperty | string> {
+  getRedefinedProperty(): Set<string> {
     return this.redefinedProperty;
   }
 
-  setRedefinedProperty(value: Set<IProperty | string>): void {
+  setRedefinedProperty(value: Set<string>): void {
     this.redefinedProperty = value;
   }
 
-  getSubsettedProperty(): Set<IProperty | string> {
+  getSubsettedProperty(): Set<string> {
     return this.subsettedProperty;
   }
 
-  setSubsettedProperty(value: Set<IProperty | string>): void {
+  setSubsettedProperty(value: Set<string>): void {
     this.subsettedProperty = value;
   }
 
-  getAssociation(): IAssociation | string | undefined {
+  getAssociation(): string | undefined {
     return this.association;
   }
 
-  setAssociation(value: IAssociation | string | undefined): void {
+  setAssociation(value: string | undefined): void {
     this.association = value;
   }
 
@@ -531,9 +571,6 @@ export class Property extends StructuralFeature implements IProperty {
   static fromJSON(json: any): Property {
     const instance = new Property();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

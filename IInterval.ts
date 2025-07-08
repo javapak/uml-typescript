@@ -15,7 +15,7 @@ export interface IInterval extends IValueSpecification {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  max: IValueSpecification | string;
+  max: string;
   /**
    * min
    * 
@@ -23,7 +23,7 @@ export interface IInterval extends IValueSpecification {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  min: IValueSpecification | string;
+  min: string;
 }
 
 // Type aliases for Interval

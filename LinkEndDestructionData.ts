@@ -5,16 +5,13 @@
  * @package uml
  * @extends LinkEndData
  */
-import { Comment } from './Comment';
 import { IComment } from './IComment';
-import { IElement } from './IElement';
 import { IInputPin } from './IInputPin';
 import { ILinkEndData } from './ILinkEndData';
 import { ILinkEndDestructionData } from './ILinkEndDestructionData';
 import { IProperty } from './IProperty';
 import { IQualifierValue } from './IQualifierValue';
 import { LinkEndData } from './LinkEndData';
-import { QualifierValue } from './QualifierValue';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 
 export class LinkEndDestructionData extends LinkEndData implements ILinkEndDestructionData {
@@ -25,7 +22,7 @@ export class LinkEndDestructionData extends LinkEndData implements ILinkEndDestr
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public destroyAt?: IInputPin | string = undefined;
+  public destroyAt?: string;
 
   /**
    * isDestroyDuplicates
@@ -35,18 +32,6 @@ export class LinkEndDestructionData extends LinkEndData implements ILinkEndDestr
    */
   public isDestroyDuplicates!: boolean;
 
-  // Inherited from LinkEndData
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from LinkEndData
   /**
    * ownedComment
    * 
@@ -56,7 +41,6 @@ export class LinkEndDestructionData extends LinkEndData implements ILinkEndDestr
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from LinkEndData
   /**
    * end
    * 
@@ -64,9 +48,8 @@ export class LinkEndDestructionData extends LinkEndData implements ILinkEndDestr
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public end!: IProperty | string;
+  public end!: string;
 
-  // Inherited from LinkEndData
   /**
    * qualifier
    * 
@@ -76,7 +59,6 @@ export class LinkEndDestructionData extends LinkEndData implements ILinkEndDestr
    */
   public qualifier: Set<IQualifierValue> = new Set();
 
-  // Inherited from LinkEndData
   /**
    * value
    * 
@@ -84,18 +66,20 @@ export class LinkEndDestructionData extends LinkEndData implements ILinkEndDestr
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public value?: IInputPin | string = undefined;
+  public value?: string;
+
 
   constructor(init?: Partial<ILinkEndDestructionData>) {
     super(init);
-    this.destroyAt = init?.destroyAt ?? undefined;
-    this.isDestroyDuplicates = init?.isDestroyDuplicates!;
+
+    this.destroyAt = init?.destroyAt;
+    this.isDestroyDuplicates = init?.isDestroyDuplicates ?? false;
   }
-  getDestroyAt(): IInputPin | string | undefined {
+  getDestroyAt(): string | undefined {
     return this.destroyAt;
   }
 
-  setDestroyAt(value: IInputPin | string | undefined): void {
+  setDestroyAt(value: string | undefined): void {
     this.destroyAt = value;
   }
 
@@ -172,9 +156,6 @@ export class LinkEndDestructionData extends LinkEndData implements ILinkEndDestr
   static fromJSON(json: any): LinkEndDestructionData {
     const instance = new LinkEndDestructionData();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

@@ -16,14 +16,14 @@ export interface IDurationObservation extends IObservation {
    * @multiplicity [1..2]
    * @relationship cross-reference
    */
-  event: INamedElement | string[];
+  event: string[];
   /**
    * firstEvent
    * 
    * @type Boolean
    * @multiplicity [0..2]
    */
-  firstEvent: Set<boolean>;
+  firstEvent?: Set<boolean>;
 }
 
 // Type aliases for DurationObservation

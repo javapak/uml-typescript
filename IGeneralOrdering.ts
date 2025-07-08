@@ -17,7 +17,7 @@ export interface IGeneralOrdering extends INamedElement {
    * @relationship cross-reference
    * @opposite toBefore
    */
-  after: IOccurrenceSpecification | string;
+  after: string;
   /**
    * before
    * 
@@ -26,7 +26,7 @@ export interface IGeneralOrdering extends INamedElement {
    * @relationship cross-reference
    * @opposite toAfter
    */
-  before: IOccurrenceSpecification | string;
+  before: string;
 }
 
 // Type aliases for GeneralOrdering

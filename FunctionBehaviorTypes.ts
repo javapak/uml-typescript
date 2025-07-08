@@ -8,9 +8,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialFunctionBehavior = Partial<IFunctionBehavior>;
 export type RequiredFunctionBehavior = Required<IFunctionBehavior>;
-export type FunctionBehaviorKey = Pick<IFunctionBehavior, 'name' | 'nameExpression'>;
-export type FunctionBehaviorMetadata = Pick<IFunctionBehavior, 'ownedComment' | 'visibility' | 'ownedRule' | 'ownedTemplateSignature' | 'ownedUseCase' | 'ownedAttribute' | 'ownedConnector' | 'ownedBehavior' | 'ownedOperation' | 'ownedReception' | 'ownedParameter' | 'ownedParameterSet'>;
-export type FunctionBehaviorSummary = Pick<IFunctionBehavior, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type FunctionBehaviorUnion = IFunctionBehavior | IOpaqueBehavior;
 export type FunctionBehaviorFactory = () => FunctionBehavior;
 export type FunctionBehaviorValidator = (instance: IFunctionBehavior) => ValidationResult;

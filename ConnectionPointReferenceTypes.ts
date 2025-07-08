@@ -10,9 +10,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialConnectionPointReference = Partial<IConnectionPointReference>;
 export type RequiredConnectionPointReference = Required<IConnectionPointReference>;
-export type ConnectionPointReferenceKey = Pick<IConnectionPointReference, 'name' | 'nameExpression'>;
-export type ConnectionPointReferenceMetadata = Pick<IConnectionPointReference, 'ownedComment' | 'visibility'>;
-export type ConnectionPointReferenceSummary = Pick<IConnectionPointReference, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type ConnectionPointReferenceUnion = IConnectionPointReference | IVertex;
 export type ConnectionPointReferenceFactory = () => ConnectionPointReference;
 export type ConnectionPointReferenceValidator = (instance: IConnectionPointReference) => ValidationResult;

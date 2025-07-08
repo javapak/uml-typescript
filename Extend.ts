@@ -5,18 +5,14 @@
  * @package uml
  * @extends NamedElement, DirectedRelationship
  */
-import { Comment } from './Comment';
 import { Constraint } from './Constraint';
 import { DirectedRelationship } from './DirectedRelationship';
 import { IComment } from './IComment';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
 import { IDirectedRelationship } from './IDirectedRelationship';
-import { IElement } from './IElement';
 import { IExtend } from './IExtend';
 import { IExtensionPoint } from './IExtensionPoint';
 import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IStringExpression } from './IStringExpression';
 import { IUseCase } from './IUseCase';
 import { NamedElement } from './NamedElement';
@@ -32,7 +28,7 @@ export class Extend extends NamedElement implements IExtend {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public condition?: IConstraint = undefined;
+  public condition?: IConstraint;
 
   /**
    * extendedCase
@@ -41,7 +37,7 @@ export class Extend extends NamedElement implements IExtend {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public extendedCase!: IUseCase | string;
+  public extendedCase!: string;
 
   /**
    * extensionLocation
@@ -50,7 +46,7 @@ export class Extend extends NamedElement implements IExtend {
    * @multiplicity [1..*]
    * @relationship cross-reference
    */
-  public extensionLocation: IExtensionPoint | string[] = [];
+  public extensionLocation: string[] = [];
 
   /**
    * extension
@@ -60,20 +56,8 @@ export class Extend extends NamedElement implements IExtend {
    * @relationship cross-reference
    * @opposite extend
    */
-  public extension!: IUseCase | string;
+  public extension!: string;
 
-  // Inherited from NamedElement
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from NamedElement
   /**
    * ownedComment
    * 
@@ -83,16 +67,14 @@ export class Extend extends NamedElement implements IExtend {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from NamedElement
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from NamedElement
   /**
    * nameExpression
    * 
@@ -100,23 +82,32 @@ export class Extend extends NamedElement implements IExtend {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from NamedElement
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
+  public visibility: VisibilityKind | undefined = undefined;
+  /**
+   * ownedComment
+   * 
+   * @type Comment
+   * @multiplicity [0..*]
+   * @relationship containment
+   */
+  public ownedComment: Set<IComment> = new Set();
+
 
   constructor(init?: Partial<IExtend>) {
     super(init);
-    this.condition = init?.condition ?? undefined;
-    this.extendedCase = init?.extendedCase!;
-    this.extensionLocation = init?.extensionLocation ?? [];
-    this.extension = init?.extension!;
+
+    this.condition = init?.condition;
+    this.extendedCase = init?.extendedCase ?? '';
+    this.extensionLocation = init?.extensionLocation ? [...init.extensionLocation] : [];
+    this.extension = init?.extension ?? '';
   }
   getCondition(): IConstraint | undefined {
     return this.condition;
@@ -126,27 +117,27 @@ export class Extend extends NamedElement implements IExtend {
     this.condition = value;
   }
 
-  getExtendedCase(): IUseCase | string {
+  getExtendedCase(): string {
     return this.extendedCase;
   }
 
-  setExtendedCase(value: IUseCase | string): void {
+  setExtendedCase(value: string): void {
     this.extendedCase = value;
   }
 
-  getExtensionLocation(): IExtensionPoint | string[] {
+  getExtensionLocation(): string[] {
     return this.extensionLocation;
   }
 
-  setExtensionLocation(value: IExtensionPoint | string[]): void {
+  setExtensionLocation(value: string[]): void {
     this.extensionLocation = value;
   }
 
-  getExtension(): IUseCase | string {
+  getExtension(): string {
     return this.extension;
   }
 
-  setExtension(value: IUseCase | string): void {
+  setExtension(value: string): void {
     this.extension = value;
   }
 
@@ -219,9 +210,6 @@ export class Extend extends NamedElement implements IExtend {
   static fromJSON(json: any): Extend {
     const instance = new Extend();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

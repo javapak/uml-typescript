@@ -5,14 +5,9 @@
  * @package uml
  * @extends NamedElement
  */
-import { Comment } from './Comment';
-import { Constraint } from './Constraint';
 import { IComment } from './IComment';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IParameter } from './IParameter';
 import { IParameterSet } from './IParameterSet';
 import { IStringExpression } from './IStringExpression';
@@ -39,20 +34,8 @@ export class ParameterSet extends NamedElement implements IParameterSet {
    * @relationship cross-reference
    * @opposite parameterSet
    */
-  public parameter: Set<IParameter | string> = new Set();
+  public parameter: Set<string> = new Set();
 
-  // Inherited from NamedElement
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from NamedElement
   /**
    * ownedComment
    * 
@@ -62,16 +45,14 @@ export class ParameterSet extends NamedElement implements IParameterSet {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from NamedElement
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from NamedElement
   /**
    * nameExpression
    * 
@@ -79,21 +60,21 @@ export class ParameterSet extends NamedElement implements IParameterSet {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from NamedElement
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
+  public visibility: VisibilityKind | undefined = undefined;
 
   constructor(init?: Partial<IParameterSet>) {
     super(init);
-    this.condition = init?.condition ?? new Set();
-    this.parameter = init?.parameter ?? new Set();
+
+    this.condition = init?.condition ? new Set(init.condition) : new Set();
+    this.parameter = init?.parameter ? new Set(init.parameter) : new Set();
   }
   getCondition(): Set<IConstraint> {
     return this.condition;
@@ -103,11 +84,11 @@ export class ParameterSet extends NamedElement implements IParameterSet {
     this.condition = value;
   }
 
-  getParameter(): Set<IParameter | string> {
+  getParameter(): Set<string> {
     return this.parameter;
   }
 
-  setParameter(value: Set<IParameter | string>): void {
+  setParameter(value: Set<string>): void {
     this.parameter = value;
   }
 
@@ -174,9 +155,6 @@ export class ParameterSet extends NamedElement implements IParameterSet {
   static fromJSON(json: any): ParameterSet {
     const instance = new ParameterSet();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

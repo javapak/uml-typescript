@@ -5,26 +5,15 @@
  * @package uml
  * @extends VariableAction
  */
-import { Comment } from './Comment';
-import { Constraint } from './Constraint';
-import { ExceptionHandler } from './ExceptionHandler';
-import { IActivity } from './IActivity';
 import { IActivityEdge } from './IActivityEdge';
-import { IActivityGroup } from './IActivityGroup';
 import { IActivityNode } from './IActivityNode';
 import { IActivityPartition } from './IActivityPartition';
-import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IExceptionHandler } from './IExceptionHandler';
-import { IInputPin } from './IInputPin';
 import { IInterruptibleActivityRegion } from './IInterruptibleActivityRegion';
-import { INamespace } from './INamespace';
 import { IOutputPin } from './IOutputPin';
 import { IReadVariableAction } from './IReadVariableAction';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { IStructuredActivityNode } from './IStructuredActivityNode';
 import { IVariable } from './IVariable';
@@ -45,18 +34,6 @@ export class ReadVariableAction extends VariableAction implements IReadVariableA
    */
   public result!: IOutputPin;
 
-  // Inherited from VariableAction
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from VariableAction
   /**
    * ownedComment
    * 
@@ -66,16 +43,14 @@ export class ReadVariableAction extends VariableAction implements IReadVariableA
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from VariableAction
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from VariableAction
   /**
    * nameExpression
    * 
@@ -83,18 +58,15 @@ export class ReadVariableAction extends VariableAction implements IReadVariableA
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from VariableAction
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from VariableAction
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * isLeaf
    * 
@@ -103,7 +75,6 @@ export class ReadVariableAction extends VariableAction implements IReadVariableA
    */
   public isLeaf!: boolean;
 
-  // Inherited from VariableAction
   /**
    * inInterruptibleRegion
    * 
@@ -112,9 +83,8 @@ export class ReadVariableAction extends VariableAction implements IReadVariableA
    * @relationship cross-reference
    * @opposite node
    */
-  public inInterruptibleRegion: Set<IInterruptibleActivityRegion | string> = new Set();
+  public inInterruptibleRegion: Set<string> = new Set();
 
-  // Inherited from VariableAction
   /**
    * inStructuredNode
    * 
@@ -123,9 +93,8 @@ export class ReadVariableAction extends VariableAction implements IReadVariableA
    * @relationship cross-reference
    * @opposite node
    */
-  public inStructuredNode?: IStructuredActivityNode | string = undefined;
+  public inStructuredNode?: string;
 
-  // Inherited from VariableAction
   /**
    * incoming
    * 
@@ -134,9 +103,8 @@ export class ReadVariableAction extends VariableAction implements IReadVariableA
    * @relationship cross-reference
    * @opposite target
    */
-  public incoming: Set<IActivityEdge | string> = new Set();
+  public incoming: Set<string> = new Set();
 
-  // Inherited from VariableAction
   /**
    * outgoing
    * 
@@ -145,9 +113,8 @@ export class ReadVariableAction extends VariableAction implements IReadVariableA
    * @relationship cross-reference
    * @opposite source
    */
-  public outgoing: Set<IActivityEdge | string> = new Set();
+  public outgoing: Set<string> = new Set();
 
-  // Inherited from VariableAction
   /**
    * redefinedNode
    * 
@@ -155,9 +122,8 @@ export class ReadVariableAction extends VariableAction implements IReadVariableA
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedNode: Set<IActivityNode | string> = new Set();
+  public redefinedNode: Set<string> = new Set();
 
-  // Inherited from VariableAction
   /**
    * inPartition
    * 
@@ -166,9 +132,8 @@ export class ReadVariableAction extends VariableAction implements IReadVariableA
    * @relationship cross-reference
    * @opposite node
    */
-  public inPartition: Set<IActivityPartition | string> = new Set();
+  public inPartition: Set<string> = new Set();
 
-  // Inherited from VariableAction
   /**
    * handler
    * 
@@ -179,7 +144,6 @@ export class ReadVariableAction extends VariableAction implements IReadVariableA
    */
   public handler: Set<IExceptionHandler> = new Set();
 
-  // Inherited from VariableAction
   /**
    * isLocallyReentrant
    * 
@@ -188,7 +152,6 @@ export class ReadVariableAction extends VariableAction implements IReadVariableA
    */
   public isLocallyReentrant!: boolean;
 
-  // Inherited from VariableAction
   /**
    * localPostcondition
    * 
@@ -198,7 +161,6 @@ export class ReadVariableAction extends VariableAction implements IReadVariableA
    */
   public localPostcondition: Set<IConstraint> = new Set();
 
-  // Inherited from VariableAction
   /**
    * localPrecondition
    * 
@@ -208,7 +170,6 @@ export class ReadVariableAction extends VariableAction implements IReadVariableA
    */
   public localPrecondition: Set<IConstraint> = new Set();
 
-  // Inherited from VariableAction
   /**
    * variable
    * 
@@ -216,10 +177,12 @@ export class ReadVariableAction extends VariableAction implements IReadVariableA
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public variable!: IVariable | string;
+  public variable!: string;
+
 
   constructor(init?: Partial<IReadVariableAction>) {
     super(init);
+
     this.result = init?.result!;
   }
   getResult(): IOutputPin {
@@ -291,9 +254,6 @@ export class ReadVariableAction extends VariableAction implements IReadVariableA
   static fromJSON(json: any): ReadVariableAction {
     const instance = new ReadVariableAction();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

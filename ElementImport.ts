@@ -5,11 +5,9 @@
  * @package uml
  * @extends DirectedRelationship
  */
-import { Comment } from './Comment';
 import { DirectedRelationship } from './DirectedRelationship';
 import { IComment } from './IComment';
 import { IDirectedRelationship } from './IDirectedRelationship';
-import { IElement } from './IElement';
 import { IElementImport } from './IElementImport';
 import { INamespace } from './INamespace';
 import { IPackageableElement } from './IPackageableElement';
@@ -23,7 +21,7 @@ export class ElementImport extends DirectedRelationship implements IElementImpor
    * @type String
    * @multiplicity [0..1]
    */
-  public alias?: string = undefined;
+  public alias?: string;
 
   /**
    * importedElement
@@ -32,7 +30,7 @@ export class ElementImport extends DirectedRelationship implements IElementImpor
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public importedElement!: IPackageableElement | string;
+  public importedElement!: string;
 
   /**
    * importingNamespace
@@ -42,7 +40,7 @@ export class ElementImport extends DirectedRelationship implements IElementImpor
    * @relationship cross-reference
    * @opposite elementImport
    */
-  public importingNamespace!: INamespace | string;
+  public importingNamespace!: string;
 
   /**
    * visibility
@@ -50,20 +48,8 @@ export class ElementImport extends DirectedRelationship implements IElementImpor
    * @type VisibilityKind
    * @multiplicity [1..1]
    */
-  public visibility!: any;
+  public visibility!: VisibilityKind;
 
-  // Inherited from DirectedRelationship
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from DirectedRelationship
   /**
    * ownedComment
    * 
@@ -73,11 +59,13 @@ export class ElementImport extends DirectedRelationship implements IElementImpor
    */
   public ownedComment: Set<IComment> = new Set();
 
+
   constructor(init?: Partial<IElementImport>) {
     super(init);
-    this.alias = init?.alias ?? undefined;
-    this.importedElement = init?.importedElement!;
-    this.importingNamespace = init?.importingNamespace!;
+
+    this.alias = init?.alias;
+    this.importedElement = init?.importedElement ?? '';
+    this.importingNamespace = init?.importingNamespace ?? '';
     this.visibility = init?.visibility!;
   }
   getAlias(): string | undefined {
@@ -88,27 +76,27 @@ export class ElementImport extends DirectedRelationship implements IElementImpor
     this.alias = value;
   }
 
-  getImportedElement(): IPackageableElement | string {
+  getImportedElement(): string {
     return this.importedElement;
   }
 
-  setImportedElement(value: IPackageableElement | string): void {
+  setImportedElement(value: string): void {
     this.importedElement = value;
   }
 
-  getImportingNamespace(): INamespace | string {
+  getImportingNamespace(): string {
     return this.importingNamespace;
   }
 
-  setImportingNamespace(value: INamespace | string): void {
+  setImportingNamespace(value: string): void {
     this.importingNamespace = value;
   }
 
-  getVisibility(): any {
+  getVisibility(): VisibilityKind {
     return this.visibility;
   }
 
-  setVisibility(value: any): void {
+  setVisibility(value: VisibilityKind): void {
     this.visibility = value;
   }
 
@@ -181,9 +169,6 @@ export class ElementImport extends DirectedRelationship implements IElementImpor
   static fromJSON(json: any): ElementImport {
     const instance = new ElementImport();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

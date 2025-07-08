@@ -16,7 +16,7 @@ export interface ILinkEndCreationData extends ILinkEndData {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  insertAt?: IInputPin | string;
+  insertAt?: string;
   /**
    * isReplaceAll
    * 

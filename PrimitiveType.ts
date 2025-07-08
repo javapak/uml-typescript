@@ -5,62 +5,31 @@
  * @package uml
  * @extends DataType
  */
-import { CollaborationUse } from './CollaborationUse';
-import { Comment } from './Comment';
-import { Constraint } from './Constraint';
 import { DataType } from './DataType';
-import { ElementImport } from './ElementImport';
-import { Generalization } from './Generalization';
 import { IClassifier } from './IClassifier';
 import { ICollaborationUse } from './ICollaborationUse';
 import { IComment } from './IComment';
 import { IConstraint } from './IConstraint';
 import { IDataType } from './IDataType';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IElementImport } from './IElementImport';
-import { IFeature } from './IFeature';
 import { IGeneralization } from './IGeneralization';
 import { IGeneralizationSet } from './IGeneralizationSet';
-import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IOperation } from './IOperation';
-import { IPackage } from './IPackage';
 import { IPackageImport } from './IPackageImport';
-import { IPackageableElement } from './IPackageableElement';
 import { IPrimitiveType } from './IPrimitiveType';
 import { IProperty } from './IProperty';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { ISubstitution } from './ISubstitution';
 import { ITemplateBinding } from './ITemplateBinding';
 import { ITemplateParameter } from './ITemplateParameter';
 import { ITemplateSignature } from './ITemplateSignature';
 import { IUseCase } from './IUseCase';
-import { Operation } from './Operation';
-import { PackageImport } from './PackageImport';
-import { Property } from './Property';
 import { StringExpression } from './StringExpression';
-import { Substitution } from './Substitution';
-import { TemplateBinding } from './TemplateBinding';
 import { TemplateSignature } from './TemplateSignature';
-import { UseCase } from './UseCase';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
 
 export class PrimitiveType extends DataType implements IPrimitiveType {
-  // Inherited from DataType
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from DataType
   /**
    * ownedComment
    * 
@@ -70,16 +39,14 @@ export class PrimitiveType extends DataType implements IPrimitiveType {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from DataType
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from DataType
   /**
    * nameExpression
    * 
@@ -87,18 +54,15 @@ export class PrimitiveType extends DataType implements IPrimitiveType {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from DataType
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from DataType
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * ownedRule
    * 
@@ -109,7 +73,6 @@ export class PrimitiveType extends DataType implements IPrimitiveType {
    */
   public ownedRule: Set<IConstraint> = new Set();
 
-  // Inherited from DataType
   /**
    * elementImport
    * 
@@ -120,7 +83,6 @@ export class PrimitiveType extends DataType implements IPrimitiveType {
    */
   public elementImport: Set<IElementImport> = new Set();
 
-  // Inherited from DataType
   /**
    * packageImport
    * 
@@ -131,7 +93,6 @@ export class PrimitiveType extends DataType implements IPrimitiveType {
    */
   public packageImport: Set<IPackageImport> = new Set();
 
-  // Inherited from DataType
   /**
    * isLeaf
    * 
@@ -140,7 +101,6 @@ export class PrimitiveType extends DataType implements IPrimitiveType {
    */
   public isLeaf!: boolean;
 
-  // Inherited from DataType
   /**
    * owningTemplateParameter
    * 
@@ -149,9 +109,8 @@ export class PrimitiveType extends DataType implements IPrimitiveType {
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from DataType
   /**
    * templateParameter
    * 
@@ -160,9 +119,8 @@ export class PrimitiveType extends DataType implements IPrimitiveType {
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from DataType
   /**
    * templateBinding
    * 
@@ -173,7 +131,6 @@ export class PrimitiveType extends DataType implements IPrimitiveType {
    */
   public templateBinding: Set<ITemplateBinding> = new Set();
 
-  // Inherited from DataType
   /**
    * ownedTemplateSignature
    * 
@@ -182,9 +139,8 @@ export class PrimitiveType extends DataType implements IPrimitiveType {
    * @relationship containment
    * @opposite template
    */
-  public ownedTemplateSignature?: ITemplateSignature = undefined;
+  public ownedTemplateSignature?: ITemplateSignature;
 
-  // Inherited from DataType
   /**
    * collaborationUse
    * 
@@ -194,7 +150,6 @@ export class PrimitiveType extends DataType implements IPrimitiveType {
    */
   public collaborationUse: Set<ICollaborationUse> = new Set();
 
-  // Inherited from DataType
   /**
    * generalization
    * 
@@ -205,7 +160,6 @@ export class PrimitiveType extends DataType implements IPrimitiveType {
    */
   public generalization: Set<IGeneralization> = new Set();
 
-  // Inherited from DataType
   /**
    * powertypeExtent
    * 
@@ -214,9 +168,8 @@ export class PrimitiveType extends DataType implements IPrimitiveType {
    * @relationship cross-reference
    * @opposite powertype
    */
-  public powertypeExtent: Set<IGeneralizationSet | string> = new Set();
+  public powertypeExtent: Set<string> = new Set();
 
-  // Inherited from DataType
   /**
    * isAbstract
    * 
@@ -225,7 +178,6 @@ export class PrimitiveType extends DataType implements IPrimitiveType {
    */
   public isAbstract!: boolean;
 
-  // Inherited from DataType
   /**
    * isFinalSpecialization
    * 
@@ -234,7 +186,6 @@ export class PrimitiveType extends DataType implements IPrimitiveType {
    */
   public isFinalSpecialization!: boolean;
 
-  // Inherited from DataType
   /**
    * ownedUseCase
    * 
@@ -244,7 +195,6 @@ export class PrimitiveType extends DataType implements IPrimitiveType {
    */
   public ownedUseCase: Set<IUseCase> = new Set();
 
-  // Inherited from DataType
   /**
    * useCase
    * 
@@ -253,9 +203,8 @@ export class PrimitiveType extends DataType implements IPrimitiveType {
    * @relationship cross-reference
    * @opposite subject
    */
-  public useCase: Set<IUseCase | string> = new Set();
+  public useCase: Set<string> = new Set();
 
-  // Inherited from DataType
   /**
    * redefinedClassifier
    * 
@@ -263,9 +212,8 @@ export class PrimitiveType extends DataType implements IPrimitiveType {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedClassifier: Set<IClassifier | string> = new Set();
+  public redefinedClassifier: Set<string> = new Set();
 
-  // Inherited from DataType
   /**
    * representation
    * 
@@ -273,9 +221,8 @@ export class PrimitiveType extends DataType implements IPrimitiveType {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public representation?: ICollaborationUse | string = undefined;
+  public representation?: string;
 
-  // Inherited from DataType
   /**
    * substitution
    * 
@@ -286,7 +233,6 @@ export class PrimitiveType extends DataType implements IPrimitiveType {
    */
   public substitution: Set<ISubstitution> = new Set();
 
-  // Inherited from DataType
   /**
    * ownedAttribute
    * 
@@ -297,7 +243,6 @@ export class PrimitiveType extends DataType implements IPrimitiveType {
    */
   public ownedAttribute: IProperty[] = [];
 
-  // Inherited from DataType
   /**
    * ownedOperation
    * 
@@ -308,8 +253,10 @@ export class PrimitiveType extends DataType implements IPrimitiveType {
    */
   public ownedOperation: IOperation[] = [];
 
+
   constructor(init?: Partial<IPrimitiveType>) {
     super(init);
+
   }
   /**
    * Converts this instance to a plain object matching the interface
@@ -370,9 +317,6 @@ export class PrimitiveType extends DataType implements IPrimitiveType {
   static fromJSON(json: any): PrimitiveType {
     const instance = new PrimitiveType();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

@@ -16,7 +16,7 @@ export interface ICallEvent extends IMessageEvent {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  operation: IOperation | string;
+  operation: string;
 }
 
 // Type aliases for CallEvent

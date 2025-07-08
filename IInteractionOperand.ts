@@ -20,7 +20,7 @@ export interface IInteractionOperand extends INamespace, IInteractionFragment {
    * @relationship containment
    * @opposite enclosingOperand
    */
-  fragment: IInteractionFragment[];
+  fragment?: IInteractionFragment[];
   /**
    * guard
    * 

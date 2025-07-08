@@ -26,7 +26,7 @@ export interface IInteraction extends IBehavior, IInteractionFragment {
    * @relationship containment
    * @opposite interaction
    */
-  lifeline: Set<ILifeline>;
+  lifeline?: Set<ILifeline>;
   /**
    * fragment
    * 
@@ -35,7 +35,7 @@ export interface IInteraction extends IBehavior, IInteractionFragment {
    * @relationship containment
    * @opposite enclosingInteraction
    */
-  fragment: IInteractionFragment[];
+  fragment?: IInteractionFragment[];
   /**
    * action
    * 
@@ -43,7 +43,7 @@ export interface IInteraction extends IBehavior, IInteractionFragment {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  action: Set<IAction>;
+  action?: Set<IAction>;
   /**
    * formalGate
    * 
@@ -51,7 +51,7 @@ export interface IInteraction extends IBehavior, IInteractionFragment {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  formalGate: Set<IGate>;
+  formalGate?: Set<IGate>;
   /**
    * message
    * 
@@ -60,7 +60,7 @@ export interface IInteraction extends IBehavior, IInteractionFragment {
    * @relationship containment
    * @opposite interaction
    */
-  message: Set<IMessage>;
+  message?: Set<IMessage>;
 }
 
 // Type aliases for Interaction

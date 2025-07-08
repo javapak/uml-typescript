@@ -5,18 +5,14 @@
  * @package uml
  * @extends Dependency
  */
-import { Comment } from './Comment';
 import { Dependency } from './Dependency';
-import { DeploymentSpecification } from './DeploymentSpecification';
 import { IComment } from './IComment';
 import { IDependency } from './IDependency';
 import { IDeployedArtifact } from './IDeployedArtifact';
 import { IDeployment } from './IDeployment';
 import { IDeploymentSpecification } from './IDeploymentSpecification';
 import { IDeploymentTarget } from './IDeploymentTarget';
-import { IElement } from './IElement';
 import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IStringExpression } from './IStringExpression';
 import { ITemplateParameter } from './ITemplateParameter';
 import { StringExpression } from './StringExpression';
@@ -41,7 +37,7 @@ export class Deployment extends Dependency implements IDeployment {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public deployedArtifact: Set<IDeployedArtifact | string> = new Set();
+  public deployedArtifact: Set<string> = new Set();
 
   /**
    * location
@@ -51,20 +47,8 @@ export class Deployment extends Dependency implements IDeployment {
    * @relationship cross-reference
    * @opposite deployment
    */
-  public location!: IDeploymentTarget | string;
+  public location!: string;
 
-  // Inherited from Dependency
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Dependency
   /**
    * ownedComment
    * 
@@ -74,16 +58,14 @@ export class Deployment extends Dependency implements IDeployment {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Dependency
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Dependency
   /**
    * nameExpression
    * 
@@ -91,18 +73,15 @@ export class Deployment extends Dependency implements IDeployment {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Dependency
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Dependency
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * owningTemplateParameter
    * 
@@ -111,9 +90,8 @@ export class Deployment extends Dependency implements IDeployment {
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from Dependency
   /**
    * templateParameter
    * 
@@ -122,9 +100,8 @@ export class Deployment extends Dependency implements IDeployment {
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from Dependency
   /**
    * client
    * 
@@ -132,9 +109,8 @@ export class Deployment extends Dependency implements IDeployment {
    * @multiplicity [1..*]
    * @relationship cross-reference
    */
-  public client: Set<INamedElement | string> = new Set();
+  public client: Set<string> = new Set();
 
-  // Inherited from Dependency
   /**
    * supplier
    * 
@@ -142,13 +118,15 @@ export class Deployment extends Dependency implements IDeployment {
    * @multiplicity [1..*]
    * @relationship cross-reference
    */
-  public supplier: Set<INamedElement | string> = new Set();
+  public supplier: Set<string> = new Set();
+
 
   constructor(init?: Partial<IDeployment>) {
     super(init);
-    this.configuration = init?.configuration ?? new Set();
-    this.deployedArtifact = init?.deployedArtifact ?? new Set();
-    this.location = init?.location!;
+
+    this.configuration = init?.configuration ? new Set(init.configuration) : new Set();
+    this.deployedArtifact = init?.deployedArtifact ? new Set(init.deployedArtifact) : new Set();
+    this.location = init?.location ?? '';
   }
   getConfiguration(): Set<IDeploymentSpecification> {
     return this.configuration;
@@ -158,19 +136,19 @@ export class Deployment extends Dependency implements IDeployment {
     this.configuration = value;
   }
 
-  getDeployedArtifact(): Set<IDeployedArtifact | string> {
+  getDeployedArtifact(): Set<string> {
     return this.deployedArtifact;
   }
 
-  setDeployedArtifact(value: Set<IDeployedArtifact | string>): void {
+  setDeployedArtifact(value: Set<string>): void {
     this.deployedArtifact = value;
   }
 
-  getLocation(): IDeploymentTarget | string {
+  getLocation(): string {
     return this.location;
   }
 
-  setLocation(value: IDeploymentTarget | string): void {
+  setLocation(value: string): void {
     this.location = value;
   }
 
@@ -239,9 +217,6 @@ export class Deployment extends Dependency implements IDeployment {
   static fromJSON(json: any): Deployment {
     const instance = new Deployment();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

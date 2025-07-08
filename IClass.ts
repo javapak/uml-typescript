@@ -23,7 +23,7 @@ export interface IClass extends IEncapsulatedClassifier, IBehavioredClassifier {
    * @relationship containment
    * @opposite class
    */
-  ownedOperation: IOperation[];
+  ownedOperation?: IOperation[];
   /**
    * isActive
    * 
@@ -38,7 +38,7 @@ export interface IClass extends IEncapsulatedClassifier, IBehavioredClassifier {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  nestedClassifier: IClassifier[];
+  nestedClassifier?: IClassifier[];
   /**
    * ownedReception
    * 
@@ -46,7 +46,7 @@ export interface IClass extends IEncapsulatedClassifier, IBehavioredClassifier {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  ownedReception: Set<IReception>;
+  ownedReception?: Set<IReception>;
 }
 
 // Type aliases for Class

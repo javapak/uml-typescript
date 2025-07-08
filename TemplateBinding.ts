@@ -5,16 +5,13 @@
  * @package uml
  * @extends DirectedRelationship
  */
-import { Comment } from './Comment';
 import { DirectedRelationship } from './DirectedRelationship';
 import { IComment } from './IComment';
 import { IDirectedRelationship } from './IDirectedRelationship';
-import { IElement } from './IElement';
 import { ITemplateBinding } from './ITemplateBinding';
 import { ITemplateParameterSubstitution } from './ITemplateParameterSubstitution';
 import { ITemplateSignature } from './ITemplateSignature';
 import { ITemplateableElement } from './ITemplateableElement';
-import { TemplateParameterSubstitution } from './TemplateParameterSubstitution';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 
 export class TemplateBinding extends DirectedRelationship implements ITemplateBinding {
@@ -35,7 +32,7 @@ export class TemplateBinding extends DirectedRelationship implements ITemplateBi
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public signature!: ITemplateSignature | string;
+  public signature!: string;
 
   /**
    * boundElement
@@ -45,20 +42,8 @@ export class TemplateBinding extends DirectedRelationship implements ITemplateBi
    * @relationship cross-reference
    * @opposite templateBinding
    */
-  public boundElement!: ITemplateableElement | string;
+  public boundElement!: string;
 
-  // Inherited from DirectedRelationship
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from DirectedRelationship
   /**
    * ownedComment
    * 
@@ -68,11 +53,13 @@ export class TemplateBinding extends DirectedRelationship implements ITemplateBi
    */
   public ownedComment: Set<IComment> = new Set();
 
+
   constructor(init?: Partial<ITemplateBinding>) {
     super(init);
-    this.parameterSubstitution = init?.parameterSubstitution ?? new Set();
-    this.signature = init?.signature!;
-    this.boundElement = init?.boundElement!;
+
+    this.parameterSubstitution = init?.parameterSubstitution ? new Set(init.parameterSubstitution) : new Set();
+    this.signature = init?.signature ?? '';
+    this.boundElement = init?.boundElement ?? '';
   }
   getParameterSubstitution(): Set<ITemplateParameterSubstitution> {
     return this.parameterSubstitution;
@@ -82,19 +69,19 @@ export class TemplateBinding extends DirectedRelationship implements ITemplateBi
     this.parameterSubstitution = value;
   }
 
-  getSignature(): ITemplateSignature | string {
+  getSignature(): string {
     return this.signature;
   }
 
-  setSignature(value: ITemplateSignature | string): void {
+  setSignature(value: string): void {
     this.signature = value;
   }
 
-  getBoundElement(): ITemplateableElement | string {
+  getBoundElement(): string {
     return this.boundElement;
   }
 
-  setBoundElement(value: ITemplateableElement | string): void {
+  setBoundElement(value: string): void {
     this.boundElement = value;
   }
 
@@ -163,9 +150,6 @@ export class TemplateBinding extends DirectedRelationship implements ITemplateBi
   static fromJSON(json: any): TemplateBinding {
     const instance = new TemplateBinding();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

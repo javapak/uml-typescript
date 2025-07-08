@@ -6,12 +6,8 @@
  * @abstract
  * @extends ValueSpecification
  */
-import { Comment } from './Comment';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { ILiteralSpecification } from './ILiteralSpecification';
-import { INamespace } from './INamespace';
 import { IStringExpression } from './IStringExpression';
 import { ITemplateParameter } from './ITemplateParameter';
 import { IType } from './IType';
@@ -22,18 +18,6 @@ import { ValueSpecification } from './ValueSpecification';
 import { VisibilityKind } from './VisibilityKind';
 
 export class LiteralSpecification extends ValueSpecification implements ILiteralSpecification {
-  // Inherited from ValueSpecification
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from ValueSpecification
   /**
    * ownedComment
    * 
@@ -43,16 +27,14 @@ export class LiteralSpecification extends ValueSpecification implements ILiteral
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from ValueSpecification
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from ValueSpecification
   /**
    * nameExpression
    * 
@@ -60,18 +42,15 @@ export class LiteralSpecification extends ValueSpecification implements ILiteral
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from ValueSpecification
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from ValueSpecification
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * owningTemplateParameter
    * 
@@ -80,9 +59,8 @@ export class LiteralSpecification extends ValueSpecification implements ILiteral
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from ValueSpecification
   /**
    * templateParameter
    * 
@@ -91,9 +69,8 @@ export class LiteralSpecification extends ValueSpecification implements ILiteral
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from ValueSpecification
   /**
    * type
    * 
@@ -101,10 +78,12 @@ export class LiteralSpecification extends ValueSpecification implements ILiteral
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public type?: IType | string = undefined;
+  public type?: string;
+
 
   constructor(init?: Partial<ILiteralSpecification>) {
     super(init);
+
   }
   /**
    * Converts this instance to a plain object matching the interface
@@ -165,9 +144,6 @@ export class LiteralSpecification extends ValueSpecification implements ILiteral
   static fromJSON(json: any): LiteralSpecification {
     const instance = new LiteralSpecification();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

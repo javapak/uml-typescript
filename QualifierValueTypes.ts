@@ -10,8 +10,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialQualifierValue = Partial<IQualifierValue>;
 export type RequiredQualifierValue = Required<IQualifierValue>;
-export type QualifierValueMetadata = Pick<IQualifierValue, 'ownedComment'>;
-export type QualifierValueSummary = Pick<IQualifierValue, 'eAnnotations' | 'ownedComment' | 'qualifier'>;
 export type QualifierValueUnion = IQualifierValue | IElement;
 export type QualifierValueFactory = () => QualifierValue;
 export type QualifierValueValidator = (instance: IQualifierValue) => ValidationResult;

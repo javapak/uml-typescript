@@ -6,33 +6,17 @@
  * @abstract
  * @extends StructuredClassifier
  */
-import { CollaborationUse } from './CollaborationUse';
-import { Comment } from './Comment';
-import { Connector } from './Connector';
-import { Constraint } from './Constraint';
-import { ElementImport } from './ElementImport';
-import { Generalization } from './Generalization';
 import { IClassifier } from './IClassifier';
 import { ICollaborationUse } from './ICollaborationUse';
 import { IComment } from './IComment';
-import { IConnectableElement } from './IConnectableElement';
 import { IConnector } from './IConnector';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IElementImport } from './IElementImport';
 import { IEncapsulatedClassifier } from './IEncapsulatedClassifier';
-import { IFeature } from './IFeature';
 import { IGeneralization } from './IGeneralization';
 import { IGeneralizationSet } from './IGeneralizationSet';
-import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
-import { IPackage } from './IPackage';
 import { IPackageImport } from './IPackageImport';
-import { IPackageableElement } from './IPackageableElement';
-import { IPort } from './IPort';
 import { IProperty } from './IProperty';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { IStructuredClassifier } from './IStructuredClassifier';
 import { ISubstitution } from './ISubstitution';
@@ -40,30 +24,13 @@ import { ITemplateBinding } from './ITemplateBinding';
 import { ITemplateParameter } from './ITemplateParameter';
 import { ITemplateSignature } from './ITemplateSignature';
 import { IUseCase } from './IUseCase';
-import { PackageImport } from './PackageImport';
-import { Property } from './Property';
 import { StringExpression } from './StringExpression';
 import { StructuredClassifier } from './StructuredClassifier';
-import { Substitution } from './Substitution';
-import { TemplateBinding } from './TemplateBinding';
 import { TemplateSignature } from './TemplateSignature';
-import { UseCase } from './UseCase';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
 
 export class EncapsulatedClassifier extends StructuredClassifier implements IEncapsulatedClassifier {
-  // Inherited from StructuredClassifier
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from StructuredClassifier
   /**
    * ownedComment
    * 
@@ -73,16 +40,14 @@ export class EncapsulatedClassifier extends StructuredClassifier implements IEnc
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from StructuredClassifier
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from StructuredClassifier
   /**
    * nameExpression
    * 
@@ -90,18 +55,15 @@ export class EncapsulatedClassifier extends StructuredClassifier implements IEnc
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from StructuredClassifier
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from StructuredClassifier
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * ownedRule
    * 
@@ -112,7 +74,6 @@ export class EncapsulatedClassifier extends StructuredClassifier implements IEnc
    */
   public ownedRule: Set<IConstraint> = new Set();
 
-  // Inherited from StructuredClassifier
   /**
    * elementImport
    * 
@@ -123,7 +84,6 @@ export class EncapsulatedClassifier extends StructuredClassifier implements IEnc
    */
   public elementImport: Set<IElementImport> = new Set();
 
-  // Inherited from StructuredClassifier
   /**
    * packageImport
    * 
@@ -134,7 +94,6 @@ export class EncapsulatedClassifier extends StructuredClassifier implements IEnc
    */
   public packageImport: Set<IPackageImport> = new Set();
 
-  // Inherited from StructuredClassifier
   /**
    * isLeaf
    * 
@@ -143,7 +102,6 @@ export class EncapsulatedClassifier extends StructuredClassifier implements IEnc
    */
   public isLeaf!: boolean;
 
-  // Inherited from StructuredClassifier
   /**
    * owningTemplateParameter
    * 
@@ -152,9 +110,8 @@ export class EncapsulatedClassifier extends StructuredClassifier implements IEnc
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from StructuredClassifier
   /**
    * templateParameter
    * 
@@ -163,9 +120,8 @@ export class EncapsulatedClassifier extends StructuredClassifier implements IEnc
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from StructuredClassifier
   /**
    * templateBinding
    * 
@@ -176,7 +132,6 @@ export class EncapsulatedClassifier extends StructuredClassifier implements IEnc
    */
   public templateBinding: Set<ITemplateBinding> = new Set();
 
-  // Inherited from StructuredClassifier
   /**
    * ownedTemplateSignature
    * 
@@ -185,9 +140,8 @@ export class EncapsulatedClassifier extends StructuredClassifier implements IEnc
    * @relationship containment
    * @opposite template
    */
-  public ownedTemplateSignature?: ITemplateSignature = undefined;
+  public ownedTemplateSignature?: ITemplateSignature;
 
-  // Inherited from StructuredClassifier
   /**
    * collaborationUse
    * 
@@ -197,7 +151,6 @@ export class EncapsulatedClassifier extends StructuredClassifier implements IEnc
    */
   public collaborationUse: Set<ICollaborationUse> = new Set();
 
-  // Inherited from StructuredClassifier
   /**
    * generalization
    * 
@@ -208,7 +161,6 @@ export class EncapsulatedClassifier extends StructuredClassifier implements IEnc
    */
   public generalization: Set<IGeneralization> = new Set();
 
-  // Inherited from StructuredClassifier
   /**
    * powertypeExtent
    * 
@@ -217,9 +169,8 @@ export class EncapsulatedClassifier extends StructuredClassifier implements IEnc
    * @relationship cross-reference
    * @opposite powertype
    */
-  public powertypeExtent: Set<IGeneralizationSet | string> = new Set();
+  public powertypeExtent: Set<string> = new Set();
 
-  // Inherited from StructuredClassifier
   /**
    * isAbstract
    * 
@@ -228,7 +179,6 @@ export class EncapsulatedClassifier extends StructuredClassifier implements IEnc
    */
   public isAbstract!: boolean;
 
-  // Inherited from StructuredClassifier
   /**
    * isFinalSpecialization
    * 
@@ -237,7 +187,6 @@ export class EncapsulatedClassifier extends StructuredClassifier implements IEnc
    */
   public isFinalSpecialization!: boolean;
 
-  // Inherited from StructuredClassifier
   /**
    * ownedUseCase
    * 
@@ -247,7 +196,6 @@ export class EncapsulatedClassifier extends StructuredClassifier implements IEnc
    */
   public ownedUseCase: Set<IUseCase> = new Set();
 
-  // Inherited from StructuredClassifier
   /**
    * useCase
    * 
@@ -256,9 +204,8 @@ export class EncapsulatedClassifier extends StructuredClassifier implements IEnc
    * @relationship cross-reference
    * @opposite subject
    */
-  public useCase: Set<IUseCase | string> = new Set();
+  public useCase: Set<string> = new Set();
 
-  // Inherited from StructuredClassifier
   /**
    * redefinedClassifier
    * 
@@ -266,9 +213,8 @@ export class EncapsulatedClassifier extends StructuredClassifier implements IEnc
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedClassifier: Set<IClassifier | string> = new Set();
+  public redefinedClassifier: Set<string> = new Set();
 
-  // Inherited from StructuredClassifier
   /**
    * representation
    * 
@@ -276,9 +222,8 @@ export class EncapsulatedClassifier extends StructuredClassifier implements IEnc
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public representation?: ICollaborationUse | string = undefined;
+  public representation?: string;
 
-  // Inherited from StructuredClassifier
   /**
    * substitution
    * 
@@ -289,7 +234,6 @@ export class EncapsulatedClassifier extends StructuredClassifier implements IEnc
    */
   public substitution: Set<ISubstitution> = new Set();
 
-  // Inherited from StructuredClassifier
   /**
    * ownedAttribute
    * 
@@ -299,7 +243,6 @@ export class EncapsulatedClassifier extends StructuredClassifier implements IEnc
    */
   public ownedAttribute: IProperty[] = [];
 
-  // Inherited from StructuredClassifier
   /**
    * ownedConnector
    * 
@@ -309,8 +252,10 @@ export class EncapsulatedClassifier extends StructuredClassifier implements IEnc
    */
   public ownedConnector: Set<IConnector> = new Set();
 
+
   constructor(init?: Partial<IEncapsulatedClassifier>) {
     super(init);
+
   }
   /**
    * Converts this instance to a plain object matching the interface
@@ -371,9 +316,6 @@ export class EncapsulatedClassifier extends StructuredClassifier implements IEnc
   static fromJSON(json: any): EncapsulatedClassifier {
     const instance = new EncapsulatedClassifier();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

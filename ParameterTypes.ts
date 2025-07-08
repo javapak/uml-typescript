@@ -13,9 +13,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialParameter = Partial<IParameter>;
 export type RequiredParameter = Required<IParameter>;
-export type ParameterKey = Pick<IParameter, 'name' | 'nameExpression'>;
-export type ParameterMetadata = Pick<IParameter, 'ownedComment' | 'visibility'>;
-export type ParameterSummary = Pick<IParameter, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type ParameterUnion = IParameter | IConnectableElement | IMultiplicityElement;
 export type ParameterFactory = () => Parameter;
 export type ParameterValidator = (instance: IParameter) => ValidationResult;

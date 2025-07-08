@@ -5,24 +5,16 @@
  * @package uml
  * @extends ControlNode
  */
-import { Comment } from './Comment';
 import { ControlNode } from './ControlNode';
-import { IActivity } from './IActivity';
 import { IActivityEdge } from './IActivityEdge';
-import { IActivityGroup } from './IActivityGroup';
 import { IActivityNode } from './IActivityNode';
 import { IActivityPartition } from './IActivityPartition';
 import { IBehavior } from './IBehavior';
-import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
 import { IControlNode } from './IControlNode';
 import { IDecisionNode } from './IDecisionNode';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IInterruptibleActivityRegion } from './IInterruptibleActivityRegion';
-import { INamespace } from './INamespace';
 import { IObjectFlow } from './IObjectFlow';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { IStructuredActivityNode } from './IStructuredActivityNode';
 import { StringExpression } from './StringExpression';
@@ -37,7 +29,7 @@ export class DecisionNode extends ControlNode implements IDecisionNode {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public decisionInput?: IBehavior | string = undefined;
+  public decisionInput?: string;
 
   /**
    * decisionInputFlow
@@ -46,20 +38,8 @@ export class DecisionNode extends ControlNode implements IDecisionNode {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public decisionInputFlow?: IObjectFlow | string = undefined;
+  public decisionInputFlow?: string;
 
-  // Inherited from ControlNode
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from ControlNode
   /**
    * ownedComment
    * 
@@ -69,16 +49,14 @@ export class DecisionNode extends ControlNode implements IDecisionNode {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from ControlNode
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from ControlNode
   /**
    * nameExpression
    * 
@@ -86,18 +64,15 @@ export class DecisionNode extends ControlNode implements IDecisionNode {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from ControlNode
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from ControlNode
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * isLeaf
    * 
@@ -106,7 +81,6 @@ export class DecisionNode extends ControlNode implements IDecisionNode {
    */
   public isLeaf!: boolean;
 
-  // Inherited from ControlNode
   /**
    * inInterruptibleRegion
    * 
@@ -115,9 +89,8 @@ export class DecisionNode extends ControlNode implements IDecisionNode {
    * @relationship cross-reference
    * @opposite node
    */
-  public inInterruptibleRegion: Set<IInterruptibleActivityRegion | string> = new Set();
+  public inInterruptibleRegion: Set<string> = new Set();
 
-  // Inherited from ControlNode
   /**
    * inStructuredNode
    * 
@@ -126,9 +99,8 @@ export class DecisionNode extends ControlNode implements IDecisionNode {
    * @relationship cross-reference
    * @opposite node
    */
-  public inStructuredNode?: IStructuredActivityNode | string = undefined;
+  public inStructuredNode?: string;
 
-  // Inherited from ControlNode
   /**
    * incoming
    * 
@@ -137,9 +109,8 @@ export class DecisionNode extends ControlNode implements IDecisionNode {
    * @relationship cross-reference
    * @opposite target
    */
-  public incoming: Set<IActivityEdge | string> = new Set();
+  public incoming: Set<string> = new Set();
 
-  // Inherited from ControlNode
   /**
    * outgoing
    * 
@@ -148,9 +119,8 @@ export class DecisionNode extends ControlNode implements IDecisionNode {
    * @relationship cross-reference
    * @opposite source
    */
-  public outgoing: Set<IActivityEdge | string> = new Set();
+  public outgoing: Set<string> = new Set();
 
-  // Inherited from ControlNode
   /**
    * redefinedNode
    * 
@@ -158,9 +128,8 @@ export class DecisionNode extends ControlNode implements IDecisionNode {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedNode: Set<IActivityNode | string> = new Set();
+  public redefinedNode: Set<string> = new Set();
 
-  // Inherited from ControlNode
   /**
    * inPartition
    * 
@@ -169,26 +138,28 @@ export class DecisionNode extends ControlNode implements IDecisionNode {
    * @relationship cross-reference
    * @opposite node
    */
-  public inPartition: Set<IActivityPartition | string> = new Set();
+  public inPartition: Set<string> = new Set();
+
 
   constructor(init?: Partial<IDecisionNode>) {
     super(init);
-    this.decisionInput = init?.decisionInput ?? undefined;
-    this.decisionInputFlow = init?.decisionInputFlow ?? undefined;
+
+    this.decisionInput = init?.decisionInput;
+    this.decisionInputFlow = init?.decisionInputFlow;
   }
-  getDecisionInput(): IBehavior | string | undefined {
+  getDecisionInput(): string | undefined {
     return this.decisionInput;
   }
 
-  setDecisionInput(value: IBehavior | string | undefined): void {
+  setDecisionInput(value: string | undefined): void {
     this.decisionInput = value;
   }
 
-  getDecisionInputFlow(): IObjectFlow | string | undefined {
+  getDecisionInputFlow(): string | undefined {
     return this.decisionInputFlow;
   }
 
-  setDecisionInputFlow(value: IObjectFlow | string | undefined): void {
+  setDecisionInputFlow(value: string | undefined): void {
     this.decisionInputFlow = value;
   }
 
@@ -259,9 +230,6 @@ export class DecisionNode extends ControlNode implements IDecisionNode {
   static fromJSON(json: any): DecisionNode {
     const instance = new DecisionNode();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

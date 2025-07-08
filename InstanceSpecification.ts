@@ -5,26 +5,20 @@
  * @package uml
  * @extends DeploymentTarget, PackageableElement, DeployedArtifact
  */
-import { Comment } from './Comment';
 import { DeployedArtifact } from './DeployedArtifact';
-import { Deployment } from './Deployment';
 import { DeploymentTarget } from './DeploymentTarget';
 import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
 import { IDeployedArtifact } from './IDeployedArtifact';
 import { IDeployment } from './IDeployment';
 import { IDeploymentTarget } from './IDeploymentTarget';
-import { IElement } from './IElement';
 import { IInstanceSpecification } from './IInstanceSpecification';
-import { INamespace } from './INamespace';
 import { IPackageableElement } from './IPackageableElement';
 import { ISlot } from './ISlot';
 import { IStringExpression } from './IStringExpression';
 import { ITemplateParameter } from './ITemplateParameter';
 import { IValueSpecification } from './IValueSpecification';
 import { PackageableElement } from './PackageableElement';
-import { Slot } from './Slot';
 import { StringExpression } from './StringExpression';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 import { ValueSpecification } from './ValueSpecification';
@@ -38,7 +32,7 @@ export class InstanceSpecification extends DeploymentTarget implements IInstance
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public classifier: Set<IClassifier | string> = new Set();
+  public classifier: Set<string> = new Set();
 
   /**
    * slot
@@ -57,20 +51,8 @@ export class InstanceSpecification extends DeploymentTarget implements IInstance
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public specification?: IValueSpecification = undefined;
+  public specification?: IValueSpecification;
 
-  // Inherited from DeploymentTarget
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from DeploymentTarget
   /**
    * ownedComment
    * 
@@ -80,16 +62,14 @@ export class InstanceSpecification extends DeploymentTarget implements IInstance
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from DeploymentTarget
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from DeploymentTarget
   /**
    * nameExpression
    * 
@@ -97,18 +77,15 @@ export class InstanceSpecification extends DeploymentTarget implements IInstance
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from DeploymentTarget
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from DeploymentTarget
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * deployment
    * 
@@ -119,7 +96,39 @@ export class InstanceSpecification extends DeploymentTarget implements IInstance
    */
   public deployment: Set<IDeployment> = new Set();
 
-  // Inherited from PackageableElement
+  /**
+   * ownedComment
+   * 
+   * @type Comment
+   * @multiplicity [0..*]
+   * @relationship containment
+   */
+  public ownedComment: Set<IComment> = new Set();
+
+  /**
+   * name
+   * 
+   * @type String
+   * @multiplicity [0..1]
+   */
+  public name?: string;
+
+  /**
+   * nameExpression
+   * 
+   * @type StringExpression
+   * @multiplicity [0..1]
+   * @relationship containment
+   */
+  public nameExpression?: IStringExpression;
+
+  /**
+   * visibility
+   * 
+   * @type VisibilityKind
+   * @multiplicity [0..1]
+   */
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * owningTemplateParameter
    * 
@@ -128,9 +137,8 @@ export class InstanceSpecification extends DeploymentTarget implements IInstance
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from PackageableElement
   /**
    * templateParameter
    * 
@@ -139,19 +147,54 @@ export class InstanceSpecification extends DeploymentTarget implements IInstance
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
+
+  /**
+   * ownedComment
+   * 
+   * @type Comment
+   * @multiplicity [0..*]
+   * @relationship containment
+   */
+  public ownedComment: Set<IComment> = new Set();
+
+  /**
+   * name
+   * 
+   * @type String
+   * @multiplicity [0..1]
+   */
+  public name?: string;
+
+  /**
+   * nameExpression
+   * 
+   * @type StringExpression
+   * @multiplicity [0..1]
+   * @relationship containment
+   */
+  public nameExpression?: IStringExpression;
+
+  /**
+   * visibility
+   * 
+   * @type VisibilityKind
+   * @multiplicity [0..1]
+   */
+  public visibility: VisibilityKind | undefined = undefined;
 
   constructor(init?: Partial<IInstanceSpecification>) {
     super(init);
-    this.classifier = init?.classifier ?? new Set();
-    this.slot = init?.slot ?? new Set();
-    this.specification = init?.specification ?? undefined;
+
+    this.classifier = init?.classifier ? new Set(init.classifier) : new Set();
+    this.slot = init?.slot ? new Set(init.slot) : new Set();
+    this.specification = init?.specification;
   }
-  getClassifier(): Set<IClassifier | string> {
+  getClassifier(): Set<string> {
     return this.classifier;
   }
 
-  setClassifier(value: Set<IClassifier | string>): void {
+  setClassifier(value: Set<string>): void {
     this.classifier = value;
   }
 
@@ -238,9 +281,6 @@ export class InstanceSpecification extends DeploymentTarget implements IInstance
   static fromJSON(json: any): InstanceSpecification {
     const instance = new InstanceSpecification();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

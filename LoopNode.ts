@@ -5,44 +5,25 @@
  * @package uml
  * @extends StructuredActivityNode
  */
-import { ActivityEdge } from './ActivityEdge';
-import { ActivityNode } from './ActivityNode';
-import { Comment } from './Comment';
-import { Constraint } from './Constraint';
-import { ElementImport } from './ElementImport';
-import { ExceptionHandler } from './ExceptionHandler';
-import { IActivity } from './IActivity';
 import { IActivityEdge } from './IActivityEdge';
-import { IActivityGroup } from './IActivityGroup';
 import { IActivityNode } from './IActivityNode';
 import { IActivityPartition } from './IActivityPartition';
-import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IElementImport } from './IElementImport';
 import { IExceptionHandler } from './IExceptionHandler';
 import { IExecutableNode } from './IExecutableNode';
 import { IInputPin } from './IInputPin';
 import { IInterruptibleActivityRegion } from './IInterruptibleActivityRegion';
 import { ILoopNode } from './ILoopNode';
-import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IOutputPin } from './IOutputPin';
 import { IPackageImport } from './IPackageImport';
-import { IPackageableElement } from './IPackageableElement';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { IStructuredActivityNode } from './IStructuredActivityNode';
 import { IVariable } from './IVariable';
-import { InputPin } from './InputPin';
-import { OutputPin } from './OutputPin';
-import { PackageImport } from './PackageImport';
 import { StringExpression } from './StringExpression';
 import { StructuredActivityNode } from './StructuredActivityNode';
 import { ValidationError, ValidationResult } from './ValidationTypes';
-import { Variable } from './Variable';
 import { VisibilityKind } from './VisibilityKind';
 
 export class LoopNode extends StructuredActivityNode implements ILoopNode {
@@ -53,7 +34,7 @@ export class LoopNode extends StructuredActivityNode implements ILoopNode {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public bodyOutput: IOutputPin | string[] = [];
+  public bodyOutput: string[] = [];
 
   /**
    * bodyPart
@@ -62,7 +43,7 @@ export class LoopNode extends StructuredActivityNode implements ILoopNode {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public bodyPart: Set<IExecutableNode | string> = new Set();
+  public bodyPart: Set<string> = new Set();
 
   /**
    * decider
@@ -71,7 +52,7 @@ export class LoopNode extends StructuredActivityNode implements ILoopNode {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public decider!: IOutputPin | string;
+  public decider!: string;
 
   /**
    * isTestedFirst
@@ -115,7 +96,7 @@ export class LoopNode extends StructuredActivityNode implements ILoopNode {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public setupPart: Set<IExecutableNode | string> = new Set();
+  public setupPart: Set<string> = new Set();
 
   /**
    * test
@@ -124,20 +105,8 @@ export class LoopNode extends StructuredActivityNode implements ILoopNode {
    * @multiplicity [1..*]
    * @relationship cross-reference
    */
-  public test: Set<IExecutableNode | string> = new Set();
+  public test: Set<string> = new Set();
 
-  // Inherited from StructuredActivityNode
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from StructuredActivityNode
   /**
    * ownedComment
    * 
@@ -147,16 +116,14 @@ export class LoopNode extends StructuredActivityNode implements ILoopNode {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from StructuredActivityNode
   /**
    * nameExpression
    * 
@@ -164,18 +131,15 @@ export class LoopNode extends StructuredActivityNode implements ILoopNode {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from StructuredActivityNode
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from StructuredActivityNode
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * isLeaf
    * 
@@ -184,7 +148,6 @@ export class LoopNode extends StructuredActivityNode implements ILoopNode {
    */
   public isLeaf!: boolean;
 
-  // Inherited from StructuredActivityNode
   /**
    * inInterruptibleRegion
    * 
@@ -193,9 +156,8 @@ export class LoopNode extends StructuredActivityNode implements ILoopNode {
    * @relationship cross-reference
    * @opposite node
    */
-  public inInterruptibleRegion: Set<IInterruptibleActivityRegion | string> = new Set();
+  public inInterruptibleRegion: Set<string> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * inStructuredNode
    * 
@@ -204,9 +166,8 @@ export class LoopNode extends StructuredActivityNode implements ILoopNode {
    * @relationship cross-reference
    * @opposite node
    */
-  public inStructuredNode?: IStructuredActivityNode | string = undefined;
+  public inStructuredNode?: string;
 
-  // Inherited from StructuredActivityNode
   /**
    * incoming
    * 
@@ -215,9 +176,8 @@ export class LoopNode extends StructuredActivityNode implements ILoopNode {
    * @relationship cross-reference
    * @opposite target
    */
-  public incoming: Set<IActivityEdge | string> = new Set();
+  public incoming: Set<string> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * outgoing
    * 
@@ -226,9 +186,8 @@ export class LoopNode extends StructuredActivityNode implements ILoopNode {
    * @relationship cross-reference
    * @opposite source
    */
-  public outgoing: Set<IActivityEdge | string> = new Set();
+  public outgoing: Set<string> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * redefinedNode
    * 
@@ -236,9 +195,8 @@ export class LoopNode extends StructuredActivityNode implements ILoopNode {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedNode: Set<IActivityNode | string> = new Set();
+  public redefinedNode: Set<string> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * inPartition
    * 
@@ -247,9 +205,8 @@ export class LoopNode extends StructuredActivityNode implements ILoopNode {
    * @relationship cross-reference
    * @opposite node
    */
-  public inPartition: Set<IActivityPartition | string> = new Set();
+  public inPartition: Set<string> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * handler
    * 
@@ -260,7 +217,6 @@ export class LoopNode extends StructuredActivityNode implements ILoopNode {
    */
   public handler: Set<IExceptionHandler> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * isLocallyReentrant
    * 
@@ -269,7 +225,6 @@ export class LoopNode extends StructuredActivityNode implements ILoopNode {
    */
   public isLocallyReentrant!: boolean;
 
-  // Inherited from StructuredActivityNode
   /**
    * localPostcondition
    * 
@@ -279,7 +234,6 @@ export class LoopNode extends StructuredActivityNode implements ILoopNode {
    */
   public localPostcondition: Set<IConstraint> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * localPrecondition
    * 
@@ -289,7 +243,6 @@ export class LoopNode extends StructuredActivityNode implements ILoopNode {
    */
   public localPrecondition: Set<IConstraint> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * ownedRule
    * 
@@ -300,7 +253,6 @@ export class LoopNode extends StructuredActivityNode implements ILoopNode {
    */
   public ownedRule: Set<IConstraint> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * elementImport
    * 
@@ -311,7 +263,6 @@ export class LoopNode extends StructuredActivityNode implements ILoopNode {
    */
   public elementImport: Set<IElementImport> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * packageImport
    * 
@@ -322,7 +273,6 @@ export class LoopNode extends StructuredActivityNode implements ILoopNode {
    */
   public packageImport: Set<IPackageImport> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * edge
    * 
@@ -333,7 +283,6 @@ export class LoopNode extends StructuredActivityNode implements ILoopNode {
    */
   public edge: Set<IActivityEdge> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * mustIsolate
    * 
@@ -342,7 +291,6 @@ export class LoopNode extends StructuredActivityNode implements ILoopNode {
    */
   public mustIsolate!: boolean;
 
-  // Inherited from StructuredActivityNode
   /**
    * structuredNodeInput
    * 
@@ -352,7 +300,6 @@ export class LoopNode extends StructuredActivityNode implements ILoopNode {
    */
   public structuredNodeInput: Set<IInputPin> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * structuredNodeOutput
    * 
@@ -362,7 +309,6 @@ export class LoopNode extends StructuredActivityNode implements ILoopNode {
    */
   public structuredNodeOutput: Set<IOutputPin> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * variable
    * 
@@ -373,7 +319,6 @@ export class LoopNode extends StructuredActivityNode implements ILoopNode {
    */
   public variable: Set<IVariable> = new Set();
 
-  // Inherited from StructuredActivityNode
   /**
    * node
    * 
@@ -384,39 +329,41 @@ export class LoopNode extends StructuredActivityNode implements ILoopNode {
    */
   public node: Set<IActivityNode> = new Set();
 
+
   constructor(init?: Partial<ILoopNode>) {
     super(init);
-    this.bodyOutput = init?.bodyOutput ?? [];
-    this.bodyPart = init?.bodyPart ?? new Set();
-    this.decider = init?.decider!;
-    this.isTestedFirst = init?.isTestedFirst!;
-    this.loopVariable = init?.loopVariable ?? [];
-    this.loopVariableInput = init?.loopVariableInput ?? [];
-    this.result = init?.result ?? [];
-    this.setupPart = init?.setupPart ?? new Set();
-    this.test = init?.test ?? new Set();
+
+    this.bodyOutput = init?.bodyOutput ? [...init.bodyOutput] : [];
+    this.bodyPart = init?.bodyPart ? new Set(init.bodyPart) : new Set();
+    this.decider = init?.decider ?? '';
+    this.isTestedFirst = init?.isTestedFirst ?? false;
+    this.loopVariable = init?.loopVariable ? [...init.loopVariable] : [];
+    this.loopVariableInput = init?.loopVariableInput ? [...init.loopVariableInput] : [];
+    this.result = init?.result ? [...init.result] : [];
+    this.setupPart = init?.setupPart ? new Set(init.setupPart) : new Set();
+    this.test = init?.test ? new Set(init.test) : new Set();
   }
-  getBodyOutput(): IOutputPin | string[] {
+  getBodyOutput(): string[] {
     return this.bodyOutput;
   }
 
-  setBodyOutput(value: IOutputPin | string[]): void {
+  setBodyOutput(value: string[]): void {
     this.bodyOutput = value;
   }
 
-  getBodyPart(): Set<IExecutableNode | string> {
+  getBodyPart(): Set<string> {
     return this.bodyPart;
   }
 
-  setBodyPart(value: Set<IExecutableNode | string>): void {
+  setBodyPart(value: Set<string>): void {
     this.bodyPart = value;
   }
 
-  getDecider(): IOutputPin | string {
+  getDecider(): string {
     return this.decider;
   }
 
-  setDecider(value: IOutputPin | string): void {
+  setDecider(value: string): void {
     this.decider = value;
   }
 
@@ -452,19 +399,19 @@ export class LoopNode extends StructuredActivityNode implements ILoopNode {
     this.result = value;
   }
 
-  getSetupPart(): Set<IExecutableNode | string> {
+  getSetupPart(): Set<string> {
     return this.setupPart;
   }
 
-  setSetupPart(value: Set<IExecutableNode | string>): void {
+  setSetupPart(value: Set<string>): void {
     this.setupPart = value;
   }
 
-  getTest(): Set<IExecutableNode | string> {
+  getTest(): Set<string> {
     return this.test;
   }
 
-  setTest(value: Set<IExecutableNode | string>): void {
+  setTest(value: Set<string>): void {
     this.test = value;
   }
 
@@ -545,9 +492,6 @@ export class LoopNode extends StructuredActivityNode implements ILoopNode {
   static fromJSON(json: any): LoopNode {
     const instance = new LoopNode();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

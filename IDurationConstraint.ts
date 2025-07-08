@@ -14,7 +14,7 @@ export interface IDurationConstraint extends IIntervalConstraint {
    * @type Boolean
    * @multiplicity [0..2]
    */
-  firstEvent: Set<boolean>;
+  firstEvent?: Set<boolean>;
 }
 
 // Type aliases for DurationConstraint

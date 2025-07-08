@@ -11,9 +11,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialDeployment = Partial<IDeployment>;
 export type RequiredDeployment = Required<IDeployment>;
-export type DeploymentKey = Pick<IDeployment, 'name' | 'nameExpression'>;
-export type DeploymentMetadata = Pick<IDeployment, 'ownedComment' | 'visibility'>;
-export type DeploymentSummary = Pick<IDeployment, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type DeploymentUnion = IDeployment | IDependency;
 export type DeploymentFactory = () => Deployment;
 export type DeploymentValidator = (instance: IDeployment) => ValidationResult;

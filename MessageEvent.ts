@@ -6,14 +6,10 @@
  * @abstract
  * @extends Event
  */
-import { Comment } from './Comment';
 import { Event } from './Event';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IEvent } from './IEvent';
 import { IMessageEvent } from './IMessageEvent';
-import { INamespace } from './INamespace';
 import { IStringExpression } from './IStringExpression';
 import { ITemplateParameter } from './ITemplateParameter';
 import { StringExpression } from './StringExpression';
@@ -21,18 +17,6 @@ import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
 
 export class MessageEvent extends Event implements IMessageEvent {
-  // Inherited from Event
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Event
   /**
    * ownedComment
    * 
@@ -42,16 +26,14 @@ export class MessageEvent extends Event implements IMessageEvent {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Event
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Event
   /**
    * nameExpression
    * 
@@ -59,18 +41,15 @@ export class MessageEvent extends Event implements IMessageEvent {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Event
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Event
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * owningTemplateParameter
    * 
@@ -79,9 +58,8 @@ export class MessageEvent extends Event implements IMessageEvent {
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from Event
   /**
    * templateParameter
    * 
@@ -90,10 +68,12 @@ export class MessageEvent extends Event implements IMessageEvent {
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
+
 
   constructor(init?: Partial<IMessageEvent>) {
     super(init);
+
   }
   /**
    * Converts this instance to a plain object matching the interface
@@ -154,9 +134,6 @@ export class MessageEvent extends Event implements IMessageEvent {
   static fromJSON(json: any): MessageEvent {
     const instance = new MessageEvent();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

@@ -17,7 +17,7 @@ export interface ISequenceNode extends IStructuredActivityNode {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  executableNode: IExecutableNode[];
+  executableNode?: IExecutableNode[];
 }
 
 // Type aliases for SequenceNode

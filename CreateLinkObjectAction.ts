@@ -5,33 +5,21 @@
  * @package uml
  * @extends CreateLinkAction
  */
-import { Comment } from './Comment';
-import { Constraint } from './Constraint';
 import { CreateLinkAction } from './CreateLinkAction';
-import { ExceptionHandler } from './ExceptionHandler';
-import { IActivity } from './IActivity';
 import { IActivityEdge } from './IActivityEdge';
-import { IActivityGroup } from './IActivityGroup';
 import { IActivityNode } from './IActivityNode';
 import { IActivityPartition } from './IActivityPartition';
-import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
 import { IConstraint } from './IConstraint';
 import { ICreateLinkAction } from './ICreateLinkAction';
 import { ICreateLinkObjectAction } from './ICreateLinkObjectAction';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IExceptionHandler } from './IExceptionHandler';
 import { IInputPin } from './IInputPin';
 import { IInterruptibleActivityRegion } from './IInterruptibleActivityRegion';
 import { ILinkEndData } from './ILinkEndData';
-import { INamespace } from './INamespace';
 import { IOutputPin } from './IOutputPin';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { IStructuredActivityNode } from './IStructuredActivityNode';
-import { InputPin } from './InputPin';
-import { LinkEndData } from './LinkEndData';
 import { OutputPin } from './OutputPin';
 import { StringExpression } from './StringExpression';
 import { ValidationError, ValidationResult } from './ValidationTypes';
@@ -47,18 +35,6 @@ export class CreateLinkObjectAction extends CreateLinkAction implements ICreateL
    */
   public result!: IOutputPin;
 
-  // Inherited from CreateLinkAction
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from CreateLinkAction
   /**
    * ownedComment
    * 
@@ -68,16 +44,14 @@ export class CreateLinkObjectAction extends CreateLinkAction implements ICreateL
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from CreateLinkAction
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from CreateLinkAction
   /**
    * nameExpression
    * 
@@ -85,18 +59,15 @@ export class CreateLinkObjectAction extends CreateLinkAction implements ICreateL
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from CreateLinkAction
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from CreateLinkAction
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * isLeaf
    * 
@@ -105,7 +76,6 @@ export class CreateLinkObjectAction extends CreateLinkAction implements ICreateL
    */
   public isLeaf!: boolean;
 
-  // Inherited from CreateLinkAction
   /**
    * inInterruptibleRegion
    * 
@@ -114,9 +84,8 @@ export class CreateLinkObjectAction extends CreateLinkAction implements ICreateL
    * @relationship cross-reference
    * @opposite node
    */
-  public inInterruptibleRegion: Set<IInterruptibleActivityRegion | string> = new Set();
+  public inInterruptibleRegion: Set<string> = new Set();
 
-  // Inherited from CreateLinkAction
   /**
    * inStructuredNode
    * 
@@ -125,9 +94,8 @@ export class CreateLinkObjectAction extends CreateLinkAction implements ICreateL
    * @relationship cross-reference
    * @opposite node
    */
-  public inStructuredNode?: IStructuredActivityNode | string = undefined;
+  public inStructuredNode?: string;
 
-  // Inherited from CreateLinkAction
   /**
    * incoming
    * 
@@ -136,9 +104,8 @@ export class CreateLinkObjectAction extends CreateLinkAction implements ICreateL
    * @relationship cross-reference
    * @opposite target
    */
-  public incoming: Set<IActivityEdge | string> = new Set();
+  public incoming: Set<string> = new Set();
 
-  // Inherited from CreateLinkAction
   /**
    * outgoing
    * 
@@ -147,9 +114,8 @@ export class CreateLinkObjectAction extends CreateLinkAction implements ICreateL
    * @relationship cross-reference
    * @opposite source
    */
-  public outgoing: Set<IActivityEdge | string> = new Set();
+  public outgoing: Set<string> = new Set();
 
-  // Inherited from CreateLinkAction
   /**
    * redefinedNode
    * 
@@ -157,9 +123,8 @@ export class CreateLinkObjectAction extends CreateLinkAction implements ICreateL
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedNode: Set<IActivityNode | string> = new Set();
+  public redefinedNode: Set<string> = new Set();
 
-  // Inherited from CreateLinkAction
   /**
    * inPartition
    * 
@@ -168,9 +133,8 @@ export class CreateLinkObjectAction extends CreateLinkAction implements ICreateL
    * @relationship cross-reference
    * @opposite node
    */
-  public inPartition: Set<IActivityPartition | string> = new Set();
+  public inPartition: Set<string> = new Set();
 
-  // Inherited from CreateLinkAction
   /**
    * handler
    * 
@@ -181,7 +145,6 @@ export class CreateLinkObjectAction extends CreateLinkAction implements ICreateL
    */
   public handler: Set<IExceptionHandler> = new Set();
 
-  // Inherited from CreateLinkAction
   /**
    * isLocallyReentrant
    * 
@@ -190,7 +153,6 @@ export class CreateLinkObjectAction extends CreateLinkAction implements ICreateL
    */
   public isLocallyReentrant!: boolean;
 
-  // Inherited from CreateLinkAction
   /**
    * localPostcondition
    * 
@@ -200,7 +162,6 @@ export class CreateLinkObjectAction extends CreateLinkAction implements ICreateL
    */
   public localPostcondition: Set<IConstraint> = new Set();
 
-  // Inherited from CreateLinkAction
   /**
    * localPrecondition
    * 
@@ -210,7 +171,6 @@ export class CreateLinkObjectAction extends CreateLinkAction implements ICreateL
    */
   public localPrecondition: Set<IConstraint> = new Set();
 
-  // Inherited from CreateLinkAction
   /**
    * endData
    * 
@@ -220,7 +180,6 @@ export class CreateLinkObjectAction extends CreateLinkAction implements ICreateL
    */
   public endData: Set<ILinkEndData> = new Set();
 
-  // Inherited from CreateLinkAction
   /**
    * inputValue
    * 
@@ -230,8 +189,10 @@ export class CreateLinkObjectAction extends CreateLinkAction implements ICreateL
    */
   public inputValue: Set<IInputPin> = new Set();
 
+
   constructor(init?: Partial<ICreateLinkObjectAction>) {
     super(init);
+
     this.result = init?.result!;
   }
   getResult(): IOutputPin {
@@ -303,9 +264,6 @@ export class CreateLinkObjectAction extends CreateLinkAction implements ICreateL
   static fromJSON(json: any): CreateLinkObjectAction {
     const instance = new CreateLinkObjectAction();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

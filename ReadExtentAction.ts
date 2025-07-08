@@ -6,27 +6,17 @@
  * @extends Action
  */
 import { Action } from './Action';
-import { Comment } from './Comment';
-import { Constraint } from './Constraint';
-import { ExceptionHandler } from './ExceptionHandler';
 import { IAction } from './IAction';
-import { IActivity } from './IActivity';
 import { IActivityEdge } from './IActivityEdge';
-import { IActivityGroup } from './IActivityGroup';
 import { IActivityNode } from './IActivityNode';
 import { IActivityPartition } from './IActivityPartition';
 import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IExceptionHandler } from './IExceptionHandler';
-import { IInputPin } from './IInputPin';
 import { IInterruptibleActivityRegion } from './IInterruptibleActivityRegion';
-import { INamespace } from './INamespace';
 import { IOutputPin } from './IOutputPin';
 import { IReadExtentAction } from './IReadExtentAction';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { IStructuredActivityNode } from './IStructuredActivityNode';
 import { OutputPin } from './OutputPin';
@@ -42,7 +32,7 @@ export class ReadExtentAction extends Action implements IReadExtentAction {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public classifier!: IClassifier | string;
+  public classifier!: string;
 
   /**
    * result
@@ -53,18 +43,6 @@ export class ReadExtentAction extends Action implements IReadExtentAction {
    */
   public result!: IOutputPin;
 
-  // Inherited from Action
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Action
   /**
    * ownedComment
    * 
@@ -74,16 +52,14 @@ export class ReadExtentAction extends Action implements IReadExtentAction {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Action
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Action
   /**
    * nameExpression
    * 
@@ -91,18 +67,15 @@ export class ReadExtentAction extends Action implements IReadExtentAction {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Action
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Action
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * isLeaf
    * 
@@ -111,7 +84,6 @@ export class ReadExtentAction extends Action implements IReadExtentAction {
    */
   public isLeaf!: boolean;
 
-  // Inherited from Action
   /**
    * inInterruptibleRegion
    * 
@@ -120,9 +92,8 @@ export class ReadExtentAction extends Action implements IReadExtentAction {
    * @relationship cross-reference
    * @opposite node
    */
-  public inInterruptibleRegion: Set<IInterruptibleActivityRegion | string> = new Set();
+  public inInterruptibleRegion: Set<string> = new Set();
 
-  // Inherited from Action
   /**
    * inStructuredNode
    * 
@@ -131,9 +102,8 @@ export class ReadExtentAction extends Action implements IReadExtentAction {
    * @relationship cross-reference
    * @opposite node
    */
-  public inStructuredNode?: IStructuredActivityNode | string = undefined;
+  public inStructuredNode?: string;
 
-  // Inherited from Action
   /**
    * incoming
    * 
@@ -142,9 +112,8 @@ export class ReadExtentAction extends Action implements IReadExtentAction {
    * @relationship cross-reference
    * @opposite target
    */
-  public incoming: Set<IActivityEdge | string> = new Set();
+  public incoming: Set<string> = new Set();
 
-  // Inherited from Action
   /**
    * outgoing
    * 
@@ -153,9 +122,8 @@ export class ReadExtentAction extends Action implements IReadExtentAction {
    * @relationship cross-reference
    * @opposite source
    */
-  public outgoing: Set<IActivityEdge | string> = new Set();
+  public outgoing: Set<string> = new Set();
 
-  // Inherited from Action
   /**
    * redefinedNode
    * 
@@ -163,9 +131,8 @@ export class ReadExtentAction extends Action implements IReadExtentAction {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedNode: Set<IActivityNode | string> = new Set();
+  public redefinedNode: Set<string> = new Set();
 
-  // Inherited from Action
   /**
    * inPartition
    * 
@@ -174,9 +141,8 @@ export class ReadExtentAction extends Action implements IReadExtentAction {
    * @relationship cross-reference
    * @opposite node
    */
-  public inPartition: Set<IActivityPartition | string> = new Set();
+  public inPartition: Set<string> = new Set();
 
-  // Inherited from Action
   /**
    * handler
    * 
@@ -187,7 +153,6 @@ export class ReadExtentAction extends Action implements IReadExtentAction {
    */
   public handler: Set<IExceptionHandler> = new Set();
 
-  // Inherited from Action
   /**
    * isLocallyReentrant
    * 
@@ -196,7 +161,6 @@ export class ReadExtentAction extends Action implements IReadExtentAction {
    */
   public isLocallyReentrant!: boolean;
 
-  // Inherited from Action
   /**
    * localPostcondition
    * 
@@ -206,7 +170,6 @@ export class ReadExtentAction extends Action implements IReadExtentAction {
    */
   public localPostcondition: Set<IConstraint> = new Set();
 
-  // Inherited from Action
   /**
    * localPrecondition
    * 
@@ -216,16 +179,18 @@ export class ReadExtentAction extends Action implements IReadExtentAction {
    */
   public localPrecondition: Set<IConstraint> = new Set();
 
+
   constructor(init?: Partial<IReadExtentAction>) {
     super(init);
-    this.classifier = init?.classifier!;
+
+    this.classifier = init?.classifier ?? '';
     this.result = init?.result!;
   }
-  getClassifier(): IClassifier | string {
+  getClassifier(): string {
     return this.classifier;
   }
 
-  setClassifier(value: IClassifier | string): void {
+  setClassifier(value: string): void {
     this.classifier = value;
   }
 
@@ -300,9 +265,6 @@ export class ReadExtentAction extends Action implements IReadExtentAction {
   static fromJSON(json: any): ReadExtentAction {
     const instance = new ReadExtentAction();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

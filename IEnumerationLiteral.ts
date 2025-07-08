@@ -17,7 +17,7 @@ export interface IEnumerationLiteral extends IInstanceSpecification {
    * @relationship cross-reference
    * @opposite ownedLiteral
    */
-  enumeration: IEnumeration | string;
+  enumeration: string;
 }
 
 // Type aliases for EnumerationLiteral

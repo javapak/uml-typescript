@@ -18,7 +18,7 @@ export interface IPackageImport extends IDirectedRelationship {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  importedPackage: IPackage | string;
+  importedPackage: string;
   /**
    * importingNamespace
    * 
@@ -27,14 +27,14 @@ export interface IPackageImport extends IDirectedRelationship {
    * @relationship cross-reference
    * @opposite packageImport
    */
-  importingNamespace: INamespace | string;
+  importingNamespace: string;
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [1..1]
    */
-  visibility: any;
+  visibility: VisibilityKind;
 }
 
 // Type aliases for PackageImport

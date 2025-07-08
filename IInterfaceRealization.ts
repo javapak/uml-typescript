@@ -17,7 +17,7 @@ export interface IInterfaceRealization extends IRealization {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  contract: IInterface | string;
+  contract: string;
   /**
    * implementingClassifier
    * 
@@ -26,7 +26,7 @@ export interface IInterfaceRealization extends IRealization {
    * @relationship cross-reference
    * @opposite interfaceRealization
    */
-  implementingClassifier: IBehavioredClassifier | string;
+  implementingClassifier: string;
 }
 
 // Type aliases for InterfaceRealization

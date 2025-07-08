@@ -16,7 +16,7 @@ export interface IManifestation extends IAbstraction {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  utilizedElement: IPackageableElement | string;
+  utilizedElement: string;
 }
 
 // Type aliases for Manifestation

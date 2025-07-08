@@ -30,7 +30,7 @@ export interface IState extends INamespace, IRedefinableElement, IVertex {
    * @relationship containment
    * @opposite state
    */
-  connection: Set<IConnectionPointReference>;
+  connection?: Set<IConnectionPointReference>;
   /**
    * connectionPoint
    * 
@@ -39,7 +39,7 @@ export interface IState extends INamespace, IRedefinableElement, IVertex {
    * @relationship containment
    * @opposite state
    */
-  connectionPoint: Set<IPseudostate>;
+  connectionPoint?: Set<IPseudostate>;
   /**
    * deferrableTrigger
    * 
@@ -47,7 +47,7 @@ export interface IState extends INamespace, IRedefinableElement, IVertex {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  deferrableTrigger: Set<ITrigger>;
+  deferrableTrigger?: Set<ITrigger>;
   /**
    * doActivity
    * 
@@ -79,7 +79,7 @@ export interface IState extends INamespace, IRedefinableElement, IVertex {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  redefinedState?: IState | string;
+  redefinedState?: string;
   /**
    * stateInvariant
    * 
@@ -87,7 +87,7 @@ export interface IState extends INamespace, IRedefinableElement, IVertex {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  stateInvariant?: IConstraint | string;
+  stateInvariant?: string;
   /**
    * submachine
    * 
@@ -96,7 +96,7 @@ export interface IState extends INamespace, IRedefinableElement, IVertex {
    * @relationship cross-reference
    * @opposite submachineState
    */
-  submachine?: IStateMachine | string;
+  submachine?: string;
   /**
    * region
    * 
@@ -105,7 +105,7 @@ export interface IState extends INamespace, IRedefinableElement, IVertex {
    * @relationship containment
    * @opposite state
    */
-  region: Set<IRegion>;
+  region?: Set<IRegion>;
 }
 
 // Type aliases for State

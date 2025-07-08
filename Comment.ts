@@ -18,7 +18,7 @@ export class Comment extends Element implements IComment {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public annotatedElement: Set<IElement | string> = new Set();
+  public annotatedElement: Set<string> = new Set();
 
   /**
    * body
@@ -26,20 +26,8 @@ export class Comment extends Element implements IComment {
    * @type String
    * @multiplicity [0..1]
    */
-  public body?: string = undefined;
+  public body?: string;
 
-  // Inherited from Element
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Element
   /**
    * ownedComment
    * 
@@ -49,16 +37,18 @@ export class Comment extends Element implements IComment {
    */
   public ownedComment: Set<IComment> = new Set();
 
+
   constructor(init?: Partial<IComment>) {
     super(init);
-    this.annotatedElement = init?.annotatedElement ?? new Set();
-    this.body = init?.body ?? undefined;
+
+    this.annotatedElement = init?.annotatedElement ? new Set(init.annotatedElement) : new Set();
+    this.body = init?.body;
   }
-  getAnnotatedElement(): Set<IElement | string> {
+  getAnnotatedElement(): Set<string> {
     return this.annotatedElement;
   }
 
-  setAnnotatedElement(value: Set<IElement | string>): void {
+  setAnnotatedElement(value: Set<string>): void {
     this.annotatedElement = value;
   }
 
@@ -135,9 +125,6 @@ export class Comment extends Element implements IComment {
   static fromJSON(json: any): Comment {
     const instance = new Comment();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

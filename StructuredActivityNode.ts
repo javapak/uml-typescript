@@ -6,44 +6,27 @@
  * @extends Action, Namespace, ActivityGroup
  */
 import { Action } from './Action';
-import { ActivityEdge } from './ActivityEdge';
 import { ActivityGroup } from './ActivityGroup';
-import { ActivityNode } from './ActivityNode';
-import { Comment } from './Comment';
-import { Constraint } from './Constraint';
-import { ElementImport } from './ElementImport';
-import { ExceptionHandler } from './ExceptionHandler';
 import { IAction } from './IAction';
-import { IActivity } from './IActivity';
 import { IActivityEdge } from './IActivityEdge';
 import { IActivityGroup } from './IActivityGroup';
 import { IActivityNode } from './IActivityNode';
 import { IActivityPartition } from './IActivityPartition';
-import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IElementImport } from './IElementImport';
 import { IExceptionHandler } from './IExceptionHandler';
 import { IInputPin } from './IInputPin';
 import { IInterruptibleActivityRegion } from './IInterruptibleActivityRegion';
-import { INamedElement } from './INamedElement';
 import { INamespace } from './INamespace';
 import { IOutputPin } from './IOutputPin';
 import { IPackageImport } from './IPackageImport';
-import { IPackageableElement } from './IPackageableElement';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { IStructuredActivityNode } from './IStructuredActivityNode';
 import { IVariable } from './IVariable';
-import { InputPin } from './InputPin';
 import { Namespace } from './Namespace';
-import { OutputPin } from './OutputPin';
-import { PackageImport } from './PackageImport';
 import { StringExpression } from './StringExpression';
 import { ValidationError, ValidationResult } from './ValidationTypes';
-import { Variable } from './Variable';
 import { VisibilityKind } from './VisibilityKind';
 
 export class StructuredActivityNode extends Action implements IStructuredActivityNode {
@@ -103,18 +86,6 @@ export class StructuredActivityNode extends Action implements IStructuredActivit
    */
   public node: Set<IActivityNode> = new Set();
 
-  // Inherited from Action
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Action
   /**
    * ownedComment
    * 
@@ -124,16 +95,14 @@ export class StructuredActivityNode extends Action implements IStructuredActivit
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Action
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Action
   /**
    * nameExpression
    * 
@@ -141,18 +110,15 @@ export class StructuredActivityNode extends Action implements IStructuredActivit
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Action
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Action
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * isLeaf
    * 
@@ -161,7 +127,6 @@ export class StructuredActivityNode extends Action implements IStructuredActivit
    */
   public isLeaf!: boolean;
 
-  // Inherited from Action
   /**
    * inInterruptibleRegion
    * 
@@ -170,9 +135,8 @@ export class StructuredActivityNode extends Action implements IStructuredActivit
    * @relationship cross-reference
    * @opposite node
    */
-  public inInterruptibleRegion: Set<IInterruptibleActivityRegion | string> = new Set();
+  public inInterruptibleRegion: Set<string> = new Set();
 
-  // Inherited from Action
   /**
    * inStructuredNode
    * 
@@ -181,9 +145,8 @@ export class StructuredActivityNode extends Action implements IStructuredActivit
    * @relationship cross-reference
    * @opposite node
    */
-  public inStructuredNode?: IStructuredActivityNode | string = undefined;
+  public inStructuredNode?: string;
 
-  // Inherited from Action
   /**
    * incoming
    * 
@@ -192,9 +155,8 @@ export class StructuredActivityNode extends Action implements IStructuredActivit
    * @relationship cross-reference
    * @opposite target
    */
-  public incoming: Set<IActivityEdge | string> = new Set();
+  public incoming: Set<string> = new Set();
 
-  // Inherited from Action
   /**
    * outgoing
    * 
@@ -203,9 +165,8 @@ export class StructuredActivityNode extends Action implements IStructuredActivit
    * @relationship cross-reference
    * @opposite source
    */
-  public outgoing: Set<IActivityEdge | string> = new Set();
+  public outgoing: Set<string> = new Set();
 
-  // Inherited from Action
   /**
    * redefinedNode
    * 
@@ -213,9 +174,8 @@ export class StructuredActivityNode extends Action implements IStructuredActivit
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedNode: Set<IActivityNode | string> = new Set();
+  public redefinedNode: Set<string> = new Set();
 
-  // Inherited from Action
   /**
    * inPartition
    * 
@@ -224,9 +184,8 @@ export class StructuredActivityNode extends Action implements IStructuredActivit
    * @relationship cross-reference
    * @opposite node
    */
-  public inPartition: Set<IActivityPartition | string> = new Set();
+  public inPartition: Set<string> = new Set();
 
-  // Inherited from Action
   /**
    * handler
    * 
@@ -237,7 +196,6 @@ export class StructuredActivityNode extends Action implements IStructuredActivit
    */
   public handler: Set<IExceptionHandler> = new Set();
 
-  // Inherited from Action
   /**
    * isLocallyReentrant
    * 
@@ -246,7 +204,6 @@ export class StructuredActivityNode extends Action implements IStructuredActivit
    */
   public isLocallyReentrant!: boolean;
 
-  // Inherited from Action
   /**
    * localPostcondition
    * 
@@ -256,7 +213,6 @@ export class StructuredActivityNode extends Action implements IStructuredActivit
    */
   public localPostcondition: Set<IConstraint> = new Set();
 
-  // Inherited from Action
   /**
    * localPrecondition
    * 
@@ -266,7 +222,39 @@ export class StructuredActivityNode extends Action implements IStructuredActivit
    */
   public localPrecondition: Set<IConstraint> = new Set();
 
-  // Inherited from Namespace
+  /**
+   * ownedComment
+   * 
+   * @type Comment
+   * @multiplicity [0..*]
+   * @relationship containment
+   */
+  public ownedComment: Set<IComment> = new Set();
+
+  /**
+   * name
+   * 
+   * @type String
+   * @multiplicity [0..1]
+   */
+  public name?: string;
+
+  /**
+   * nameExpression
+   * 
+   * @type StringExpression
+   * @multiplicity [0..1]
+   * @relationship containment
+   */
+  public nameExpression?: IStringExpression;
+
+  /**
+   * visibility
+   * 
+   * @type VisibilityKind
+   * @multiplicity [0..1]
+   */
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * ownedRule
    * 
@@ -277,7 +265,6 @@ export class StructuredActivityNode extends Action implements IStructuredActivit
    */
   public ownedRule: Set<IConstraint> = new Set();
 
-  // Inherited from Namespace
   /**
    * elementImport
    * 
@@ -288,7 +275,6 @@ export class StructuredActivityNode extends Action implements IStructuredActivit
    */
   public elementImport: Set<IElementImport> = new Set();
 
-  // Inherited from Namespace
   /**
    * packageImport
    * 
@@ -299,14 +285,49 @@ export class StructuredActivityNode extends Action implements IStructuredActivit
    */
   public packageImport: Set<IPackageImport> = new Set();
 
+  /**
+   * ownedComment
+   * 
+   * @type Comment
+   * @multiplicity [0..*]
+   * @relationship containment
+   */
+  public ownedComment: Set<IComment> = new Set();
+
+  /**
+   * name
+   * 
+   * @type String
+   * @multiplicity [0..1]
+   */
+  public name?: string;
+
+  /**
+   * nameExpression
+   * 
+   * @type StringExpression
+   * @multiplicity [0..1]
+   * @relationship containment
+   */
+  public nameExpression?: IStringExpression;
+
+  /**
+   * visibility
+   * 
+   * @type VisibilityKind
+   * @multiplicity [0..1]
+   */
+  public visibility: VisibilityKind | undefined = undefined;
+
   constructor(init?: Partial<IStructuredActivityNode>) {
     super(init);
-    this.edge = init?.edge ?? new Set();
-    this.mustIsolate = init?.mustIsolate!;
-    this.structuredNodeInput = init?.structuredNodeInput ?? new Set();
-    this.structuredNodeOutput = init?.structuredNodeOutput ?? new Set();
-    this.variable = init?.variable ?? new Set();
-    this.node = init?.node ?? new Set();
+
+    this.edge = init?.edge ? new Set(init.edge) : new Set();
+    this.mustIsolate = init?.mustIsolate ?? false;
+    this.structuredNodeInput = init?.structuredNodeInput ? new Set(init.structuredNodeInput) : new Set();
+    this.structuredNodeOutput = init?.structuredNodeOutput ? new Set(init.structuredNodeOutput) : new Set();
+    this.variable = init?.variable ? new Set(init.variable) : new Set();
+    this.node = init?.node ? new Set(init.node) : new Set();
   }
   getEdge(): Set<IActivityEdge> {
     return this.edge;
@@ -427,9 +448,6 @@ export class StructuredActivityNode extends Action implements IStructuredActivit
   static fromJSON(json: any): StructuredActivityNode {
     const instance = new StructuredActivityNode();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

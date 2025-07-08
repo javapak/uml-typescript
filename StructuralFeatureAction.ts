@@ -7,26 +7,15 @@
  * @extends Action
  */
 import { Action } from './Action';
-import { Comment } from './Comment';
-import { Constraint } from './Constraint';
-import { ExceptionHandler } from './ExceptionHandler';
 import { IAction } from './IAction';
-import { IActivity } from './IActivity';
 import { IActivityEdge } from './IActivityEdge';
-import { IActivityGroup } from './IActivityGroup';
 import { IActivityNode } from './IActivityNode';
 import { IActivityPartition } from './IActivityPartition';
-import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IExceptionHandler } from './IExceptionHandler';
 import { IInputPin } from './IInputPin';
 import { IInterruptibleActivityRegion } from './IInterruptibleActivityRegion';
-import { INamespace } from './INamespace';
-import { IOutputPin } from './IOutputPin';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { IStructuralFeature } from './IStructuralFeature';
 import { IStructuralFeatureAction } from './IStructuralFeatureAction';
@@ -53,20 +42,8 @@ export class StructuralFeatureAction extends Action implements IStructuralFeatur
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public structuralFeature!: IStructuralFeature | string;
+  public structuralFeature!: string;
 
-  // Inherited from Action
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Action
   /**
    * ownedComment
    * 
@@ -76,16 +53,14 @@ export class StructuralFeatureAction extends Action implements IStructuralFeatur
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Action
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Action
   /**
    * nameExpression
    * 
@@ -93,18 +68,15 @@ export class StructuralFeatureAction extends Action implements IStructuralFeatur
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Action
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Action
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * isLeaf
    * 
@@ -113,7 +85,6 @@ export class StructuralFeatureAction extends Action implements IStructuralFeatur
    */
   public isLeaf!: boolean;
 
-  // Inherited from Action
   /**
    * inInterruptibleRegion
    * 
@@ -122,9 +93,8 @@ export class StructuralFeatureAction extends Action implements IStructuralFeatur
    * @relationship cross-reference
    * @opposite node
    */
-  public inInterruptibleRegion: Set<IInterruptibleActivityRegion | string> = new Set();
+  public inInterruptibleRegion: Set<string> = new Set();
 
-  // Inherited from Action
   /**
    * inStructuredNode
    * 
@@ -133,9 +103,8 @@ export class StructuralFeatureAction extends Action implements IStructuralFeatur
    * @relationship cross-reference
    * @opposite node
    */
-  public inStructuredNode?: IStructuredActivityNode | string = undefined;
+  public inStructuredNode?: string;
 
-  // Inherited from Action
   /**
    * incoming
    * 
@@ -144,9 +113,8 @@ export class StructuralFeatureAction extends Action implements IStructuralFeatur
    * @relationship cross-reference
    * @opposite target
    */
-  public incoming: Set<IActivityEdge | string> = new Set();
+  public incoming: Set<string> = new Set();
 
-  // Inherited from Action
   /**
    * outgoing
    * 
@@ -155,9 +123,8 @@ export class StructuralFeatureAction extends Action implements IStructuralFeatur
    * @relationship cross-reference
    * @opposite source
    */
-  public outgoing: Set<IActivityEdge | string> = new Set();
+  public outgoing: Set<string> = new Set();
 
-  // Inherited from Action
   /**
    * redefinedNode
    * 
@@ -165,9 +132,8 @@ export class StructuralFeatureAction extends Action implements IStructuralFeatur
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedNode: Set<IActivityNode | string> = new Set();
+  public redefinedNode: Set<string> = new Set();
 
-  // Inherited from Action
   /**
    * inPartition
    * 
@@ -176,9 +142,8 @@ export class StructuralFeatureAction extends Action implements IStructuralFeatur
    * @relationship cross-reference
    * @opposite node
    */
-  public inPartition: Set<IActivityPartition | string> = new Set();
+  public inPartition: Set<string> = new Set();
 
-  // Inherited from Action
   /**
    * handler
    * 
@@ -189,7 +154,6 @@ export class StructuralFeatureAction extends Action implements IStructuralFeatur
    */
   public handler: Set<IExceptionHandler> = new Set();
 
-  // Inherited from Action
   /**
    * isLocallyReentrant
    * 
@@ -198,7 +162,6 @@ export class StructuralFeatureAction extends Action implements IStructuralFeatur
    */
   public isLocallyReentrant!: boolean;
 
-  // Inherited from Action
   /**
    * localPostcondition
    * 
@@ -208,7 +171,6 @@ export class StructuralFeatureAction extends Action implements IStructuralFeatur
    */
   public localPostcondition: Set<IConstraint> = new Set();
 
-  // Inherited from Action
   /**
    * localPrecondition
    * 
@@ -218,10 +180,12 @@ export class StructuralFeatureAction extends Action implements IStructuralFeatur
    */
   public localPrecondition: Set<IConstraint> = new Set();
 
+
   constructor(init?: Partial<IStructuralFeatureAction>) {
     super(init);
+
     this.object = init?.object!;
-    this.structuralFeature = init?.structuralFeature!;
+    this.structuralFeature = init?.structuralFeature ?? '';
   }
   getObject(): IInputPin {
     return this.object;
@@ -231,11 +195,11 @@ export class StructuralFeatureAction extends Action implements IStructuralFeatur
     this.object = value;
   }
 
-  getStructuralFeature(): IStructuralFeature | string {
+  getStructuralFeature(): string {
     return this.structuralFeature;
   }
 
-  setStructuralFeature(value: IStructuralFeature | string): void {
+  setStructuralFeature(value: string): void {
     this.structuralFeature = value;
   }
 
@@ -302,9 +266,6 @@ export class StructuralFeatureAction extends Action implements IStructuralFeatur
   static fromJSON(json: any): StructuralFeatureAction {
     const instance = new StructuralFeatureAction();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

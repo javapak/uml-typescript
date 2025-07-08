@@ -5,30 +5,18 @@
  * @package ecore
  * @abstract
  */
-import { EAnnotation } from './EAnnotation';
-import { IEAnnotation } from './IEAnnotation';
 import { IEModelElement } from './IEModelElement';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 
 export class EModelElement implements IEModelElement {
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
 
   constructor(init?: Partial<IEModelElement>) {
-    this.eAnnotations = init?.eAnnotations ?? [];
   }
-  getEAnnotations(): Record<string, any>[] {
+  getEAnnotations(): IEAnnotation[] {
     return this.eAnnotations;
   }
 
-  setEAnnotations(value: Record<string, any>[]): void {
+  setEAnnotations(value: IEAnnotation[]): void {
     this.eAnnotations = value;
   }
 
@@ -37,7 +25,6 @@ export class EModelElement implements IEModelElement {
    */
   toJSON(): IEModelElement {
     return {
-      eAnnotations: this.eAnnotations,
     };
   }
 
@@ -48,7 +35,6 @@ export class EModelElement implements IEModelElement {
   toJSONSerialized(): any {
     const result: any = {};
 
-    result.eAnnotations = [...this.eAnnotations];
 
     return result;
   }
@@ -90,9 +76,6 @@ export class EModelElement implements IEModelElement {
   static fromJSON(json: any): EModelElement {
     const instance = new EModelElement();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
 
     return instance;
   }

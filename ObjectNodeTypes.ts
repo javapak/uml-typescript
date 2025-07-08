@@ -13,9 +13,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialObjectNode = Partial<IObjectNode>;
 export type RequiredObjectNode = Required<IObjectNode>;
-export type ObjectNodeKey = Pick<IObjectNode, 'name' | 'nameExpression'>;
-export type ObjectNodeMetadata = Pick<IObjectNode, 'ownedComment' | 'visibility'>;
-export type ObjectNodeSummary = Pick<IObjectNode, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type ObjectNodeUnion = IObjectNode | IActivityNode | ITypedElement;
 export type ObjectNodeFactory = () => ObjectNode;
 export type ObjectNodeValidator = (instance: IObjectNode) => ValidationResult;

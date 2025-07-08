@@ -6,23 +6,15 @@
  * @abstract
  * @extends ObjectNode, MultiplicityElement
  */
-import { Comment } from './Comment';
-import { IActivity } from './IActivity';
 import { IActivityEdge } from './IActivityEdge';
-import { IActivityGroup } from './IActivityGroup';
 import { IActivityNode } from './IActivityNode';
 import { IActivityPartition } from './IActivityPartition';
 import { IBehavior } from './IBehavior';
-import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IInterruptibleActivityRegion } from './IInterruptibleActivityRegion';
 import { IMultiplicityElement } from './IMultiplicityElement';
-import { INamespace } from './INamespace';
 import { IObjectNode } from './IObjectNode';
 import { IPin } from './IPin';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IState } from './IState';
 import { IStringExpression } from './IStringExpression';
 import { IStructuredActivityNode } from './IStructuredActivityNode';
@@ -45,18 +37,6 @@ export class Pin extends ObjectNode implements IPin {
    */
   public isControl!: boolean;
 
-  // Inherited from ObjectNode
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from ObjectNode
   /**
    * ownedComment
    * 
@@ -66,16 +46,14 @@ export class Pin extends ObjectNode implements IPin {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from ObjectNode
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from ObjectNode
   /**
    * nameExpression
    * 
@@ -83,18 +61,15 @@ export class Pin extends ObjectNode implements IPin {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from ObjectNode
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from ObjectNode
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * isLeaf
    * 
@@ -103,7 +78,6 @@ export class Pin extends ObjectNode implements IPin {
    */
   public isLeaf!: boolean;
 
-  // Inherited from ObjectNode
   /**
    * inInterruptibleRegion
    * 
@@ -112,9 +86,8 @@ export class Pin extends ObjectNode implements IPin {
    * @relationship cross-reference
    * @opposite node
    */
-  public inInterruptibleRegion: Set<IInterruptibleActivityRegion | string> = new Set();
+  public inInterruptibleRegion: Set<string> = new Set();
 
-  // Inherited from ObjectNode
   /**
    * inStructuredNode
    * 
@@ -123,9 +96,8 @@ export class Pin extends ObjectNode implements IPin {
    * @relationship cross-reference
    * @opposite node
    */
-  public inStructuredNode?: IStructuredActivityNode | string = undefined;
+  public inStructuredNode?: string;
 
-  // Inherited from ObjectNode
   /**
    * incoming
    * 
@@ -134,9 +106,8 @@ export class Pin extends ObjectNode implements IPin {
    * @relationship cross-reference
    * @opposite target
    */
-  public incoming: Set<IActivityEdge | string> = new Set();
+  public incoming: Set<string> = new Set();
 
-  // Inherited from ObjectNode
   /**
    * outgoing
    * 
@@ -145,9 +116,8 @@ export class Pin extends ObjectNode implements IPin {
    * @relationship cross-reference
    * @opposite source
    */
-  public outgoing: Set<IActivityEdge | string> = new Set();
+  public outgoing: Set<string> = new Set();
 
-  // Inherited from ObjectNode
   /**
    * redefinedNode
    * 
@@ -155,9 +125,8 @@ export class Pin extends ObjectNode implements IPin {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedNode: Set<IActivityNode | string> = new Set();
+  public redefinedNode: Set<string> = new Set();
 
-  // Inherited from ObjectNode
   /**
    * inPartition
    * 
@@ -166,9 +135,8 @@ export class Pin extends ObjectNode implements IPin {
    * @relationship cross-reference
    * @opposite node
    */
-  public inPartition: Set<IActivityPartition | string> = new Set();
+  public inPartition: Set<string> = new Set();
 
-  // Inherited from ObjectNode
   /**
    * type
    * 
@@ -176,9 +144,8 @@ export class Pin extends ObjectNode implements IPin {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public type?: IType | string = undefined;
+  public type?: string;
 
-  // Inherited from ObjectNode
   /**
    * inState
    * 
@@ -186,9 +153,8 @@ export class Pin extends ObjectNode implements IPin {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public inState: Set<IState | string> = new Set();
+  public inState: Set<string> = new Set();
 
-  // Inherited from ObjectNode
   /**
    * isControlType
    * 
@@ -197,16 +163,13 @@ export class Pin extends ObjectNode implements IPin {
    */
   public isControlType!: boolean;
 
-  // Inherited from ObjectNode
   /**
    * ordering
    * 
    * @type ObjectNodeOrderingKind
    * @multiplicity [1..1]
    */
-  public ordering!: any;
-
-  // Inherited from ObjectNode
+  public ordering: ObjectNodeOrderingKind = ObjectNodeOrderingKind.unordered;
   /**
    * selection
    * 
@@ -214,9 +177,8 @@ export class Pin extends ObjectNode implements IPin {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public selection?: IBehavior | string = undefined;
+  public selection?: string;
 
-  // Inherited from ObjectNode
   /**
    * upperBound
    * 
@@ -224,9 +186,17 @@ export class Pin extends ObjectNode implements IPin {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public upperBound?: IValueSpecification = undefined;
+  public upperBound?: IValueSpecification;
 
-  // Inherited from MultiplicityElement
+  /**
+   * ownedComment
+   * 
+   * @type Comment
+   * @multiplicity [0..*]
+   * @relationship containment
+   */
+  public ownedComment: Set<IComment> = new Set();
+
   /**
    * isOrdered
    * 
@@ -235,7 +205,6 @@ export class Pin extends ObjectNode implements IPin {
    */
   public isOrdered!: boolean;
 
-  // Inherited from MultiplicityElement
   /**
    * isUnique
    * 
@@ -244,7 +213,6 @@ export class Pin extends ObjectNode implements IPin {
    */
   public isUnique!: boolean;
 
-  // Inherited from MultiplicityElement
   /**
    * lowerValue
    * 
@@ -252,9 +220,8 @@ export class Pin extends ObjectNode implements IPin {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public lowerValue?: IValueSpecification = undefined;
+  public lowerValue?: IValueSpecification;
 
-  // Inherited from MultiplicityElement
   /**
    * upperValue
    * 
@@ -262,11 +229,13 @@ export class Pin extends ObjectNode implements IPin {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public upperValue?: IValueSpecification = undefined;
+  public upperValue?: IValueSpecification;
+
 
   constructor(init?: Partial<IPin>) {
     super(init);
-    this.isControl = init?.isControl!;
+
+    this.isControl = init?.isControl ?? false;
   }
   getIsControl(): boolean {
     return this.isControl;
@@ -337,9 +306,6 @@ export class Pin extends ObjectNode implements IPin {
   static fromJSON(json: any): Pin {
     const instance = new Pin();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

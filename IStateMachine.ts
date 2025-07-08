@@ -21,7 +21,7 @@ export interface IStateMachine extends IBehavior {
    * @relationship containment
    * @opposite stateMachine
    */
-  connectionPoint: Set<IPseudostate>;
+  connectionPoint?: Set<IPseudostate>;
   /**
    * submachineState
    * 
@@ -30,7 +30,7 @@ export interface IStateMachine extends IBehavior {
    * @relationship cross-reference
    * @opposite submachine
    */
-  submachineState: Set<IState | string>;
+  submachineState?: Set<string>;
   /**
    * region
    * 
@@ -47,7 +47,7 @@ export interface IStateMachine extends IBehavior {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  extendedStateMachine: Set<IStateMachine | string>;
+  extendedStateMachine?: Set<string>;
 }
 
 // Type aliases for StateMachine

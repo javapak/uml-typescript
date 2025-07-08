@@ -9,9 +9,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialAcceptCallAction = Partial<IAcceptCallAction>;
 export type RequiredAcceptCallAction = Required<IAcceptCallAction>;
-export type AcceptCallActionKey = Pick<IAcceptCallAction, 'name' | 'nameExpression'>;
-export type AcceptCallActionMetadata = Pick<IAcceptCallAction, 'ownedComment' | 'visibility'>;
-export type AcceptCallActionSummary = Pick<IAcceptCallAction, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type AcceptCallActionUnion = IAcceptCallAction | IAcceptEventAction;
 export type AcceptCallActionFactory = () => AcceptCallAction;
 export type AcceptCallActionValidator = (instance: IAcceptCallAction) => ValidationResult;

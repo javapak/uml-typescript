@@ -22,7 +22,7 @@ export interface IActivityNode extends IRedefinableElement, IActivityContent {
    * @relationship cross-reference
    * @opposite node
    */
-  inInterruptibleRegion: Set<IInterruptibleActivityRegion | string>;
+  inInterruptibleRegion?: Set<string>;
   /**
    * inStructuredNode
    * 
@@ -31,7 +31,7 @@ export interface IActivityNode extends IRedefinableElement, IActivityContent {
    * @relationship cross-reference
    * @opposite node
    */
-  inStructuredNode?: IStructuredActivityNode | string;
+  inStructuredNode?: string;
   /**
    * incoming
    * 
@@ -40,7 +40,7 @@ export interface IActivityNode extends IRedefinableElement, IActivityContent {
    * @relationship cross-reference
    * @opposite target
    */
-  incoming: Set<IActivityEdge | string>;
+  incoming?: Set<string>;
   /**
    * outgoing
    * 
@@ -49,7 +49,7 @@ export interface IActivityNode extends IRedefinableElement, IActivityContent {
    * @relationship cross-reference
    * @opposite source
    */
-  outgoing: Set<IActivityEdge | string>;
+  outgoing?: Set<string>;
   /**
    * redefinedNode
    * 
@@ -57,7 +57,7 @@ export interface IActivityNode extends IRedefinableElement, IActivityContent {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  redefinedNode: Set<IActivityNode | string>;
+  redefinedNode?: Set<string>;
   /**
    * inPartition
    * 
@@ -66,7 +66,7 @@ export interface IActivityNode extends IRedefinableElement, IActivityContent {
    * @relationship cross-reference
    * @opposite node
    */
-  inPartition: Set<IActivityPartition | string>;
+  inPartition?: Set<string>;
 }
 
 // Type aliases for ActivityNode

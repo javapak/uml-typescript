@@ -10,9 +10,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialInteractionOperand = Partial<IInteractionOperand>;
 export type RequiredInteractionOperand = Required<IInteractionOperand>;
-export type InteractionOperandKey = Pick<IInteractionOperand, 'name' | 'nameExpression'>;
-export type InteractionOperandMetadata = Pick<IInteractionOperand, 'ownedComment' | 'visibility' | 'ownedRule'>;
-export type InteractionOperandSummary = Pick<IInteractionOperand, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type InteractionOperandUnion = IInteractionOperand | INamespace | IInteractionFragment;
 export type InteractionOperandFactory = () => InteractionOperand;
 export type InteractionOperandValidator = (instance: IInteractionOperand) => ValidationResult;

@@ -9,9 +9,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialAddVariableValueAction = Partial<IAddVariableValueAction>;
 export type RequiredAddVariableValueAction = Required<IAddVariableValueAction>;
-export type AddVariableValueActionKey = Pick<IAddVariableValueAction, 'name' | 'nameExpression'>;
-export type AddVariableValueActionMetadata = Pick<IAddVariableValueAction, 'ownedComment' | 'visibility'>;
-export type AddVariableValueActionSummary = Pick<IAddVariableValueAction, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type AddVariableValueActionUnion = IAddVariableValueAction | IWriteVariableAction;
 export type AddVariableValueActionFactory = () => AddVariableValueAction;
 export type AddVariableValueActionValidator = (instance: IAddVariableValueAction) => ValidationResult;

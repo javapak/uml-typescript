@@ -9,8 +9,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialLinkEndDestructionData = Partial<ILinkEndDestructionData>;
 export type RequiredLinkEndDestructionData = Required<ILinkEndDestructionData>;
-export type LinkEndDestructionDataMetadata = Pick<ILinkEndDestructionData, 'ownedComment'>;
-export type LinkEndDestructionDataSummary = Pick<ILinkEndDestructionData, 'eAnnotations' | 'ownedComment' | 'end'>;
 export type LinkEndDestructionDataUnion = ILinkEndDestructionData | ILinkEndData;
 export type LinkEndDestructionDataFactory = () => LinkEndDestructionData;
 export type LinkEndDestructionDataValidator = (instance: ILinkEndDestructionData) => ValidationResult;

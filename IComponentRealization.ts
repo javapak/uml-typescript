@@ -17,7 +17,7 @@ export interface IComponentRealization extends IRealization {
    * @multiplicity [1..*]
    * @relationship cross-reference
    */
-  realizingClassifier: Set<IClassifier | string>;
+  realizingClassifier: Set<string>;
   /**
    * abstraction
    * 
@@ -26,7 +26,7 @@ export interface IComponentRealization extends IRealization {
    * @relationship cross-reference
    * @opposite realization
    */
-  abstraction?: IComponent | string;
+  abstraction?: string;
 }
 
 // Type aliases for ComponentRealization

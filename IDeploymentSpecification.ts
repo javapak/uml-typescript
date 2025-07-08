@@ -31,7 +31,7 @@ export interface IDeploymentSpecification extends IArtifact {
    * @relationship cross-reference
    * @opposite configuration
    */
-  deployment?: IDeployment | string;
+  deployment?: string;
 }
 
 // Type aliases for DeploymentSpecification

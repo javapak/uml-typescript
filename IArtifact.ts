@@ -29,7 +29,7 @@ export interface IArtifact extends IClassifier, IDeployedArtifact {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  manifestation: Set<IManifestation>;
+  manifestation?: Set<IManifestation>;
   /**
    * nestedArtifact
    * 
@@ -37,7 +37,7 @@ export interface IArtifact extends IClassifier, IDeployedArtifact {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  nestedArtifact: Set<IArtifact>;
+  nestedArtifact?: Set<IArtifact>;
   /**
    * ownedAttribute
    * 
@@ -45,7 +45,7 @@ export interface IArtifact extends IClassifier, IDeployedArtifact {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  ownedAttribute: IProperty[];
+  ownedAttribute?: IProperty[];
   /**
    * ownedOperation
    * 
@@ -53,7 +53,7 @@ export interface IArtifact extends IClassifier, IDeployedArtifact {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  ownedOperation: IOperation[];
+  ownedOperation?: IOperation[];
 }
 
 // Type aliases for Artifact

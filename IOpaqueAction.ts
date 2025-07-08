@@ -18,7 +18,7 @@ export interface IOpaqueAction extends IAction {
    * @type String
    * @multiplicity [0..*]
    */
-  body: string[];
+  body?: string[];
   /**
    * inputValue
    * 
@@ -26,14 +26,14 @@ export interface IOpaqueAction extends IAction {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  inputValue: Set<IInputPin>;
+  inputValue?: Set<IInputPin>;
   /**
    * language
    * 
    * @type String
    * @multiplicity [0..*]
    */
-  language: string[];
+  language?: string[];
   /**
    * outputValue
    * 
@@ -41,7 +41,7 @@ export interface IOpaqueAction extends IAction {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  outputValue: Set<IOutputPin>;
+  outputValue?: Set<IOutputPin>;
 }
 
 // Type aliases for OpaqueAction

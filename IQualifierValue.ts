@@ -17,7 +17,7 @@ export interface IQualifierValue extends IElement {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  qualifier: IProperty | string;
+  qualifier: string;
   /**
    * value
    * 
@@ -25,7 +25,7 @@ export interface IQualifierValue extends IElement {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  value: IInputPin | string;
+  value: string;
 }
 
 // Type aliases for QualifierValue

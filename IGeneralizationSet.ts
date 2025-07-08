@@ -32,7 +32,7 @@ export interface IGeneralizationSet extends IPackageableElement {
    * @relationship cross-reference
    * @opposite powertypeExtent
    */
-  powertype?: IClassifier | string;
+  powertype?: string;
   /**
    * generalization
    * 
@@ -41,7 +41,7 @@ export interface IGeneralizationSet extends IPackageableElement {
    * @relationship cross-reference
    * @opposite generalizationSet
    */
-  generalization: Set<IGeneralization | string>;
+  generalization?: Set<string>;
 }
 
 // Type aliases for GeneralizationSet

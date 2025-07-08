@@ -5,7 +5,6 @@
  * @package uml
  * @extends Element
  */
-import { Comment } from './Comment';
 import { Element } from './Element';
 import { IComment } from './IComment';
 import { IElement } from './IElement';
@@ -14,7 +13,6 @@ import { ISlot } from './ISlot';
 import { IStructuralFeature } from './IStructuralFeature';
 import { IValueSpecification } from './IValueSpecification';
 import { ValidationError, ValidationResult } from './ValidationTypes';
-import { ValueSpecification } from './ValueSpecification';
 
 export class Slot extends Element implements ISlot {
   /**
@@ -24,7 +22,7 @@ export class Slot extends Element implements ISlot {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public definingFeature!: IStructuralFeature | string;
+  public definingFeature!: string;
 
   /**
    * value
@@ -43,20 +41,8 @@ export class Slot extends Element implements ISlot {
    * @relationship cross-reference
    * @opposite slot
    */
-  public owningInstance!: IInstanceSpecification | string;
+  public owningInstance!: string;
 
-  // Inherited from Element
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Element
   /**
    * ownedComment
    * 
@@ -66,17 +52,19 @@ export class Slot extends Element implements ISlot {
    */
   public ownedComment: Set<IComment> = new Set();
 
+
   constructor(init?: Partial<ISlot>) {
     super(init);
-    this.definingFeature = init?.definingFeature!;
-    this.value = init?.value ?? [];
-    this.owningInstance = init?.owningInstance!;
+
+    this.definingFeature = init?.definingFeature ?? '';
+    this.value = init?.value ? [...init.value] : [];
+    this.owningInstance = init?.owningInstance ?? '';
   }
-  getDefiningFeature(): IStructuralFeature | string {
+  getDefiningFeature(): string {
     return this.definingFeature;
   }
 
-  setDefiningFeature(value: IStructuralFeature | string): void {
+  setDefiningFeature(value: string): void {
     this.definingFeature = value;
   }
 
@@ -88,11 +76,11 @@ export class Slot extends Element implements ISlot {
     this.value = value;
   }
 
-  getOwningInstance(): IInstanceSpecification | string {
+  getOwningInstance(): string {
     return this.owningInstance;
   }
 
-  setOwningInstance(value: IInstanceSpecification | string): void {
+  setOwningInstance(value: string): void {
     this.owningInstance = value;
   }
 
@@ -161,9 +149,6 @@ export class Slot extends Element implements ISlot {
   static fromJSON(json: any): Slot {
     const instance = new Slot();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

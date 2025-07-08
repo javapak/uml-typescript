@@ -20,7 +20,7 @@ export interface IDataType extends IClassifier {
    * @relationship containment
    * @opposite datatype
    */
-  ownedAttribute: IProperty[];
+  ownedAttribute?: IProperty[];
   /**
    * ownedOperation
    * 
@@ -29,7 +29,7 @@ export interface IDataType extends IClassifier {
    * @relationship containment
    * @opposite datatype
    */
-  ownedOperation: IOperation[];
+  ownedOperation?: IOperation[];
 }
 
 // Type aliases for DataType

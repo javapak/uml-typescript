@@ -5,12 +5,8 @@
  * @package uml
  * @extends MessageEvent
  */
-import { Comment } from './Comment';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IMessageEvent } from './IMessageEvent';
-import { INamespace } from './INamespace';
 import { ISignal } from './ISignal';
 import { ISignalEvent } from './ISignalEvent';
 import { IStringExpression } from './IStringExpression';
@@ -28,20 +24,8 @@ export class SignalEvent extends MessageEvent implements ISignalEvent {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public signal!: ISignal | string;
+  public signal!: string;
 
-  // Inherited from MessageEvent
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from MessageEvent
   /**
    * ownedComment
    * 
@@ -51,16 +35,14 @@ export class SignalEvent extends MessageEvent implements ISignalEvent {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from MessageEvent
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from MessageEvent
   /**
    * nameExpression
    * 
@@ -68,18 +50,15 @@ export class SignalEvent extends MessageEvent implements ISignalEvent {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from MessageEvent
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from MessageEvent
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * owningTemplateParameter
    * 
@@ -88,9 +67,8 @@ export class SignalEvent extends MessageEvent implements ISignalEvent {
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from MessageEvent
   /**
    * templateParameter
    * 
@@ -99,17 +77,19 @@ export class SignalEvent extends MessageEvent implements ISignalEvent {
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
+
 
   constructor(init?: Partial<ISignalEvent>) {
     super(init);
-    this.signal = init?.signal!;
+
+    this.signal = init?.signal ?? '';
   }
-  getSignal(): ISignal | string {
+  getSignal(): string {
     return this.signal;
   }
 
-  setSignal(value: ISignal | string): void {
+  setSignal(value: string): void {
     this.signal = value;
   }
 
@@ -174,9 +154,6 @@ export class SignalEvent extends MessageEvent implements ISignalEvent {
   static fromJSON(json: any): SignalEvent {
     const instance = new SignalEvent();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

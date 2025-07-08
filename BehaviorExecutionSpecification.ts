@@ -5,20 +5,15 @@
  * @package uml
  * @extends ExecutionSpecification
  */
-import { Comment } from './Comment';
 import { ExecutionSpecification } from './ExecutionSpecification';
-import { GeneralOrdering } from './GeneralOrdering';
 import { IBehavior } from './IBehavior';
 import { IBehaviorExecutionSpecification } from './IBehaviorExecutionSpecification';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IExecutionSpecification } from './IExecutionSpecification';
 import { IGeneralOrdering } from './IGeneralOrdering';
 import { IInteraction } from './IInteraction';
 import { IInteractionOperand } from './IInteractionOperand';
 import { ILifeline } from './ILifeline';
-import { INamespace } from './INamespace';
 import { IOccurrenceSpecification } from './IOccurrenceSpecification';
 import { IStringExpression } from './IStringExpression';
 import { StringExpression } from './StringExpression';
@@ -33,20 +28,8 @@ export class BehaviorExecutionSpecification extends ExecutionSpecification imple
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public behavior?: IBehavior | string = undefined;
+  public behavior?: string;
 
-  // Inherited from ExecutionSpecification
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from ExecutionSpecification
   /**
    * ownedComment
    * 
@@ -56,16 +39,14 @@ export class BehaviorExecutionSpecification extends ExecutionSpecification imple
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from ExecutionSpecification
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from ExecutionSpecification
   /**
    * nameExpression
    * 
@@ -73,18 +54,15 @@ export class BehaviorExecutionSpecification extends ExecutionSpecification imple
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from ExecutionSpecification
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from ExecutionSpecification
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * covered
    * 
@@ -93,9 +71,8 @@ export class BehaviorExecutionSpecification extends ExecutionSpecification imple
    * @relationship cross-reference
    * @opposite coveredBy
    */
-  public covered: Set<ILifeline | string> = new Set();
+  public covered: Set<string> = new Set();
 
-  // Inherited from ExecutionSpecification
   /**
    * enclosingOperand
    * 
@@ -104,9 +81,8 @@ export class BehaviorExecutionSpecification extends ExecutionSpecification imple
    * @relationship cross-reference
    * @opposite fragment
    */
-  public enclosingOperand?: IInteractionOperand | string = undefined;
+  public enclosingOperand?: string;
 
-  // Inherited from ExecutionSpecification
   /**
    * enclosingInteraction
    * 
@@ -115,9 +91,8 @@ export class BehaviorExecutionSpecification extends ExecutionSpecification imple
    * @relationship cross-reference
    * @opposite fragment
    */
-  public enclosingInteraction?: IInteraction | string = undefined;
+  public enclosingInteraction?: string;
 
-  // Inherited from ExecutionSpecification
   /**
    * generalOrdering
    * 
@@ -127,7 +102,6 @@ export class BehaviorExecutionSpecification extends ExecutionSpecification imple
    */
   public generalOrdering: Set<IGeneralOrdering> = new Set();
 
-  // Inherited from ExecutionSpecification
   /**
    * finish
    * 
@@ -135,9 +109,8 @@ export class BehaviorExecutionSpecification extends ExecutionSpecification imple
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public finish!: IOccurrenceSpecification | string;
+  public finish!: string;
 
-  // Inherited from ExecutionSpecification
   /**
    * start
    * 
@@ -145,17 +118,19 @@ export class BehaviorExecutionSpecification extends ExecutionSpecification imple
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public start!: IOccurrenceSpecification | string;
+  public start!: string;
+
 
   constructor(init?: Partial<IBehaviorExecutionSpecification>) {
     super(init);
-    this.behavior = init?.behavior ?? undefined;
+
+    this.behavior = init?.behavior;
   }
-  getBehavior(): IBehavior | string | undefined {
+  getBehavior(): string | undefined {
     return this.behavior;
   }
 
-  setBehavior(value: IBehavior | string | undefined): void {
+  setBehavior(value: string | undefined): void {
     this.behavior = value;
   }
 
@@ -222,9 +197,6 @@ export class BehaviorExecutionSpecification extends ExecutionSpecification imple
   static fromJSON(json: any): BehaviorExecutionSpecification {
     const instance = new BehaviorExecutionSpecification();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

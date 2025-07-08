@@ -19,7 +19,7 @@ export interface IConstraint extends IPackageableElement {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  constrainedElement: IElement | string[];
+  constrainedElement?: string[];
   /**
    * context
    * 
@@ -28,7 +28,7 @@ export interface IConstraint extends IPackageableElement {
    * @relationship cross-reference
    * @opposite ownedRule
    */
-  context?: INamespace | string;
+  context?: string;
   /**
    * specification
    * 

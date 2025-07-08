@@ -11,8 +11,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialExceptionHandler = Partial<IExceptionHandler>;
 export type RequiredExceptionHandler = Required<IExceptionHandler>;
-export type ExceptionHandlerMetadata = Pick<IExceptionHandler, 'ownedComment'>;
-export type ExceptionHandlerSummary = Pick<IExceptionHandler, 'eAnnotations' | 'ownedComment' | 'exceptionInput'>;
 export type ExceptionHandlerUnion = IExceptionHandler | IElement;
 export type ExceptionHandlerFactory = () => ExceptionHandler;
 export type ExceptionHandlerValidator = (instance: IExceptionHandler) => ValidationResult;

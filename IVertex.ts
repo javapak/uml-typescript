@@ -18,7 +18,7 @@ export interface IVertex extends INamedElement {
    * @relationship cross-reference
    * @opposite subvertex
    */
-  container?: IRegion | string;
+  container?: string;
 }
 
 // Type aliases for Vertex

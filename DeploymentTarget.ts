@@ -6,16 +6,10 @@
  * @abstract
  * @extends NamedElement
  */
-import { Comment } from './Comment';
-import { Deployment } from './Deployment';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
 import { IDeployment } from './IDeployment';
 import { IDeploymentTarget } from './IDeploymentTarget';
-import { IElement } from './IElement';
 import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
-import { IPackageableElement } from './IPackageableElement';
 import { IStringExpression } from './IStringExpression';
 import { NamedElement } from './NamedElement';
 import { StringExpression } from './StringExpression';
@@ -33,18 +27,6 @@ export class DeploymentTarget extends NamedElement implements IDeploymentTarget 
    */
   public deployment: Set<IDeployment> = new Set();
 
-  // Inherited from NamedElement
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from NamedElement
   /**
    * ownedComment
    * 
@@ -54,16 +36,14 @@ export class DeploymentTarget extends NamedElement implements IDeploymentTarget 
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from NamedElement
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from NamedElement
   /**
    * nameExpression
    * 
@@ -71,20 +51,20 @@ export class DeploymentTarget extends NamedElement implements IDeploymentTarget 
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from NamedElement
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
+  public visibility: VisibilityKind | undefined = undefined;
 
   constructor(init?: Partial<IDeploymentTarget>) {
     super(init);
-    this.deployment = init?.deployment ?? new Set();
+
+    this.deployment = init?.deployment ? new Set(init.deployment) : new Set();
   }
   getDeployment(): Set<IDeployment> {
     return this.deployment;
@@ -155,9 +135,6 @@ export class DeploymentTarget extends NamedElement implements IDeploymentTarget 
   static fromJSON(json: any): DeploymentTarget {
     const instance = new DeploymentTarget();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

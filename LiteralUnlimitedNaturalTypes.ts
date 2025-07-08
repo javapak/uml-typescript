@@ -8,9 +8,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialLiteralUnlimitedNatural = Partial<ILiteralUnlimitedNatural>;
 export type RequiredLiteralUnlimitedNatural = Required<ILiteralUnlimitedNatural>;
-export type LiteralUnlimitedNaturalKey = Pick<ILiteralUnlimitedNatural, 'name' | 'nameExpression'>;
-export type LiteralUnlimitedNaturalMetadata = Pick<ILiteralUnlimitedNatural, 'ownedComment' | 'visibility'>;
-export type LiteralUnlimitedNaturalSummary = Pick<ILiteralUnlimitedNatural, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type LiteralUnlimitedNaturalUnion = ILiteralUnlimitedNatural | ILiteralSpecification;
 export type LiteralUnlimitedNaturalFactory = () => LiteralUnlimitedNatural;
 export type LiteralUnlimitedNaturalValidator = (instance: ILiteralUnlimitedNatural) => ValidationResult;

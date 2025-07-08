@@ -5,17 +5,12 @@
  * @package uml
  * @extends Vertex
  */
-import { Comment } from './Comment';
 import { IComment } from './IComment';
 import { IConnectionPointReference } from './IConnectionPointReference';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
-import { INamespace } from './INamespace';
 import { IPseudostate } from './IPseudostate';
 import { IRegion } from './IRegion';
 import { IState } from './IState';
 import { IStringExpression } from './IStringExpression';
-import { ITransition } from './ITransition';
 import { IVertex } from './IVertex';
 import { StringExpression } from './StringExpression';
 import { ValidationError, ValidationResult } from './ValidationTypes';
@@ -30,7 +25,7 @@ export class ConnectionPointReference extends Vertex implements IConnectionPoint
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public entry: Set<IPseudostate | string> = new Set();
+  public entry: Set<string> = new Set();
 
   /**
    * exit
@@ -39,7 +34,7 @@ export class ConnectionPointReference extends Vertex implements IConnectionPoint
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public exit: Set<IPseudostate | string> = new Set();
+  public exit: Set<string> = new Set();
 
   /**
    * state
@@ -49,20 +44,8 @@ export class ConnectionPointReference extends Vertex implements IConnectionPoint
    * @relationship cross-reference
    * @opposite connection
    */
-  public state?: IState | string = undefined;
+  public state?: string;
 
-  // Inherited from Vertex
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Vertex
   /**
    * ownedComment
    * 
@@ -72,16 +55,14 @@ export class ConnectionPointReference extends Vertex implements IConnectionPoint
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Vertex
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Vertex
   /**
    * nameExpression
    * 
@@ -89,18 +70,15 @@ export class ConnectionPointReference extends Vertex implements IConnectionPoint
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Vertex
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Vertex
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * container
    * 
@@ -109,35 +87,37 @@ export class ConnectionPointReference extends Vertex implements IConnectionPoint
    * @relationship cross-reference
    * @opposite subvertex
    */
-  public container?: IRegion | string = undefined;
+  public container?: string;
+
 
   constructor(init?: Partial<IConnectionPointReference>) {
     super(init);
-    this.entry = init?.entry ?? new Set();
-    this.exit = init?.exit ?? new Set();
-    this.state = init?.state ?? undefined;
+
+    this.entry = init?.entry ? new Set(init.entry) : new Set();
+    this.exit = init?.exit ? new Set(init.exit) : new Set();
+    this.state = init?.state;
   }
-  getEntry(): Set<IPseudostate | string> {
+  getEntry(): Set<string> {
     return this.entry;
   }
 
-  setEntry(value: Set<IPseudostate | string>): void {
+  setEntry(value: Set<string>): void {
     this.entry = value;
   }
 
-  getExit(): Set<IPseudostate | string> {
+  getExit(): Set<string> {
     return this.exit;
   }
 
-  setExit(value: Set<IPseudostate | string>): void {
+  setExit(value: Set<string>): void {
     this.exit = value;
   }
 
-  getState(): IState | string | undefined {
+  getState(): string | undefined {
     return this.state;
   }
 
-  setState(value: IState | string | undefined): void {
+  setState(value: string | undefined): void {
     this.state = value;
   }
 
@@ -208,9 +188,6 @@ export class ConnectionPointReference extends Vertex implements IConnectionPoint
   static fromJSON(json: any): ConnectionPointReference {
     const instance = new ConnectionPointReference();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

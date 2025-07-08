@@ -5,13 +5,9 @@
  * @package uml
  * @extends MessageEvent
  */
-import { Comment } from './Comment';
 import { IAnyReceiveEvent } from './IAnyReceiveEvent';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IMessageEvent } from './IMessageEvent';
-import { INamespace } from './INamespace';
 import { IStringExpression } from './IStringExpression';
 import { ITemplateParameter } from './ITemplateParameter';
 import { MessageEvent } from './MessageEvent';
@@ -20,18 +16,6 @@ import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
 
 export class AnyReceiveEvent extends MessageEvent implements IAnyReceiveEvent {
-  // Inherited from MessageEvent
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from MessageEvent
   /**
    * ownedComment
    * 
@@ -41,16 +25,14 @@ export class AnyReceiveEvent extends MessageEvent implements IAnyReceiveEvent {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from MessageEvent
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from MessageEvent
   /**
    * nameExpression
    * 
@@ -58,18 +40,15 @@ export class AnyReceiveEvent extends MessageEvent implements IAnyReceiveEvent {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from MessageEvent
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from MessageEvent
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * owningTemplateParameter
    * 
@@ -78,9 +57,8 @@ export class AnyReceiveEvent extends MessageEvent implements IAnyReceiveEvent {
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from MessageEvent
   /**
    * templateParameter
    * 
@@ -89,10 +67,12 @@ export class AnyReceiveEvent extends MessageEvent implements IAnyReceiveEvent {
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
+
 
   constructor(init?: Partial<IAnyReceiveEvent>) {
     super(init);
+
   }
   /**
    * Converts this instance to a plain object matching the interface
@@ -153,9 +133,6 @@ export class AnyReceiveEvent extends MessageEvent implements IAnyReceiveEvent {
   static fromJSON(json: any): AnyReceiveEvent {
     const instance = new AnyReceiveEvent();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

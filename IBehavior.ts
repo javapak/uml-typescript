@@ -23,7 +23,7 @@ export interface IBehavior extends IClass {
    * @relationship cross-reference
    * @opposite method
    */
-  specification?: IBehavioralFeature | string;
+  specification?: string;
   /**
    * isReentrant
    * 
@@ -38,7 +38,7 @@ export interface IBehavior extends IClass {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  ownedParameter: IParameter[];
+  ownedParameter?: IParameter[];
   /**
    * ownedParameterSet
    * 
@@ -46,7 +46,7 @@ export interface IBehavior extends IClass {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  ownedParameterSet: Set<IParameterSet>;
+  ownedParameterSet?: Set<IParameterSet>;
   /**
    * postcondition
    * 
@@ -54,7 +54,7 @@ export interface IBehavior extends IClass {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  postcondition: Set<IConstraint | string>;
+  postcondition?: Set<string>;
   /**
    * precondition
    * 
@@ -62,7 +62,7 @@ export interface IBehavior extends IClass {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  precondition: Set<IConstraint | string>;
+  precondition?: Set<string>;
   /**
    * redefinedBehavior
    * 
@@ -70,7 +70,7 @@ export interface IBehavior extends IClass {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  redefinedBehavior: Set<IBehavior | string>;
+  redefinedBehavior?: Set<string>;
 }
 
 // Type aliases for Behavior

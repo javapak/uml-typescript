@@ -17,7 +17,7 @@ export interface IOccurrenceSpecification extends IInteractionFragment {
    * @relationship cross-reference
    * @opposite before
    */
-  toAfter: Set<IGeneralOrdering | string>;
+  toAfter?: Set<string>;
   /**
    * toBefore
    * 
@@ -26,7 +26,7 @@ export interface IOccurrenceSpecification extends IInteractionFragment {
    * @relationship cross-reference
    * @opposite after
    */
-  toBefore: Set<IGeneralOrdering | string>;
+  toBefore?: Set<string>;
 }
 
 // Type aliases for OccurrenceSpecification

@@ -6,21 +6,14 @@
  * @extends ActivityEdge
  */
 import { ActivityEdge } from './ActivityEdge';
-import { Comment } from './Comment';
 import { IActivity } from './IActivity';
 import { IActivityEdge } from './IActivityEdge';
-import { IActivityGroup } from './IActivityGroup';
 import { IActivityNode } from './IActivityNode';
 import { IActivityPartition } from './IActivityPartition';
 import { IBehavior } from './IBehavior';
-import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IInterruptibleActivityRegion } from './IInterruptibleActivityRegion';
-import { INamespace } from './INamespace';
 import { IObjectFlow } from './IObjectFlow';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { IStructuredActivityNode } from './IStructuredActivityNode';
 import { IValueSpecification } from './IValueSpecification';
@@ -53,7 +46,7 @@ export class ObjectFlow extends ActivityEdge implements IObjectFlow {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public selection?: IBehavior | string = undefined;
+  public selection?: string;
 
   /**
    * transformation
@@ -62,20 +55,8 @@ export class ObjectFlow extends ActivityEdge implements IObjectFlow {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public transformation?: IBehavior | string = undefined;
+  public transformation?: string;
 
-  // Inherited from ActivityEdge
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from ActivityEdge
   /**
    * ownedComment
    * 
@@ -85,16 +66,14 @@ export class ObjectFlow extends ActivityEdge implements IObjectFlow {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from ActivityEdge
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from ActivityEdge
   /**
    * nameExpression
    * 
@@ -102,18 +81,15 @@ export class ObjectFlow extends ActivityEdge implements IObjectFlow {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from ActivityEdge
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from ActivityEdge
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * isLeaf
    * 
@@ -122,7 +98,6 @@ export class ObjectFlow extends ActivityEdge implements IObjectFlow {
    */
   public isLeaf!: boolean;
 
-  // Inherited from ActivityEdge
   /**
    * activity
    * 
@@ -131,9 +106,8 @@ export class ObjectFlow extends ActivityEdge implements IObjectFlow {
    * @relationship cross-reference
    * @opposite edge
    */
-  public activity?: IActivity | string = undefined;
+  public activity?: string;
 
-  // Inherited from ActivityEdge
   /**
    * guard
    * 
@@ -141,9 +115,8 @@ export class ObjectFlow extends ActivityEdge implements IObjectFlow {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public guard?: IValueSpecification = undefined;
+  public guard?: IValueSpecification;
 
-  // Inherited from ActivityEdge
   /**
    * inPartition
    * 
@@ -152,9 +125,8 @@ export class ObjectFlow extends ActivityEdge implements IObjectFlow {
    * @relationship cross-reference
    * @opposite edge
    */
-  public inPartition: Set<IActivityPartition | string> = new Set();
+  public inPartition: Set<string> = new Set();
 
-  // Inherited from ActivityEdge
   /**
    * interrupts
    * 
@@ -163,9 +135,8 @@ export class ObjectFlow extends ActivityEdge implements IObjectFlow {
    * @relationship cross-reference
    * @opposite interruptingEdge
    */
-  public interrupts?: IInterruptibleActivityRegion | string = undefined;
+  public interrupts?: string;
 
-  // Inherited from ActivityEdge
   /**
    * inStructuredNode
    * 
@@ -174,9 +145,8 @@ export class ObjectFlow extends ActivityEdge implements IObjectFlow {
    * @relationship cross-reference
    * @opposite edge
    */
-  public inStructuredNode?: IStructuredActivityNode | string = undefined;
+  public inStructuredNode?: string;
 
-  // Inherited from ActivityEdge
   /**
    * target
    * 
@@ -185,9 +155,8 @@ export class ObjectFlow extends ActivityEdge implements IObjectFlow {
    * @relationship cross-reference
    * @opposite incoming
    */
-  public target!: IActivityNode | string;
+  public target!: string;
 
-  // Inherited from ActivityEdge
   /**
    * source
    * 
@@ -196,9 +165,8 @@ export class ObjectFlow extends ActivityEdge implements IObjectFlow {
    * @relationship cross-reference
    * @opposite outgoing
    */
-  public source!: IActivityNode | string;
+  public source!: string;
 
-  // Inherited from ActivityEdge
   /**
    * redefinedEdge
    * 
@@ -206,9 +174,8 @@ export class ObjectFlow extends ActivityEdge implements IObjectFlow {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedEdge: Set<IActivityEdge | string> = new Set();
+  public redefinedEdge: Set<string> = new Set();
 
-  // Inherited from ActivityEdge
   /**
    * weight
    * 
@@ -216,14 +183,16 @@ export class ObjectFlow extends ActivityEdge implements IObjectFlow {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public weight?: IValueSpecification = undefined;
+  public weight?: IValueSpecification;
+
 
   constructor(init?: Partial<IObjectFlow>) {
     super(init);
-    this.isMulticast = init?.isMulticast!;
-    this.isMultireceive = init?.isMultireceive!;
-    this.selection = init?.selection ?? undefined;
-    this.transformation = init?.transformation ?? undefined;
+
+    this.isMulticast = init?.isMulticast ?? false;
+    this.isMultireceive = init?.isMultireceive ?? false;
+    this.selection = init?.selection;
+    this.transformation = init?.transformation;
   }
   getIsMulticast(): boolean {
     return this.isMulticast;
@@ -241,19 +210,19 @@ export class ObjectFlow extends ActivityEdge implements IObjectFlow {
     this.isMultireceive = value;
   }
 
-  getSelection(): IBehavior | string | undefined {
+  getSelection(): string | undefined {
     return this.selection;
   }
 
-  setSelection(value: IBehavior | string | undefined): void {
+  setSelection(value: string | undefined): void {
     this.selection = value;
   }
 
-  getTransformation(): IBehavior | string | undefined {
+  getTransformation(): string | undefined {
     return this.transformation;
   }
 
-  setTransformation(value: IBehavior | string | undefined): void {
+  setTransformation(value: string | undefined): void {
     this.transformation = value;
   }
 
@@ -328,9 +297,6 @@ export class ObjectFlow extends ActivityEdge implements IObjectFlow {
   static fromJSON(json: any): ObjectFlow {
     const instance = new ObjectFlow();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

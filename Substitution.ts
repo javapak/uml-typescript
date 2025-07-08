@@ -5,13 +5,9 @@
  * @package uml
  * @extends Realization
  */
-import { Comment } from './Comment';
 import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IOpaqueExpression } from './IOpaqueExpression';
 import { IRealization } from './IRealization';
 import { IStringExpression } from './IStringExpression';
@@ -31,7 +27,7 @@ export class Substitution extends Realization implements ISubstitution {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public contract!: IClassifier | string;
+  public contract!: string;
 
   /**
    * substitutingClassifier
@@ -41,20 +37,8 @@ export class Substitution extends Realization implements ISubstitution {
    * @relationship cross-reference
    * @opposite substitution
    */
-  public substitutingClassifier!: IClassifier | string;
+  public substitutingClassifier!: string;
 
-  // Inherited from Realization
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Realization
   /**
    * ownedComment
    * 
@@ -64,16 +48,14 @@ export class Substitution extends Realization implements ISubstitution {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Realization
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Realization
   /**
    * nameExpression
    * 
@@ -81,18 +63,15 @@ export class Substitution extends Realization implements ISubstitution {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Realization
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Realization
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * owningTemplateParameter
    * 
@@ -101,9 +80,8 @@ export class Substitution extends Realization implements ISubstitution {
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from Realization
   /**
    * templateParameter
    * 
@@ -112,9 +90,8 @@ export class Substitution extends Realization implements ISubstitution {
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from Realization
   /**
    * client
    * 
@@ -122,9 +99,8 @@ export class Substitution extends Realization implements ISubstitution {
    * @multiplicity [1..*]
    * @relationship cross-reference
    */
-  public client: Set<INamedElement | string> = new Set();
+  public client: Set<string> = new Set();
 
-  // Inherited from Realization
   /**
    * supplier
    * 
@@ -132,9 +108,8 @@ export class Substitution extends Realization implements ISubstitution {
    * @multiplicity [1..*]
    * @relationship cross-reference
    */
-  public supplier: Set<INamedElement | string> = new Set();
+  public supplier: Set<string> = new Set();
 
-  // Inherited from Realization
   /**
    * mapping
    * 
@@ -142,26 +117,28 @@ export class Substitution extends Realization implements ISubstitution {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public mapping?: IOpaqueExpression = undefined;
+  public mapping?: IOpaqueExpression;
+
 
   constructor(init?: Partial<ISubstitution>) {
     super(init);
-    this.contract = init?.contract!;
-    this.substitutingClassifier = init?.substitutingClassifier!;
+
+    this.contract = init?.contract ?? '';
+    this.substitutingClassifier = init?.substitutingClassifier ?? '';
   }
-  getContract(): IClassifier | string {
+  getContract(): string {
     return this.contract;
   }
 
-  setContract(value: IClassifier | string): void {
+  setContract(value: string): void {
     this.contract = value;
   }
 
-  getSubstitutingClassifier(): IClassifier | string {
+  getSubstitutingClassifier(): string {
     return this.substitutingClassifier;
   }
 
-  setSubstitutingClassifier(value: IClassifier | string): void {
+  setSubstitutingClassifier(value: string): void {
     this.substitutingClassifier = value;
   }
 
@@ -228,9 +205,6 @@ export class Substitution extends Realization implements ISubstitution {
   static fromJSON(json: any): Substitution {
     const instance = new Substitution();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

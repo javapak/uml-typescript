@@ -22,7 +22,7 @@ export interface IObjectNode extends IActivityNode, ITypedElement {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  inState: Set<IState | string>;
+  inState?: Set<string>;
   /**
    * isControlType
    * 
@@ -36,7 +36,7 @@ export interface IObjectNode extends IActivityNode, ITypedElement {
    * @type ObjectNodeOrderingKind
    * @multiplicity [1..1]
    */
-  ordering: any;
+  ordering: ObjectNodeOrderingKind;
   /**
    * selection
    * 
@@ -44,7 +44,7 @@ export interface IObjectNode extends IActivityNode, ITypedElement {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  selection?: IBehavior | string;
+  selection?: string;
   /**
    * upperBound
    * 

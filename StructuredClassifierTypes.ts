@@ -10,9 +10,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialStructuredClassifier = Partial<IStructuredClassifier>;
 export type RequiredStructuredClassifier = Required<IStructuredClassifier>;
-export type StructuredClassifierKey = Pick<IStructuredClassifier, 'name' | 'nameExpression'>;
-export type StructuredClassifierMetadata = Pick<IStructuredClassifier, 'ownedComment' | 'visibility' | 'ownedRule' | 'ownedTemplateSignature' | 'ownedUseCase' | 'ownedAttribute' | 'ownedConnector'>;
-export type StructuredClassifierSummary = Pick<IStructuredClassifier, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type StructuredClassifierUnion = IStructuredClassifier | IClassifier;
 export type StructuredClassifierFactory = () => StructuredClassifier;
 export type StructuredClassifierValidator = (instance: IStructuredClassifier) => ValidationResult;

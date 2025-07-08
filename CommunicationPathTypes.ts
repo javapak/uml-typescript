@@ -8,9 +8,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialCommunicationPath = Partial<ICommunicationPath>;
 export type RequiredCommunicationPath = Required<ICommunicationPath>;
-export type CommunicationPathKey = Pick<ICommunicationPath, 'name' | 'nameExpression'>;
-export type CommunicationPathMetadata = Pick<ICommunicationPath, 'ownedComment' | 'visibility' | 'ownedRule' | 'ownedTemplateSignature' | 'ownedUseCase' | 'ownedEnd'>;
-export type CommunicationPathSummary = Pick<ICommunicationPath, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type CommunicationPathUnion = ICommunicationPath | IAssociation;
 export type CommunicationPathFactory = () => CommunicationPath;
 export type CommunicationPathValidator = (instance: ICommunicationPath) => ValidationResult;

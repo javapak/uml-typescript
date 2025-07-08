@@ -5,35 +5,21 @@
  * @package uml
  * @extends Package
  */
-import { Comment } from './Comment';
-import { Constraint } from './Constraint';
-import { ElementImport } from './ElementImport';
 import { IComment } from './IComment';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IElementImport } from './IElementImport';
 import { IModel } from './IModel';
-import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IPackage } from './IPackage';
 import { IPackageImport } from './IPackageImport';
 import { IPackageMerge } from './IPackageMerge';
 import { IPackageableElement } from './IPackageableElement';
 import { IProfileApplication } from './IProfileApplication';
-import { IStereotype } from './IStereotype';
 import { IStringExpression } from './IStringExpression';
 import { ITemplateBinding } from './ITemplateBinding';
 import { ITemplateParameter } from './ITemplateParameter';
 import { ITemplateSignature } from './ITemplateSignature';
-import { IType } from './IType';
 import { Package } from './Package';
-import { PackageImport } from './PackageImport';
-import { PackageMerge } from './PackageMerge';
-import { PackageableElement } from './PackageableElement';
-import { ProfileApplication } from './ProfileApplication';
 import { StringExpression } from './StringExpression';
-import { TemplateBinding } from './TemplateBinding';
 import { TemplateSignature } from './TemplateSignature';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
@@ -45,20 +31,8 @@ export class Model extends Package implements IModel {
    * @type String
    * @multiplicity [0..1]
    */
-  public viewpoint?: string = undefined;
+  public viewpoint?: string;
 
-  // Inherited from Package
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Package
   /**
    * ownedComment
    * 
@@ -68,16 +42,14 @@ export class Model extends Package implements IModel {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Package
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Package
   /**
    * nameExpression
    * 
@@ -85,18 +57,15 @@ export class Model extends Package implements IModel {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Package
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Package
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * ownedRule
    * 
@@ -107,7 +76,6 @@ export class Model extends Package implements IModel {
    */
   public ownedRule: Set<IConstraint> = new Set();
 
-  // Inherited from Package
   /**
    * elementImport
    * 
@@ -118,7 +86,6 @@ export class Model extends Package implements IModel {
    */
   public elementImport: Set<IElementImport> = new Set();
 
-  // Inherited from Package
   /**
    * packageImport
    * 
@@ -129,7 +96,6 @@ export class Model extends Package implements IModel {
    */
   public packageImport: Set<IPackageImport> = new Set();
 
-  // Inherited from Package
   /**
    * owningTemplateParameter
    * 
@@ -138,9 +104,8 @@ export class Model extends Package implements IModel {
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from Package
   /**
    * templateParameter
    * 
@@ -149,9 +114,8 @@ export class Model extends Package implements IModel {
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from Package
   /**
    * templateBinding
    * 
@@ -162,7 +126,6 @@ export class Model extends Package implements IModel {
    */
   public templateBinding: Set<ITemplateBinding> = new Set();
 
-  // Inherited from Package
   /**
    * ownedTemplateSignature
    * 
@@ -171,18 +134,16 @@ export class Model extends Package implements IModel {
    * @relationship containment
    * @opposite template
    */
-  public ownedTemplateSignature?: ITemplateSignature = undefined;
+  public ownedTemplateSignature?: ITemplateSignature;
 
-  // Inherited from Package
   /**
    * URI
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public URI?: string = undefined;
+  public URI?: string;
 
-  // Inherited from Package
   /**
    * packageMerge
    * 
@@ -193,7 +154,6 @@ export class Model extends Package implements IModel {
    */
   public packageMerge: Set<IPackageMerge> = new Set();
 
-  // Inherited from Package
   /**
    * packagedElement
    * 
@@ -203,7 +163,6 @@ export class Model extends Package implements IModel {
    */
   public packagedElement: Set<IPackageableElement> = new Set();
 
-  // Inherited from Package
   /**
    * profileApplication
    * 
@@ -214,9 +173,11 @@ export class Model extends Package implements IModel {
    */
   public profileApplication: Set<IProfileApplication> = new Set();
 
+
   constructor(init?: Partial<IModel>) {
     super(init);
-    this.viewpoint = init?.viewpoint ?? undefined;
+
+    this.viewpoint = init?.viewpoint;
   }
   getViewpoint(): string | undefined {
     return this.viewpoint;
@@ -289,9 +250,6 @@ export class Model extends Package implements IModel {
   static fromJSON(json: any): Model {
     const instance = new Model();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

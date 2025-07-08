@@ -11,9 +11,7 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialLoopNode = Partial<ILoopNode>;
 export type RequiredLoopNode = Required<ILoopNode>;
-export type LoopNodeKey = Pick<ILoopNode, 'name' | 'nameExpression' | 'decider'>;
-export type LoopNodeMetadata = Pick<ILoopNode, 'ownedComment' | 'visibility' | 'ownedRule'>;
-export type LoopNodeSummary = Pick<ILoopNode, 'eAnnotations' | 'ownedComment' | 'name'>;
+export type LoopNodeKey = Pick<ILoopNode, 'decider'>;
 export type LoopNodeUnion = ILoopNode | IStructuredActivityNode;
 export type LoopNodeFactory = () => LoopNode;
 export type LoopNodeValidator = (instance: ILoopNode) => ValidationResult;

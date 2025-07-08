@@ -5,32 +5,20 @@
  * @package uml
  * @extends InvocationAction
  */
-import { Comment } from './Comment';
-import { Constraint } from './Constraint';
-import { ExceptionHandler } from './ExceptionHandler';
-import { IActivity } from './IActivity';
 import { IActivityEdge } from './IActivityEdge';
-import { IActivityGroup } from './IActivityGroup';
 import { IActivityNode } from './IActivityNode';
 import { IActivityPartition } from './IActivityPartition';
-import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IExceptionHandler } from './IExceptionHandler';
 import { IInputPin } from './IInputPin';
 import { IInterruptibleActivityRegion } from './IInterruptibleActivityRegion';
 import { IInvocationAction } from './IInvocationAction';
-import { INamespace } from './INamespace';
-import { IOutputPin } from './IOutputPin';
 import { IPort } from './IPort';
-import { IRedefinableElement } from './IRedefinableElement';
 import { ISendSignalAction } from './ISendSignalAction';
 import { ISignal } from './ISignal';
 import { IStringExpression } from './IStringExpression';
 import { IStructuredActivityNode } from './IStructuredActivityNode';
-import { InputPin } from './InputPin';
 import { InvocationAction } from './InvocationAction';
 import { StringExpression } from './StringExpression';
 import { ValidationError, ValidationResult } from './ValidationTypes';
@@ -44,7 +32,7 @@ export class SendSignalAction extends InvocationAction implements ISendSignalAct
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public signal!: ISignal | string;
+  public signal!: string;
 
   /**
    * target
@@ -55,18 +43,6 @@ export class SendSignalAction extends InvocationAction implements ISendSignalAct
    */
   public target!: IInputPin;
 
-  // Inherited from InvocationAction
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from InvocationAction
   /**
    * ownedComment
    * 
@@ -76,16 +52,14 @@ export class SendSignalAction extends InvocationAction implements ISendSignalAct
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from InvocationAction
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from InvocationAction
   /**
    * nameExpression
    * 
@@ -93,18 +67,15 @@ export class SendSignalAction extends InvocationAction implements ISendSignalAct
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from InvocationAction
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from InvocationAction
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * isLeaf
    * 
@@ -113,7 +84,6 @@ export class SendSignalAction extends InvocationAction implements ISendSignalAct
    */
   public isLeaf!: boolean;
 
-  // Inherited from InvocationAction
   /**
    * inInterruptibleRegion
    * 
@@ -122,9 +92,8 @@ export class SendSignalAction extends InvocationAction implements ISendSignalAct
    * @relationship cross-reference
    * @opposite node
    */
-  public inInterruptibleRegion: Set<IInterruptibleActivityRegion | string> = new Set();
+  public inInterruptibleRegion: Set<string> = new Set();
 
-  // Inherited from InvocationAction
   /**
    * inStructuredNode
    * 
@@ -133,9 +102,8 @@ export class SendSignalAction extends InvocationAction implements ISendSignalAct
    * @relationship cross-reference
    * @opposite node
    */
-  public inStructuredNode?: IStructuredActivityNode | string = undefined;
+  public inStructuredNode?: string;
 
-  // Inherited from InvocationAction
   /**
    * incoming
    * 
@@ -144,9 +112,8 @@ export class SendSignalAction extends InvocationAction implements ISendSignalAct
    * @relationship cross-reference
    * @opposite target
    */
-  public incoming: Set<IActivityEdge | string> = new Set();
+  public incoming: Set<string> = new Set();
 
-  // Inherited from InvocationAction
   /**
    * outgoing
    * 
@@ -155,9 +122,8 @@ export class SendSignalAction extends InvocationAction implements ISendSignalAct
    * @relationship cross-reference
    * @opposite source
    */
-  public outgoing: Set<IActivityEdge | string> = new Set();
+  public outgoing: Set<string> = new Set();
 
-  // Inherited from InvocationAction
   /**
    * redefinedNode
    * 
@@ -165,9 +131,8 @@ export class SendSignalAction extends InvocationAction implements ISendSignalAct
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedNode: Set<IActivityNode | string> = new Set();
+  public redefinedNode: Set<string> = new Set();
 
-  // Inherited from InvocationAction
   /**
    * inPartition
    * 
@@ -176,9 +141,8 @@ export class SendSignalAction extends InvocationAction implements ISendSignalAct
    * @relationship cross-reference
    * @opposite node
    */
-  public inPartition: Set<IActivityPartition | string> = new Set();
+  public inPartition: Set<string> = new Set();
 
-  // Inherited from InvocationAction
   /**
    * handler
    * 
@@ -189,7 +153,6 @@ export class SendSignalAction extends InvocationAction implements ISendSignalAct
    */
   public handler: Set<IExceptionHandler> = new Set();
 
-  // Inherited from InvocationAction
   /**
    * isLocallyReentrant
    * 
@@ -198,7 +161,6 @@ export class SendSignalAction extends InvocationAction implements ISendSignalAct
    */
   public isLocallyReentrant!: boolean;
 
-  // Inherited from InvocationAction
   /**
    * localPostcondition
    * 
@@ -208,7 +170,6 @@ export class SendSignalAction extends InvocationAction implements ISendSignalAct
    */
   public localPostcondition: Set<IConstraint> = new Set();
 
-  // Inherited from InvocationAction
   /**
    * localPrecondition
    * 
@@ -218,7 +179,6 @@ export class SendSignalAction extends InvocationAction implements ISendSignalAct
    */
   public localPrecondition: Set<IConstraint> = new Set();
 
-  // Inherited from InvocationAction
   /**
    * argument
    * 
@@ -228,7 +188,6 @@ export class SendSignalAction extends InvocationAction implements ISendSignalAct
    */
   public argument: IInputPin[] = [];
 
-  // Inherited from InvocationAction
   /**
    * onPort
    * 
@@ -236,18 +195,20 @@ export class SendSignalAction extends InvocationAction implements ISendSignalAct
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public onPort?: IPort | string = undefined;
+  public onPort?: string;
+
 
   constructor(init?: Partial<ISendSignalAction>) {
     super(init);
-    this.signal = init?.signal!;
+
+    this.signal = init?.signal ?? '';
     this.target = init?.target!;
   }
-  getSignal(): ISignal | string {
+  getSignal(): string {
     return this.signal;
   }
 
-  setSignal(value: ISignal | string): void {
+  setSignal(value: string): void {
     this.signal = value;
   }
 
@@ -322,9 +283,6 @@ export class SendSignalAction extends InvocationAction implements ISendSignalAct
   static fromJSON(json: any): SendSignalAction {
     const instance = new SendSignalAction();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

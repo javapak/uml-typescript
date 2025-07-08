@@ -16,7 +16,7 @@ export interface IActionExecutionSpecification extends IExecutionSpecification {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  action: IAction | string;
+  action: string;
 }
 
 // Type aliases for ActionExecutionSpecification

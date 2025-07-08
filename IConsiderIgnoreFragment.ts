@@ -16,7 +16,7 @@ export interface IConsiderIgnoreFragment extends ICombinedFragment {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  message: Set<INamedElement | string>;
+  message?: Set<string>;
 }
 
 // Type aliases for ConsiderIgnoreFragment

@@ -10,6 +10,7 @@ import { IActivityContent } from './IActivityContent';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 
 export class ActivityContent implements IActivityContent {
+
   constructor(init?: Partial<IActivityContent>) {
   }
   /**

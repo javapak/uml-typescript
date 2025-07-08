@@ -9,9 +9,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialSendObjectAction = Partial<ISendObjectAction>;
 export type RequiredSendObjectAction = Required<ISendObjectAction>;
-export type SendObjectActionKey = Pick<ISendObjectAction, 'name' | 'nameExpression'>;
-export type SendObjectActionMetadata = Pick<ISendObjectAction, 'ownedComment' | 'visibility'>;
-export type SendObjectActionSummary = Pick<ISendObjectAction, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type SendObjectActionUnion = ISendObjectAction | IInvocationAction;
 export type SendObjectActionFactory = () => SendObjectAction;
 export type SendObjectActionValidator = (instance: ISendObjectAction) => ValidationResult;

@@ -16,21 +16,21 @@ export interface IOpaqueExpression extends IValueSpecification {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  behavior?: IBehavior | string;
+  behavior?: string;
   /**
    * body
    * 
    * @type String
    * @multiplicity [0..*]
    */
-  body: string[];
+  body?: string[];
   /**
    * language
    * 
    * @type String
    * @multiplicity [0..*]
    */
-  language: string[];
+  language?: string[];
 }
 
 // Type aliases for OpaqueExpression

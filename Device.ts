@@ -5,77 +5,36 @@
  * @package uml
  * @extends Node
  */
-import { Behavior } from './Behavior';
-import { Classifier } from './Classifier';
-import { CollaborationUse } from './CollaborationUse';
-import { Comment } from './Comment';
-import { Connector } from './Connector';
-import { Constraint } from './Constraint';
-import { Deployment } from './Deployment';
-import { ElementImport } from './ElementImport';
-import { Generalization } from './Generalization';
 import { IBehavior } from './IBehavior';
-import { IClass } from './IClass';
 import { IClassifier } from './IClassifier';
 import { ICollaborationUse } from './ICollaborationUse';
 import { IComment } from './IComment';
-import { IConnectableElement } from './IConnectableElement';
 import { IConnector } from './IConnector';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
 import { IDeployment } from './IDeployment';
 import { IDevice } from './IDevice';
-import { IElement } from './IElement';
 import { IElementImport } from './IElementImport';
-import { IExtension } from './IExtension';
-import { IFeature } from './IFeature';
 import { IGeneralization } from './IGeneralization';
 import { IGeneralizationSet } from './IGeneralizationSet';
 import { IInterfaceRealization } from './IInterfaceRealization';
-import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { INode } from './INode';
 import { IOperation } from './IOperation';
-import { IPackage } from './IPackage';
 import { IPackageImport } from './IPackageImport';
-import { IPackageableElement } from './IPackageableElement';
-import { IPort } from './IPort';
 import { IProperty } from './IProperty';
 import { IReception } from './IReception';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { ISubstitution } from './ISubstitution';
 import { ITemplateBinding } from './ITemplateBinding';
 import { ITemplateParameter } from './ITemplateParameter';
 import { ITemplateSignature } from './ITemplateSignature';
 import { IUseCase } from './IUseCase';
-import { InterfaceRealization } from './InterfaceRealization';
 import { Node } from './Node';
-import { Operation } from './Operation';
-import { PackageImport } from './PackageImport';
-import { Property } from './Property';
-import { Reception } from './Reception';
 import { StringExpression } from './StringExpression';
-import { Substitution } from './Substitution';
-import { TemplateBinding } from './TemplateBinding';
 import { TemplateSignature } from './TemplateSignature';
-import { UseCase } from './UseCase';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
 
 export class Device extends Node implements IDevice {
-  // Inherited from Node
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Node
   /**
    * ownedComment
    * 
@@ -85,16 +44,14 @@ export class Device extends Node implements IDevice {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Node
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Node
   /**
    * nameExpression
    * 
@@ -102,18 +59,15 @@ export class Device extends Node implements IDevice {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Node
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Node
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * ownedRule
    * 
@@ -124,7 +78,6 @@ export class Device extends Node implements IDevice {
    */
   public ownedRule: Set<IConstraint> = new Set();
 
-  // Inherited from Node
   /**
    * elementImport
    * 
@@ -135,7 +88,6 @@ export class Device extends Node implements IDevice {
    */
   public elementImport: Set<IElementImport> = new Set();
 
-  // Inherited from Node
   /**
    * packageImport
    * 
@@ -146,7 +98,6 @@ export class Device extends Node implements IDevice {
    */
   public packageImport: Set<IPackageImport> = new Set();
 
-  // Inherited from Node
   /**
    * isLeaf
    * 
@@ -155,7 +106,6 @@ export class Device extends Node implements IDevice {
    */
   public isLeaf!: boolean;
 
-  // Inherited from Node
   /**
    * owningTemplateParameter
    * 
@@ -164,9 +114,8 @@ export class Device extends Node implements IDevice {
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from Node
   /**
    * templateParameter
    * 
@@ -175,9 +124,8 @@ export class Device extends Node implements IDevice {
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from Node
   /**
    * templateBinding
    * 
@@ -188,7 +136,6 @@ export class Device extends Node implements IDevice {
    */
   public templateBinding: Set<ITemplateBinding> = new Set();
 
-  // Inherited from Node
   /**
    * ownedTemplateSignature
    * 
@@ -197,9 +144,8 @@ export class Device extends Node implements IDevice {
    * @relationship containment
    * @opposite template
    */
-  public ownedTemplateSignature?: ITemplateSignature = undefined;
+  public ownedTemplateSignature?: ITemplateSignature;
 
-  // Inherited from Node
   /**
    * collaborationUse
    * 
@@ -209,7 +155,6 @@ export class Device extends Node implements IDevice {
    */
   public collaborationUse: Set<ICollaborationUse> = new Set();
 
-  // Inherited from Node
   /**
    * generalization
    * 
@@ -220,7 +165,6 @@ export class Device extends Node implements IDevice {
    */
   public generalization: Set<IGeneralization> = new Set();
 
-  // Inherited from Node
   /**
    * powertypeExtent
    * 
@@ -229,9 +173,8 @@ export class Device extends Node implements IDevice {
    * @relationship cross-reference
    * @opposite powertype
    */
-  public powertypeExtent: Set<IGeneralizationSet | string> = new Set();
+  public powertypeExtent: Set<string> = new Set();
 
-  // Inherited from Node
   /**
    * isAbstract
    * 
@@ -240,7 +183,6 @@ export class Device extends Node implements IDevice {
    */
   public isAbstract!: boolean;
 
-  // Inherited from Node
   /**
    * isFinalSpecialization
    * 
@@ -249,7 +191,6 @@ export class Device extends Node implements IDevice {
    */
   public isFinalSpecialization!: boolean;
 
-  // Inherited from Node
   /**
    * ownedUseCase
    * 
@@ -259,7 +200,6 @@ export class Device extends Node implements IDevice {
    */
   public ownedUseCase: Set<IUseCase> = new Set();
 
-  // Inherited from Node
   /**
    * useCase
    * 
@@ -268,9 +208,8 @@ export class Device extends Node implements IDevice {
    * @relationship cross-reference
    * @opposite subject
    */
-  public useCase: Set<IUseCase | string> = new Set();
+  public useCase: Set<string> = new Set();
 
-  // Inherited from Node
   /**
    * redefinedClassifier
    * 
@@ -278,9 +217,8 @@ export class Device extends Node implements IDevice {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedClassifier: Set<IClassifier | string> = new Set();
+  public redefinedClassifier: Set<string> = new Set();
 
-  // Inherited from Node
   /**
    * representation
    * 
@@ -288,9 +226,8 @@ export class Device extends Node implements IDevice {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public representation?: ICollaborationUse | string = undefined;
+  public representation?: string;
 
-  // Inherited from Node
   /**
    * substitution
    * 
@@ -301,7 +238,6 @@ export class Device extends Node implements IDevice {
    */
   public substitution: Set<ISubstitution> = new Set();
 
-  // Inherited from Node
   /**
    * ownedAttribute
    * 
@@ -311,7 +247,6 @@ export class Device extends Node implements IDevice {
    */
   public ownedAttribute: IProperty[] = [];
 
-  // Inherited from Node
   /**
    * ownedConnector
    * 
@@ -321,7 +256,6 @@ export class Device extends Node implements IDevice {
    */
   public ownedConnector: Set<IConnector> = new Set();
 
-  // Inherited from Node
   /**
    * classifierBehavior
    * 
@@ -329,9 +263,8 @@ export class Device extends Node implements IDevice {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public classifierBehavior?: IBehavior | string = undefined;
+  public classifierBehavior?: string;
 
-  // Inherited from Node
   /**
    * interfaceRealization
    * 
@@ -342,7 +275,6 @@ export class Device extends Node implements IDevice {
    */
   public interfaceRealization: Set<IInterfaceRealization> = new Set();
 
-  // Inherited from Node
   /**
    * ownedBehavior
    * 
@@ -352,7 +284,6 @@ export class Device extends Node implements IDevice {
    */
   public ownedBehavior: Set<IBehavior> = new Set();
 
-  // Inherited from Node
   /**
    * ownedOperation
    * 
@@ -363,7 +294,6 @@ export class Device extends Node implements IDevice {
    */
   public ownedOperation: IOperation[] = [];
 
-  // Inherited from Node
   /**
    * isActive
    * 
@@ -372,7 +302,6 @@ export class Device extends Node implements IDevice {
    */
   public isActive!: boolean;
 
-  // Inherited from Node
   /**
    * nestedClassifier
    * 
@@ -382,7 +311,6 @@ export class Device extends Node implements IDevice {
    */
   public nestedClassifier: IClassifier[] = [];
 
-  // Inherited from Node
   /**
    * ownedReception
    * 
@@ -392,7 +320,6 @@ export class Device extends Node implements IDevice {
    */
   public ownedReception: Set<IReception> = new Set();
 
-  // Inherited from Node
   /**
    * deployment
    * 
@@ -403,7 +330,6 @@ export class Device extends Node implements IDevice {
    */
   public deployment: Set<IDeployment> = new Set();
 
-  // Inherited from Node
   /**
    * nestedNode
    * 
@@ -413,8 +339,10 @@ export class Device extends Node implements IDevice {
    */
   public nestedNode: Set<INode> = new Set();
 
+
   constructor(init?: Partial<IDevice>) {
     super(init);
+
   }
   /**
    * Converts this instance to a plain object matching the interface
@@ -475,9 +403,6 @@ export class Device extends Node implements IDevice {
   static fromJSON(json: any): Device {
     const instance = new Device();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

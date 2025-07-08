@@ -10,9 +10,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialClearAssociationAction = Partial<IClearAssociationAction>;
 export type RequiredClearAssociationAction = Required<IClearAssociationAction>;
-export type ClearAssociationActionKey = Pick<IClearAssociationAction, 'name' | 'nameExpression'>;
-export type ClearAssociationActionMetadata = Pick<IClearAssociationAction, 'ownedComment' | 'visibility'>;
-export type ClearAssociationActionSummary = Pick<IClearAssociationAction, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type ClearAssociationActionUnion = IClearAssociationAction | IAction;
 export type ClearAssociationActionFactory = () => ClearAssociationAction;
 export type ClearAssociationActionValidator = (instance: IClearAssociationAction) => ValidationResult;

@@ -16,7 +16,7 @@ export interface IBehaviorExecutionSpecification extends IExecutionSpecification
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  behavior?: IBehavior | string;
+  behavior?: string;
 }
 
 // Type aliases for BehaviorExecutionSpecification

@@ -6,16 +6,12 @@
  * @extends ActivityGroup
  */
 import { ActivityGroup } from './ActivityGroup';
-import { Comment } from './Comment';
-import { IActivity } from './IActivity';
 import { IActivityEdge } from './IActivityEdge';
 import { IActivityGroup } from './IActivityGroup';
 import { IActivityNode } from './IActivityNode';
 import { IActivityPartition } from './IActivityPartition';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
 import { IElement } from './IElement';
-import { INamespace } from './INamespace';
 import { IStringExpression } from './IStringExpression';
 import { StringExpression } from './StringExpression';
 import { ValidationError, ValidationResult } from './ValidationTypes';
@@ -46,7 +42,7 @@ export class ActivityPartition extends ActivityGroup implements IActivityPartiti
    * @relationship cross-reference
    * @opposite inPartition
    */
-  public node: Set<IActivityNode | string> = new Set();
+  public node: Set<string> = new Set();
 
   /**
    * represents
@@ -55,7 +51,7 @@ export class ActivityPartition extends ActivityGroup implements IActivityPartiti
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public represents?: IElement | string = undefined;
+  public represents?: string;
 
   /**
    * subpartition
@@ -75,7 +71,7 @@ export class ActivityPartition extends ActivityGroup implements IActivityPartiti
    * @relationship cross-reference
    * @opposite subpartition
    */
-  public superPartition?: IActivityPartition | string = undefined;
+  public superPartition?: string;
 
   /**
    * edge
@@ -85,20 +81,8 @@ export class ActivityPartition extends ActivityGroup implements IActivityPartiti
    * @relationship cross-reference
    * @opposite inPartition
    */
-  public edge: Set<IActivityEdge | string> = new Set();
+  public edge: Set<string> = new Set();
 
-  // Inherited from ActivityGroup
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from ActivityGroup
   /**
    * ownedComment
    * 
@@ -108,16 +92,14 @@ export class ActivityPartition extends ActivityGroup implements IActivityPartiti
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from ActivityGroup
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from ActivityGroup
   /**
    * nameExpression
    * 
@@ -125,26 +107,26 @@ export class ActivityPartition extends ActivityGroup implements IActivityPartiti
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from ActivityGroup
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
+  public visibility: VisibilityKind | undefined = undefined;
 
   constructor(init?: Partial<IActivityPartition>) {
     super(init);
-    this.isDimension = init?.isDimension!;
-    this.isExternal = init?.isExternal!;
-    this.node = init?.node ?? new Set();
-    this.represents = init?.represents ?? undefined;
-    this.subpartition = init?.subpartition ?? new Set();
-    this.superPartition = init?.superPartition ?? undefined;
-    this.edge = init?.edge ?? new Set();
+
+    this.isDimension = init?.isDimension ?? false;
+    this.isExternal = init?.isExternal ?? false;
+    this.node = init?.node ? new Set(init.node) : new Set();
+    this.represents = init?.represents;
+    this.subpartition = init?.subpartition ? new Set(init.subpartition) : new Set();
+    this.superPartition = init?.superPartition;
+    this.edge = init?.edge ? new Set(init.edge) : new Set();
   }
   getIsDimension(): boolean {
     return this.isDimension;
@@ -162,19 +144,19 @@ export class ActivityPartition extends ActivityGroup implements IActivityPartiti
     this.isExternal = value;
   }
 
-  getNode(): Set<IActivityNode | string> {
+  getNode(): Set<string> {
     return this.node;
   }
 
-  setNode(value: Set<IActivityNode | string>): void {
+  setNode(value: Set<string>): void {
     this.node = value;
   }
 
-  getRepresents(): IElement | string | undefined {
+  getRepresents(): string | undefined {
     return this.represents;
   }
 
-  setRepresents(value: IElement | string | undefined): void {
+  setRepresents(value: string | undefined): void {
     this.represents = value;
   }
 
@@ -186,19 +168,19 @@ export class ActivityPartition extends ActivityGroup implements IActivityPartiti
     this.subpartition = value;
   }
 
-  getSuperPartition(): IActivityPartition | string | undefined {
+  getSuperPartition(): string | undefined {
     return this.superPartition;
   }
 
-  setSuperPartition(value: IActivityPartition | string | undefined): void {
+  setSuperPartition(value: string | undefined): void {
     this.superPartition = value;
   }
 
-  getEdge(): Set<IActivityEdge | string> {
+  getEdge(): Set<string> {
     return this.edge;
   }
 
-  setEdge(value: Set<IActivityEdge | string>): void {
+  setEdge(value: Set<string>): void {
     this.edge = value;
   }
 
@@ -279,9 +261,6 @@ export class ActivityPartition extends ActivityGroup implements IActivityPartiti
   static fromJSON(json: any): ActivityPartition {
     const instance = new ActivityPartition();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

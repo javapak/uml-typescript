@@ -18,7 +18,7 @@ export interface IInterruptibleActivityRegion extends IActivityGroup {
    * @relationship cross-reference
    * @opposite interrupts
    */
-  interruptingEdge: Set<IActivityEdge | string>;
+  interruptingEdge?: Set<string>;
   /**
    * node
    * 
@@ -27,7 +27,7 @@ export interface IInterruptibleActivityRegion extends IActivityGroup {
    * @relationship cross-reference
    * @opposite inInterruptibleRegion
    */
-  node: Set<IActivityNode | string>;
+  node?: Set<string>;
 }
 
 // Type aliases for InterruptibleActivityRegion

@@ -17,7 +17,7 @@ export interface IProfile extends IPackage {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  metaclassReference: Set<IElementImport | string>;
+  metaclassReference?: Set<string>;
   /**
    * metamodelReference
    * 
@@ -25,7 +25,7 @@ export interface IProfile extends IPackage {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  metamodelReference: Set<IPackageImport | string>;
+  metamodelReference?: Set<string>;
 }
 
 // Type aliases for Profile

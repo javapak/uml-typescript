@@ -7,41 +7,27 @@
  */
 import { BehavioralFeature } from './BehavioralFeature';
 import { CallConcurrencyKind } from './CallConcurrencyKind';
-import { Comment } from './Comment';
-import { Constraint } from './Constraint';
-import { ElementImport } from './ElementImport';
 import { IBehavior } from './IBehavior';
 import { IBehavioralFeature } from './IBehavioralFeature';
 import { IClass } from './IClass';
-import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
 import { IConstraint } from './IConstraint';
 import { IDataType } from './IDataType';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IElementImport } from './IElementImport';
 import { IInterface } from './IInterface';
-import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IOperation } from './IOperation';
 import { IPackageImport } from './IPackageImport';
-import { IPackageableElement } from './IPackageableElement';
 import { IParameter } from './IParameter';
 import { IParameterSet } from './IParameterSet';
 import { IParameterableElement } from './IParameterableElement';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { ITemplateBinding } from './ITemplateBinding';
 import { ITemplateParameter } from './ITemplateParameter';
 import { ITemplateSignature } from './ITemplateSignature';
 import { ITemplateableElement } from './ITemplateableElement';
 import { IType } from './IType';
-import { PackageImport } from './PackageImport';
-import { Parameter } from './Parameter';
-import { ParameterSet } from './ParameterSet';
 import { ParameterableElement } from './ParameterableElement';
 import { StringExpression } from './StringExpression';
-import { TemplateBinding } from './TemplateBinding';
 import { TemplateSignature } from './TemplateSignature';
 import { TemplateableElement } from './TemplateableElement';
 import { ValidationError, ValidationResult } from './ValidationTypes';
@@ -55,7 +41,7 @@ export class Operation extends BehavioralFeature implements IOperation {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public bodyCondition?: IConstraint | string = undefined;
+  public bodyCondition?: string;
 
   /**
    * class
@@ -65,7 +51,7 @@ export class Operation extends BehavioralFeature implements IOperation {
    * @relationship cross-reference
    * @opposite ownedOperation
    */
-  public class?: IClass | string = undefined;
+  public class?: string;
 
   /**
    * datatype
@@ -75,7 +61,7 @@ export class Operation extends BehavioralFeature implements IOperation {
    * @relationship cross-reference
    * @opposite ownedOperation
    */
-  public datatype?: IDataType | string = undefined;
+  public datatype?: string;
 
   /**
    * interface
@@ -85,7 +71,7 @@ export class Operation extends BehavioralFeature implements IOperation {
    * @relationship cross-reference
    * @opposite ownedOperation
    */
-  public interface?: IInterface | string = undefined;
+  public interface?: string;
 
   /**
    * isQuery
@@ -102,7 +88,7 @@ export class Operation extends BehavioralFeature implements IOperation {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public postcondition: Set<IConstraint | string> = new Set();
+  public postcondition: Set<string> = new Set();
 
   /**
    * precondition
@@ -111,7 +97,7 @@ export class Operation extends BehavioralFeature implements IOperation {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public precondition: Set<IConstraint | string> = new Set();
+  public precondition: Set<string> = new Set();
 
   /**
    * redefinedOperation
@@ -120,20 +106,8 @@ export class Operation extends BehavioralFeature implements IOperation {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedOperation: Set<IOperation | string> = new Set();
+  public redefinedOperation: Set<string> = new Set();
 
-  // Inherited from BehavioralFeature
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from BehavioralFeature
   /**
    * ownedComment
    * 
@@ -143,16 +117,14 @@ export class Operation extends BehavioralFeature implements IOperation {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from BehavioralFeature
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from BehavioralFeature
   /**
    * nameExpression
    * 
@@ -160,18 +132,15 @@ export class Operation extends BehavioralFeature implements IOperation {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from BehavioralFeature
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from BehavioralFeature
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * ownedRule
    * 
@@ -182,7 +151,6 @@ export class Operation extends BehavioralFeature implements IOperation {
    */
   public ownedRule: Set<IConstraint> = new Set();
 
-  // Inherited from BehavioralFeature
   /**
    * elementImport
    * 
@@ -193,7 +161,6 @@ export class Operation extends BehavioralFeature implements IOperation {
    */
   public elementImport: Set<IElementImport> = new Set();
 
-  // Inherited from BehavioralFeature
   /**
    * packageImport
    * 
@@ -204,7 +171,6 @@ export class Operation extends BehavioralFeature implements IOperation {
    */
   public packageImport: Set<IPackageImport> = new Set();
 
-  // Inherited from BehavioralFeature
   /**
    * isLeaf
    * 
@@ -213,7 +179,6 @@ export class Operation extends BehavioralFeature implements IOperation {
    */
   public isLeaf!: boolean;
 
-  // Inherited from BehavioralFeature
   /**
    * isStatic
    * 
@@ -222,16 +187,13 @@ export class Operation extends BehavioralFeature implements IOperation {
    */
   public isStatic!: boolean;
 
-  // Inherited from BehavioralFeature
   /**
    * concurrency
    * 
    * @type CallConcurrencyKind
    * @multiplicity [1..1]
    */
-  public concurrency!: any;
-
-  // Inherited from BehavioralFeature
+  public concurrency: CallConcurrencyKind = CallConcurrencyKind.sequential;
   /**
    * isAbstract
    * 
@@ -240,7 +202,6 @@ export class Operation extends BehavioralFeature implements IOperation {
    */
   public isAbstract!: boolean;
 
-  // Inherited from BehavioralFeature
   /**
    * method
    * 
@@ -249,9 +210,8 @@ export class Operation extends BehavioralFeature implements IOperation {
    * @relationship cross-reference
    * @opposite specification
    */
-  public method: Set<IBehavior | string> = new Set();
+  public method: Set<string> = new Set();
 
-  // Inherited from BehavioralFeature
   /**
    * ownedParameter
    * 
@@ -261,7 +221,6 @@ export class Operation extends BehavioralFeature implements IOperation {
    */
   public ownedParameter: IParameter[] = [];
 
-  // Inherited from BehavioralFeature
   /**
    * ownedParameterSet
    * 
@@ -271,7 +230,6 @@ export class Operation extends BehavioralFeature implements IOperation {
    */
   public ownedParameterSet: Set<IParameterSet> = new Set();
 
-  // Inherited from BehavioralFeature
   /**
    * raisedException
    * 
@@ -279,9 +237,17 @@ export class Operation extends BehavioralFeature implements IOperation {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public raisedException: Set<IType | string> = new Set();
+  public raisedException: Set<string> = new Set();
 
-  // Inherited from ParameterableElement
+  /**
+   * ownedComment
+   * 
+   * @type Comment
+   * @multiplicity [0..*]
+   * @relationship containment
+   */
+  public ownedComment: Set<IComment> = new Set();
+
   /**
    * owningTemplateParameter
    * 
@@ -290,9 +256,8 @@ export class Operation extends BehavioralFeature implements IOperation {
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from ParameterableElement
   /**
    * templateParameter
    * 
@@ -301,9 +266,17 @@ export class Operation extends BehavioralFeature implements IOperation {
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from TemplateableElement
+  /**
+   * ownedComment
+   * 
+   * @type Comment
+   * @multiplicity [0..*]
+   * @relationship containment
+   */
+  public ownedComment: Set<IComment> = new Set();
+
   /**
    * templateBinding
    * 
@@ -314,7 +287,6 @@ export class Operation extends BehavioralFeature implements IOperation {
    */
   public templateBinding: Set<ITemplateBinding> = new Set();
 
-  // Inherited from TemplateableElement
   /**
    * ownedTemplateSignature
    * 
@@ -323,48 +295,50 @@ export class Operation extends BehavioralFeature implements IOperation {
    * @relationship containment
    * @opposite template
    */
-  public ownedTemplateSignature?: ITemplateSignature = undefined;
+  public ownedTemplateSignature?: ITemplateSignature;
+
 
   constructor(init?: Partial<IOperation>) {
     super(init);
-    this.bodyCondition = init?.bodyCondition ?? undefined;
-    this.class = init?.class ?? undefined;
-    this.datatype = init?.datatype ?? undefined;
-    this.interface = init?.interface ?? undefined;
-    this.isQuery = init?.isQuery!;
-    this.postcondition = init?.postcondition ?? new Set();
-    this.precondition = init?.precondition ?? new Set();
-    this.redefinedOperation = init?.redefinedOperation ?? new Set();
+
+    this.bodyCondition = init?.bodyCondition;
+    this.class = init?.class;
+    this.datatype = init?.datatype;
+    this.interface = init?.interface;
+    this.isQuery = init?.isQuery ?? false;
+    this.postcondition = init?.postcondition ? new Set(init.postcondition) : new Set();
+    this.precondition = init?.precondition ? new Set(init.precondition) : new Set();
+    this.redefinedOperation = init?.redefinedOperation ? new Set(init.redefinedOperation) : new Set();
   }
-  getBodyCondition(): IConstraint | string | undefined {
+  getBodyCondition(): string | undefined {
     return this.bodyCondition;
   }
 
-  setBodyCondition(value: IConstraint | string | undefined): void {
+  setBodyCondition(value: string | undefined): void {
     this.bodyCondition = value;
   }
 
-  getClass(): IClass | string | undefined {
+  getClass(): string | undefined {
     return this.class;
   }
 
-  setClass(value: IClass | string | undefined): void {
+  setClass(value: string | undefined): void {
     this.class = value;
   }
 
-  getDatatype(): IDataType | string | undefined {
+  getDatatype(): string | undefined {
     return this.datatype;
   }
 
-  setDatatype(value: IDataType | string | undefined): void {
+  setDatatype(value: string | undefined): void {
     this.datatype = value;
   }
 
-  getInterface(): IInterface | string | undefined {
+  getInterface(): string | undefined {
     return this.interface;
   }
 
-  setInterface(value: IInterface | string | undefined): void {
+  setInterface(value: string | undefined): void {
     this.interface = value;
   }
 
@@ -376,27 +350,27 @@ export class Operation extends BehavioralFeature implements IOperation {
     this.isQuery = value;
   }
 
-  getPostcondition(): Set<IConstraint | string> {
+  getPostcondition(): Set<string> {
     return this.postcondition;
   }
 
-  setPostcondition(value: Set<IConstraint | string>): void {
+  setPostcondition(value: Set<string>): void {
     this.postcondition = value;
   }
 
-  getPrecondition(): Set<IConstraint | string> {
+  getPrecondition(): Set<string> {
     return this.precondition;
   }
 
-  setPrecondition(value: Set<IConstraint | string>): void {
+  setPrecondition(value: Set<string>): void {
     this.precondition = value;
   }
 
-  getRedefinedOperation(): Set<IOperation | string> {
+  getRedefinedOperation(): Set<string> {
     return this.redefinedOperation;
   }
 
-  setRedefinedOperation(value: Set<IOperation | string>): void {
+  setRedefinedOperation(value: Set<string>): void {
     this.redefinedOperation = value;
   }
 
@@ -483,9 +457,6 @@ export class Operation extends BehavioralFeature implements IOperation {
   static fromJSON(json: any): Operation {
     const instance = new Operation();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

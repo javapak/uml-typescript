@@ -23,7 +23,7 @@ export interface IUseCase extends IBehavioredClassifier {
    * @relationship containment
    * @opposite extension
    */
-  extend: Set<IExtend>;
+  extend?: Set<IExtend>;
   /**
    * extensionPoint
    * 
@@ -32,7 +32,7 @@ export interface IUseCase extends IBehavioredClassifier {
    * @relationship containment
    * @opposite useCase
    */
-  extensionPoint: Set<IExtensionPoint>;
+  extensionPoint?: Set<IExtensionPoint>;
   /**
    * include
    * 
@@ -41,7 +41,7 @@ export interface IUseCase extends IBehavioredClassifier {
    * @relationship containment
    * @opposite includingCase
    */
-  include: Set<IInclude>;
+  include?: Set<IInclude>;
   /**
    * subject
    * 
@@ -50,7 +50,7 @@ export interface IUseCase extends IBehavioredClassifier {
    * @relationship cross-reference
    * @opposite useCase
    */
-  subject: Set<IClassifier | string>;
+  subject?: Set<string>;
 }
 
 // Type aliases for UseCase

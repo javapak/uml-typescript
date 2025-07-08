@@ -10,9 +10,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialProfile = Partial<IProfile>;
 export type RequiredProfile = Required<IProfile>;
-export type ProfileKey = Pick<IProfile, 'name' | 'nameExpression'>;
-export type ProfileMetadata = Pick<IProfile, 'ownedComment' | 'visibility' | 'ownedRule' | 'ownedTemplateSignature' | 'metaclassReference' | 'metamodelReference'>;
-export type ProfileSummary = Pick<IProfile, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type ProfileUnion = IProfile | IPackage;
 export type ProfileFactory = () => Profile;
 export type ProfileValidator = (instance: IProfile) => ValidationResult;

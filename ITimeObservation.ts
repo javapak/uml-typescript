@@ -16,7 +16,7 @@ export interface ITimeObservation extends IObservation {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  event: INamedElement | string;
+  event: string;
   /**
    * firstEvent
    * 

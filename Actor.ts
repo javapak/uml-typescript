@@ -5,13 +5,7 @@
  * @package uml
  * @extends BehavioredClassifier
  */
-import { Behavior } from './Behavior';
 import { BehavioredClassifier } from './BehavioredClassifier';
-import { CollaborationUse } from './CollaborationUse';
-import { Comment } from './Comment';
-import { Constraint } from './Constraint';
-import { ElementImport } from './ElementImport';
-import { Generalization } from './Generalization';
 import { IActor } from './IActor';
 import { IBehavior } from './IBehavior';
 import { IBehavioredClassifier } from './IBehavioredClassifier';
@@ -19,49 +13,23 @@ import { IClassifier } from './IClassifier';
 import { ICollaborationUse } from './ICollaborationUse';
 import { IComment } from './IComment';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IElementImport } from './IElementImport';
-import { IFeature } from './IFeature';
 import { IGeneralization } from './IGeneralization';
 import { IGeneralizationSet } from './IGeneralizationSet';
 import { IInterfaceRealization } from './IInterfaceRealization';
-import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
-import { IPackage } from './IPackage';
 import { IPackageImport } from './IPackageImport';
-import { IPackageableElement } from './IPackageableElement';
-import { IProperty } from './IProperty';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { ISubstitution } from './ISubstitution';
 import { ITemplateBinding } from './ITemplateBinding';
 import { ITemplateParameter } from './ITemplateParameter';
 import { ITemplateSignature } from './ITemplateSignature';
 import { IUseCase } from './IUseCase';
-import { InterfaceRealization } from './InterfaceRealization';
-import { PackageImport } from './PackageImport';
 import { StringExpression } from './StringExpression';
-import { Substitution } from './Substitution';
-import { TemplateBinding } from './TemplateBinding';
 import { TemplateSignature } from './TemplateSignature';
-import { UseCase } from './UseCase';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
 
 export class Actor extends BehavioredClassifier implements IActor {
-  // Inherited from BehavioredClassifier
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from BehavioredClassifier
   /**
    * ownedComment
    * 
@@ -71,16 +39,14 @@ export class Actor extends BehavioredClassifier implements IActor {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from BehavioredClassifier
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from BehavioredClassifier
   /**
    * nameExpression
    * 
@@ -88,18 +54,15 @@ export class Actor extends BehavioredClassifier implements IActor {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from BehavioredClassifier
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from BehavioredClassifier
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * ownedRule
    * 
@@ -110,7 +73,6 @@ export class Actor extends BehavioredClassifier implements IActor {
    */
   public ownedRule: Set<IConstraint> = new Set();
 
-  // Inherited from BehavioredClassifier
   /**
    * elementImport
    * 
@@ -121,7 +83,6 @@ export class Actor extends BehavioredClassifier implements IActor {
    */
   public elementImport: Set<IElementImport> = new Set();
 
-  // Inherited from BehavioredClassifier
   /**
    * packageImport
    * 
@@ -132,7 +93,6 @@ export class Actor extends BehavioredClassifier implements IActor {
    */
   public packageImport: Set<IPackageImport> = new Set();
 
-  // Inherited from BehavioredClassifier
   /**
    * isLeaf
    * 
@@ -141,7 +101,6 @@ export class Actor extends BehavioredClassifier implements IActor {
    */
   public isLeaf!: boolean;
 
-  // Inherited from BehavioredClassifier
   /**
    * owningTemplateParameter
    * 
@@ -150,9 +109,8 @@ export class Actor extends BehavioredClassifier implements IActor {
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from BehavioredClassifier
   /**
    * templateParameter
    * 
@@ -161,9 +119,8 @@ export class Actor extends BehavioredClassifier implements IActor {
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from BehavioredClassifier
   /**
    * templateBinding
    * 
@@ -174,7 +131,6 @@ export class Actor extends BehavioredClassifier implements IActor {
    */
   public templateBinding: Set<ITemplateBinding> = new Set();
 
-  // Inherited from BehavioredClassifier
   /**
    * ownedTemplateSignature
    * 
@@ -183,9 +139,8 @@ export class Actor extends BehavioredClassifier implements IActor {
    * @relationship containment
    * @opposite template
    */
-  public ownedTemplateSignature?: ITemplateSignature = undefined;
+  public ownedTemplateSignature?: ITemplateSignature;
 
-  // Inherited from BehavioredClassifier
   /**
    * collaborationUse
    * 
@@ -195,7 +150,6 @@ export class Actor extends BehavioredClassifier implements IActor {
    */
   public collaborationUse: Set<ICollaborationUse> = new Set();
 
-  // Inherited from BehavioredClassifier
   /**
    * generalization
    * 
@@ -206,7 +160,6 @@ export class Actor extends BehavioredClassifier implements IActor {
    */
   public generalization: Set<IGeneralization> = new Set();
 
-  // Inherited from BehavioredClassifier
   /**
    * powertypeExtent
    * 
@@ -215,9 +168,8 @@ export class Actor extends BehavioredClassifier implements IActor {
    * @relationship cross-reference
    * @opposite powertype
    */
-  public powertypeExtent: Set<IGeneralizationSet | string> = new Set();
+  public powertypeExtent: Set<string> = new Set();
 
-  // Inherited from BehavioredClassifier
   /**
    * isAbstract
    * 
@@ -226,7 +178,6 @@ export class Actor extends BehavioredClassifier implements IActor {
    */
   public isAbstract!: boolean;
 
-  // Inherited from BehavioredClassifier
   /**
    * isFinalSpecialization
    * 
@@ -235,7 +186,6 @@ export class Actor extends BehavioredClassifier implements IActor {
    */
   public isFinalSpecialization!: boolean;
 
-  // Inherited from BehavioredClassifier
   /**
    * ownedUseCase
    * 
@@ -245,7 +195,6 @@ export class Actor extends BehavioredClassifier implements IActor {
    */
   public ownedUseCase: Set<IUseCase> = new Set();
 
-  // Inherited from BehavioredClassifier
   /**
    * useCase
    * 
@@ -254,9 +203,8 @@ export class Actor extends BehavioredClassifier implements IActor {
    * @relationship cross-reference
    * @opposite subject
    */
-  public useCase: Set<IUseCase | string> = new Set();
+  public useCase: Set<string> = new Set();
 
-  // Inherited from BehavioredClassifier
   /**
    * redefinedClassifier
    * 
@@ -264,9 +212,8 @@ export class Actor extends BehavioredClassifier implements IActor {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedClassifier: Set<IClassifier | string> = new Set();
+  public redefinedClassifier: Set<string> = new Set();
 
-  // Inherited from BehavioredClassifier
   /**
    * representation
    * 
@@ -274,9 +221,8 @@ export class Actor extends BehavioredClassifier implements IActor {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public representation?: ICollaborationUse | string = undefined;
+  public representation?: string;
 
-  // Inherited from BehavioredClassifier
   /**
    * substitution
    * 
@@ -287,7 +233,6 @@ export class Actor extends BehavioredClassifier implements IActor {
    */
   public substitution: Set<ISubstitution> = new Set();
 
-  // Inherited from BehavioredClassifier
   /**
    * classifierBehavior
    * 
@@ -295,9 +240,8 @@ export class Actor extends BehavioredClassifier implements IActor {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public classifierBehavior?: IBehavior | string = undefined;
+  public classifierBehavior?: string;
 
-  // Inherited from BehavioredClassifier
   /**
    * interfaceRealization
    * 
@@ -308,7 +252,6 @@ export class Actor extends BehavioredClassifier implements IActor {
    */
   public interfaceRealization: Set<IInterfaceRealization> = new Set();
 
-  // Inherited from BehavioredClassifier
   /**
    * ownedBehavior
    * 
@@ -318,8 +261,10 @@ export class Actor extends BehavioredClassifier implements IActor {
    */
   public ownedBehavior: Set<IBehavior> = new Set();
 
+
   constructor(init?: Partial<IActor>) {
     super(init);
+
   }
   /**
    * Converts this instance to a plain object matching the interface
@@ -380,9 +325,6 @@ export class Actor extends BehavioredClassifier implements IActor {
   static fromJSON(json: any): Actor {
     const instance = new Actor();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

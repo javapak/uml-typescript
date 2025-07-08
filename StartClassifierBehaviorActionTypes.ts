@@ -9,9 +9,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialStartClassifierBehaviorAction = Partial<IStartClassifierBehaviorAction>;
 export type RequiredStartClassifierBehaviorAction = Required<IStartClassifierBehaviorAction>;
-export type StartClassifierBehaviorActionKey = Pick<IStartClassifierBehaviorAction, 'name' | 'nameExpression'>;
-export type StartClassifierBehaviorActionMetadata = Pick<IStartClassifierBehaviorAction, 'ownedComment' | 'visibility'>;
-export type StartClassifierBehaviorActionSummary = Pick<IStartClassifierBehaviorAction, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type StartClassifierBehaviorActionUnion = IStartClassifierBehaviorAction | IAction;
 export type StartClassifierBehaviorActionFactory = () => StartClassifierBehaviorAction;
 export type StartClassifierBehaviorActionValidator = (instance: IStartClassifierBehaviorAction) => ValidationResult;

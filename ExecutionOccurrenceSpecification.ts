@@ -5,18 +5,13 @@
  * @package uml
  * @extends OccurrenceSpecification
  */
-import { Comment } from './Comment';
-import { GeneralOrdering } from './GeneralOrdering';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IExecutionOccurrenceSpecification } from './IExecutionOccurrenceSpecification';
 import { IExecutionSpecification } from './IExecutionSpecification';
 import { IGeneralOrdering } from './IGeneralOrdering';
 import { IInteraction } from './IInteraction';
 import { IInteractionOperand } from './IInteractionOperand';
 import { ILifeline } from './ILifeline';
-import { INamespace } from './INamespace';
 import { IOccurrenceSpecification } from './IOccurrenceSpecification';
 import { IStringExpression } from './IStringExpression';
 import { OccurrenceSpecification } from './OccurrenceSpecification';
@@ -32,20 +27,8 @@ export class ExecutionOccurrenceSpecification extends OccurrenceSpecification im
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public execution!: IExecutionSpecification | string;
+  public execution!: string;
 
-  // Inherited from OccurrenceSpecification
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from OccurrenceSpecification
   /**
    * ownedComment
    * 
@@ -55,16 +38,14 @@ export class ExecutionOccurrenceSpecification extends OccurrenceSpecification im
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from OccurrenceSpecification
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from OccurrenceSpecification
   /**
    * nameExpression
    * 
@@ -72,18 +53,15 @@ export class ExecutionOccurrenceSpecification extends OccurrenceSpecification im
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from OccurrenceSpecification
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from OccurrenceSpecification
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * covered
    * 
@@ -92,9 +70,8 @@ export class ExecutionOccurrenceSpecification extends OccurrenceSpecification im
    * @relationship cross-reference
    * @opposite coveredBy
    */
-  public covered: Set<ILifeline | string> = new Set();
+  public covered: Set<string> = new Set();
 
-  // Inherited from OccurrenceSpecification
   /**
    * enclosingOperand
    * 
@@ -103,9 +80,8 @@ export class ExecutionOccurrenceSpecification extends OccurrenceSpecification im
    * @relationship cross-reference
    * @opposite fragment
    */
-  public enclosingOperand?: IInteractionOperand | string = undefined;
+  public enclosingOperand?: string;
 
-  // Inherited from OccurrenceSpecification
   /**
    * enclosingInteraction
    * 
@@ -114,9 +90,8 @@ export class ExecutionOccurrenceSpecification extends OccurrenceSpecification im
    * @relationship cross-reference
    * @opposite fragment
    */
-  public enclosingInteraction?: IInteraction | string = undefined;
+  public enclosingInteraction?: string;
 
-  // Inherited from OccurrenceSpecification
   /**
    * generalOrdering
    * 
@@ -126,7 +101,6 @@ export class ExecutionOccurrenceSpecification extends OccurrenceSpecification im
    */
   public generalOrdering: Set<IGeneralOrdering> = new Set();
 
-  // Inherited from OccurrenceSpecification
   /**
    * toAfter
    * 
@@ -135,9 +109,8 @@ export class ExecutionOccurrenceSpecification extends OccurrenceSpecification im
    * @relationship cross-reference
    * @opposite before
    */
-  public toAfter: Set<IGeneralOrdering | string> = new Set();
+  public toAfter: Set<string> = new Set();
 
-  // Inherited from OccurrenceSpecification
   /**
    * toBefore
    * 
@@ -146,17 +119,19 @@ export class ExecutionOccurrenceSpecification extends OccurrenceSpecification im
    * @relationship cross-reference
    * @opposite after
    */
-  public toBefore: Set<IGeneralOrdering | string> = new Set();
+  public toBefore: Set<string> = new Set();
+
 
   constructor(init?: Partial<IExecutionOccurrenceSpecification>) {
     super(init);
-    this.execution = init?.execution!;
+
+    this.execution = init?.execution ?? '';
   }
-  getExecution(): IExecutionSpecification | string {
+  getExecution(): string {
     return this.execution;
   }
 
-  setExecution(value: IExecutionSpecification | string): void {
+  setExecution(value: string): void {
     this.execution = value;
   }
 
@@ -221,9 +196,6 @@ export class ExecutionOccurrenceSpecification extends OccurrenceSpecification im
   static fromJSON(json: any): ExecutionOccurrenceSpecification {
     const instance = new ExecutionOccurrenceSpecification();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

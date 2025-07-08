@@ -6,14 +6,12 @@
  * @abstract
  * @extends Element
  */
-import { Comment } from './Comment';
 import { Element } from './Element';
 import { IComment } from './IComment';
 import { IElement } from './IElement';
 import { ITemplateBinding } from './ITemplateBinding';
 import { ITemplateSignature } from './ITemplateSignature';
 import { ITemplateableElement } from './ITemplateableElement';
-import { TemplateBinding } from './TemplateBinding';
 import { TemplateSignature } from './TemplateSignature';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 
@@ -36,20 +34,8 @@ export class TemplateableElement extends Element implements ITemplateableElement
    * @relationship containment
    * @opposite template
    */
-  public ownedTemplateSignature?: ITemplateSignature = undefined;
+  public ownedTemplateSignature?: ITemplateSignature;
 
-  // Inherited from Element
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Element
   /**
    * ownedComment
    * 
@@ -59,10 +45,12 @@ export class TemplateableElement extends Element implements ITemplateableElement
    */
   public ownedComment: Set<IComment> = new Set();
 
+
   constructor(init?: Partial<ITemplateableElement>) {
     super(init);
-    this.templateBinding = init?.templateBinding ?? new Set();
-    this.ownedTemplateSignature = init?.ownedTemplateSignature ?? undefined;
+
+    this.templateBinding = init?.templateBinding ? new Set(init.templateBinding) : new Set();
+    this.ownedTemplateSignature = init?.ownedTemplateSignature;
   }
   getTemplateBinding(): Set<ITemplateBinding> {
     return this.templateBinding;
@@ -145,9 +133,6 @@ export class TemplateableElement extends Element implements ITemplateableElement
   static fromJSON(json: any): TemplateableElement {
     const instance = new TemplateableElement();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

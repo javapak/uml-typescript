@@ -5,7 +5,6 @@
  * @package uml
  * @extends Element
  */
-import { Comment } from './Comment';
 import { Element } from './Element';
 import { IComment } from './IComment';
 import { IElement } from './IElement';
@@ -24,7 +23,7 @@ export class TemplateParameterSubstitution extends Element implements ITemplateP
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public actual!: IParameterableElement | string;
+  public actual!: string;
 
   /**
    * formal
@@ -33,7 +32,7 @@ export class TemplateParameterSubstitution extends Element implements ITemplateP
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public formal!: ITemplateParameter | string;
+  public formal!: string;
 
   /**
    * ownedActual
@@ -42,7 +41,7 @@ export class TemplateParameterSubstitution extends Element implements ITemplateP
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public ownedActual?: IParameterableElement = undefined;
+  public ownedActual?: IParameterableElement;
 
   /**
    * templateBinding
@@ -52,20 +51,8 @@ export class TemplateParameterSubstitution extends Element implements ITemplateP
    * @relationship cross-reference
    * @opposite parameterSubstitution
    */
-  public templateBinding!: ITemplateBinding | string;
+  public templateBinding!: string;
 
-  // Inherited from Element
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Element
   /**
    * ownedComment
    * 
@@ -75,26 +62,28 @@ export class TemplateParameterSubstitution extends Element implements ITemplateP
    */
   public ownedComment: Set<IComment> = new Set();
 
+
   constructor(init?: Partial<ITemplateParameterSubstitution>) {
     super(init);
-    this.actual = init?.actual!;
-    this.formal = init?.formal!;
-    this.ownedActual = init?.ownedActual ?? undefined;
-    this.templateBinding = init?.templateBinding!;
+
+    this.actual = init?.actual ?? '';
+    this.formal = init?.formal ?? '';
+    this.ownedActual = init?.ownedActual;
+    this.templateBinding = init?.templateBinding ?? '';
   }
-  getActual(): IParameterableElement | string {
+  getActual(): string {
     return this.actual;
   }
 
-  setActual(value: IParameterableElement | string): void {
+  setActual(value: string): void {
     this.actual = value;
   }
 
-  getFormal(): ITemplateParameter | string {
+  getFormal(): string {
     return this.formal;
   }
 
-  setFormal(value: ITemplateParameter | string): void {
+  setFormal(value: string): void {
     this.formal = value;
   }
 
@@ -106,11 +95,11 @@ export class TemplateParameterSubstitution extends Element implements ITemplateP
     this.ownedActual = value;
   }
 
-  getTemplateBinding(): ITemplateBinding | string {
+  getTemplateBinding(): string {
     return this.templateBinding;
   }
 
-  setTemplateBinding(value: ITemplateBinding | string): void {
+  setTemplateBinding(value: string): void {
     this.templateBinding = value;
   }
 
@@ -183,9 +172,6 @@ export class TemplateParameterSubstitution extends Element implements ITemplateP
   static fromJSON(json: any): TemplateParameterSubstitution {
     const instance = new TemplateParameterSubstitution();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

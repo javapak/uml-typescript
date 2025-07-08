@@ -5,26 +5,14 @@
  * @package uml
  * @extends VariableAction
  */
-import { Comment } from './Comment';
-import { Constraint } from './Constraint';
-import { ExceptionHandler } from './ExceptionHandler';
-import { IActivity } from './IActivity';
 import { IActivityEdge } from './IActivityEdge';
-import { IActivityGroup } from './IActivityGroup';
 import { IActivityNode } from './IActivityNode';
 import { IActivityPartition } from './IActivityPartition';
-import { IClassifier } from './IClassifier';
 import { IClearVariableAction } from './IClearVariableAction';
 import { IComment } from './IComment';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IExceptionHandler } from './IExceptionHandler';
-import { IInputPin } from './IInputPin';
 import { IInterruptibleActivityRegion } from './IInterruptibleActivityRegion';
-import { INamespace } from './INamespace';
-import { IOutputPin } from './IOutputPin';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { IStructuredActivityNode } from './IStructuredActivityNode';
 import { IVariable } from './IVariable';
@@ -35,18 +23,6 @@ import { VariableAction } from './VariableAction';
 import { VisibilityKind } from './VisibilityKind';
 
 export class ClearVariableAction extends VariableAction implements IClearVariableAction {
-  // Inherited from VariableAction
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from VariableAction
   /**
    * ownedComment
    * 
@@ -56,16 +32,14 @@ export class ClearVariableAction extends VariableAction implements IClearVariabl
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from VariableAction
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from VariableAction
   /**
    * nameExpression
    * 
@@ -73,18 +47,15 @@ export class ClearVariableAction extends VariableAction implements IClearVariabl
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from VariableAction
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from VariableAction
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * isLeaf
    * 
@@ -93,7 +64,6 @@ export class ClearVariableAction extends VariableAction implements IClearVariabl
    */
   public isLeaf!: boolean;
 
-  // Inherited from VariableAction
   /**
    * inInterruptibleRegion
    * 
@@ -102,9 +72,8 @@ export class ClearVariableAction extends VariableAction implements IClearVariabl
    * @relationship cross-reference
    * @opposite node
    */
-  public inInterruptibleRegion: Set<IInterruptibleActivityRegion | string> = new Set();
+  public inInterruptibleRegion: Set<string> = new Set();
 
-  // Inherited from VariableAction
   /**
    * inStructuredNode
    * 
@@ -113,9 +82,8 @@ export class ClearVariableAction extends VariableAction implements IClearVariabl
    * @relationship cross-reference
    * @opposite node
    */
-  public inStructuredNode?: IStructuredActivityNode | string = undefined;
+  public inStructuredNode?: string;
 
-  // Inherited from VariableAction
   /**
    * incoming
    * 
@@ -124,9 +92,8 @@ export class ClearVariableAction extends VariableAction implements IClearVariabl
    * @relationship cross-reference
    * @opposite target
    */
-  public incoming: Set<IActivityEdge | string> = new Set();
+  public incoming: Set<string> = new Set();
 
-  // Inherited from VariableAction
   /**
    * outgoing
    * 
@@ -135,9 +102,8 @@ export class ClearVariableAction extends VariableAction implements IClearVariabl
    * @relationship cross-reference
    * @opposite source
    */
-  public outgoing: Set<IActivityEdge | string> = new Set();
+  public outgoing: Set<string> = new Set();
 
-  // Inherited from VariableAction
   /**
    * redefinedNode
    * 
@@ -145,9 +111,8 @@ export class ClearVariableAction extends VariableAction implements IClearVariabl
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedNode: Set<IActivityNode | string> = new Set();
+  public redefinedNode: Set<string> = new Set();
 
-  // Inherited from VariableAction
   /**
    * inPartition
    * 
@@ -156,9 +121,8 @@ export class ClearVariableAction extends VariableAction implements IClearVariabl
    * @relationship cross-reference
    * @opposite node
    */
-  public inPartition: Set<IActivityPartition | string> = new Set();
+  public inPartition: Set<string> = new Set();
 
-  // Inherited from VariableAction
   /**
    * handler
    * 
@@ -169,7 +133,6 @@ export class ClearVariableAction extends VariableAction implements IClearVariabl
    */
   public handler: Set<IExceptionHandler> = new Set();
 
-  // Inherited from VariableAction
   /**
    * isLocallyReentrant
    * 
@@ -178,7 +141,6 @@ export class ClearVariableAction extends VariableAction implements IClearVariabl
    */
   public isLocallyReentrant!: boolean;
 
-  // Inherited from VariableAction
   /**
    * localPostcondition
    * 
@@ -188,7 +150,6 @@ export class ClearVariableAction extends VariableAction implements IClearVariabl
    */
   public localPostcondition: Set<IConstraint> = new Set();
 
-  // Inherited from VariableAction
   /**
    * localPrecondition
    * 
@@ -198,7 +159,6 @@ export class ClearVariableAction extends VariableAction implements IClearVariabl
    */
   public localPrecondition: Set<IConstraint> = new Set();
 
-  // Inherited from VariableAction
   /**
    * variable
    * 
@@ -206,10 +166,12 @@ export class ClearVariableAction extends VariableAction implements IClearVariabl
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public variable!: IVariable | string;
+  public variable!: string;
+
 
   constructor(init?: Partial<IClearVariableAction>) {
     super(init);
+
   }
   /**
    * Converts this instance to a plain object matching the interface
@@ -270,9 +232,6 @@ export class ClearVariableAction extends VariableAction implements IClearVariabl
   static fromJSON(json: any): ClearVariableAction {
     const instance = new ClearVariableAction();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

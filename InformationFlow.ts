@@ -5,19 +5,15 @@
  * @package uml
  * @extends PackageableElement, DirectedRelationship
  */
-import { Comment } from './Comment';
 import { DirectedRelationship } from './DirectedRelationship';
 import { IActivityEdge } from './IActivityEdge';
 import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
 import { IConnector } from './IConnector';
-import { IDependency } from './IDependency';
 import { IDirectedRelationship } from './IDirectedRelationship';
-import { IElement } from './IElement';
 import { IInformationFlow } from './IInformationFlow';
 import { IMessage } from './IMessage';
 import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IPackageableElement } from './IPackageableElement';
 import { IRelationship } from './IRelationship';
 import { IStringExpression } from './IStringExpression';
@@ -35,7 +31,7 @@ export class InformationFlow extends PackageableElement implements IInformationF
    * @multiplicity [1..*]
    * @relationship cross-reference
    */
-  public conveyed: Set<IClassifier | string> = new Set();
+  public conveyed: Set<string> = new Set();
 
   /**
    * informationSource
@@ -44,7 +40,7 @@ export class InformationFlow extends PackageableElement implements IInformationF
    * @multiplicity [1..*]
    * @relationship cross-reference
    */
-  public informationSource: Set<INamedElement | string> = new Set();
+  public informationSource: Set<string> = new Set();
 
   /**
    * informationTarget
@@ -53,7 +49,7 @@ export class InformationFlow extends PackageableElement implements IInformationF
    * @multiplicity [1..*]
    * @relationship cross-reference
    */
-  public informationTarget: Set<INamedElement | string> = new Set();
+  public informationTarget: Set<string> = new Set();
 
   /**
    * realization
@@ -62,7 +58,7 @@ export class InformationFlow extends PackageableElement implements IInformationF
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public realization: Set<IRelationship | string> = new Set();
+  public realization: Set<string> = new Set();
 
   /**
    * realizingActivityEdge
@@ -71,7 +67,7 @@ export class InformationFlow extends PackageableElement implements IInformationF
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public realizingActivityEdge: Set<IActivityEdge | string> = new Set();
+  public realizingActivityEdge: Set<string> = new Set();
 
   /**
    * realizingConnector
@@ -80,7 +76,7 @@ export class InformationFlow extends PackageableElement implements IInformationF
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public realizingConnector: Set<IConnector | string> = new Set();
+  public realizingConnector: Set<string> = new Set();
 
   /**
    * realizingMessage
@@ -89,20 +85,8 @@ export class InformationFlow extends PackageableElement implements IInformationF
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public realizingMessage: Set<IMessage | string> = new Set();
+  public realizingMessage: Set<string> = new Set();
 
-  // Inherited from PackageableElement
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from PackageableElement
   /**
    * ownedComment
    * 
@@ -112,16 +96,14 @@ export class InformationFlow extends PackageableElement implements IInformationF
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from PackageableElement
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from PackageableElement
   /**
    * nameExpression
    * 
@@ -129,18 +111,15 @@ export class InformationFlow extends PackageableElement implements IInformationF
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from PackageableElement
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from PackageableElement
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * owningTemplateParameter
    * 
@@ -149,9 +128,8 @@ export class InformationFlow extends PackageableElement implements IInformationF
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from PackageableElement
   /**
    * templateParameter
    * 
@@ -160,71 +138,82 @@ export class InformationFlow extends PackageableElement implements IInformationF
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
+
+  /**
+   * ownedComment
+   * 
+   * @type Comment
+   * @multiplicity [0..*]
+   * @relationship containment
+   */
+  public ownedComment: Set<IComment> = new Set();
+
 
   constructor(init?: Partial<IInformationFlow>) {
     super(init);
-    this.conveyed = init?.conveyed ?? new Set();
-    this.informationSource = init?.informationSource ?? new Set();
-    this.informationTarget = init?.informationTarget ?? new Set();
-    this.realization = init?.realization ?? new Set();
-    this.realizingActivityEdge = init?.realizingActivityEdge ?? new Set();
-    this.realizingConnector = init?.realizingConnector ?? new Set();
-    this.realizingMessage = init?.realizingMessage ?? new Set();
+
+    this.conveyed = init?.conveyed ? new Set(init.conveyed) : new Set();
+    this.informationSource = init?.informationSource ? new Set(init.informationSource) : new Set();
+    this.informationTarget = init?.informationTarget ? new Set(init.informationTarget) : new Set();
+    this.realization = init?.realization ? new Set(init.realization) : new Set();
+    this.realizingActivityEdge = init?.realizingActivityEdge ? new Set(init.realizingActivityEdge) : new Set();
+    this.realizingConnector = init?.realizingConnector ? new Set(init.realizingConnector) : new Set();
+    this.realizingMessage = init?.realizingMessage ? new Set(init.realizingMessage) : new Set();
   }
-  getConveyed(): Set<IClassifier | string> {
+  getConveyed(): Set<string> {
     return this.conveyed;
   }
 
-  setConveyed(value: Set<IClassifier | string>): void {
+  setConveyed(value: Set<string>): void {
     this.conveyed = value;
   }
 
-  getInformationSource(): Set<INamedElement | string> {
+  getInformationSource(): Set<string> {
     return this.informationSource;
   }
 
-  setInformationSource(value: Set<INamedElement | string>): void {
+  setInformationSource(value: Set<string>): void {
     this.informationSource = value;
   }
 
-  getInformationTarget(): Set<INamedElement | string> {
+  getInformationTarget(): Set<string> {
     return this.informationTarget;
   }
 
-  setInformationTarget(value: Set<INamedElement | string>): void {
+  setInformationTarget(value: Set<string>): void {
     this.informationTarget = value;
   }
 
-  getRealization(): Set<IRelationship | string> {
+  getRealization(): Set<string> {
     return this.realization;
   }
 
-  setRealization(value: Set<IRelationship | string>): void {
+  setRealization(value: Set<string>): void {
     this.realization = value;
   }
 
-  getRealizingActivityEdge(): Set<IActivityEdge | string> {
+  getRealizingActivityEdge(): Set<string> {
     return this.realizingActivityEdge;
   }
 
-  setRealizingActivityEdge(value: Set<IActivityEdge | string>): void {
+  setRealizingActivityEdge(value: Set<string>): void {
     this.realizingActivityEdge = value;
   }
 
-  getRealizingConnector(): Set<IConnector | string> {
+  getRealizingConnector(): Set<string> {
     return this.realizingConnector;
   }
 
-  setRealizingConnector(value: Set<IConnector | string>): void {
+  setRealizingConnector(value: Set<string>): void {
     this.realizingConnector = value;
   }
 
-  getRealizingMessage(): Set<IMessage | string> {
+  getRealizingMessage(): Set<string> {
     return this.realizingMessage;
   }
 
-  setRealizingMessage(value: Set<IMessage | string>): void {
+  setRealizingMessage(value: Set<string>): void {
     this.realizingMessage = value;
   }
 
@@ -301,9 +290,6 @@ export class InformationFlow extends PackageableElement implements IInformationF
   static fromJSON(json: any): InformationFlow {
     const instance = new InformationFlow();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

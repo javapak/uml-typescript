@@ -28,7 +28,7 @@ export interface IStructuredActivityNode extends IAction, INamespace, IActivityG
    * @relationship containment
    * @opposite inStructuredNode
    */
-  edge: Set<IActivityEdge>;
+  edge?: Set<IActivityEdge>;
   /**
    * mustIsolate
    * 
@@ -43,7 +43,7 @@ export interface IStructuredActivityNode extends IAction, INamespace, IActivityG
    * @multiplicity [0..*]
    * @relationship containment
    */
-  structuredNodeInput: Set<IInputPin>;
+  structuredNodeInput?: Set<IInputPin>;
   /**
    * structuredNodeOutput
    * 
@@ -51,7 +51,7 @@ export interface IStructuredActivityNode extends IAction, INamespace, IActivityG
    * @multiplicity [0..*]
    * @relationship containment
    */
-  structuredNodeOutput: Set<IOutputPin>;
+  structuredNodeOutput?: Set<IOutputPin>;
   /**
    * variable
    * 
@@ -60,7 +60,7 @@ export interface IStructuredActivityNode extends IAction, INamespace, IActivityG
    * @relationship containment
    * @opposite scope
    */
-  variable: Set<IVariable>;
+  variable?: Set<IVariable>;
   /**
    * node
    * 
@@ -69,7 +69,7 @@ export interface IStructuredActivityNode extends IAction, INamespace, IActivityG
    * @relationship containment
    * @opposite inStructuredNode
    */
-  node: Set<IActivityNode>;
+  node?: Set<IActivityNode>;
 }
 
 // Type aliases for StructuredActivityNode

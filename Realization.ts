@@ -6,13 +6,9 @@
  * @extends Abstraction
  */
 import { Abstraction } from './Abstraction';
-import { Comment } from './Comment';
 import { IAbstraction } from './IAbstraction';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { INamedElement } from './INamedElement';
-import { INamespace } from './INamespace';
 import { IOpaqueExpression } from './IOpaqueExpression';
 import { IRealization } from './IRealization';
 import { IStringExpression } from './IStringExpression';
@@ -23,18 +19,6 @@ import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
 
 export class Realization extends Abstraction implements IRealization {
-  // Inherited from Abstraction
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Abstraction
   /**
    * ownedComment
    * 
@@ -44,16 +28,14 @@ export class Realization extends Abstraction implements IRealization {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Abstraction
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Abstraction
   /**
    * nameExpression
    * 
@@ -61,18 +43,15 @@ export class Realization extends Abstraction implements IRealization {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Abstraction
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Abstraction
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * owningTemplateParameter
    * 
@@ -81,9 +60,8 @@ export class Realization extends Abstraction implements IRealization {
    * @relationship cross-reference
    * @opposite ownedParameteredElement
    */
-  public owningTemplateParameter?: ITemplateParameter | string = undefined;
+  public owningTemplateParameter?: string;
 
-  // Inherited from Abstraction
   /**
    * templateParameter
    * 
@@ -92,9 +70,8 @@ export class Realization extends Abstraction implements IRealization {
    * @relationship cross-reference
    * @opposite parameteredElement
    */
-  public templateParameter?: ITemplateParameter | string = undefined;
+  public templateParameter?: string;
 
-  // Inherited from Abstraction
   /**
    * client
    * 
@@ -102,9 +79,8 @@ export class Realization extends Abstraction implements IRealization {
    * @multiplicity [1..*]
    * @relationship cross-reference
    */
-  public client: Set<INamedElement | string> = new Set();
+  public client: Set<string> = new Set();
 
-  // Inherited from Abstraction
   /**
    * supplier
    * 
@@ -112,9 +88,8 @@ export class Realization extends Abstraction implements IRealization {
    * @multiplicity [1..*]
    * @relationship cross-reference
    */
-  public supplier: Set<INamedElement | string> = new Set();
+  public supplier: Set<string> = new Set();
 
-  // Inherited from Abstraction
   /**
    * mapping
    * 
@@ -122,10 +97,12 @@ export class Realization extends Abstraction implements IRealization {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public mapping?: IOpaqueExpression = undefined;
+  public mapping?: IOpaqueExpression;
+
 
   constructor(init?: Partial<IRealization>) {
     super(init);
+
   }
   /**
    * Converts this instance to a plain object matching the interface
@@ -186,9 +163,6 @@ export class Realization extends Abstraction implements IRealization {
   static fromJSON(json: any): Realization {
     const instance = new Realization();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

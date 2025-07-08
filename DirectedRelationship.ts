@@ -6,27 +6,13 @@
  * @abstract
  * @extends Relationship
  */
-import { Comment } from './Comment';
 import { IComment } from './IComment';
 import { IDirectedRelationship } from './IDirectedRelationship';
-import { IElement } from './IElement';
 import { IRelationship } from './IRelationship';
 import { Relationship } from './Relationship';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 
 export class DirectedRelationship extends Relationship implements IDirectedRelationship {
-  // Inherited from Relationship
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Relationship
   /**
    * ownedComment
    * 
@@ -36,8 +22,10 @@ export class DirectedRelationship extends Relationship implements IDirectedRelat
    */
   public ownedComment: Set<IComment> = new Set();
 
+
   constructor(init?: Partial<IDirectedRelationship>) {
     super(init);
+
   }
   /**
    * Converts this instance to a plain object matching the interface
@@ -98,9 +86,6 @@ export class DirectedRelationship extends Relationship implements IDirectedRelat
   static fromJSON(json: any): DirectedRelationship {
     const instance = new DirectedRelationship();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

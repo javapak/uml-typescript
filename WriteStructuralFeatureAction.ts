@@ -6,25 +6,15 @@
  * @abstract
  * @extends StructuralFeatureAction
  */
-import { Comment } from './Comment';
-import { Constraint } from './Constraint';
-import { ExceptionHandler } from './ExceptionHandler';
-import { IActivity } from './IActivity';
 import { IActivityEdge } from './IActivityEdge';
-import { IActivityGroup } from './IActivityGroup';
 import { IActivityNode } from './IActivityNode';
 import { IActivityPartition } from './IActivityPartition';
-import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IExceptionHandler } from './IExceptionHandler';
 import { IInputPin } from './IInputPin';
 import { IInterruptibleActivityRegion } from './IInterruptibleActivityRegion';
-import { INamespace } from './INamespace';
 import { IOutputPin } from './IOutputPin';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { IStructuralFeature } from './IStructuralFeature';
 import { IStructuralFeatureAction } from './IStructuralFeatureAction';
@@ -45,7 +35,7 @@ export class WriteStructuralFeatureAction extends StructuralFeatureAction implem
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public result?: IOutputPin = undefined;
+  public result?: IOutputPin;
 
   /**
    * value
@@ -54,20 +44,8 @@ export class WriteStructuralFeatureAction extends StructuralFeatureAction implem
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public value?: IInputPin = undefined;
+  public value?: IInputPin;
 
-  // Inherited from StructuralFeatureAction
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from StructuralFeatureAction
   /**
    * ownedComment
    * 
@@ -77,16 +55,14 @@ export class WriteStructuralFeatureAction extends StructuralFeatureAction implem
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from StructuralFeatureAction
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from StructuralFeatureAction
   /**
    * nameExpression
    * 
@@ -94,18 +70,15 @@ export class WriteStructuralFeatureAction extends StructuralFeatureAction implem
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from StructuralFeatureAction
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from StructuralFeatureAction
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * isLeaf
    * 
@@ -114,7 +87,6 @@ export class WriteStructuralFeatureAction extends StructuralFeatureAction implem
    */
   public isLeaf!: boolean;
 
-  // Inherited from StructuralFeatureAction
   /**
    * inInterruptibleRegion
    * 
@@ -123,9 +95,8 @@ export class WriteStructuralFeatureAction extends StructuralFeatureAction implem
    * @relationship cross-reference
    * @opposite node
    */
-  public inInterruptibleRegion: Set<IInterruptibleActivityRegion | string> = new Set();
+  public inInterruptibleRegion: Set<string> = new Set();
 
-  // Inherited from StructuralFeatureAction
   /**
    * inStructuredNode
    * 
@@ -134,9 +105,8 @@ export class WriteStructuralFeatureAction extends StructuralFeatureAction implem
    * @relationship cross-reference
    * @opposite node
    */
-  public inStructuredNode?: IStructuredActivityNode | string = undefined;
+  public inStructuredNode?: string;
 
-  // Inherited from StructuralFeatureAction
   /**
    * incoming
    * 
@@ -145,9 +115,8 @@ export class WriteStructuralFeatureAction extends StructuralFeatureAction implem
    * @relationship cross-reference
    * @opposite target
    */
-  public incoming: Set<IActivityEdge | string> = new Set();
+  public incoming: Set<string> = new Set();
 
-  // Inherited from StructuralFeatureAction
   /**
    * outgoing
    * 
@@ -156,9 +125,8 @@ export class WriteStructuralFeatureAction extends StructuralFeatureAction implem
    * @relationship cross-reference
    * @opposite source
    */
-  public outgoing: Set<IActivityEdge | string> = new Set();
+  public outgoing: Set<string> = new Set();
 
-  // Inherited from StructuralFeatureAction
   /**
    * redefinedNode
    * 
@@ -166,9 +134,8 @@ export class WriteStructuralFeatureAction extends StructuralFeatureAction implem
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public redefinedNode: Set<IActivityNode | string> = new Set();
+  public redefinedNode: Set<string> = new Set();
 
-  // Inherited from StructuralFeatureAction
   /**
    * inPartition
    * 
@@ -177,9 +144,8 @@ export class WriteStructuralFeatureAction extends StructuralFeatureAction implem
    * @relationship cross-reference
    * @opposite node
    */
-  public inPartition: Set<IActivityPartition | string> = new Set();
+  public inPartition: Set<string> = new Set();
 
-  // Inherited from StructuralFeatureAction
   /**
    * handler
    * 
@@ -190,7 +156,6 @@ export class WriteStructuralFeatureAction extends StructuralFeatureAction implem
    */
   public handler: Set<IExceptionHandler> = new Set();
 
-  // Inherited from StructuralFeatureAction
   /**
    * isLocallyReentrant
    * 
@@ -199,7 +164,6 @@ export class WriteStructuralFeatureAction extends StructuralFeatureAction implem
    */
   public isLocallyReentrant!: boolean;
 
-  // Inherited from StructuralFeatureAction
   /**
    * localPostcondition
    * 
@@ -209,7 +173,6 @@ export class WriteStructuralFeatureAction extends StructuralFeatureAction implem
    */
   public localPostcondition: Set<IConstraint> = new Set();
 
-  // Inherited from StructuralFeatureAction
   /**
    * localPrecondition
    * 
@@ -219,7 +182,6 @@ export class WriteStructuralFeatureAction extends StructuralFeatureAction implem
    */
   public localPrecondition: Set<IConstraint> = new Set();
 
-  // Inherited from StructuralFeatureAction
   /**
    * object
    * 
@@ -229,7 +191,6 @@ export class WriteStructuralFeatureAction extends StructuralFeatureAction implem
    */
   public object!: IInputPin;
 
-  // Inherited from StructuralFeatureAction
   /**
    * structuralFeature
    * 
@@ -237,12 +198,14 @@ export class WriteStructuralFeatureAction extends StructuralFeatureAction implem
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public structuralFeature!: IStructuralFeature | string;
+  public structuralFeature!: string;
+
 
   constructor(init?: Partial<IWriteStructuralFeatureAction>) {
     super(init);
-    this.result = init?.result ?? undefined;
-    this.value = init?.value ?? undefined;
+
+    this.result = init?.result;
+    this.value = init?.value;
   }
   getResult(): IOutputPin | undefined {
     return this.result;
@@ -327,9 +290,6 @@ export class WriteStructuralFeatureAction extends StructuralFeatureAction implem
   static fromJSON(json: any): WriteStructuralFeatureAction {
     const instance = new WriteStructuralFeatureAction();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

@@ -5,14 +5,12 @@
  * @package uml
  * @extends Element
  */
-import { Comment } from './Comment';
 import { Element } from './Element';
 import { IComment } from './IComment';
 import { IElement } from './IElement';
 import { ITemplateParameter } from './ITemplateParameter';
 import { ITemplateSignature } from './ITemplateSignature';
 import { ITemplateableElement } from './ITemplateableElement';
-import { TemplateParameter } from './TemplateParameter';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 
 export class TemplateSignature extends Element implements ITemplateSignature {
@@ -23,7 +21,7 @@ export class TemplateSignature extends Element implements ITemplateSignature {
    * @multiplicity [1..*]
    * @relationship cross-reference
    */
-  public parameter: ITemplateParameter | string[] = [];
+  public parameter: string[] = [];
 
   /**
    * template
@@ -33,7 +31,7 @@ export class TemplateSignature extends Element implements ITemplateSignature {
    * @relationship cross-reference
    * @opposite ownedTemplateSignature
    */
-  public template!: ITemplateableElement | string;
+  public template!: string;
 
   /**
    * ownedParameter
@@ -45,18 +43,6 @@ export class TemplateSignature extends Element implements ITemplateSignature {
    */
   public ownedParameter: ITemplateParameter[] = [];
 
-  // Inherited from Element
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Element
   /**
    * ownedComment
    * 
@@ -66,25 +52,27 @@ export class TemplateSignature extends Element implements ITemplateSignature {
    */
   public ownedComment: Set<IComment> = new Set();
 
+
   constructor(init?: Partial<ITemplateSignature>) {
     super(init);
-    this.parameter = init?.parameter ?? [];
-    this.template = init?.template!;
-    this.ownedParameter = init?.ownedParameter ?? [];
+
+    this.parameter = init?.parameter ? [...init.parameter] : [];
+    this.template = init?.template ?? '';
+    this.ownedParameter = init?.ownedParameter ? [...init.ownedParameter] : [];
   }
-  getParameter(): ITemplateParameter | string[] {
+  getParameter(): string[] {
     return this.parameter;
   }
 
-  setParameter(value: ITemplateParameter | string[]): void {
+  setParameter(value: string[]): void {
     this.parameter = value;
   }
 
-  getTemplate(): ITemplateableElement | string {
+  getTemplate(): string {
     return this.template;
   }
 
-  setTemplate(value: ITemplateableElement | string): void {
+  setTemplate(value: string): void {
     this.template = value;
   }
 
@@ -161,9 +149,6 @@ export class TemplateSignature extends Element implements ITemplateSignature {
   static fromJSON(json: any): TemplateSignature {
     const instance = new TemplateSignature();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

@@ -26,7 +26,7 @@ export interface IComponent extends IClass {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  packagedElement: Set<IPackageableElement>;
+  packagedElement?: Set<IPackageableElement>;
   /**
    * realization
    * 
@@ -35,7 +35,7 @@ export interface IComponent extends IClass {
    * @relationship containment
    * @opposite abstraction
    */
-  realization: Set<IComponentRealization>;
+  realization?: Set<IComponentRealization>;
 }
 
 // Type aliases for Component

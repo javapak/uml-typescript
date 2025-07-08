@@ -25,7 +25,7 @@ export interface IAction extends IExecutableNode {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  localPostcondition: Set<IConstraint>;
+  localPostcondition?: Set<IConstraint>;
   /**
    * localPrecondition
    * 
@@ -33,7 +33,7 @@ export interface IAction extends IExecutableNode {
    * @multiplicity [0..*]
    * @relationship containment
    */
-  localPrecondition: Set<IConstraint>;
+  localPrecondition?: Set<IConstraint>;
 }
 
 // Type aliases for Action

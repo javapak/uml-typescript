@@ -9,9 +9,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialRaiseExceptionAction = Partial<IRaiseExceptionAction>;
 export type RequiredRaiseExceptionAction = Required<IRaiseExceptionAction>;
-export type RaiseExceptionActionKey = Pick<IRaiseExceptionAction, 'name' | 'nameExpression'>;
-export type RaiseExceptionActionMetadata = Pick<IRaiseExceptionAction, 'ownedComment' | 'visibility'>;
-export type RaiseExceptionActionSummary = Pick<IRaiseExceptionAction, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type RaiseExceptionActionUnion = IRaiseExceptionAction | IAction;
 export type RaiseExceptionActionFactory = () => RaiseExceptionAction;
 export type RaiseExceptionActionValidator = (instance: IRaiseExceptionAction) => ValidationResult;

@@ -5,11 +5,9 @@
  * @package uml
  * @extends DirectedRelationship
  */
-import { Comment } from './Comment';
 import { DirectedRelationship } from './DirectedRelationship';
 import { IComment } from './IComment';
 import { IDirectedRelationship } from './IDirectedRelationship';
-import { IElement } from './IElement';
 import { INamespace } from './INamespace';
 import { IPackage } from './IPackage';
 import { IPackageImport } from './IPackageImport';
@@ -24,7 +22,7 @@ export class PackageImport extends DirectedRelationship implements IPackageImpor
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public importedPackage!: IPackage | string;
+  public importedPackage!: string;
 
   /**
    * importingNamespace
@@ -34,7 +32,7 @@ export class PackageImport extends DirectedRelationship implements IPackageImpor
    * @relationship cross-reference
    * @opposite packageImport
    */
-  public importingNamespace!: INamespace | string;
+  public importingNamespace!: string;
 
   /**
    * visibility
@@ -42,20 +40,8 @@ export class PackageImport extends DirectedRelationship implements IPackageImpor
    * @type VisibilityKind
    * @multiplicity [1..1]
    */
-  public visibility!: any;
+  public visibility!: VisibilityKind;
 
-  // Inherited from DirectedRelationship
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from DirectedRelationship
   /**
    * ownedComment
    * 
@@ -65,33 +51,35 @@ export class PackageImport extends DirectedRelationship implements IPackageImpor
    */
   public ownedComment: Set<IComment> = new Set();
 
+
   constructor(init?: Partial<IPackageImport>) {
     super(init);
-    this.importedPackage = init?.importedPackage!;
-    this.importingNamespace = init?.importingNamespace!;
+
+    this.importedPackage = init?.importedPackage ?? '';
+    this.importingNamespace = init?.importingNamespace ?? '';
     this.visibility = init?.visibility!;
   }
-  getImportedPackage(): IPackage | string {
+  getImportedPackage(): string {
     return this.importedPackage;
   }
 
-  setImportedPackage(value: IPackage | string): void {
+  setImportedPackage(value: string): void {
     this.importedPackage = value;
   }
 
-  getImportingNamespace(): INamespace | string {
+  getImportingNamespace(): string {
     return this.importingNamespace;
   }
 
-  setImportingNamespace(value: INamespace | string): void {
+  setImportingNamespace(value: string): void {
     this.importingNamespace = value;
   }
 
-  getVisibility(): any {
+  getVisibility(): VisibilityKind {
     return this.visibility;
   }
 
-  setVisibility(value: any): void {
+  setVisibility(value: VisibilityKind): void {
     this.visibility = value;
   }
 
@@ -160,9 +148,6 @@ export class PackageImport extends DirectedRelationship implements IPackageImpor
   static fromJSON(json: any): PackageImport {
     const instance = new PackageImport();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

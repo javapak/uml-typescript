@@ -6,38 +6,24 @@
  * @extends Namespace, RedefinableElement, Vertex
  */
 import { Behavior } from './Behavior';
-import { Comment } from './Comment';
-import { ConnectionPointReference } from './ConnectionPointReference';
-import { Constraint } from './Constraint';
-import { ElementImport } from './ElementImport';
 import { IBehavior } from './IBehavior';
-import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
 import { IConnectionPointReference } from './IConnectionPointReference';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IElementImport } from './IElementImport';
-import { INamedElement } from './INamedElement';
 import { INamespace } from './INamespace';
 import { IPackageImport } from './IPackageImport';
-import { IPackageableElement } from './IPackageableElement';
 import { IPseudostate } from './IPseudostate';
 import { IRedefinableElement } from './IRedefinableElement';
 import { IRegion } from './IRegion';
 import { IState } from './IState';
 import { IStateMachine } from './IStateMachine';
 import { IStringExpression } from './IStringExpression';
-import { ITransition } from './ITransition';
 import { ITrigger } from './ITrigger';
 import { IVertex } from './IVertex';
 import { Namespace } from './Namespace';
-import { PackageImport } from './PackageImport';
-import { Pseudostate } from './Pseudostate';
 import { RedefinableElement } from './RedefinableElement';
-import { Region } from './Region';
 import { StringExpression } from './StringExpression';
-import { Trigger } from './Trigger';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 import { Vertex } from './Vertex';
 import { VisibilityKind } from './VisibilityKind';
@@ -79,7 +65,7 @@ export class State extends Namespace implements IState {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public doActivity?: IBehavior = undefined;
+  public doActivity?: IBehavior;
 
   /**
    * entry
@@ -88,7 +74,7 @@ export class State extends Namespace implements IState {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public entry?: IBehavior = undefined;
+  public entry?: IBehavior;
 
   /**
    * exit
@@ -97,7 +83,7 @@ export class State extends Namespace implements IState {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public exit?: IBehavior = undefined;
+  public exit?: IBehavior;
 
   /**
    * redefinedState
@@ -106,7 +92,7 @@ export class State extends Namespace implements IState {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public redefinedState?: IState | string = undefined;
+  public redefinedState?: string;
 
   /**
    * stateInvariant
@@ -115,7 +101,7 @@ export class State extends Namespace implements IState {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  public stateInvariant?: IConstraint | string = undefined;
+  public stateInvariant?: string;
 
   /**
    * submachine
@@ -125,7 +111,7 @@ export class State extends Namespace implements IState {
    * @relationship cross-reference
    * @opposite submachineState
    */
-  public submachine?: IStateMachine | string = undefined;
+  public submachine?: string;
 
   /**
    * region
@@ -137,18 +123,6 @@ export class State extends Namespace implements IState {
    */
   public region: Set<IRegion> = new Set();
 
-  // Inherited from Namespace
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Namespace
   /**
    * ownedComment
    * 
@@ -158,16 +132,14 @@ export class State extends Namespace implements IState {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Namespace
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Namespace
   /**
    * nameExpression
    * 
@@ -175,18 +147,15 @@ export class State extends Namespace implements IState {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Namespace
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Namespace
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * ownedRule
    * 
@@ -197,7 +166,6 @@ export class State extends Namespace implements IState {
    */
   public ownedRule: Set<IConstraint> = new Set();
 
-  // Inherited from Namespace
   /**
    * elementImport
    * 
@@ -208,7 +176,6 @@ export class State extends Namespace implements IState {
    */
   public elementImport: Set<IElementImport> = new Set();
 
-  // Inherited from Namespace
   /**
    * packageImport
    * 
@@ -219,7 +186,39 @@ export class State extends Namespace implements IState {
    */
   public packageImport: Set<IPackageImport> = new Set();
 
-  // Inherited from RedefinableElement
+  /**
+   * ownedComment
+   * 
+   * @type Comment
+   * @multiplicity [0..*]
+   * @relationship containment
+   */
+  public ownedComment: Set<IComment> = new Set();
+
+  /**
+   * name
+   * 
+   * @type String
+   * @multiplicity [0..1]
+   */
+  public name?: string;
+
+  /**
+   * nameExpression
+   * 
+   * @type StringExpression
+   * @multiplicity [0..1]
+   * @relationship containment
+   */
+  public nameExpression?: IStringExpression;
+
+  /**
+   * visibility
+   * 
+   * @type VisibilityKind
+   * @multiplicity [0..1]
+   */
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * isLeaf
    * 
@@ -228,7 +227,39 @@ export class State extends Namespace implements IState {
    */
   public isLeaf!: boolean;
 
-  // Inherited from Vertex
+  /**
+   * ownedComment
+   * 
+   * @type Comment
+   * @multiplicity [0..*]
+   * @relationship containment
+   */
+  public ownedComment: Set<IComment> = new Set();
+
+  /**
+   * name
+   * 
+   * @type String
+   * @multiplicity [0..1]
+   */
+  public name?: string;
+
+  /**
+   * nameExpression
+   * 
+   * @type StringExpression
+   * @multiplicity [0..1]
+   * @relationship containment
+   */
+  public nameExpression?: IStringExpression;
+
+  /**
+   * visibility
+   * 
+   * @type VisibilityKind
+   * @multiplicity [0..1]
+   */
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * container
    * 
@@ -237,20 +268,22 @@ export class State extends Namespace implements IState {
    * @relationship cross-reference
    * @opposite subvertex
    */
-  public container?: IRegion | string = undefined;
+  public container?: string;
+
 
   constructor(init?: Partial<IState>) {
     super(init);
-    this.connection = init?.connection ?? new Set();
-    this.connectionPoint = init?.connectionPoint ?? new Set();
-    this.deferrableTrigger = init?.deferrableTrigger ?? new Set();
-    this.doActivity = init?.doActivity ?? undefined;
-    this.entry = init?.entry ?? undefined;
-    this.exit = init?.exit ?? undefined;
-    this.redefinedState = init?.redefinedState ?? undefined;
-    this.stateInvariant = init?.stateInvariant ?? undefined;
-    this.submachine = init?.submachine ?? undefined;
-    this.region = init?.region ?? new Set();
+
+    this.connection = init?.connection ? new Set(init.connection) : new Set();
+    this.connectionPoint = init?.connectionPoint ? new Set(init.connectionPoint) : new Set();
+    this.deferrableTrigger = init?.deferrableTrigger ? new Set(init.deferrableTrigger) : new Set();
+    this.doActivity = init?.doActivity;
+    this.entry = init?.entry;
+    this.exit = init?.exit;
+    this.redefinedState = init?.redefinedState;
+    this.stateInvariant = init?.stateInvariant;
+    this.submachine = init?.submachine;
+    this.region = init?.region ? new Set(init.region) : new Set();
   }
   getConnection(): Set<IConnectionPointReference> {
     return this.connection;
@@ -300,27 +333,27 @@ export class State extends Namespace implements IState {
     this.exit = value;
   }
 
-  getRedefinedState(): IState | string | undefined {
+  getRedefinedState(): string | undefined {
     return this.redefinedState;
   }
 
-  setRedefinedState(value: IState | string | undefined): void {
+  setRedefinedState(value: string | undefined): void {
     this.redefinedState = value;
   }
 
-  getStateInvariant(): IConstraint | string | undefined {
+  getStateInvariant(): string | undefined {
     return this.stateInvariant;
   }
 
-  setStateInvariant(value: IConstraint | string | undefined): void {
+  setStateInvariant(value: string | undefined): void {
     this.stateInvariant = value;
   }
 
-  getSubmachine(): IStateMachine | string | undefined {
+  getSubmachine(): string | undefined {
     return this.submachine;
   }
 
-  setSubmachine(value: IStateMachine | string | undefined): void {
+  setSubmachine(value: string | undefined): void {
     this.submachine = value;
   }
 
@@ -423,9 +456,6 @@ export class State extends Namespace implements IState {
   static fromJSON(json: any): State {
     const instance = new State();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

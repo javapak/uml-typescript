@@ -6,13 +6,8 @@
  * @abstract
  * @extends RedefinableElement
  */
-import { Comment } from './Comment';
-import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IFeature } from './IFeature';
-import { INamespace } from './INamespace';
 import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { RedefinableElement } from './RedefinableElement';
@@ -29,18 +24,6 @@ export class Feature extends RedefinableElement implements IFeature {
    */
   public isStatic!: boolean;
 
-  // Inherited from RedefinableElement
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from RedefinableElement
   /**
    * ownedComment
    * 
@@ -50,16 +33,14 @@ export class Feature extends RedefinableElement implements IFeature {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from RedefinableElement
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from RedefinableElement
   /**
    * nameExpression
    * 
@@ -67,18 +48,15 @@ export class Feature extends RedefinableElement implements IFeature {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from RedefinableElement
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from RedefinableElement
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * isLeaf
    * 
@@ -87,9 +65,11 @@ export class Feature extends RedefinableElement implements IFeature {
    */
   public isLeaf!: boolean;
 
+
   constructor(init?: Partial<IFeature>) {
     super(init);
-    this.isStatic = init?.isStatic!;
+
+    this.isStatic = init?.isStatic ?? false;
   }
   getIsStatic(): boolean {
     return this.isStatic;
@@ -160,9 +140,6 @@ export class Feature extends RedefinableElement implements IFeature {
   static fromJSON(json: any): Feature {
     const instance = new Feature();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

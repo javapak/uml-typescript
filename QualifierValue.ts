@@ -5,7 +5,6 @@
  * @package uml
  * @extends Element
  */
-import { Comment } from './Comment';
 import { Element } from './Element';
 import { IComment } from './IComment';
 import { IElement } from './IElement';
@@ -22,7 +21,7 @@ export class QualifierValue extends Element implements IQualifierValue {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public qualifier!: IProperty | string;
+  public qualifier!: string;
 
   /**
    * value
@@ -31,20 +30,8 @@ export class QualifierValue extends Element implements IQualifierValue {
    * @multiplicity [1..1]
    * @relationship cross-reference
    */
-  public value!: IInputPin | string;
+  public value!: string;
 
-  // Inherited from Element
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Element
   /**
    * ownedComment
    * 
@@ -54,24 +41,26 @@ export class QualifierValue extends Element implements IQualifierValue {
    */
   public ownedComment: Set<IComment> = new Set();
 
+
   constructor(init?: Partial<IQualifierValue>) {
     super(init);
-    this.qualifier = init?.qualifier!;
-    this.value = init?.value!;
+
+    this.qualifier = init?.qualifier ?? '';
+    this.value = init?.value ?? '';
   }
-  getQualifier(): IProperty | string {
+  getQualifier(): string {
     return this.qualifier;
   }
 
-  setQualifier(value: IProperty | string): void {
+  setQualifier(value: string): void {
     this.qualifier = value;
   }
 
-  getValue(): IInputPin | string {
+  getValue(): string {
     return this.value;
   }
 
-  setValue(value: IInputPin | string): void {
+  setValue(value: string): void {
     this.value = value;
   }
 
@@ -138,9 +127,6 @@ export class QualifierValue extends Element implements IQualifierValue {
   static fromJSON(json: any): QualifierValue {
     const instance = new QualifierValue();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

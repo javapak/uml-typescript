@@ -21,7 +21,7 @@ export interface ILifeline extends INamedElement {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  decomposedAs?: IPartDecomposition | string;
+  decomposedAs?: string;
   /**
    * interaction
    * 
@@ -30,7 +30,7 @@ export interface ILifeline extends INamedElement {
    * @relationship cross-reference
    * @opposite lifeline
    */
-  interaction: IInteraction | string;
+  interaction: string;
   /**
    * represents
    * 
@@ -38,7 +38,7 @@ export interface ILifeline extends INamedElement {
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  represents?: IConnectableElement | string;
+  represents?: string;
   /**
    * selector
    * 
@@ -55,7 +55,7 @@ export interface ILifeline extends INamedElement {
    * @relationship cross-reference
    * @opposite covered
    */
-  coveredBy: Set<IInteractionFragment | string>;
+  coveredBy?: Set<string>;
 }
 
 // Type aliases for Lifeline

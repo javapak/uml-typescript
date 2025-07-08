@@ -7,32 +7,20 @@
  * @extends Namespace, Feature
  */
 import { CallConcurrencyKind } from './CallConcurrencyKind';
-import { Comment } from './Comment';
-import { Constraint } from './Constraint';
-import { ElementImport } from './ElementImport';
 import { Feature } from './Feature';
 import { IBehavior } from './IBehavior';
 import { IBehavioralFeature } from './IBehavioralFeature';
-import { IClassifier } from './IClassifier';
 import { IComment } from './IComment';
 import { IConstraint } from './IConstraint';
-import { IDependency } from './IDependency';
-import { IElement } from './IElement';
 import { IElementImport } from './IElementImport';
 import { IFeature } from './IFeature';
-import { INamedElement } from './INamedElement';
 import { INamespace } from './INamespace';
 import { IPackageImport } from './IPackageImport';
-import { IPackageableElement } from './IPackageableElement';
 import { IParameter } from './IParameter';
 import { IParameterSet } from './IParameterSet';
-import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
 import { IType } from './IType';
 import { Namespace } from './Namespace';
-import { PackageImport } from './PackageImport';
-import { Parameter } from './Parameter';
-import { ParameterSet } from './ParameterSet';
 import { StringExpression } from './StringExpression';
 import { ValidationError, ValidationResult } from './ValidationTypes';
 import { VisibilityKind } from './VisibilityKind';
@@ -44,7 +32,7 @@ export class BehavioralFeature extends Namespace implements IBehavioralFeature {
    * @type CallConcurrencyKind
    * @multiplicity [1..1]
    */
-  public concurrency!: any;
+  public concurrency!: CallConcurrencyKind;
 
   /**
    * isAbstract
@@ -62,7 +50,7 @@ export class BehavioralFeature extends Namespace implements IBehavioralFeature {
    * @relationship cross-reference
    * @opposite specification
    */
-  public method: Set<IBehavior | string> = new Set();
+  public method: Set<string> = new Set();
 
   /**
    * ownedParameter
@@ -89,20 +77,8 @@ export class BehavioralFeature extends Namespace implements IBehavioralFeature {
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  public raisedException: Set<IType | string> = new Set();
+  public raisedException: Set<string> = new Set();
 
-  // Inherited from Namespace
-  /**
-   * eAnnotations
-   * 
-   * @type EAnnotation
-   * @multiplicity [0..*]
-   * @relationship containment
-   * @opposite eModelElement
-   */
-  public eAnnotations: Record<string, any>[] = [];
-
-  // Inherited from Namespace
   /**
    * ownedComment
    * 
@@ -112,16 +88,14 @@ export class BehavioralFeature extends Namespace implements IBehavioralFeature {
    */
   public ownedComment: Set<IComment> = new Set();
 
-  // Inherited from Namespace
   /**
    * name
    * 
    * @type String
    * @multiplicity [0..1]
    */
-  public name?: string = undefined;
+  public name?: string;
 
-  // Inherited from Namespace
   /**
    * nameExpression
    * 
@@ -129,18 +103,15 @@ export class BehavioralFeature extends Namespace implements IBehavioralFeature {
    * @multiplicity [0..1]
    * @relationship containment
    */
-  public nameExpression?: IStringExpression = undefined;
+  public nameExpression?: IStringExpression;
 
-  // Inherited from Namespace
   /**
    * visibility
    * 
    * @type VisibilityKind
    * @multiplicity [0..1]
    */
-  public visibility?: any = undefined;
-
-  // Inherited from Namespace
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * ownedRule
    * 
@@ -151,7 +122,6 @@ export class BehavioralFeature extends Namespace implements IBehavioralFeature {
    */
   public ownedRule: Set<IConstraint> = new Set();
 
-  // Inherited from Namespace
   /**
    * elementImport
    * 
@@ -162,7 +132,6 @@ export class BehavioralFeature extends Namespace implements IBehavioralFeature {
    */
   public elementImport: Set<IElementImport> = new Set();
 
-  // Inherited from Namespace
   /**
    * packageImport
    * 
@@ -173,7 +142,39 @@ export class BehavioralFeature extends Namespace implements IBehavioralFeature {
    */
   public packageImport: Set<IPackageImport> = new Set();
 
-  // Inherited from Feature
+  /**
+   * ownedComment
+   * 
+   * @type Comment
+   * @multiplicity [0..*]
+   * @relationship containment
+   */
+  public ownedComment: Set<IComment> = new Set();
+
+  /**
+   * name
+   * 
+   * @type String
+   * @multiplicity [0..1]
+   */
+  public name?: string;
+
+  /**
+   * nameExpression
+   * 
+   * @type StringExpression
+   * @multiplicity [0..1]
+   * @relationship containment
+   */
+  public nameExpression?: IStringExpression;
+
+  /**
+   * visibility
+   * 
+   * @type VisibilityKind
+   * @multiplicity [0..1]
+   */
+  public visibility: VisibilityKind | undefined = undefined;
   /**
    * isLeaf
    * 
@@ -182,7 +183,6 @@ export class BehavioralFeature extends Namespace implements IBehavioralFeature {
    */
   public isLeaf!: boolean;
 
-  // Inherited from Feature
   /**
    * isStatic
    * 
@@ -191,20 +191,22 @@ export class BehavioralFeature extends Namespace implements IBehavioralFeature {
    */
   public isStatic!: boolean;
 
+
   constructor(init?: Partial<IBehavioralFeature>) {
     super(init);
+
     this.concurrency = init?.concurrency!;
-    this.isAbstract = init?.isAbstract!;
-    this.method = init?.method ?? new Set();
-    this.ownedParameter = init?.ownedParameter ?? [];
-    this.ownedParameterSet = init?.ownedParameterSet ?? new Set();
-    this.raisedException = init?.raisedException ?? new Set();
+    this.isAbstract = init?.isAbstract ?? false;
+    this.method = init?.method ? new Set(init.method) : new Set();
+    this.ownedParameter = init?.ownedParameter ? [...init.ownedParameter] : [];
+    this.ownedParameterSet = init?.ownedParameterSet ? new Set(init.ownedParameterSet) : new Set();
+    this.raisedException = init?.raisedException ? new Set(init.raisedException) : new Set();
   }
-  getConcurrency(): any {
+  getConcurrency(): CallConcurrencyKind {
     return this.concurrency;
   }
 
-  setConcurrency(value: any): void {
+  setConcurrency(value: CallConcurrencyKind): void {
     this.concurrency = value;
   }
 
@@ -216,11 +218,11 @@ export class BehavioralFeature extends Namespace implements IBehavioralFeature {
     this.isAbstract = value;
   }
 
-  getMethod(): Set<IBehavior | string> {
+  getMethod(): Set<string> {
     return this.method;
   }
 
-  setMethod(value: Set<IBehavior | string>): void {
+  setMethod(value: Set<string>): void {
     this.method = value;
   }
 
@@ -240,11 +242,11 @@ export class BehavioralFeature extends Namespace implements IBehavioralFeature {
     this.ownedParameterSet = value;
   }
 
-  getRaisedException(): Set<IType | string> {
+  getRaisedException(): Set<string> {
     return this.raisedException;
   }
 
-  setRaisedException(value: Set<IType | string>): void {
+  setRaisedException(value: Set<string>): void {
     this.raisedException = value;
   }
 
@@ -319,9 +321,6 @@ export class BehavioralFeature extends Namespace implements IBehavioralFeature {
   static fromJSON(json: any): BehavioralFeature {
     const instance = new BehavioralFeature();
 
-    if (json.eAnnotations && Array.isArray(json.eAnnotations)) {
-      instance.eAnnotations = [...json.eAnnotations];
-    }
     if (json.ownedComment && Array.isArray(json.ownedComment)) {
       instance.ownedComment = new Set(json.ownedComment);
     }

@@ -21,7 +21,7 @@ export interface IOperation extends IBehavioralFeature, IParameterableElement, I
    * @multiplicity [0..1]
    * @relationship cross-reference
    */
-  bodyCondition?: IConstraint | string;
+  bodyCondition?: string;
   /**
    * class
    * 
@@ -30,7 +30,7 @@ export interface IOperation extends IBehavioralFeature, IParameterableElement, I
    * @relationship cross-reference
    * @opposite ownedOperation
    */
-  class?: IClass | string;
+  class?: string;
   /**
    * datatype
    * 
@@ -39,7 +39,7 @@ export interface IOperation extends IBehavioralFeature, IParameterableElement, I
    * @relationship cross-reference
    * @opposite ownedOperation
    */
-  datatype?: IDataType | string;
+  datatype?: string;
   /**
    * interface
    * 
@@ -48,7 +48,7 @@ export interface IOperation extends IBehavioralFeature, IParameterableElement, I
    * @relationship cross-reference
    * @opposite ownedOperation
    */
-  interface?: IInterface | string;
+  interface?: string;
   /**
    * isQuery
    * 
@@ -63,7 +63,7 @@ export interface IOperation extends IBehavioralFeature, IParameterableElement, I
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  postcondition: Set<IConstraint | string>;
+  postcondition?: Set<string>;
   /**
    * precondition
    * 
@@ -71,7 +71,7 @@ export interface IOperation extends IBehavioralFeature, IParameterableElement, I
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  precondition: Set<IConstraint | string>;
+  precondition?: Set<string>;
   /**
    * redefinedOperation
    * 
@@ -79,7 +79,7 @@ export interface IOperation extends IBehavioralFeature, IParameterableElement, I
    * @multiplicity [0..*]
    * @relationship cross-reference
    */
-  redefinedOperation: Set<IOperation | string>;
+  redefinedOperation?: Set<string>;
 }
 
 // Type aliases for Operation

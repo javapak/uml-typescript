@@ -10,8 +10,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialGeneralization = Partial<IGeneralization>;
 export type RequiredGeneralization = Required<IGeneralization>;
-export type GeneralizationMetadata = Pick<IGeneralization, 'ownedComment'>;
-export type GeneralizationSummary = Pick<IGeneralization, 'eAnnotations' | 'ownedComment' | 'general'>;
 export type GeneralizationUnion = IGeneralization | IDirectedRelationship;
 export type GeneralizationFactory = () => Generalization;
 export type GeneralizationValidator = (instance: IGeneralization) => ValidationResult;

@@ -9,9 +9,6 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialSubstitution = Partial<ISubstitution>;
 export type RequiredSubstitution = Required<ISubstitution>;
-export type SubstitutionKey = Pick<ISubstitution, 'name' | 'nameExpression'>;
-export type SubstitutionMetadata = Pick<ISubstitution, 'ownedComment' | 'visibility'>;
-export type SubstitutionSummary = Pick<ISubstitution, 'eAnnotations' | 'ownedComment' | 'name'>;
 export type SubstitutionUnion = ISubstitution | IRealization;
 export type SubstitutionFactory = () => Substitution;
 export type SubstitutionValidator = (instance: ISubstitution) => ValidationResult;
