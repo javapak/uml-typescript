@@ -163,6 +163,8 @@ export class PackageImport extends DirectedRelationship implements IPackageImpor
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
     if (this.importedPackage == null) {
       errors.push({
         property: 'importedPackage',

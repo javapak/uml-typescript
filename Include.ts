@@ -70,15 +70,6 @@ export class Include extends NamedElement implements IInclude {
    * @multiplicity [0..1]
    */
   public visibility: VisibilityKind | undefined = undefined;
-  /**
-   * ownedComment
-   * 
-   * @type Comment
-   * @multiplicity [0..*]
-   * @relationship containment
-   */
-  public ownedComment: Set<IComment> = new Set();
-
 
   constructor(init?: Partial<IInclude>) {
     super(init);
@@ -188,6 +179,20 @@ export class Include extends NamedElement implements IInclude {
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
+    if (this.name !== undefined) {
+      if (typeof this.name !== 'string') {
+        errors.push({
+          property: 'name',
+          message: 'name must be a string',
+          code: 'TYPE_ERROR',
+          value: this.name
+        });
+      }
+    }
+    if (this.visibility !== undefined) {
+    }
     if (this.addition == null) {
       errors.push({
         property: 'addition',

@@ -70,15 +70,6 @@ export class RedefinableTemplateSignature extends RedefinableElement implements 
   public isLeaf!: boolean;
 
   /**
-   * ownedComment
-   * 
-   * @type Comment
-   * @multiplicity [0..*]
-   * @relationship containment
-   */
-  public ownedComment: Set<IComment> = new Set();
-
-  /**
    * parameter
    * 
    * @type TemplateParameter
@@ -214,6 +205,62 @@ export class RedefinableTemplateSignature extends RedefinableElement implements 
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
+    if (this.name !== undefined) {
+      if (typeof this.name !== 'string') {
+        errors.push({
+          property: 'name',
+          message: 'name must be a string',
+          code: 'TYPE_ERROR',
+          value: this.name
+        });
+      }
+    }
+    if (this.visibility !== undefined) {
+    }
+    if (this.isLeaf == null) {
+      errors.push({
+        property: 'isLeaf',
+        message: 'isLeaf is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.isLeaf !== undefined) {
+      if (typeof this.isLeaf !== 'boolean') {
+        errors.push({
+          property: 'isLeaf',
+          message: 'isLeaf must be a boolean',
+          code: 'TYPE_ERROR',
+          value: this.isLeaf
+        });
+      }
+    }
+    if (this.parameter == null) {
+      errors.push({
+        property: 'parameter',
+        message: 'parameter is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.parameter) {
+      if (Array.from(this.parameter).length < 1) {
+        errors.push({
+          property: 'parameter',
+          message: 'parameter must have at least 1 elements',
+          code: 'MIN_LENGTH'
+        });
+      }
+    }
+    if (this.template == null) {
+      errors.push({
+        property: 'template',
+        message: 'template is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.ownedParameter) {
+    }
     if (this.extendedSignature) {
     }
     // Validate inherited properties

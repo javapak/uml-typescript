@@ -90,15 +90,6 @@ export class Dependency extends PackageableElement implements IDependency {
    */
   public templateParameter?: string;
 
-  /**
-   * ownedComment
-   * 
-   * @type Comment
-   * @multiplicity [0..*]
-   * @relationship containment
-   */
-  public ownedComment: Set<IComment> = new Set();
-
 
   constructor(init?: Partial<IDependency>) {
     super(init);
@@ -218,6 +209,20 @@ export class Dependency extends PackageableElement implements IDependency {
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
+    if (this.name !== undefined) {
+      if (typeof this.name !== 'string') {
+        errors.push({
+          property: 'name',
+          message: 'name must be a string',
+          code: 'TYPE_ERROR',
+          value: this.name
+        });
+      }
+    }
+    if (this.visibility !== undefined) {
+    }
     if (this.client == null) {
       errors.push({
         property: 'client',

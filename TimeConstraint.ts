@@ -223,6 +223,29 @@ export class TimeConstraint extends IntervalConstraint implements ITimeConstrain
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
+    if (this.name !== undefined) {
+      if (typeof this.name !== 'string') {
+        errors.push({
+          property: 'name',
+          message: 'name must be a string',
+          code: 'TYPE_ERROR',
+          value: this.name
+        });
+      }
+    }
+    if (this.visibility !== undefined) {
+    }
+    if (this.constrainedElement) {
+    }
+    if (this.specification == null) {
+      errors.push({
+        property: 'specification',
+        message: 'specification is required',
+        code: 'REQUIRED'
+      });
+    }
     if (this.firstEvent !== undefined) {
       if (typeof this.firstEvent !== 'boolean') {
         errors.push({

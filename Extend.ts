@@ -91,15 +91,6 @@ export class Extend extends NamedElement implements IExtend {
    * @multiplicity [0..1]
    */
   public visibility: VisibilityKind | undefined = undefined;
-  /**
-   * ownedComment
-   * 
-   * @type Comment
-   * @multiplicity [0..*]
-   * @relationship containment
-   */
-  public ownedComment: Set<IComment> = new Set();
-
 
   constructor(init?: Partial<IExtend>) {
     super(init);
@@ -239,6 +230,20 @@ export class Extend extends NamedElement implements IExtend {
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
+    if (this.name !== undefined) {
+      if (typeof this.name !== 'string') {
+        errors.push({
+          property: 'name',
+          message: 'name must be a string',
+          code: 'TYPE_ERROR',
+          value: this.name
+        });
+      }
+    }
+    if (this.visibility !== undefined) {
+    }
     if (this.extendedCase == null) {
       errors.push({
         property: 'extendedCase',

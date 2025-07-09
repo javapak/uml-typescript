@@ -259,6 +259,55 @@ export class ControlFlow extends ActivityEdge implements IControlFlow {
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
+    if (this.name !== undefined) {
+      if (typeof this.name !== 'string') {
+        errors.push({
+          property: 'name',
+          message: 'name must be a string',
+          code: 'TYPE_ERROR',
+          value: this.name
+        });
+      }
+    }
+    if (this.visibility !== undefined) {
+    }
+    if (this.isLeaf == null) {
+      errors.push({
+        property: 'isLeaf',
+        message: 'isLeaf is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.isLeaf !== undefined) {
+      if (typeof this.isLeaf !== 'boolean') {
+        errors.push({
+          property: 'isLeaf',
+          message: 'isLeaf must be a boolean',
+          code: 'TYPE_ERROR',
+          value: this.isLeaf
+        });
+      }
+    }
+    if (this.inPartition) {
+    }
+    if (this.target == null) {
+      errors.push({
+        property: 'target',
+        message: 'target is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.source == null) {
+      errors.push({
+        property: 'source',
+        message: 'source is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.redefinedEdge) {
+    }
     // Validate inherited properties
     const parentResult = super.validate();
     errors.push(...parentResult.errors);

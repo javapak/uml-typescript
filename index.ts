@@ -3634,7 +3634,7 @@ export default {
   UML: UML,
   // Version info
   version: '1.0.0',
-  generated: '2025-07-08T22:45:28.754933400Z'
+  generated: '2025-07-09T00:10:50.901953900Z'
 };
 
 // Module metadata
@@ -3653,7 +3653,7 @@ declare global {
 export const MODULE_INFO: UMLMetamodel.ModuleInfo = {
   name: 'uml-metamodel',
   version: '1.0.0',
-  generated: '2025-07-08T22:45:28.756459100Z',
+  generated: '2025-07-09T00:10:50.903489400Z',
   classCount: 244,
   interfaceCount: 244
 };

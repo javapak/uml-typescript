@@ -169,6 +169,8 @@ export class LinkEndData extends Element implements ILinkEndData {
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
     if (this.end == null) {
       errors.push({
         property: 'end',

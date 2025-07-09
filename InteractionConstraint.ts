@@ -249,6 +249,29 @@ export class InteractionConstraint extends Constraint implements IInteractionCon
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
+    if (this.name !== undefined) {
+      if (typeof this.name !== 'string') {
+        errors.push({
+          property: 'name',
+          message: 'name must be a string',
+          code: 'TYPE_ERROR',
+          value: this.name
+        });
+      }
+    }
+    if (this.visibility !== undefined) {
+    }
+    if (this.constrainedElement) {
+    }
+    if (this.specification == null) {
+      errors.push({
+        property: 'specification',
+        message: 'specification is required',
+        code: 'REQUIRED'
+      });
+    }
     // Validate inherited properties
     const parentResult = super.validate();
     errors.push(...parentResult.errors);

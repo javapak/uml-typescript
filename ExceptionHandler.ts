@@ -187,6 +187,8 @@ export class ExceptionHandler extends Element implements IExceptionHandler {
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
     if (this.exceptionInput == null) {
       errors.push({
         property: 'exceptionInput',

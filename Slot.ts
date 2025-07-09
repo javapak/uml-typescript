@@ -166,6 +166,8 @@ export class Slot extends Element implements ISlot {
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
     if (this.definingFeature == null) {
       errors.push({
         property: 'definingFeature',

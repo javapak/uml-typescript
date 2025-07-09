@@ -307,6 +307,44 @@ export class Model extends Package implements IModel {
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
+    if (this.name !== undefined) {
+      if (typeof this.name !== 'string') {
+        errors.push({
+          property: 'name',
+          message: 'name must be a string',
+          code: 'TYPE_ERROR',
+          value: this.name
+        });
+      }
+    }
+    if (this.visibility !== undefined) {
+    }
+    if (this.ownedRule) {
+    }
+    if (this.elementImport) {
+    }
+    if (this.packageImport) {
+    }
+    if (this.templateBinding) {
+    }
+    if (this.URI !== undefined) {
+      if (typeof this.URI !== 'string') {
+        errors.push({
+          property: 'URI',
+          message: 'URI must be a string',
+          code: 'TYPE_ERROR',
+          value: this.URI
+        });
+      }
+    }
+    if (this.packageMerge) {
+    }
+    if (this.packagedElement) {
+    }
+    if (this.profileApplication) {
+    }
     if (this.viewpoint !== undefined) {
       if (typeof this.viewpoint !== 'string') {
         errors.push({

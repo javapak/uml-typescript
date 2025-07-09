@@ -299,6 +299,102 @@ export class WriteLinkAction extends LinkAction implements IWriteLinkAction {
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
+    if (this.name !== undefined) {
+      if (typeof this.name !== 'string') {
+        errors.push({
+          property: 'name',
+          message: 'name must be a string',
+          code: 'TYPE_ERROR',
+          value: this.name
+        });
+      }
+    }
+    if (this.visibility !== undefined) {
+    }
+    if (this.isLeaf == null) {
+      errors.push({
+        property: 'isLeaf',
+        message: 'isLeaf is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.isLeaf !== undefined) {
+      if (typeof this.isLeaf !== 'boolean') {
+        errors.push({
+          property: 'isLeaf',
+          message: 'isLeaf must be a boolean',
+          code: 'TYPE_ERROR',
+          value: this.isLeaf
+        });
+      }
+    }
+    if (this.inInterruptibleRegion) {
+    }
+    if (this.incoming) {
+    }
+    if (this.outgoing) {
+    }
+    if (this.redefinedNode) {
+    }
+    if (this.inPartition) {
+    }
+    if (this.handler) {
+    }
+    if (this.isLocallyReentrant == null) {
+      errors.push({
+        property: 'isLocallyReentrant',
+        message: 'isLocallyReentrant is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.isLocallyReentrant !== undefined) {
+      if (typeof this.isLocallyReentrant !== 'boolean') {
+        errors.push({
+          property: 'isLocallyReentrant',
+          message: 'isLocallyReentrant must be a boolean',
+          code: 'TYPE_ERROR',
+          value: this.isLocallyReentrant
+        });
+      }
+    }
+    if (this.localPostcondition) {
+    }
+    if (this.localPrecondition) {
+    }
+    if (this.endData == null) {
+      errors.push({
+        property: 'endData',
+        message: 'endData is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.endData) {
+      if (Array.from(this.endData).length < 2) {
+        errors.push({
+          property: 'endData',
+          message: 'endData must have at least 2 elements',
+          code: 'MIN_LENGTH'
+        });
+      }
+    }
+    if (this.inputValue == null) {
+      errors.push({
+        property: 'inputValue',
+        message: 'inputValue is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.inputValue) {
+      if (Array.from(this.inputValue).length < 1) {
+        errors.push({
+          property: 'inputValue',
+          message: 'inputValue must have at least 1 elements',
+          code: 'MIN_LENGTH'
+        });
+      }
+    }
     // Validate inherited properties
     const parentResult = super.validate();
     errors.push(...parentResult.errors);

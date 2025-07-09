@@ -168,6 +168,8 @@ export class TemplateSignature extends Element implements ITemplateSignature {
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
     if (this.parameter == null) {
       errors.push({
         property: 'parameter',

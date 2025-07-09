@@ -252,6 +252,20 @@ export class GeneralizationSet extends PackageableElement implements IGeneraliza
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
+    if (this.name !== undefined) {
+      if (typeof this.name !== 'string') {
+        errors.push({
+          property: 'name',
+          message: 'name must be a string',
+          code: 'TYPE_ERROR',
+          value: this.name
+        });
+      }
+    }
+    if (this.visibility !== undefined) {
+    }
     if (this.isCovering == null) {
       errors.push({
         property: 'isCovering',

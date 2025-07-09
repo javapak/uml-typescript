@@ -141,6 +141,8 @@ export class QualifierValue extends Element implements IQualifierValue {
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
     if (this.qualifier == null) {
       errors.push({
         property: 'qualifier',

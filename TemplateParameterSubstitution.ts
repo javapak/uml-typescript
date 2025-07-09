@@ -190,6 +190,8 @@ export class TemplateParameterSubstitution extends Element implements ITemplateP
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
     if (this.actual == null) {
       errors.push({
         property: 'actual',

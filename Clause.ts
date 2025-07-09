@@ -237,6 +237,8 @@ export class Clause extends Element implements IClause {
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
     if (this.body) {
     }
     if (this.bodyOutput) {

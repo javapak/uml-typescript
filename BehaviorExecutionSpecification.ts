@@ -235,6 +235,38 @@ export class BehaviorExecutionSpecification extends ExecutionSpecification imple
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
+    if (this.name !== undefined) {
+      if (typeof this.name !== 'string') {
+        errors.push({
+          property: 'name',
+          message: 'name must be a string',
+          code: 'TYPE_ERROR',
+          value: this.name
+        });
+      }
+    }
+    if (this.visibility !== undefined) {
+    }
+    if (this.covered) {
+    }
+    if (this.generalOrdering) {
+    }
+    if (this.finish == null) {
+      errors.push({
+        property: 'finish',
+        message: 'finish is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.start == null) {
+      errors.push({
+        property: 'start',
+        message: 'start is required',
+        code: 'REQUIRED'
+      });
+    }
     // Validate inherited properties
     const parentResult = super.validate();
     errors.push(...parentResult.errors);

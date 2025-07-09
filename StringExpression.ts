@@ -122,15 +122,6 @@ export class StringExpression extends Expression implements IStringExpression {
   public symbol?: string;
 
   /**
-   * ownedComment
-   * 
-   * @type Comment
-   * @multiplicity [0..*]
-   * @relationship containment
-   */
-  public ownedComment: Set<IComment> = new Set();
-
-  /**
    * templateBinding
    * 
    * @type TemplateBinding
@@ -286,6 +277,34 @@ export class StringExpression extends Expression implements IStringExpression {
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
+    if (this.name !== undefined) {
+      if (typeof this.name !== 'string') {
+        errors.push({
+          property: 'name',
+          message: 'name must be a string',
+          code: 'TYPE_ERROR',
+          value: this.name
+        });
+      }
+    }
+    if (this.visibility !== undefined) {
+    }
+    if (this.operand) {
+    }
+    if (this.symbol !== undefined) {
+      if (typeof this.symbol !== 'string') {
+        errors.push({
+          property: 'symbol',
+          message: 'symbol must be a string',
+          code: 'TYPE_ERROR',
+          value: this.symbol
+        });
+      }
+    }
+    if (this.templateBinding) {
+    }
     if (this.subExpression) {
     }
     // Validate inherited properties

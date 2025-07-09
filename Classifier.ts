@@ -190,39 +190,6 @@ export class Classifier extends Namespace implements IClassifier {
   public packageImport: Set<IPackageImport> = new Set();
 
   /**
-   * ownedComment
-   * 
-   * @type Comment
-   * @multiplicity [0..*]
-   * @relationship containment
-   */
-  public ownedComment: Set<IComment> = new Set();
-
-  /**
-   * name
-   * 
-   * @type String
-   * @multiplicity [0..1]
-   */
-  public name?: string;
-
-  /**
-   * nameExpression
-   * 
-   * @type StringExpression
-   * @multiplicity [0..1]
-   * @relationship containment
-   */
-  public nameExpression?: IStringExpression;
-
-  /**
-   * visibility
-   * 
-   * @type VisibilityKind
-   * @multiplicity [0..1]
-   */
-  public visibility: VisibilityKind | undefined = undefined;
-  /**
    * isLeaf
    * 
    * @type Boolean
@@ -230,39 +197,6 @@ export class Classifier extends Namespace implements IClassifier {
    */
   public isLeaf!: boolean;
 
-  /**
-   * ownedComment
-   * 
-   * @type Comment
-   * @multiplicity [0..*]
-   * @relationship containment
-   */
-  public ownedComment: Set<IComment> = new Set();
-
-  /**
-   * name
-   * 
-   * @type String
-   * @multiplicity [0..1]
-   */
-  public name?: string;
-
-  /**
-   * nameExpression
-   * 
-   * @type StringExpression
-   * @multiplicity [0..1]
-   * @relationship containment
-   */
-  public nameExpression?: IStringExpression;
-
-  /**
-   * visibility
-   * 
-   * @type VisibilityKind
-   * @multiplicity [0..1]
-   */
-  public visibility: VisibilityKind | undefined = undefined;
   /**
    * owningTemplateParameter
    * 
@@ -282,15 +216,6 @@ export class Classifier extends Namespace implements IClassifier {
    * @opposite parameteredElement
    */
   public templateParameter?: string;
-
-  /**
-   * ownedComment
-   * 
-   * @type Comment
-   * @multiplicity [0..*]
-   * @relationship containment
-   */
-  public ownedComment: Set<IComment> = new Set();
 
   /**
    * templateBinding
@@ -557,6 +482,45 @@ export class Classifier extends Namespace implements IClassifier {
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
+    if (this.name !== undefined) {
+      if (typeof this.name !== 'string') {
+        errors.push({
+          property: 'name',
+          message: 'name must be a string',
+          code: 'TYPE_ERROR',
+          value: this.name
+        });
+      }
+    }
+    if (this.visibility !== undefined) {
+    }
+    if (this.ownedRule) {
+    }
+    if (this.elementImport) {
+    }
+    if (this.packageImport) {
+    }
+    if (this.isLeaf == null) {
+      errors.push({
+        property: 'isLeaf',
+        message: 'isLeaf is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.isLeaf !== undefined) {
+      if (typeof this.isLeaf !== 'boolean') {
+        errors.push({
+          property: 'isLeaf',
+          message: 'isLeaf must be a boolean',
+          code: 'TYPE_ERROR',
+          value: this.isLeaf
+        });
+      }
+    }
+    if (this.templateBinding) {
+    }
     if (this.collaborationUse) {
     }
     if (this.generalization) {

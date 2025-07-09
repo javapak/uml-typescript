@@ -179,6 +179,17 @@ export class LinkEndCreationData extends LinkEndData implements ILinkEndCreation
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
+    if (this.end == null) {
+      errors.push({
+        property: 'end',
+        message: 'end is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.qualifier) {
+    }
     if (this.isReplaceAll == null) {
       errors.push({
         property: 'isReplaceAll',

@@ -141,6 +141,8 @@ export class ProtocolConformance extends DirectedRelationship implements IProtoc
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
     if (this.generalMachine == null) {
       errors.push({
         property: 'generalMachine',

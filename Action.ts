@@ -306,6 +306,49 @@ export class Action extends ExecutableNode implements IAction {
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
+    if (this.name !== undefined) {
+      if (typeof this.name !== 'string') {
+        errors.push({
+          property: 'name',
+          message: 'name must be a string',
+          code: 'TYPE_ERROR',
+          value: this.name
+        });
+      }
+    }
+    if (this.visibility !== undefined) {
+    }
+    if (this.isLeaf == null) {
+      errors.push({
+        property: 'isLeaf',
+        message: 'isLeaf is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.isLeaf !== undefined) {
+      if (typeof this.isLeaf !== 'boolean') {
+        errors.push({
+          property: 'isLeaf',
+          message: 'isLeaf must be a boolean',
+          code: 'TYPE_ERROR',
+          value: this.isLeaf
+        });
+      }
+    }
+    if (this.inInterruptibleRegion) {
+    }
+    if (this.incoming) {
+    }
+    if (this.outgoing) {
+    }
+    if (this.redefinedNode) {
+    }
+    if (this.inPartition) {
+    }
+    if (this.handler) {
+    }
     if (this.isLocallyReentrant == null) {
       errors.push({
         property: 'isLocallyReentrant',

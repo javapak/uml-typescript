@@ -53,15 +53,6 @@ export class PackageableElement extends NamedElement implements IPackageableElem
    */
   public visibility: VisibilityKind | undefined = undefined;
   /**
-   * ownedComment
-   * 
-   * @type Comment
-   * @multiplicity [0..*]
-   * @relationship containment
-   */
-  public ownedComment: Set<IComment> = new Set();
-
-  /**
    * owningTemplateParameter
    * 
    * @type TemplateParameter
@@ -172,6 +163,20 @@ export class PackageableElement extends NamedElement implements IPackageableElem
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
+    if (this.name !== undefined) {
+      if (typeof this.name !== 'string') {
+        errors.push({
+          property: 'name',
+          message: 'name must be a string',
+          code: 'TYPE_ERROR',
+          value: this.name
+        });
+      }
+    }
+    if (this.visibility !== undefined) {
+    }
     // Validate inherited properties
     const parentResult = super.validate();
     errors.push(...parentResult.errors);

@@ -190,6 +190,8 @@ export class Generalization extends DirectedRelationship implements IGeneralizat
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
     if (this.general == null) {
       errors.push({
         property: 'general',

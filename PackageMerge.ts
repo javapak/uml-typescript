@@ -141,6 +141,8 @@ export class PackageMerge extends DirectedRelationship implements IPackageMerge 
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
     if (this.mergedPackage == null) {
       errors.push({
         property: 'mergedPackage',

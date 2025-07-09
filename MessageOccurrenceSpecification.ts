@@ -115,39 +115,6 @@ export class MessageOccurrenceSpecification extends OccurrenceSpecification impl
   public toBefore: Set<string> = new Set();
 
   /**
-   * ownedComment
-   * 
-   * @type Comment
-   * @multiplicity [0..*]
-   * @relationship containment
-   */
-  public ownedComment: Set<IComment> = new Set();
-
-  /**
-   * name
-   * 
-   * @type String
-   * @multiplicity [0..1]
-   */
-  public name?: string;
-
-  /**
-   * nameExpression
-   * 
-   * @type StringExpression
-   * @multiplicity [0..1]
-   * @relationship containment
-   */
-  public nameExpression?: IStringExpression;
-
-  /**
-   * visibility
-   * 
-   * @type VisibilityKind
-   * @multiplicity [0..1]
-   */
-  public visibility: VisibilityKind | undefined = undefined;
-  /**
    * message
    * 
    * @type Message
@@ -262,6 +229,28 @@ export class MessageOccurrenceSpecification extends OccurrenceSpecification impl
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
+    if (this.name !== undefined) {
+      if (typeof this.name !== 'string') {
+        errors.push({
+          property: 'name',
+          message: 'name must be a string',
+          code: 'TYPE_ERROR',
+          value: this.name
+        });
+      }
+    }
+    if (this.visibility !== undefined) {
+    }
+    if (this.covered) {
+    }
+    if (this.generalOrdering) {
+    }
+    if (this.toAfter) {
+    }
+    if (this.toBefore) {
+    }
     // Validate inherited properties
     const parentResult = super.validate();
     errors.push(...parentResult.errors);

@@ -143,6 +143,8 @@ export class Comment extends Element implements IComment {
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
     if (this.annotatedElement) {
     }
     if (this.body !== undefined) {

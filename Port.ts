@@ -520,6 +520,173 @@ export class Port extends Property implements IPort {
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
+    if (this.name !== undefined) {
+      if (typeof this.name !== 'string') {
+        errors.push({
+          property: 'name',
+          message: 'name must be a string',
+          code: 'TYPE_ERROR',
+          value: this.name
+        });
+      }
+    }
+    if (this.visibility !== undefined) {
+    }
+    if (this.isLeaf == null) {
+      errors.push({
+        property: 'isLeaf',
+        message: 'isLeaf is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.isLeaf !== undefined) {
+      if (typeof this.isLeaf !== 'boolean') {
+        errors.push({
+          property: 'isLeaf',
+          message: 'isLeaf must be a boolean',
+          code: 'TYPE_ERROR',
+          value: this.isLeaf
+        });
+      }
+    }
+    if (this.isStatic == null) {
+      errors.push({
+        property: 'isStatic',
+        message: 'isStatic is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.isStatic !== undefined) {
+      if (typeof this.isStatic !== 'boolean') {
+        errors.push({
+          property: 'isStatic',
+          message: 'isStatic must be a boolean',
+          code: 'TYPE_ERROR',
+          value: this.isStatic
+        });
+      }
+    }
+    if (this.isOrdered == null) {
+      errors.push({
+        property: 'isOrdered',
+        message: 'isOrdered is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.isOrdered !== undefined) {
+      if (typeof this.isOrdered !== 'boolean') {
+        errors.push({
+          property: 'isOrdered',
+          message: 'isOrdered must be a boolean',
+          code: 'TYPE_ERROR',
+          value: this.isOrdered
+        });
+      }
+    }
+    if (this.isUnique == null) {
+      errors.push({
+        property: 'isUnique',
+        message: 'isUnique is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.isUnique !== undefined) {
+      if (typeof this.isUnique !== 'boolean') {
+        errors.push({
+          property: 'isUnique',
+          message: 'isUnique must be a boolean',
+          code: 'TYPE_ERROR',
+          value: this.isUnique
+        });
+      }
+    }
+    if (this.isReadOnly == null) {
+      errors.push({
+        property: 'isReadOnly',
+        message: 'isReadOnly is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.isReadOnly !== undefined) {
+      if (typeof this.isReadOnly !== 'boolean') {
+        errors.push({
+          property: 'isReadOnly',
+          message: 'isReadOnly must be a boolean',
+          code: 'TYPE_ERROR',
+          value: this.isReadOnly
+        });
+      }
+    }
+    if (this.deployment) {
+    }
+    if (this.aggregation == null) {
+      errors.push({
+        property: 'aggregation',
+        message: 'aggregation is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.aggregation !== undefined) {
+    }
+    if (this.qualifier) {
+    }
+    if (this.isDerived == null) {
+      errors.push({
+        property: 'isDerived',
+        message: 'isDerived is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.isDerived !== undefined) {
+      if (typeof this.isDerived !== 'boolean') {
+        errors.push({
+          property: 'isDerived',
+          message: 'isDerived must be a boolean',
+          code: 'TYPE_ERROR',
+          value: this.isDerived
+        });
+      }
+    }
+    if (this.isDerivedUnion == null) {
+      errors.push({
+        property: 'isDerivedUnion',
+        message: 'isDerivedUnion is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.isDerivedUnion !== undefined) {
+      if (typeof this.isDerivedUnion !== 'boolean') {
+        errors.push({
+          property: 'isDerivedUnion',
+          message: 'isDerivedUnion must be a boolean',
+          code: 'TYPE_ERROR',
+          value: this.isDerivedUnion
+        });
+      }
+    }
+    if (this.isID == null) {
+      errors.push({
+        property: 'isID',
+        message: 'isID is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.isID !== undefined) {
+      if (typeof this.isID !== 'boolean') {
+        errors.push({
+          property: 'isID',
+          message: 'isID must be a boolean',
+          code: 'TYPE_ERROR',
+          value: this.isID
+        });
+      }
+    }
+    if (this.redefinedProperty) {
+    }
+    if (this.subsettedProperty) {
+    }
     if (this.isBehavior == null) {
       errors.push({
         property: 'isBehavior',

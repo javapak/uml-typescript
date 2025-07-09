@@ -270,15 +270,6 @@ export class Association extends Classifier implements IAssociation {
    */
   public substitution: Set<ISubstitution> = new Set();
 
-  /**
-   * ownedComment
-   * 
-   * @type Comment
-   * @multiplicity [0..*]
-   * @relationship containment
-   */
-  public ownedComment: Set<IComment> = new Set();
-
 
   constructor(init?: Partial<IAssociation>) {
     super(init);
@@ -466,6 +457,93 @@ export class Association extends Classifier implements IAssociation {
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
+    if (this.name !== undefined) {
+      if (typeof this.name !== 'string') {
+        errors.push({
+          property: 'name',
+          message: 'name must be a string',
+          code: 'TYPE_ERROR',
+          value: this.name
+        });
+      }
+    }
+    if (this.visibility !== undefined) {
+    }
+    if (this.ownedRule) {
+    }
+    if (this.elementImport) {
+    }
+    if (this.packageImport) {
+    }
+    if (this.isLeaf == null) {
+      errors.push({
+        property: 'isLeaf',
+        message: 'isLeaf is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.isLeaf !== undefined) {
+      if (typeof this.isLeaf !== 'boolean') {
+        errors.push({
+          property: 'isLeaf',
+          message: 'isLeaf must be a boolean',
+          code: 'TYPE_ERROR',
+          value: this.isLeaf
+        });
+      }
+    }
+    if (this.templateBinding) {
+    }
+    if (this.collaborationUse) {
+    }
+    if (this.generalization) {
+    }
+    if (this.powertypeExtent) {
+    }
+    if (this.isAbstract == null) {
+      errors.push({
+        property: 'isAbstract',
+        message: 'isAbstract is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.isAbstract !== undefined) {
+      if (typeof this.isAbstract !== 'boolean') {
+        errors.push({
+          property: 'isAbstract',
+          message: 'isAbstract must be a boolean',
+          code: 'TYPE_ERROR',
+          value: this.isAbstract
+        });
+      }
+    }
+    if (this.isFinalSpecialization == null) {
+      errors.push({
+        property: 'isFinalSpecialization',
+        message: 'isFinalSpecialization is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.isFinalSpecialization !== undefined) {
+      if (typeof this.isFinalSpecialization !== 'boolean') {
+        errors.push({
+          property: 'isFinalSpecialization',
+          message: 'isFinalSpecialization must be a boolean',
+          code: 'TYPE_ERROR',
+          value: this.isFinalSpecialization
+        });
+      }
+    }
+    if (this.ownedUseCase) {
+    }
+    if (this.useCase) {
+    }
+    if (this.redefinedClassifier) {
+    }
+    if (this.substitution) {
+    }
     if (this.isDerived == null) {
       errors.push({
         property: 'isDerived',

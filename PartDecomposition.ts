@@ -249,6 +249,35 @@ export class PartDecomposition extends InteractionUse implements IPartDecomposit
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
+    if (this.name !== undefined) {
+      if (typeof this.name !== 'string') {
+        errors.push({
+          property: 'name',
+          message: 'name must be a string',
+          code: 'TYPE_ERROR',
+          value: this.name
+        });
+      }
+    }
+    if (this.visibility !== undefined) {
+    }
+    if (this.covered) {
+    }
+    if (this.generalOrdering) {
+    }
+    if (this.actualGate) {
+    }
+    if (this.argument) {
+    }
+    if (this.refersTo == null) {
+      errors.push({
+        property: 'refersTo',
+        message: 'refersTo is required',
+        code: 'REQUIRED'
+      });
+    }
     // Validate inherited properties
     const parentResult = super.validate();
     errors.push(...parentResult.errors);

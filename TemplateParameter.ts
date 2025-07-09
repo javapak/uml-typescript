@@ -220,6 +220,8 @@ export class TemplateParameter extends Element implements ITemplateParameter {
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
     if (this.parameteredElement == null) {
       errors.push({
         property: 'parameteredElement',

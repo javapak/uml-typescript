@@ -643,6 +643,166 @@ export class ProtocolStateMachine extends StateMachine implements IProtocolState
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
+    if (this.name !== undefined) {
+      if (typeof this.name !== 'string') {
+        errors.push({
+          property: 'name',
+          message: 'name must be a string',
+          code: 'TYPE_ERROR',
+          value: this.name
+        });
+      }
+    }
+    if (this.visibility !== undefined) {
+    }
+    if (this.ownedRule) {
+    }
+    if (this.elementImport) {
+    }
+    if (this.packageImport) {
+    }
+    if (this.isLeaf == null) {
+      errors.push({
+        property: 'isLeaf',
+        message: 'isLeaf is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.isLeaf !== undefined) {
+      if (typeof this.isLeaf !== 'boolean') {
+        errors.push({
+          property: 'isLeaf',
+          message: 'isLeaf must be a boolean',
+          code: 'TYPE_ERROR',
+          value: this.isLeaf
+        });
+      }
+    }
+    if (this.templateBinding) {
+    }
+    if (this.collaborationUse) {
+    }
+    if (this.generalization) {
+    }
+    if (this.powertypeExtent) {
+    }
+    if (this.isAbstract == null) {
+      errors.push({
+        property: 'isAbstract',
+        message: 'isAbstract is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.isAbstract !== undefined) {
+      if (typeof this.isAbstract !== 'boolean') {
+        errors.push({
+          property: 'isAbstract',
+          message: 'isAbstract must be a boolean',
+          code: 'TYPE_ERROR',
+          value: this.isAbstract
+        });
+      }
+    }
+    if (this.isFinalSpecialization == null) {
+      errors.push({
+        property: 'isFinalSpecialization',
+        message: 'isFinalSpecialization is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.isFinalSpecialization !== undefined) {
+      if (typeof this.isFinalSpecialization !== 'boolean') {
+        errors.push({
+          property: 'isFinalSpecialization',
+          message: 'isFinalSpecialization must be a boolean',
+          code: 'TYPE_ERROR',
+          value: this.isFinalSpecialization
+        });
+      }
+    }
+    if (this.ownedUseCase) {
+    }
+    if (this.useCase) {
+    }
+    if (this.redefinedClassifier) {
+    }
+    if (this.substitution) {
+    }
+    if (this.ownedAttribute) {
+    }
+    if (this.ownedConnector) {
+    }
+    if (this.interfaceRealization) {
+    }
+    if (this.ownedBehavior) {
+    }
+    if (this.ownedOperation) {
+    }
+    if (this.isActive == null) {
+      errors.push({
+        property: 'isActive',
+        message: 'isActive is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.isActive !== undefined) {
+      if (typeof this.isActive !== 'boolean') {
+        errors.push({
+          property: 'isActive',
+          message: 'isActive must be a boolean',
+          code: 'TYPE_ERROR',
+          value: this.isActive
+        });
+      }
+    }
+    if (this.nestedClassifier) {
+    }
+    if (this.ownedReception) {
+    }
+    if (this.isReentrant !== undefined) {
+      if (typeof this.isReentrant !== 'boolean') {
+        errors.push({
+          property: 'isReentrant',
+          message: 'isReentrant must be a boolean',
+          code: 'TYPE_ERROR',
+          value: this.isReentrant
+        });
+      }
+    }
+    if (this.ownedParameter) {
+    }
+    if (this.ownedParameterSet) {
+    }
+    if (this.postcondition) {
+    }
+    if (this.precondition) {
+    }
+    if (this.redefinedBehavior) {
+    }
+    if (this.connectionPoint) {
+    }
+    if (this.submachineState) {
+    }
+    if (this.region == null) {
+      errors.push({
+        property: 'region',
+        message: 'region is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.region) {
+      if (Array.from(this.region).length < 1) {
+        errors.push({
+          property: 'region',
+          message: 'region must have at least 1 elements',
+          code: 'MIN_LENGTH'
+        });
+      }
+    }
+    if (this.extendedStateMachine) {
+    }
     if (this.conformance) {
     }
     // Validate inherited properties

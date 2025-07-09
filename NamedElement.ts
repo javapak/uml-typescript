@@ -174,6 +174,8 @@ export class NamedElement extends Element implements INamedElement {
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
     if (this.name !== undefined) {
       if (typeof this.name !== 'string') {
         errors.push({

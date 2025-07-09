@@ -412,6 +412,130 @@ export class CommunicationPath extends Association implements ICommunicationPath
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
+    if (this.name !== undefined) {
+      if (typeof this.name !== 'string') {
+        errors.push({
+          property: 'name',
+          message: 'name must be a string',
+          code: 'TYPE_ERROR',
+          value: this.name
+        });
+      }
+    }
+    if (this.visibility !== undefined) {
+    }
+    if (this.ownedRule) {
+    }
+    if (this.elementImport) {
+    }
+    if (this.packageImport) {
+    }
+    if (this.isLeaf == null) {
+      errors.push({
+        property: 'isLeaf',
+        message: 'isLeaf is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.isLeaf !== undefined) {
+      if (typeof this.isLeaf !== 'boolean') {
+        errors.push({
+          property: 'isLeaf',
+          message: 'isLeaf must be a boolean',
+          code: 'TYPE_ERROR',
+          value: this.isLeaf
+        });
+      }
+    }
+    if (this.templateBinding) {
+    }
+    if (this.collaborationUse) {
+    }
+    if (this.generalization) {
+    }
+    if (this.powertypeExtent) {
+    }
+    if (this.isAbstract == null) {
+      errors.push({
+        property: 'isAbstract',
+        message: 'isAbstract is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.isAbstract !== undefined) {
+      if (typeof this.isAbstract !== 'boolean') {
+        errors.push({
+          property: 'isAbstract',
+          message: 'isAbstract must be a boolean',
+          code: 'TYPE_ERROR',
+          value: this.isAbstract
+        });
+      }
+    }
+    if (this.isFinalSpecialization == null) {
+      errors.push({
+        property: 'isFinalSpecialization',
+        message: 'isFinalSpecialization is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.isFinalSpecialization !== undefined) {
+      if (typeof this.isFinalSpecialization !== 'boolean') {
+        errors.push({
+          property: 'isFinalSpecialization',
+          message: 'isFinalSpecialization must be a boolean',
+          code: 'TYPE_ERROR',
+          value: this.isFinalSpecialization
+        });
+      }
+    }
+    if (this.ownedUseCase) {
+    }
+    if (this.useCase) {
+    }
+    if (this.redefinedClassifier) {
+    }
+    if (this.substitution) {
+    }
+    if (this.isDerived == null) {
+      errors.push({
+        property: 'isDerived',
+        message: 'isDerived is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.isDerived !== undefined) {
+      if (typeof this.isDerived !== 'boolean') {
+        errors.push({
+          property: 'isDerived',
+          message: 'isDerived must be a boolean',
+          code: 'TYPE_ERROR',
+          value: this.isDerived
+        });
+      }
+    }
+    if (this.memberEnd == null) {
+      errors.push({
+        property: 'memberEnd',
+        message: 'memberEnd is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.memberEnd) {
+      if (Array.from(this.memberEnd).length < 2) {
+        errors.push({
+          property: 'memberEnd',
+          message: 'memberEnd must have at least 2 elements',
+          code: 'MIN_LENGTH'
+        });
+      }
+    }
+    if (this.ownedEnd) {
+    }
+    if (this.navigableOwnedEnd) {
+    }
     // Validate inherited properties
     const parentResult = super.validate();
     errors.push(...parentResult.errors);

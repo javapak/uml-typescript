@@ -332,39 +332,6 @@ export class Node extends Class implements INode {
   public ownedReception: Set<IReception> = new Set();
 
   /**
-   * ownedComment
-   * 
-   * @type Comment
-   * @multiplicity [0..*]
-   * @relationship containment
-   */
-  public ownedComment: Set<IComment> = new Set();
-
-  /**
-   * name
-   * 
-   * @type String
-   * @multiplicity [0..1]
-   */
-  public name?: string;
-
-  /**
-   * nameExpression
-   * 
-   * @type StringExpression
-   * @multiplicity [0..1]
-   * @relationship containment
-   */
-  public nameExpression?: IStringExpression;
-
-  /**
-   * visibility
-   * 
-   * @type VisibilityKind
-   * @multiplicity [0..1]
-   */
-  public visibility: VisibilityKind | undefined = undefined;
-  /**
    * deployment
    * 
    * @type Deployment
@@ -549,6 +516,126 @@ export class Node extends Class implements INode {
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
+    if (this.name !== undefined) {
+      if (typeof this.name !== 'string') {
+        errors.push({
+          property: 'name',
+          message: 'name must be a string',
+          code: 'TYPE_ERROR',
+          value: this.name
+        });
+      }
+    }
+    if (this.visibility !== undefined) {
+    }
+    if (this.ownedRule) {
+    }
+    if (this.elementImport) {
+    }
+    if (this.packageImport) {
+    }
+    if (this.isLeaf == null) {
+      errors.push({
+        property: 'isLeaf',
+        message: 'isLeaf is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.isLeaf !== undefined) {
+      if (typeof this.isLeaf !== 'boolean') {
+        errors.push({
+          property: 'isLeaf',
+          message: 'isLeaf must be a boolean',
+          code: 'TYPE_ERROR',
+          value: this.isLeaf
+        });
+      }
+    }
+    if (this.templateBinding) {
+    }
+    if (this.collaborationUse) {
+    }
+    if (this.generalization) {
+    }
+    if (this.powertypeExtent) {
+    }
+    if (this.isAbstract == null) {
+      errors.push({
+        property: 'isAbstract',
+        message: 'isAbstract is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.isAbstract !== undefined) {
+      if (typeof this.isAbstract !== 'boolean') {
+        errors.push({
+          property: 'isAbstract',
+          message: 'isAbstract must be a boolean',
+          code: 'TYPE_ERROR',
+          value: this.isAbstract
+        });
+      }
+    }
+    if (this.isFinalSpecialization == null) {
+      errors.push({
+        property: 'isFinalSpecialization',
+        message: 'isFinalSpecialization is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.isFinalSpecialization !== undefined) {
+      if (typeof this.isFinalSpecialization !== 'boolean') {
+        errors.push({
+          property: 'isFinalSpecialization',
+          message: 'isFinalSpecialization must be a boolean',
+          code: 'TYPE_ERROR',
+          value: this.isFinalSpecialization
+        });
+      }
+    }
+    if (this.ownedUseCase) {
+    }
+    if (this.useCase) {
+    }
+    if (this.redefinedClassifier) {
+    }
+    if (this.substitution) {
+    }
+    if (this.ownedAttribute) {
+    }
+    if (this.ownedConnector) {
+    }
+    if (this.interfaceRealization) {
+    }
+    if (this.ownedBehavior) {
+    }
+    if (this.ownedOperation) {
+    }
+    if (this.isActive == null) {
+      errors.push({
+        property: 'isActive',
+        message: 'isActive is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.isActive !== undefined) {
+      if (typeof this.isActive !== 'boolean') {
+        errors.push({
+          property: 'isActive',
+          message: 'isActive must be a boolean',
+          code: 'TYPE_ERROR',
+          value: this.isActive
+        });
+      }
+    }
+    if (this.nestedClassifier) {
+    }
+    if (this.ownedReception) {
+    }
+    if (this.deployment) {
+    }
     if (this.nestedNode) {
     }
     // Validate inherited properties

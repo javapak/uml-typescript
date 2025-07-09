@@ -167,6 +167,8 @@ export class TemplateBinding extends DirectedRelationship implements ITemplateBi
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
     if (this.parameterSubstitution) {
     }
     if (this.signature == null) {

@@ -151,6 +151,8 @@ export class TemplateableElement extends Element implements ITemplateableElement
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
     if (this.templateBinding) {
     }
     // Validate inherited properties

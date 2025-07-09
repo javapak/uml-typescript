@@ -240,15 +240,6 @@ export class Operation extends BehavioralFeature implements IOperation {
   public raisedException: Set<string> = new Set();
 
   /**
-   * ownedComment
-   * 
-   * @type Comment
-   * @multiplicity [0..*]
-   * @relationship containment
-   */
-  public ownedComment: Set<IComment> = new Set();
-
-  /**
    * owningTemplateParameter
    * 
    * @type TemplateParameter
@@ -267,15 +258,6 @@ export class Operation extends BehavioralFeature implements IOperation {
    * @opposite parameteredElement
    */
   public templateParameter?: string;
-
-  /**
-   * ownedComment
-   * 
-   * @type Comment
-   * @multiplicity [0..*]
-   * @relationship containment
-   */
-  public ownedComment: Set<IComment> = new Set();
 
   /**
    * templateBinding
@@ -537,6 +519,96 @@ export class Operation extends BehavioralFeature implements IOperation {
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
+    if (this.name !== undefined) {
+      if (typeof this.name !== 'string') {
+        errors.push({
+          property: 'name',
+          message: 'name must be a string',
+          code: 'TYPE_ERROR',
+          value: this.name
+        });
+      }
+    }
+    if (this.visibility !== undefined) {
+    }
+    if (this.ownedRule) {
+    }
+    if (this.elementImport) {
+    }
+    if (this.packageImport) {
+    }
+    if (this.isLeaf == null) {
+      errors.push({
+        property: 'isLeaf',
+        message: 'isLeaf is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.isLeaf !== undefined) {
+      if (typeof this.isLeaf !== 'boolean') {
+        errors.push({
+          property: 'isLeaf',
+          message: 'isLeaf must be a boolean',
+          code: 'TYPE_ERROR',
+          value: this.isLeaf
+        });
+      }
+    }
+    if (this.isStatic == null) {
+      errors.push({
+        property: 'isStatic',
+        message: 'isStatic is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.isStatic !== undefined) {
+      if (typeof this.isStatic !== 'boolean') {
+        errors.push({
+          property: 'isStatic',
+          message: 'isStatic must be a boolean',
+          code: 'TYPE_ERROR',
+          value: this.isStatic
+        });
+      }
+    }
+    if (this.concurrency == null) {
+      errors.push({
+        property: 'concurrency',
+        message: 'concurrency is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.concurrency !== undefined) {
+    }
+    if (this.isAbstract == null) {
+      errors.push({
+        property: 'isAbstract',
+        message: 'isAbstract is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.isAbstract !== undefined) {
+      if (typeof this.isAbstract !== 'boolean') {
+        errors.push({
+          property: 'isAbstract',
+          message: 'isAbstract must be a boolean',
+          code: 'TYPE_ERROR',
+          value: this.isAbstract
+        });
+      }
+    }
+    if (this.method) {
+    }
+    if (this.ownedParameter) {
+    }
+    if (this.ownedParameterSet) {
+    }
+    if (this.raisedException) {
+    }
+    if (this.templateBinding) {
+    }
     if (this.isQuery == null) {
       errors.push({
         property: 'isQuery',

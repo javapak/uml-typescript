@@ -140,15 +140,6 @@ export class InformationFlow extends PackageableElement implements IInformationF
    */
   public templateParameter?: string;
 
-  /**
-   * ownedComment
-   * 
-   * @type Comment
-   * @multiplicity [0..*]
-   * @relationship containment
-   */
-  public ownedComment: Set<IComment> = new Set();
-
 
   constructor(init?: Partial<IInformationFlow>) {
     super(init);
@@ -338,6 +329,20 @@ export class InformationFlow extends PackageableElement implements IInformationF
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
+    if (this.name !== undefined) {
+      if (typeof this.name !== 'string') {
+        errors.push({
+          property: 'name',
+          message: 'name must be a string',
+          code: 'TYPE_ERROR',
+          value: this.name
+        });
+      }
+    }
+    if (this.visibility !== undefined) {
+    }
     if (this.conveyed == null) {
       errors.push({
         property: 'conveyed',

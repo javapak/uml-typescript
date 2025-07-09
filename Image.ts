@@ -169,6 +169,8 @@ export class Image extends Element implements IImage {
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
     if (this.content !== undefined) {
       if (typeof this.content !== 'string') {
         errors.push({

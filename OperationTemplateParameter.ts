@@ -159,6 +159,22 @@ export class OperationTemplateParameter extends TemplateParameter implements IOp
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
+    if (this.parameteredElement == null) {
+      errors.push({
+        property: 'parameteredElement',
+        message: 'parameteredElement is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.signature == null) {
+      errors.push({
+        property: 'signature',
+        message: 'signature is required',
+        code: 'REQUIRED'
+      });
+    }
     // Validate inherited properties
     const parentResult = super.validate();
     errors.push(...parentResult.errors);

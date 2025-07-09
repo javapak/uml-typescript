@@ -187,6 +187,8 @@ export class ElementImport extends DirectedRelationship implements IElementImpor
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
     if (this.alias !== undefined) {
       if (typeof this.alias !== 'string') {
         errors.push({

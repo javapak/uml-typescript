@@ -348,6 +348,75 @@ export class ExpansionNode extends ObjectNode implements IExpansionNode {
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
+    if (this.name !== undefined) {
+      if (typeof this.name !== 'string') {
+        errors.push({
+          property: 'name',
+          message: 'name must be a string',
+          code: 'TYPE_ERROR',
+          value: this.name
+        });
+      }
+    }
+    if (this.visibility !== undefined) {
+    }
+    if (this.isLeaf == null) {
+      errors.push({
+        property: 'isLeaf',
+        message: 'isLeaf is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.isLeaf !== undefined) {
+      if (typeof this.isLeaf !== 'boolean') {
+        errors.push({
+          property: 'isLeaf',
+          message: 'isLeaf must be a boolean',
+          code: 'TYPE_ERROR',
+          value: this.isLeaf
+        });
+      }
+    }
+    if (this.inInterruptibleRegion) {
+    }
+    if (this.incoming) {
+    }
+    if (this.outgoing) {
+    }
+    if (this.redefinedNode) {
+    }
+    if (this.inPartition) {
+    }
+    if (this.inState) {
+    }
+    if (this.isControlType == null) {
+      errors.push({
+        property: 'isControlType',
+        message: 'isControlType is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.isControlType !== undefined) {
+      if (typeof this.isControlType !== 'boolean') {
+        errors.push({
+          property: 'isControlType',
+          message: 'isControlType must be a boolean',
+          code: 'TYPE_ERROR',
+          value: this.isControlType
+        });
+      }
+    }
+    if (this.ordering == null) {
+      errors.push({
+        property: 'ordering',
+        message: 'ordering is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.ordering !== undefined) {
+    }
     // Validate inherited properties
     const parentResult = super.validate();
     errors.push(...parentResult.errors);

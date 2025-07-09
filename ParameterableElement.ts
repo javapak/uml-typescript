@@ -151,6 +151,8 @@ export class ParameterableElement extends Element implements IParameterableEleme
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
     // Validate inherited properties
     const parentResult = super.validate();
     errors.push(...parentResult.errors);

@@ -143,39 +143,6 @@ export class BehavioralFeature extends Namespace implements IBehavioralFeature {
   public packageImport: Set<IPackageImport> = new Set();
 
   /**
-   * ownedComment
-   * 
-   * @type Comment
-   * @multiplicity [0..*]
-   * @relationship containment
-   */
-  public ownedComment: Set<IComment> = new Set();
-
-  /**
-   * name
-   * 
-   * @type String
-   * @multiplicity [0..1]
-   */
-  public name?: string;
-
-  /**
-   * nameExpression
-   * 
-   * @type StringExpression
-   * @multiplicity [0..1]
-   * @relationship containment
-   */
-  public nameExpression?: IStringExpression;
-
-  /**
-   * visibility
-   * 
-   * @type VisibilityKind
-   * @multiplicity [0..1]
-   */
-  public visibility: VisibilityKind | undefined = undefined;
-  /**
    * isLeaf
    * 
    * @type Boolean
@@ -367,6 +334,60 @@ export class BehavioralFeature extends Namespace implements IBehavioralFeature {
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
+    if (this.name !== undefined) {
+      if (typeof this.name !== 'string') {
+        errors.push({
+          property: 'name',
+          message: 'name must be a string',
+          code: 'TYPE_ERROR',
+          value: this.name
+        });
+      }
+    }
+    if (this.visibility !== undefined) {
+    }
+    if (this.ownedRule) {
+    }
+    if (this.elementImport) {
+    }
+    if (this.packageImport) {
+    }
+    if (this.isLeaf == null) {
+      errors.push({
+        property: 'isLeaf',
+        message: 'isLeaf is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.isLeaf !== undefined) {
+      if (typeof this.isLeaf !== 'boolean') {
+        errors.push({
+          property: 'isLeaf',
+          message: 'isLeaf must be a boolean',
+          code: 'TYPE_ERROR',
+          value: this.isLeaf
+        });
+      }
+    }
+    if (this.isStatic == null) {
+      errors.push({
+        property: 'isStatic',
+        message: 'isStatic is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.isStatic !== undefined) {
+      if (typeof this.isStatic !== 'boolean') {
+        errors.push({
+          property: 'isStatic',
+          message: 'isStatic must be a boolean',
+          code: 'TYPE_ERROR',
+          value: this.isStatic
+        });
+      }
+    }
     if (this.concurrency == null) {
       errors.push({
         property: 'concurrency',

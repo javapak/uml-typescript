@@ -250,6 +250,52 @@ export class ComponentRealization extends Realization implements IComponentReali
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
+    if (this.name !== undefined) {
+      if (typeof this.name !== 'string') {
+        errors.push({
+          property: 'name',
+          message: 'name must be a string',
+          code: 'TYPE_ERROR',
+          value: this.name
+        });
+      }
+    }
+    if (this.visibility !== undefined) {
+    }
+    if (this.client == null) {
+      errors.push({
+        property: 'client',
+        message: 'client is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.client) {
+      if (Array.from(this.client).length < 1) {
+        errors.push({
+          property: 'client',
+          message: 'client must have at least 1 elements',
+          code: 'MIN_LENGTH'
+        });
+      }
+    }
+    if (this.supplier == null) {
+      errors.push({
+        property: 'supplier',
+        message: 'supplier is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.supplier) {
+      if (Array.from(this.supplier).length < 1) {
+        errors.push({
+          property: 'supplier',
+          message: 'supplier must have at least 1 elements',
+          code: 'MIN_LENGTH'
+        });
+      }
+    }
     if (this.realizingClassifier == null) {
       errors.push({
         property: 'realizingClassifier',

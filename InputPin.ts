@@ -346,6 +346,126 @@ export class InputPin extends Pin implements IInputPin {
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
+    if (this.name !== undefined) {
+      if (typeof this.name !== 'string') {
+        errors.push({
+          property: 'name',
+          message: 'name must be a string',
+          code: 'TYPE_ERROR',
+          value: this.name
+        });
+      }
+    }
+    if (this.visibility !== undefined) {
+    }
+    if (this.isLeaf == null) {
+      errors.push({
+        property: 'isLeaf',
+        message: 'isLeaf is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.isLeaf !== undefined) {
+      if (typeof this.isLeaf !== 'boolean') {
+        errors.push({
+          property: 'isLeaf',
+          message: 'isLeaf must be a boolean',
+          code: 'TYPE_ERROR',
+          value: this.isLeaf
+        });
+      }
+    }
+    if (this.inInterruptibleRegion) {
+    }
+    if (this.incoming) {
+    }
+    if (this.outgoing) {
+    }
+    if (this.redefinedNode) {
+    }
+    if (this.inPartition) {
+    }
+    if (this.inState) {
+    }
+    if (this.isControlType == null) {
+      errors.push({
+        property: 'isControlType',
+        message: 'isControlType is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.isControlType !== undefined) {
+      if (typeof this.isControlType !== 'boolean') {
+        errors.push({
+          property: 'isControlType',
+          message: 'isControlType must be a boolean',
+          code: 'TYPE_ERROR',
+          value: this.isControlType
+        });
+      }
+    }
+    if (this.ordering == null) {
+      errors.push({
+        property: 'ordering',
+        message: 'ordering is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.ordering !== undefined) {
+    }
+    if (this.isOrdered == null) {
+      errors.push({
+        property: 'isOrdered',
+        message: 'isOrdered is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.isOrdered !== undefined) {
+      if (typeof this.isOrdered !== 'boolean') {
+        errors.push({
+          property: 'isOrdered',
+          message: 'isOrdered must be a boolean',
+          code: 'TYPE_ERROR',
+          value: this.isOrdered
+        });
+      }
+    }
+    if (this.isUnique == null) {
+      errors.push({
+        property: 'isUnique',
+        message: 'isUnique is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.isUnique !== undefined) {
+      if (typeof this.isUnique !== 'boolean') {
+        errors.push({
+          property: 'isUnique',
+          message: 'isUnique must be a boolean',
+          code: 'TYPE_ERROR',
+          value: this.isUnique
+        });
+      }
+    }
+    if (this.isControl == null) {
+      errors.push({
+        property: 'isControl',
+        message: 'isControl is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.isControl !== undefined) {
+      if (typeof this.isControl !== 'boolean') {
+        errors.push({
+          property: 'isControl',
+          message: 'isControl must be a boolean',
+          code: 'TYPE_ERROR',
+          value: this.isControl
+        });
+      }
+    }
     // Validate inherited properties
     const parentResult = super.validate();
     errors.push(...parentResult.errors);

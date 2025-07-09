@@ -246,6 +246,51 @@ export class ConsiderIgnoreFragment extends CombinedFragment implements IConside
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
+    if (this.name !== undefined) {
+      if (typeof this.name !== 'string') {
+        errors.push({
+          property: 'name',
+          message: 'name must be a string',
+          code: 'TYPE_ERROR',
+          value: this.name
+        });
+      }
+    }
+    if (this.visibility !== undefined) {
+    }
+    if (this.covered) {
+    }
+    if (this.generalOrdering) {
+    }
+    if (this.cfragmentGate) {
+    }
+    if (this.interactionOperator == null) {
+      errors.push({
+        property: 'interactionOperator',
+        message: 'interactionOperator is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.interactionOperator !== undefined) {
+    }
+    if (this.operand == null) {
+      errors.push({
+        property: 'operand',
+        message: 'operand is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.operand) {
+      if (Array.from(this.operand).length < 1) {
+        errors.push({
+          property: 'operand',
+          message: 'operand must have at least 1 elements',
+          code: 'MIN_LENGTH'
+        });
+      }
+    }
     if (this.message) {
     }
     // Validate inherited properties

@@ -162,6 +162,8 @@ export class ProfileApplication extends DirectedRelationship implements IProfile
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
     if (this.appliedProfile == null) {
       errors.push({
         property: 'appliedProfile',

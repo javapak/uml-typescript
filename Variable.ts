@@ -106,15 +106,6 @@ export class Variable extends ConnectableElement implements IVariable {
   public templateParameter?: string;
 
   /**
-   * ownedComment
-   * 
-   * @type Comment
-   * @multiplicity [0..*]
-   * @relationship containment
-   */
-  public ownedComment: Set<IComment> = new Set();
-
-  /**
    * isOrdered
    * 
    * @type Boolean
@@ -282,6 +273,54 @@ export class Variable extends ConnectableElement implements IVariable {
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
+    if (this.name !== undefined) {
+      if (typeof this.name !== 'string') {
+        errors.push({
+          property: 'name',
+          message: 'name must be a string',
+          code: 'TYPE_ERROR',
+          value: this.name
+        });
+      }
+    }
+    if (this.visibility !== undefined) {
+    }
+    if (this.isOrdered == null) {
+      errors.push({
+        property: 'isOrdered',
+        message: 'isOrdered is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.isOrdered !== undefined) {
+      if (typeof this.isOrdered !== 'boolean') {
+        errors.push({
+          property: 'isOrdered',
+          message: 'isOrdered must be a boolean',
+          code: 'TYPE_ERROR',
+          value: this.isOrdered
+        });
+      }
+    }
+    if (this.isUnique == null) {
+      errors.push({
+        property: 'isUnique',
+        message: 'isUnique is required',
+        code: 'REQUIRED'
+      });
+    }
+    if (this.isUnique !== undefined) {
+      if (typeof this.isUnique !== 'boolean') {
+        errors.push({
+          property: 'isUnique',
+          message: 'isUnique must be a boolean',
+          code: 'TYPE_ERROR',
+          value: this.isUnique
+        });
+      }
+    }
     // Validate inherited properties
     const parentResult = super.validate();
     errors.push(...parentResult.errors);

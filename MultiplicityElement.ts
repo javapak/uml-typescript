@@ -190,6 +190,8 @@ export class MultiplicityElement extends Element implements IMultiplicityElement
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
     if (this.isOrdered == null) {
       errors.push({
         property: 'isOrdered',

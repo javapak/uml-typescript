@@ -12,14 +12,6 @@ export class EModelElement implements IEModelElement {
 
   constructor(init?: Partial<IEModelElement>) {
   }
-  getEAnnotations(): IEAnnotation[] {
-    return this.eAnnotations;
-  }
-
-  setEAnnotations(value: IEAnnotation[]): void {
-    this.eAnnotations = value;
-  }
-
   /**
    * Converts this instance to a plain object matching the interface
    */
@@ -85,8 +77,6 @@ export class EModelElement implements IEModelElement {
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
-    if (this.eAnnotations) {
-    }
     return { isValid: errors.length === 0, errors };
   }
 

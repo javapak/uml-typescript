@@ -238,6 +238,26 @@ export class EnumerationLiteral extends InstanceSpecification implements IEnumer
    */
   validate(): ValidationResult {
     const errors: ValidationError[] = [];
+    if (this.ownedComment) {
+    }
+    if (this.name !== undefined) {
+      if (typeof this.name !== 'string') {
+        errors.push({
+          property: 'name',
+          message: 'name must be a string',
+          code: 'TYPE_ERROR',
+          value: this.name
+        });
+      }
+    }
+    if (this.visibility !== undefined) {
+    }
+    if (this.deployment) {
+    }
+    if (this.classifier) {
+    }
+    if (this.slot) {
+    }
     if (this.enumeration == null) {
       errors.push({
         property: 'enumeration',
