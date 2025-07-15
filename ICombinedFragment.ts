@@ -6,6 +6,7 @@
  * @extends InteractionFragment
  */
 import { Gate } from './Gate';
+import { IConsiderIgnoreFragment } from './IConsiderIgnoreFragment';
 import { IGate } from './IGate';
 import { IInteractionFragment } from './IInteractionFragment';
 import { IInteractionOperand } from './IInteractionOperand';

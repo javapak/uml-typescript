@@ -15,7 +15,6 @@ import { ITemplateSignature } from './ITemplateSignature';
 import { ITemplateableElement } from './ITemplateableElement';
 import { IType } from './IType';
 import { IValueSpecification } from './IValueSpecification';
-import { StringExpression } from './StringExpression';
 import { TemplateSignature } from './TemplateSignature';
 import { TemplateableElement } from './TemplateableElement';
 import { ValidationError, ValidationResult } from './ValidationTypes';

@@ -5,7 +5,10 @@
  * @package uml
  * @extends Classifier, Relationship
  */
+import { IAssociationClass } from './IAssociationClass';
 import { IClassifier } from './IClassifier';
+import { ICommunicationPath } from './ICommunicationPath';
+import { IExtension } from './IExtension';
 import { IProperty } from './IProperty';
 import { IRelationship } from './IRelationship';
 import { Property } from './Property';

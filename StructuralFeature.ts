@@ -143,9 +143,13 @@ export class StructuralFeature extends Feature implements IStructuralFeature {
   toJSON(): IStructuralFeature {
     const parentJson = super.toJSON();
     return {
-      ...parentJson,
-      isReadOnly: this.isReadOnly,
-    };
+  ...parentJson,
+  isReadOnly: this.isReadOnly,
+  isStatic: false,
+  isLeaf: false,
+  isOrdered: false,
+  isUnique: false
+};
   }
 
   /**

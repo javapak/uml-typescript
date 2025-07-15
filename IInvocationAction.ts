@@ -7,8 +7,12 @@
  * @extends Action
  */
 import { IAction } from './IAction';
+import { IBroadcastSignalAction } from './IBroadcastSignalAction';
+import { ICallAction } from './ICallAction';
 import { IInputPin } from './IInputPin';
 import { IPort } from './IPort';
+import { ISendObjectAction } from './ISendObjectAction';
+import { ISendSignalAction } from './ISendSignalAction';
 import { InputPin } from './InputPin';
 
 export interface IInvocationAction extends IAction {

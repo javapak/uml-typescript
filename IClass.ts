@@ -6,11 +6,16 @@
  * @extends EncapsulatedClassifier, BehavioredClassifier
  */
 import { Classifier } from './Classifier';
+import { IAssociationClass } from './IAssociationClass';
+import { IBehavior } from './IBehavior';
 import { IBehavioredClassifier } from './IBehavioredClassifier';
 import { IClassifier } from './IClassifier';
+import { IComponent } from './IComponent';
 import { IEncapsulatedClassifier } from './IEncapsulatedClassifier';
+import { INode } from './INode';
 import { IOperation } from './IOperation';
 import { IReception } from './IReception';
+import { IStereotype } from './IStereotype';
 import { Operation } from './Operation';
 import { Reception } from './Reception';
 

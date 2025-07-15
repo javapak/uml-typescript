@@ -8,7 +8,9 @@
  */
 import { Connector } from './Connector';
 import { IClassifier } from './IClassifier';
+import { ICollaboration } from './ICollaboration';
 import { IConnector } from './IConnector';
+import { IEncapsulatedClassifier } from './IEncapsulatedClassifier';
 import { IProperty } from './IProperty';
 import { Property } from './Property';
 

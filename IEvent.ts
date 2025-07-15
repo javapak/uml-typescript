@@ -6,7 +6,10 @@
  * @abstract
  * @extends PackageableElement
  */
+import { IChangeEvent } from './IChangeEvent';
+import { IMessageEvent } from './IMessageEvent';
 import { IPackageableElement } from './IPackageableElement';
+import { ITimeEvent } from './ITimeEvent';
 
 export interface IEvent extends IPackageableElement {
 }

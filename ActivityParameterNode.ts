@@ -168,7 +168,7 @@ export class ActivityParameterNode extends ObjectNode implements IActivityParame
    * @type ObjectNodeOrderingKind
    * @multiplicity [1..1]
    */
-  public ordering: ObjectNodeOrderingKind = ObjectNodeOrderingKind.unordered;
+  public ordering: ObjectNodeOrderingKind = ObjectNodeOrderingKind.UNORDERED;
   /**
    * selection
    * 

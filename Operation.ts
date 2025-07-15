@@ -193,7 +193,7 @@ export class Operation extends BehavioralFeature implements IOperation {
    * @type CallConcurrencyKind
    * @multiplicity [1..1]
    */
-  public concurrency: CallConcurrencyKind = CallConcurrencyKind.sequential;
+  public concurrency: CallConcurrencyKind = CallConcurrencyKind.SEQUENTIAL;
   /**
    * isAbstract
    * 

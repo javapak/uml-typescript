@@ -6,8 +6,26 @@
  * @abstract
  * @extends Element
  */
+import { IActivityGroup } from './IActivityGroup';
+import { ICollaborationUse } from './ICollaborationUse';
+import { IDeployedArtifact } from './IDeployedArtifact';
+import { IDeploymentTarget } from './IDeploymentTarget';
 import { IElement } from './IElement';
+import { IExtend } from './IExtend';
+import { IGeneralOrdering } from './IGeneralOrdering';
+import { IInclude } from './IInclude';
+import { IInteractionFragment } from './IInteractionFragment';
+import { ILifeline } from './ILifeline';
+import { IMessage } from './IMessage';
+import { IMessageEnd } from './IMessageEnd';
+import { INamespace } from './INamespace';
+import { IPackageableElement } from './IPackageableElement';
+import { IParameterSet } from './IParameterSet';
+import { IRedefinableElement } from './IRedefinableElement';
 import { IStringExpression } from './IStringExpression';
+import { ITrigger } from './ITrigger';
+import { ITypedElement } from './ITypedElement';
+import { IVertex } from './IVertex';
 import { StringExpression } from './StringExpression';
 import { VisibilityKind } from './VisibilityKind';
 

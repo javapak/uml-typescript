@@ -5,9 +5,12 @@
  * @package uml
  * @extends PackageableElement, DirectedRelationship
  */
+import { IAbstraction } from './IAbstraction';
+import { IDeployment } from './IDeployment';
 import { IDirectedRelationship } from './IDirectedRelationship';
 import { INamedElement } from './INamedElement';
 import { IPackageableElement } from './IPackageableElement';
+import { IUsage } from './IUsage';
 
 export interface IDependency extends IPackageableElement, IDirectedRelationship {
   /**

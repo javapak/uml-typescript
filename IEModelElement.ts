@@ -5,8 +5,7 @@
  * @package ecore
  * @abstract
  */
-import { EAnnotation } from './EAnnotation';
-import { IEAnnotation } from './IEAnnotation';
+
 
 export interface IEModelElement {
 }
@@ -14,4 +13,4 @@ export interface IEModelElement {
 // Type aliases for EModelElement
 export type EModelElementInput = Partial<IEModelElement>;
 export type EModelElementOutput = IEModelElement;
-export type EModelElementUnion = IEModelElement | IEAnnotation | IEFactory | IENamedElement;
+export type EModelElementUnion = IEModelElement;

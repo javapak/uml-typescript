@@ -6,8 +6,10 @@
  * @abstract
  * @extends ObjectNode, MultiplicityElement
  */
+import { IInputPin } from './IInputPin';
 import { IMultiplicityElement } from './IMultiplicityElement';
 import { IObjectNode } from './IObjectNode';
+import { IOutputPin } from './IOutputPin';
 
 export interface IPin extends IObjectNode, IMultiplicityElement {
   /**

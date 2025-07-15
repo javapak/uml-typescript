@@ -6,8 +6,13 @@
  * @abstract
  * @extends Element
  */
+import { IConnectorEnd } from './IConnectorEnd';
 import { IElement } from './IElement';
+import { IParameter } from './IParameter';
+import { IPin } from './IPin';
+import { IStructuralFeature } from './IStructuralFeature';
 import { IValueSpecification } from './IValueSpecification';
+import { IVariable } from './IVariable';
 import { ValueSpecification } from './ValueSpecification';
 
 export interface IMultiplicityElement extends IElement {

@@ -118,7 +118,7 @@ export class Reception extends BehavioralFeature implements IReception {
    * @type CallConcurrencyKind
    * @multiplicity [1..1]
    */
-  public concurrency: CallConcurrencyKind = CallConcurrencyKind.sequential;
+  public concurrency: CallConcurrencyKind = CallConcurrencyKind.SEQUENTIAL;
   /**
    * isAbstract
    * 

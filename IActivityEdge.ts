@@ -9,7 +9,9 @@
 import { IActivity } from './IActivity';
 import { IActivityNode } from './IActivityNode';
 import { IActivityPartition } from './IActivityPartition';
+import { IControlFlow } from './IControlFlow';
 import { IInterruptibleActivityRegion } from './IInterruptibleActivityRegion';
+import { IObjectFlow } from './IObjectFlow';
 import { IRedefinableElement } from './IRedefinableElement';
 import { IStructuredActivityNode } from './IStructuredActivityNode';
 import { IValueSpecification } from './IValueSpecification';

@@ -7,6 +7,7 @@
  */
 import { IClassifier } from './IClassifier';
 import { IDeployedArtifact } from './IDeployedArtifact';
+import { IDeploymentSpecification } from './IDeploymentSpecification';
 import { IManifestation } from './IManifestation';
 import { IOperation } from './IOperation';
 import { IProperty } from './IProperty';

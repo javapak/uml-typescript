@@ -245,7 +245,7 @@ export class DurationConstraint extends IntervalConstraint implements IDurationC
       });
     }
     if (this.firstEvent) {
-      if (this.firstEvent.length > 2) {
+      if (Array.from(this.firstEvent).length > 2) {
         errors.push({
           property: 'firstEvent',
           message: 'firstEvent must have at most 2 elements',

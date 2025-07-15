@@ -9,6 +9,7 @@ import { Gate } from './Gate';
 import { IGate } from './IGate';
 import { IInteraction } from './IInteraction';
 import { IInteractionFragment } from './IInteractionFragment';
+import { IPartDecomposition } from './IPartDecomposition';
 import { IProperty } from './IProperty';
 import { IValueSpecification } from './IValueSpecification';
 import { ValueSpecification } from './ValueSpecification';

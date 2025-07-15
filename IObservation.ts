@@ -6,7 +6,9 @@
  * @abstract
  * @extends PackageableElement
  */
+import { IDurationObservation } from './IDurationObservation';
 import { IPackageableElement } from './IPackageableElement';
+import { ITimeObservation } from './ITimeObservation';
 
 export interface IObservation extends IPackageableElement {
 }

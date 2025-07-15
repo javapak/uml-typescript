@@ -252,16 +252,17 @@ export class Transition extends Namespace implements ITransition {
   toJSON(): ITransition {
     const parentJson = super.toJSON();
     return {
-      ...parentJson,
-      ...(this.effect !== undefined && { effect: this.effect }),
-      ...(this.guard !== undefined && { guard: this.guard }),
-      kind: this.kind,
-      ...(this.redefinedTransition !== undefined && { redefinedTransition: this.redefinedTransition }),
-      source: this.source,
-      target: this.target,
-      trigger: this.trigger,
-      container: this.container,
-    };
+  ...parentJson,
+  ...(this.effect !== undefined && { effect: this.effect }),
+  ...(this.guard !== undefined && { guard: this.guard }),
+  kind: this.kind,
+  ...(this.redefinedTransition !== undefined && { redefinedTransition: this.redefinedTransition }),
+  source: this.source,
+  target: this.target,
+  trigger: this.trigger,
+  container: this.container,
+  isLeaf: false
+};
   }
 
   /**

@@ -6,8 +6,10 @@
  * @abstract
  * @extends StructuralFeatureAction
  */
+import { IAddStructuralFeatureValueAction } from './IAddStructuralFeatureValueAction';
 import { IInputPin } from './IInputPin';
 import { IOutputPin } from './IOutputPin';
+import { IRemoveStructuralFeatureValueAction } from './IRemoveStructuralFeatureValueAction';
 import { IStructuralFeatureAction } from './IStructuralFeatureAction';
 import { InputPin } from './InputPin';
 import { OutputPin } from './OutputPin';

@@ -7,6 +7,12 @@
  * @extends ActivityNode
  */
 import { IActivityNode } from './IActivityNode';
+import { IDecisionNode } from './IDecisionNode';
+import { IFinalNode } from './IFinalNode';
+import { IForkNode } from './IForkNode';
+import { IInitialNode } from './IInitialNode';
+import { IJoinNode } from './IJoinNode';
+import { IMergeNode } from './IMergeNode';
 
 export interface IControlNode extends IActivityNode {
 }

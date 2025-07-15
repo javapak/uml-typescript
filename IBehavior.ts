@@ -6,11 +6,15 @@
  * @abstract
  * @extends Class
  */
+import { IActivity } from './IActivity';
 import { IBehavioralFeature } from './IBehavioralFeature';
 import { IClass } from './IClass';
 import { IConstraint } from './IConstraint';
+import { IInteraction } from './IInteraction';
+import { IOpaqueBehavior } from './IOpaqueBehavior';
 import { IParameter } from './IParameter';
 import { IParameterSet } from './IParameterSet';
+import { IStateMachine } from './IStateMachine';
 import { Parameter } from './Parameter';
 import { ParameterSet } from './ParameterSet';
 

@@ -5,7 +5,10 @@
  * @package uml
  * @extends Element
  */
+import { IClassifierTemplateParameter } from './IClassifierTemplateParameter';
+import { IConnectableElementTemplateParameter } from './IConnectableElementTemplateParameter';
 import { IElement } from './IElement';
+import { IOperationTemplateParameter } from './IOperationTemplateParameter';
 import { IParameterableElement } from './IParameterableElement';
 import { ITemplateSignature } from './ITemplateSignature';
 import { ParameterableElement } from './ParameterableElement';

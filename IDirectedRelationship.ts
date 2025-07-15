@@ -6,7 +6,18 @@
  * @abstract
  * @extends Relationship
  */
+import { IDependency } from './IDependency';
+import { IElementImport } from './IElementImport';
+import { IExtend } from './IExtend';
+import { IGeneralization } from './IGeneralization';
+import { IInclude } from './IInclude';
+import { IInformationFlow } from './IInformationFlow';
+import { IPackageImport } from './IPackageImport';
+import { IPackageMerge } from './IPackageMerge';
+import { IProfileApplication } from './IProfileApplication';
+import { IProtocolConformance } from './IProtocolConformance';
 import { IRelationship } from './IRelationship';
+import { ITemplateBinding } from './ITemplateBinding';
 
 export interface IDirectedRelationship extends IRelationship {
 }

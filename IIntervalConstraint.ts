@@ -6,6 +6,8 @@
  * @extends Constraint
  */
 import { IConstraint } from './IConstraint';
+import { IDurationConstraint } from './IDurationConstraint';
+import { ITimeConstraint } from './ITimeConstraint';
 
 export interface IIntervalConstraint extends IConstraint {
 }

@@ -169,7 +169,7 @@ export class Pin extends ObjectNode implements IPin {
    * @type ObjectNodeOrderingKind
    * @multiplicity [1..1]
    */
-  public ordering: ObjectNodeOrderingKind = ObjectNodeOrderingKind.unordered;
+  public ordering: ObjectNodeOrderingKind = ObjectNodeOrderingKind.UNORDERED;
   /**
    * selection
    * 
@@ -242,9 +242,14 @@ export class Pin extends ObjectNode implements IPin {
   toJSON(): IPin {
     const parentJson = super.toJSON();
     return {
-      ...parentJson,
-      isControl: this.isControl,
-    };
+  ...parentJson,
+  isControl: this.isControl,
+  isControlType: false,
+  ordering: 'unordered',
+  isLeaf: false,
+  isOrdered: false,
+  isUnique: false
+};
   }
 
   /**

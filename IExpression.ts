@@ -5,6 +5,7 @@
  * @package uml
  * @extends ValueSpecification
  */
+import { IStringExpression } from './IStringExpression';
 import { IValueSpecification } from './IValueSpecification';
 import { ValueSpecification } from './ValueSpecification';
 

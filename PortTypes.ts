@@ -9,7 +9,7 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialPort = Partial<IPort>;
 export type RequiredPort = Required<IPort>;
-export type PortKey = Pick<IPort, 'provided'>;
+export type PortKey = Pick<IPort, keyof IPort>;
 export type PortUnion = IPort | IProperty;
 export type PortFactory = () => Port;
 export type PortValidator = (instance: IPort) => ValidationResult;

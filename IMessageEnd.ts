@@ -6,7 +6,9 @@
  * @abstract
  * @extends NamedElement
  */
+import { IGate } from './IGate';
 import { IMessage } from './IMessage';
+import { IMessageOccurrenceSpecification } from './IMessageOccurrenceSpecification';
 import { INamedElement } from './INamedElement';
 
 export interface IMessageEnd extends INamedElement {

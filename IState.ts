@@ -10,6 +10,7 @@ import { ConnectionPointReference } from './ConnectionPointReference';
 import { IBehavior } from './IBehavior';
 import { IConnectionPointReference } from './IConnectionPointReference';
 import { IConstraint } from './IConstraint';
+import { IFinalState } from './IFinalState';
 import { INamespace } from './INamespace';
 import { IPseudostate } from './IPseudostate';
 import { IRedefinableElement } from './IRedefinableElement';

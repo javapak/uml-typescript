@@ -223,14 +223,16 @@ export class BehavioralFeature extends Namespace implements IBehavioralFeature {
   toJSON(): IBehavioralFeature {
     const parentJson = super.toJSON();
     return {
-      ...parentJson,
-      concurrency: this.concurrency,
-      isAbstract: this.isAbstract,
-      method: this.method,
-      ownedParameter: this.ownedParameter,
-      ownedParameterSet: this.ownedParameterSet,
-      raisedException: this.raisedException,
-    };
+  ...parentJson,
+  concurrency: this.concurrency,
+  isAbstract: this.isAbstract,
+  method: this.method,
+  ownedParameter: this.ownedParameter,
+  ownedParameterSet: this.ownedParameterSet,
+  raisedException: this.raisedException,
+  isStatic: false,
+  isLeaf: false
+};
   }
 
   /**

@@ -169,7 +169,7 @@ export class ActionInputPin extends InputPin implements IActionInputPin {
    * @type ObjectNodeOrderingKind
    * @multiplicity [1..1]
    */
-  public ordering: ObjectNodeOrderingKind = ObjectNodeOrderingKind.unordered;
+  public ordering: ObjectNodeOrderingKind = ObjectNodeOrderingKind.UNORDERED;
   /**
    * selection
    * 

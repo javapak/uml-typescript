@@ -6,7 +6,10 @@
  * @abstract
  * @extends RedefinableElement
  */
+import { IBehavioralFeature } from './IBehavioralFeature';
+import { IConnector } from './IConnector';
 import { IRedefinableElement } from './IRedefinableElement';
+import { IStructuralFeature } from './IStructuralFeature';
 
 export interface IFeature extends IRedefinableElement {
   /**

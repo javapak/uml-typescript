@@ -6,6 +6,9 @@
  * @extends Abstraction
  */
 import { IAbstraction } from './IAbstraction';
+import { IComponentRealization } from './IComponentRealization';
+import { IInterfaceRealization } from './IInterfaceRealization';
+import { ISubstitution } from './ISubstitution';
 
 export interface IRealization extends IAbstraction {
 }

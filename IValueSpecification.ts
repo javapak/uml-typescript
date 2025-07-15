@@ -6,7 +6,14 @@
  * @abstract
  * @extends PackageableElement, TypedElement
  */
+import { IDuration } from './IDuration';
+import { IExpression } from './IExpression';
+import { IInstanceValue } from './IInstanceValue';
+import { IInterval } from './IInterval';
+import { ILiteralSpecification } from './ILiteralSpecification';
+import { IOpaqueExpression } from './IOpaqueExpression';
 import { IPackageableElement } from './IPackageableElement';
+import { ITimeExpression } from './ITimeExpression';
 import { ITypedElement } from './ITypedElement';
 
 export interface IValueSpecification extends IPackageableElement, ITypedElement {

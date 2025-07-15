@@ -7,6 +7,8 @@
  */
 import { IClass } from './IClass';
 import { IDeploymentTarget } from './IDeploymentTarget';
+import { IDevice } from './IDevice';
+import { IExecutionEnvironment } from './IExecutionEnvironment';
 
 export interface INode extends IClass, IDeploymentTarget {
   /**

@@ -8,6 +8,7 @@
  */
 import { IFeature } from './IFeature';
 import { IMultiplicityElement } from './IMultiplicityElement';
+import { IProperty } from './IProperty';
 import { ITypedElement } from './ITypedElement';
 
 export interface IStructuralFeature extends IFeature, ITypedElement, IMultiplicityElement {

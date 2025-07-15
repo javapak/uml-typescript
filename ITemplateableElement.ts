@@ -6,7 +6,11 @@
  * @abstract
  * @extends Element
  */
+import { IClassifier } from './IClassifier';
 import { IElement } from './IElement';
+import { IOperation } from './IOperation';
+import { IPackage } from './IPackage';
+import { IStringExpression } from './IStringExpression';
 import { ITemplateBinding } from './ITemplateBinding';
 import { ITemplateSignature } from './ITemplateSignature';
 import { TemplateBinding } from './TemplateBinding';

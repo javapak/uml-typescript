@@ -1,3 +1,6 @@
+import { IActivityGroup } from "./IActivityGroup";
+import { IActivityNode } from "./IActivityNode";
+
 /**
  * Interface for ActivityContent
  * 

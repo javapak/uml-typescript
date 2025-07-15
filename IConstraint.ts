@@ -6,6 +6,8 @@
  * @extends PackageableElement
  */
 import { IElement } from './IElement';
+import { IInteractionConstraint } from './IInteractionConstraint';
+import { IIntervalConstraint } from './IIntervalConstraint';
 import { INamespace } from './INamespace';
 import { IPackageableElement } from './IPackageableElement';
 import { IValueSpecification } from './IValueSpecification';

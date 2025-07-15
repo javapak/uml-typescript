@@ -5,9 +5,11 @@
  * @package uml
  * @extends Namespace, PackageableElement, TemplateableElement
  */
+import { IModel } from './IModel';
 import { INamespace } from './INamespace';
 import { IPackageMerge } from './IPackageMerge';
 import { IPackageableElement } from './IPackageableElement';
+import { IProfile } from './IProfile';
 import { IProfileApplication } from './IProfileApplication';
 import { ITemplateableElement } from './ITemplateableElement';
 import { PackageMerge } from './PackageMerge';

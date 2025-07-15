@@ -6,7 +6,9 @@
  * @abstract
  * @extends VariableAction
  */
+import { IAddVariableValueAction } from './IAddVariableValueAction';
 import { IInputPin } from './IInputPin';
+import { IRemoveVariableValueAction } from './IRemoveVariableValueAction';
 import { IVariableAction } from './IVariableAction';
 import { InputPin } from './InputPin';
 

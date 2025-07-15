@@ -10,7 +10,7 @@ import { ValidationResult } from './ValidationTypes';
  */
 export type PartialComponent = Partial<IComponent>;
 export type RequiredComponent = Required<IComponent>;
-export type ComponentKey = Pick<IComponent, 'provided'>;
+export type ComponentKey = Pick<IComponent, keyof IComponent>;
 export type ComponentUnion = IComponent | IClass;
 export type ComponentFactory = () => Component;
 export type ComponentValidator = (instance: IComponent) => ValidationResult;

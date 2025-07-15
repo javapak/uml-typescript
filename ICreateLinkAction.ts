@@ -5,6 +5,7 @@
  * @package uml
  * @extends WriteLinkAction
  */
+import { ICreateLinkObjectAction } from './ICreateLinkObjectAction';
 import { IWriteLinkAction } from './IWriteLinkAction';
 
 export interface ICreateLinkAction extends IWriteLinkAction {

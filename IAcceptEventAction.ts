@@ -5,6 +5,7 @@
  * @package uml
  * @extends Action
  */
+import { IAcceptCallAction } from './IAcceptCallAction';
 import { IAction } from './IAction';
 import { IOutputPin } from './IOutputPin';
 import { ITrigger } from './ITrigger';

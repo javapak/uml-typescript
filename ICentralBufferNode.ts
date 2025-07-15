@@ -5,6 +5,7 @@
  * @package uml
  * @extends ObjectNode
  */
+import { IDataStoreNode } from './IDataStoreNode';
 import { IObjectNode } from './IObjectNode';
 
 export interface ICentralBufferNode extends IObjectNode {

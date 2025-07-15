@@ -338,18 +338,19 @@ export class Classifier extends Namespace implements IClassifier {
   toJSON(): IClassifier {
     const parentJson = super.toJSON();
     return {
-      ...parentJson,
-      collaborationUse: this.collaborationUse,
-      generalization: this.generalization,
-      powertypeExtent: this.powertypeExtent,
-      isAbstract: this.isAbstract,
-      isFinalSpecialization: this.isFinalSpecialization,
-      ownedUseCase: this.ownedUseCase,
-      useCase: this.useCase,
-      redefinedClassifier: this.redefinedClassifier,
-      ...(this.representation !== undefined && { representation: this.representation }),
-      substitution: this.substitution,
-    };
+  ...parentJson,
+  collaborationUse: this.collaborationUse,
+  generalization: this.generalization,
+  powertypeExtent: this.powertypeExtent,
+  isAbstract: this.isAbstract,
+  isFinalSpecialization: this.isFinalSpecialization,
+  ownedUseCase: this.ownedUseCase,
+  useCase: this.useCase,
+  redefinedClassifier: this.redefinedClassifier,
+  ...(this.representation !== undefined && { representation: this.representation }),
+  substitution: this.substitution,
+  isLeaf: false
+};
   }
 
   /**

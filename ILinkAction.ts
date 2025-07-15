@@ -10,6 +10,8 @@ import { IAction } from './IAction';
 import { IInputPin } from './IInputPin';
 import { ILinkEndData } from './ILinkEndData';
 import { InputPin } from './InputPin';
+import { IReadLinkAction } from './IReadLinkAction';
+import { IWriteLinkAction } from './IWriteLinkAction';
 import { LinkEndData } from './LinkEndData';
 
 export interface ILinkAction extends IAction {

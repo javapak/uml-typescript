@@ -7,8 +7,11 @@
  * @extends Action
  */
 import { IAction } from './IAction';
+import { IClearStructuralFeatureAction } from './IClearStructuralFeatureAction';
 import { IInputPin } from './IInputPin';
+import { IReadStructuralFeatureAction } from './IReadStructuralFeatureAction';
 import { IStructuralFeature } from './IStructuralFeature';
+import { IWriteStructuralFeatureAction } from './IWriteStructuralFeatureAction';
 import { InputPin } from './InputPin';
 
 export interface IStructuralFeatureAction extends IAction {

@@ -6,6 +6,7 @@
  * @abstract
  * @extends StructuredClassifier
  */
+import { IClass } from './IClass';
 import { IStructuredClassifier } from './IStructuredClassifier';
 
 export interface IEncapsulatedClassifier extends IStructuredClassifier {

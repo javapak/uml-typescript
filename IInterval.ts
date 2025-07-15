@@ -5,6 +5,8 @@
  * @package uml
  * @extends ValueSpecification
  */
+import { IDurationInterval } from './IDurationInterval';
+import { ITimeInterval } from './ITimeInterval';
 import { IValueSpecification } from './IValueSpecification';
 
 export interface IInterval extends IValueSpecification {

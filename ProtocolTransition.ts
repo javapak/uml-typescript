@@ -137,7 +137,7 @@ export class ProtocolTransition extends Transition implements IProtocolTransitio
    * @type TransitionKind
    * @multiplicity [1..1]
    */
-  public kind: TransitionKind = TransitionKind.internal;
+  public kind: TransitionKind = TransitionKind.INTERNAL;
   /**
    * redefinedTransition
    * 

@@ -6,7 +6,16 @@
  * @abstract
  * @extends NamedElement
  */
+import { IActivityEdge } from './IActivityEdge';
+import { IActivityNode } from './IActivityNode';
+import { IClassifier } from './IClassifier';
+import { IExtensionPoint } from './IExtensionPoint';
+import { IFeature } from './IFeature';
 import { INamedElement } from './INamedElement';
+import { IRedefinableTemplateSignature } from './IRedefinableTemplateSignature';
+import { IRegion } from './IRegion';
+import { IState } from './IState';
+import { ITransition } from './ITransition';
 
 export interface IRedefinableElement extends INamedElement {
   /**

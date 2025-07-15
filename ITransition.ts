@@ -9,6 +9,7 @@ import { Behavior } from './Behavior';
 import { IBehavior } from './IBehavior';
 import { IConstraint } from './IConstraint';
 import { INamespace } from './INamespace';
+import { IProtocolTransition } from './IProtocolTransition';
 import { IRedefinableElement } from './IRedefinableElement';
 import { IRegion } from './IRegion';
 import { ITrigger } from './ITrigger';

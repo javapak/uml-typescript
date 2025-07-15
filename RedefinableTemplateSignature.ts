@@ -118,9 +118,12 @@ export class RedefinableTemplateSignature extends RedefinableElement implements 
   toJSON(): IRedefinableTemplateSignature {
     const parentJson = super.toJSON();
     return {
-      ...parentJson,
-      extendedSignature: this.extendedSignature,
-    };
+  ...parentJson,
+  extendedSignature: this.extendedSignature,
+  isLeaf: false,
+  parameter: [],
+  template: ''
+};
   }
 
   /**

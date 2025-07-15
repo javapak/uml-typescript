@@ -6,6 +6,7 @@
  * @extends Behavior
  */
 import { IBehavior } from './IBehavior';
+import { IProtocolStateMachine } from './IProtocolStateMachine';
 import { IPseudostate } from './IPseudostate';
 import { IRegion } from './IRegion';
 import { IState } from './IState';

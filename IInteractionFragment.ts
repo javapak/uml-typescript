@@ -7,11 +7,17 @@
  * @extends NamedElement
  */
 import { GeneralOrdering } from './GeneralOrdering';
+import { ICombinedFragment } from './ICombinedFragment';
+import { IContinuation } from './IContinuation';
+import { IExecutionSpecification } from './IExecutionSpecification';
 import { IGeneralOrdering } from './IGeneralOrdering';
 import { IInteraction } from './IInteraction';
 import { IInteractionOperand } from './IInteractionOperand';
+import { IInteractionUse } from './IInteractionUse';
 import { ILifeline } from './ILifeline';
 import { INamedElement } from './INamedElement';
+import { IOccurrenceSpecification } from './IOccurrenceSpecification';
+import { IStateInvariant } from './IStateInvariant';
 
 export interface IInteractionFragment extends INamedElement {
   /**

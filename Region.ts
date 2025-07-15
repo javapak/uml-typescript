@@ -200,13 +200,14 @@ export class Region extends Namespace implements IRegion {
   toJSON(): IRegion {
     const parentJson = super.toJSON();
     return {
-      ...parentJson,
-      ...(this.extendedRegion !== undefined && { extendedRegion: this.extendedRegion }),
-      ...(this.state !== undefined && { state: this.state }),
-      ...(this.stateMachine !== undefined && { stateMachine: this.stateMachine }),
-      transition: this.transition,
-      subvertex: this.subvertex,
-    };
+  ...parentJson,
+  ...(this.extendedRegion !== undefined && { extendedRegion: this.extendedRegion }),
+  ...(this.state !== undefined && { state: this.state }),
+  ...(this.stateMachine !== undefined && { stateMachine: this.stateMachine }),
+  transition: this.transition,
+  subvertex: this.subvertex,
+  isLeaf: false
+};
   }
 
   /**

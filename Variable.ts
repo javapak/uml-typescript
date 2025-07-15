@@ -168,10 +168,12 @@ export class Variable extends ConnectableElement implements IVariable {
   toJSON(): IVariable {
     const parentJson = super.toJSON();
     return {
-      ...parentJson,
-      ...(this.activityScope !== undefined && { activityScope: this.activityScope }),
-      ...(this.scope !== undefined && { scope: this.scope }),
-    };
+  ...parentJson,
+  ...(this.activityScope !== undefined && { activityScope: this.activityScope }),
+  ...(this.scope !== undefined && { scope: this.scope }),
+  isOrdered: false,
+  isUnique: false
+};
   }
 
   /**

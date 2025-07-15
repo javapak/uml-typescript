@@ -6,8 +6,11 @@
  * @abstract
  * @extends InvocationAction
  */
+import { ICallBehaviorAction } from './ICallBehaviorAction';
+import { ICallOperationAction } from './ICallOperationAction';
 import { IInvocationAction } from './IInvocationAction';
 import { IOutputPin } from './IOutputPin';
+import { IStartObjectBehaviorAction } from './IStartObjectBehaviorAction';
 import { OutputPin } from './OutputPin';
 
 export interface ICallAction extends IInvocationAction {

@@ -6,6 +6,7 @@
  * @extends Element
  */
 import { IElement } from './IElement';
+import { IRedefinableTemplateSignature } from './IRedefinableTemplateSignature';
 import { ITemplateParameter } from './ITemplateParameter';
 import { ITemplateableElement } from './ITemplateableElement';
 import { TemplateParameter } from './TemplateParameter';

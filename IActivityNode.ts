@@ -9,7 +9,10 @@
 import { IActivityContent } from './IActivityContent';
 import { IActivityEdge } from './IActivityEdge';
 import { IActivityPartition } from './IActivityPartition';
+import { IControlNode } from './IControlNode';
+import { IExecutableNode } from './IExecutableNode';
 import { IInterruptibleActivityRegion } from './IInterruptibleActivityRegion';
+import { IObjectNode } from './IObjectNode';
 import { IRedefinableElement } from './IRedefinableElement';
 import { IStructuredActivityNode } from './IStructuredActivityNode';
 

@@ -5,8 +5,10 @@
  * @package uml
  * @extends InteractionFragment
  */
+import { IExecutionOccurrenceSpecification } from './IExecutionOccurrenceSpecification';
 import { IGeneralOrdering } from './IGeneralOrdering';
 import { IInteractionFragment } from './IInteractionFragment';
+import { IMessageOccurrenceSpecification } from './IMessageOccurrenceSpecification';
 
 export interface IOccurrenceSpecification extends IInteractionFragment {
   /**

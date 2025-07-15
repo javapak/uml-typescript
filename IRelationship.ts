@@ -6,6 +6,8 @@
  * @abstract
  * @extends Element
  */
+import { IAssociation } from './IAssociation';
+import { IDirectedRelationship } from './IDirectedRelationship';
 import { IElement } from './IElement';
 
 export interface IRelationship extends IElement {

@@ -244,7 +244,7 @@ export class DurationObservation extends Observation implements IDurationObserva
       }
     }
     if (this.firstEvent) {
-      if (this.firstEvent.length > 2) {
+      if (Array.from(this.firstEvent).length > 2) {
         errors.push({
           property: 'firstEvent',
           message: 'firstEvent must have at most 2 elements',

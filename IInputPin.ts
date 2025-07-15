@@ -5,7 +5,9 @@
  * @package uml
  * @extends Pin
  */
+import { IActionInputPin } from './IActionInputPin';
 import { IPin } from './IPin';
+import { IValuePin } from './IValuePin';
 
 export interface IInputPin extends IPin {
 }

@@ -158,7 +158,7 @@ export class CentralBufferNode extends ObjectNode implements ICentralBufferNode 
    * @type ObjectNodeOrderingKind
    * @multiplicity [1..1]
    */
-  public ordering: ObjectNodeOrderingKind = ObjectNodeOrderingKind.unordered;
+  public ordering: ObjectNodeOrderingKind = ObjectNodeOrderingKind.UNORDERED;
   /**
    * selection
    * 

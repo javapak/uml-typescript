@@ -6,6 +6,8 @@
  * @abstract
  * @extends InteractionFragment
  */
+import { IActionExecutionSpecification } from './IActionExecutionSpecification';
+import { IBehaviorExecutionSpecification } from './IBehaviorExecutionSpecification';
 import { IInteractionFragment } from './IInteractionFragment';
 import { IOccurrenceSpecification } from './IOccurrenceSpecification';
 

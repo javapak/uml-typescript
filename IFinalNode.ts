@@ -6,7 +6,9 @@
  * @abstract
  * @extends ControlNode
  */
+import { IActivityFinalNode } from './IActivityFinalNode';
 import { IControlNode } from './IControlNode';
+import { IFlowFinalNode } from './IFlowFinalNode';
 
 export interface IFinalNode extends IControlNode {
 }

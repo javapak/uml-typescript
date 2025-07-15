@@ -7,7 +7,10 @@
  * @extends Action
  */
 import { IAction } from './IAction';
+import { IClearVariableAction } from './IClearVariableAction';
+import { IReadVariableAction } from './IReadVariableAction';
 import { IVariable } from './IVariable';
+import { IWriteVariableAction } from './IWriteVariableAction';
 
 export interface IVariableAction extends IAction {
   /**

@@ -6,6 +6,7 @@
  * @extends Behavior
  */
 import { IBehavior } from './IBehavior';
+import { IFunctionBehavior } from './IFunctionBehavior';
 
 export interface IOpaqueBehavior extends IBehavior {
   /**

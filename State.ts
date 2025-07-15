@@ -305,18 +305,19 @@ export class State extends Namespace implements IState {
   toJSON(): IState {
     const parentJson = super.toJSON();
     return {
-      ...parentJson,
-      connection: this.connection,
-      connectionPoint: this.connectionPoint,
-      deferrableTrigger: this.deferrableTrigger,
-      ...(this.doActivity !== undefined && { doActivity: this.doActivity }),
-      ...(this.entry !== undefined && { entry: this.entry }),
-      ...(this.exit !== undefined && { exit: this.exit }),
-      ...(this.redefinedState !== undefined && { redefinedState: this.redefinedState }),
-      ...(this.stateInvariant !== undefined && { stateInvariant: this.stateInvariant }),
-      ...(this.submachine !== undefined && { submachine: this.submachine }),
-      region: this.region,
-    };
+  ...parentJson,
+  connection: this.connection,
+  connectionPoint: this.connectionPoint,
+  deferrableTrigger: this.deferrableTrigger,
+  ...(this.doActivity !== undefined && { doActivity: this.doActivity }),
+  ...(this.entry !== undefined && { entry: this.entry }),
+  ...(this.exit !== undefined && { exit: this.exit }),
+  ...(this.redefinedState !== undefined && { redefinedState: this.redefinedState }),
+  ...(this.stateInvariant !== undefined && { stateInvariant: this.stateInvariant }),
+  ...(this.submachine !== undefined && { submachine: this.submachine }),
+  region: this.region,
+  isLeaf: false
+};
   }
 
   /**

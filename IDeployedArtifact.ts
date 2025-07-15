@@ -6,6 +6,8 @@
  * @abstract
  * @extends NamedElement
  */
+import { IArtifact } from './IArtifact';
+import { IInstanceSpecification } from './IInstanceSpecification';
 import { INamedElement } from './INamedElement';
 
 export interface IDeployedArtifact extends INamedElement {

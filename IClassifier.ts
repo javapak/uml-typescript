@@ -8,11 +8,19 @@
  */
 import { CollaborationUse } from './CollaborationUse';
 import { Generalization } from './Generalization';
+import { IArtifact } from './IArtifact';
+import { IAssociation } from './IAssociation';
+import { IBehavioredClassifier } from './IBehavioredClassifier';
 import { ICollaborationUse } from './ICollaborationUse';
+import { IDataType } from './IDataType';
 import { IGeneralization } from './IGeneralization';
 import { IGeneralizationSet } from './IGeneralizationSet';
+import { IInformationItem } from './IInformationItem';
+import { IInterface } from './IInterface';
 import { INamespace } from './INamespace';
 import { IRedefinableElement } from './IRedefinableElement';
+import { ISignal } from './ISignal';
+import { IStructuredClassifier } from './IStructuredClassifier';
 import { ISubstitution } from './ISubstitution';
 import { ITemplateableElement } from './ITemplateableElement';
 import { IType } from './IType';

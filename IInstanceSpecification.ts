@@ -8,6 +8,7 @@
 import { IClassifier } from './IClassifier';
 import { IDeployedArtifact } from './IDeployedArtifact';
 import { IDeploymentTarget } from './IDeploymentTarget';
+import { IEnumerationLiteral } from './IEnumerationLiteral';
 import { IPackageableElement } from './IPackageableElement';
 import { ISlot } from './ISlot';
 import { IValueSpecification } from './IValueSpecification';

@@ -6,7 +6,10 @@
  * @abstract
  * @extends Element
  */
+import { IConnectableElement } from './IConnectableElement';
 import { IElement } from './IElement';
+import { IOperation } from './IOperation';
+import { IPackageableElement } from './IPackageableElement';
 import { ITemplateParameter } from './ITemplateParameter';
 
 export interface IParameterableElement extends IElement {

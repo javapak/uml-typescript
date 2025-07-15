@@ -118,7 +118,7 @@ export class ConsiderIgnoreFragment extends CombinedFragment implements IConside
    * @type InteractionOperatorKind
    * @multiplicity [1..1]
    */
-  public interactionOperator: InteractionOperatorKind = InteractionOperatorKind.seq;
+  public interactionOperator: InteractionOperatorKind = InteractionOperatorKind.SEQ;
   /**
    * operand
    * 

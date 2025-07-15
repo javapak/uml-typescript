@@ -158,7 +158,7 @@ export class DataStoreNode extends CentralBufferNode implements IDataStoreNode {
    * @type ObjectNodeOrderingKind
    * @multiplicity [1..1]
    */
-  public ordering: ObjectNodeOrderingKind = ObjectNodeOrderingKind.unordered;
+  public ordering: ObjectNodeOrderingKind = ObjectNodeOrderingKind.UNORDERED;
   /**
    * selection
    * 

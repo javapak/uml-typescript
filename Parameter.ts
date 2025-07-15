@@ -236,14 +236,16 @@ export class Parameter extends ConnectableElement implements IParameter {
   toJSON(): IParameter {
     const parentJson = super.toJSON();
     return {
-      ...parentJson,
-      ...(this.defaultValue !== undefined && { defaultValue: this.defaultValue }),
-      direction: this.direction,
-      ...(this.effect !== undefined && { effect: this.effect }),
-      isException: this.isException,
-      isStream: this.isStream,
-      parameterSet: this.parameterSet,
-    };
+  ...parentJson,
+  ...(this.defaultValue !== undefined && { defaultValue: this.defaultValue }),
+  direction: this.direction,
+  ...(this.effect !== undefined && { effect: this.effect }),
+  isException: this.isException,
+  isStream: this.isStream,
+  parameterSet: this.parameterSet,
+  isOrdered: false,
+  isUnique: false
+};
   }
 
   /**

@@ -6,8 +6,11 @@
  * @abstract
  * @extends NamedElement
  */
+import { IConnectionPointReference } from './IConnectionPointReference';
 import { INamedElement } from './INamedElement';
+import { IPseudostate } from './IPseudostate';
 import { IRegion } from './IRegion';
+import { IState } from './IState';
 
 export interface IVertex extends INamedElement {
   /**

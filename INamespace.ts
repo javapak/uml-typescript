@@ -8,10 +8,18 @@
  */
 import { Constraint } from './Constraint';
 import { ElementImport } from './ElementImport';
+import { IBehavioralFeature } from './IBehavioralFeature';
+import { IClassifier } from './IClassifier';
 import { IConstraint } from './IConstraint';
 import { IElementImport } from './IElementImport';
+import { IInteractionOperand } from './IInteractionOperand';
 import { INamedElement } from './INamedElement';
+import { IPackage } from './IPackage';
 import { IPackageImport } from './IPackageImport';
+import { IRegion } from './IRegion';
+import { IState } from './IState';
+import { IStructuredActivityNode } from './IStructuredActivityNode';
+import { ITransition } from './ITransition';
 import { PackageImport } from './PackageImport';
 
 export interface INamespace extends INamedElement {

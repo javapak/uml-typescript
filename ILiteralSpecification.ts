@@ -6,6 +6,12 @@
  * @abstract
  * @extends ValueSpecification
  */
+import { ILiteralBoolean } from './ILiteralBoolean';
+import { ILiteralInteger } from './ILiteralInteger';
+import { ILiteralNull } from './ILiteralNull';
+import { ILiteralReal } from './ILiteralReal';
+import { ILiteralString } from './ILiteralString';
+import { ILiteralUnlimitedNatural } from './ILiteralUnlimitedNatural';
 import { IValueSpecification } from './IValueSpecification';
 
 export interface ILiteralSpecification extends IValueSpecification {

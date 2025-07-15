@@ -6,7 +6,10 @@
  * @abstract
  * @extends Event
  */
+import { IAnyReceiveEvent } from './IAnyReceiveEvent';
+import { ICallEvent } from './ICallEvent';
 import { IEvent } from './IEvent';
+import { ISignalEvent } from './ISignalEvent';
 
 export interface IMessageEvent extends IEvent {
 }

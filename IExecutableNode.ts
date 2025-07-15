@@ -7,6 +7,7 @@
  * @extends ActivityNode
  */
 import { ExceptionHandler } from './ExceptionHandler';
+import { IAction } from './IAction';
 import { IActivityNode } from './IActivityNode';
 import { IExceptionHandler } from './IExceptionHandler';
 

@@ -6,7 +6,9 @@
  * @extends Classifier
  */
 import { IClassifier } from './IClassifier';
+import { IEnumeration } from './IEnumeration';
 import { IOperation } from './IOperation';
+import { IPrimitiveType } from './IPrimitiveType';
 import { IProperty } from './IProperty';
 import { Operation } from './Operation';
 import { Property } from './Property';

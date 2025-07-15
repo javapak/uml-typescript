@@ -6,6 +6,7 @@
  * @abstract
  * @extends PackageableElement
  */
+import { IClassifier } from './IClassifier';
 import { IPackageableElement } from './IPackageableElement';
 
 export interface IType extends IPackageableElement {

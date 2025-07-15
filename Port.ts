@@ -223,7 +223,7 @@ export class Port extends Property implements IPort {
    * @type AggregationKind
    * @multiplicity [1..1]
    */
-  public aggregation: AggregationKind = AggregationKind.none;
+  public aggregation: AggregationKind = AggregationKind.NONE;
   /**
    * associationEnd
    * 

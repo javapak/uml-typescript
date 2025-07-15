@@ -6,6 +6,8 @@
  * @abstract
  * @extends LinkAction
  */
+import { ICreateLinkAction } from './ICreateLinkAction';
+import { IDestroyLinkAction } from './IDestroyLinkAction';
 import { ILinkAction } from './ILinkAction';
 
 export interface IWriteLinkAction extends ILinkAction {

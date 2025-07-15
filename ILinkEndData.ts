@@ -7,6 +7,8 @@
  */
 import { IElement } from './IElement';
 import { IInputPin } from './IInputPin';
+import { ILinkEndCreationData } from './ILinkEndCreationData';
+import { ILinkEndDestructionData } from './ILinkEndDestructionData';
 import { IProperty } from './IProperty';
 import { IQualifierValue } from './IQualifierValue';
 import { QualifierValue } from './QualifierValue';

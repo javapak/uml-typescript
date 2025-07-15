@@ -6,8 +6,12 @@
  * @abstract
  * @extends NamedElement
  */
+import { IConnectableElement } from './IConnectableElement';
 import { INamedElement } from './INamedElement';
+import { IObjectNode } from './IObjectNode';
+import { IStructuralFeature } from './IStructuralFeature';
 import { IType } from './IType';
+import { IValueSpecification } from './IValueSpecification';
 
 export interface ITypedElement extends INamedElement {
   /**

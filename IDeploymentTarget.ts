@@ -8,7 +8,10 @@
  */
 import { Deployment } from './Deployment';
 import { IDeployment } from './IDeployment';
+import { IInstanceSpecification } from './IInstanceSpecification';
 import { INamedElement } from './INamedElement';
+import { INode } from './INode';
+import { IProperty } from './IProperty';
 
 export interface IDeploymentTarget extends INamedElement {
   /**

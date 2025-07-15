@@ -7,10 +7,14 @@
  * @extends Classifier
  */
 import { Behavior } from './Behavior';
+import { IActor } from './IActor';
 import { IBehavior } from './IBehavior';
+import { IClass } from './IClass';
 import { IClassifier } from './IClassifier';
+import { ICollaboration } from './ICollaboration';
 import { IInterfaceRealization } from './IInterfaceRealization';
 import { InterfaceRealization } from './InterfaceRealization';
+import { IUseCase } from './IUseCase';
 
 export interface IBehavioredClassifier extends IClassifier {
   /**

@@ -7,7 +7,11 @@
  * @extends ActivityNode, TypedElement
  */
 import { IActivityNode } from './IActivityNode';
+import { IActivityParameterNode } from './IActivityParameterNode';
 import { IBehavior } from './IBehavior';
+import { ICentralBufferNode } from './ICentralBufferNode';
+import { IExpansionNode } from './IExpansionNode';
+import { IPin } from './IPin';
 import { IState } from './IState';
 import { ITypedElement } from './ITypedElement';
 import { IValueSpecification } from './IValueSpecification';

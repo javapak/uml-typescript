@@ -6,8 +6,11 @@
  * @abstract
  * @extends TypedElement, ParameterableElement
  */
+import { IParameter } from './IParameter';
 import { IParameterableElement } from './IParameterableElement';
+import { IProperty } from './IProperty';
 import { ITypedElement } from './ITypedElement';
+import { IVariable } from './IVariable';
 
 export interface IConnectableElement extends ITypedElement, IParameterableElement {
 }

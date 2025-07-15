@@ -6,7 +6,9 @@
  * @extends Dependency
  */
 import { IDependency } from './IDependency';
+import { IManifestation } from './IManifestation';
 import { IOpaqueExpression } from './IOpaqueExpression';
+import { IRealization } from './IRealization';
 import { OpaqueExpression } from './OpaqueExpression';
 
 export interface IAbstraction extends IDependency {

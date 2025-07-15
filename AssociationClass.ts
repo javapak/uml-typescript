@@ -369,8 +369,14 @@ export class AssociationClass extends Class implements IAssociationClass {
   toJSON(): IAssociationClass {
     const parentJson = super.toJSON();
     return {
-      ...parentJson,
-    };
+  ...parentJson,
+  isActive: false,
+  isAbstract: false,
+  isFinalSpecialization: false,
+  isLeaf: false,
+  isDerived: false,
+  memberEnd: []
+};
   }
 
   /**
