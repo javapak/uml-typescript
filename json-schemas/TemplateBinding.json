@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/TemplateBinding",
+  "definitions": {
+    "TemplateBinding": {
+      "type": "object",
+      "properties": {
+        "ownedComment": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "ownedComment"
+        },
+        "parameterSubstitution": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "parameterSubstitution"
+        },
+        "signature": {
+          "type": "string",
+          "description": "signature"
+        },
+        "boundElement": {
+          "type": "string",
+          "description": "boundElement"
+        }
+      },
+      "required": [
+        "boundElement",
+        "ownedComment",
+        "parameterSubstitution",
+        "signature"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

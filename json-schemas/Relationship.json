@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/Relationship",
+  "definitions": {
+    "Relationship": {
+      "type": "object",
+      "properties": {
+        "ownedComment": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "ownedComment"
+        }
+      },
+      "required": [
+        "ownedComment"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

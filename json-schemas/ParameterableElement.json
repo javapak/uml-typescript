@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/ParameterableElement",
+  "definitions": {
+    "ParameterableElement": {
+      "type": "object",
+      "properties": {
+        "ownedComment": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "ownedComment"
+        },
+        "owningTemplateParameter": {
+          "type": "string",
+          "description": "owningTemplateParameter"
+        },
+        "templateParameter": {
+          "type": "string",
+          "description": "templateParameter"
+        }
+      },
+      "required": [
+        "ownedComment"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

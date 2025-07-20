@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/ILinkEndDestructionData",
+  "definitions": {
+    "ILinkEndDestructionData": {
+      "type": "object",
+      "properties": {
+        "ownedComment": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "ownedComment"
+        },
+        "end": {
+          "type": "string",
+          "description": "end"
+        },
+        "qualifier": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "qualifier"
+        },
+        "value": {
+          "type": "string",
+          "description": "value"
+        },
+        "destroyAt": {
+          "type": "string",
+          "description": "destroyAt"
+        },
+        "isDestroyDuplicates": {
+          "type": "boolean",
+          "description": "isDestroyDuplicates"
+        }
+      },
+      "required": [
+        "end",
+        "isDestroyDuplicates"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

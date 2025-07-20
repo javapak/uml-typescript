@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/ProtocolConformance",
+  "definitions": {
+    "ProtocolConformance": {
+      "type": "object",
+      "properties": {
+        "ownedComment": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "ownedComment"
+        },
+        "generalMachine": {
+          "type": "string",
+          "description": "generalMachine"
+        },
+        "specificMachine": {
+          "type": "string",
+          "description": "specificMachine"
+        }
+      },
+      "required": [
+        "generalMachine",
+        "ownedComment",
+        "specificMachine"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

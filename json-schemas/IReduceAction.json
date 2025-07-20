@@ -1,0 +1,761 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/IReduceAction",
+  "definitions": {
+    "IReduceAction": {
+      "type": "object",
+      "properties": {
+        "ownedComment": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "ownedComment"
+        },
+        "name": {
+          "type": "string",
+          "description": "name"
+        },
+        "nameExpression": {
+          "$ref": "#/definitions/IStringExpression",
+          "description": "nameExpression"
+        },
+        "visibility": {
+          "$ref": "#/definitions/VisibilityKind",
+          "description": "visibility"
+        },
+        "isLeaf": {
+          "type": "boolean",
+          "description": "isLeaf"
+        },
+        "inInterruptibleRegion": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "inInterruptibleRegion"
+        },
+        "inStructuredNode": {
+          "type": "string",
+          "description": "inStructuredNode"
+        },
+        "incoming": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "incoming"
+        },
+        "outgoing": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "outgoing"
+        },
+        "redefinedNode": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "redefinedNode"
+        },
+        "inPartition": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "inPartition"
+        },
+        "handler": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "handler"
+        },
+        "isLocallyReentrant": {
+          "type": "boolean",
+          "description": "isLocallyReentrant"
+        },
+        "localPostcondition": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "localPostcondition"
+        },
+        "localPrecondition": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "localPrecondition"
+        },
+        "collection": {
+          "$ref": "#/definitions/IInputPin",
+          "description": "collection"
+        },
+        "isOrdered": {
+          "type": "boolean",
+          "description": "isOrdered"
+        },
+        "reducer": {
+          "type": "string",
+          "description": "reducer"
+        },
+        "result": {
+          "$ref": "#/definitions/IOutputPin",
+          "description": "result"
+        }
+      },
+      "required": [
+        "collection",
+        "isLeaf",
+        "isLocallyReentrant",
+        "isOrdered",
+        "reducer",
+        "result"
+      ],
+      "additionalProperties": false
+    },
+    "IStringExpression": {
+      "type": "object",
+      "properties": {
+        "ownedComment": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "ownedComment"
+        },
+        "templateBinding": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "templateBinding"
+        },
+        "ownedTemplateSignature": {
+          "$ref": "#/definitions/ITemplateSignature",
+          "description": "ownedTemplateSignature"
+        },
+        "name": {
+          "type": "string",
+          "description": "name"
+        },
+        "nameExpression": {
+          "$ref": "#/definitions/IStringExpression",
+          "description": "nameExpression"
+        },
+        "visibility": {
+          "$ref": "#/definitions/VisibilityKind",
+          "description": "visibility"
+        },
+        "type": {
+          "type": "string",
+          "description": "type"
+        },
+        "owningTemplateParameter": {
+          "type": "string",
+          "description": "owningTemplateParameter"
+        },
+        "templateParameter": {
+          "type": "string",
+          "description": "templateParameter"
+        },
+        "operand": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IValueSpecification"
+          },
+          "description": "operand"
+        },
+        "symbol": {
+          "type": "string",
+          "description": "symbol"
+        },
+        "owningExpression": {
+          "type": "string",
+          "description": "owningExpression"
+        },
+        "subExpression": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IStringExpression"
+          },
+          "description": "subExpression"
+        }
+      },
+      "additionalProperties": false
+    },
+    "ITemplateSignature": {
+      "type": "object",
+      "properties": {
+        "ownedComment": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "ownedComment"
+        },
+        "parameter": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "parameter"
+        },
+        "template": {
+          "type": "string",
+          "description": "template"
+        },
+        "ownedParameter": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ITemplateParameter"
+          },
+          "description": "ownedParameter"
+        }
+      },
+      "required": [
+        "parameter",
+        "template"
+      ],
+      "additionalProperties": false
+    },
+    "ITemplateParameter": {
+      "type": "object",
+      "properties": {
+        "ownedComment": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "ownedComment"
+        },
+        "default": {
+          "type": "string",
+          "description": "default"
+        },
+        "ownedDefault": {
+          "$ref": "#/definitions/IParameterableElement",
+          "description": "ownedDefault"
+        },
+        "parameteredElement": {
+          "type": "string",
+          "description": "parameteredElement"
+        },
+        "signature": {
+          "type": "string",
+          "description": "signature"
+        },
+        "ownedParameteredElement": {
+          "$ref": "#/definitions/IParameterableElement",
+          "description": "ownedParameteredElement"
+        }
+      },
+      "required": [
+        "parameteredElement",
+        "signature"
+      ],
+      "additionalProperties": false
+    },
+    "IParameterableElement": {
+      "type": "object",
+      "properties": {
+        "ownedComment": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "ownedComment"
+        },
+        "owningTemplateParameter": {
+          "type": "string",
+          "description": "owningTemplateParameter"
+        },
+        "templateParameter": {
+          "type": "string",
+          "description": "templateParameter"
+        }
+      },
+      "additionalProperties": false
+    },
+    "VisibilityKind": {
+      "type": "string",
+      "enum": [
+        "public",
+        "private",
+        "protected",
+        "package"
+      ]
+    },
+    "IValueSpecification": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ownedComment": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "ownedComment"
+        },
+        "name": {
+          "type": "string",
+          "description": "name"
+        },
+        "nameExpression": {
+          "$ref": "#/definitions/IStringExpression",
+          "description": "nameExpression"
+        },
+        "visibility": {
+          "$ref": "#/definitions/VisibilityKind",
+          "description": "visibility"
+        },
+        "type": {
+          "type": "string",
+          "description": "type"
+        },
+        "owningTemplateParameter": {
+          "type": "string",
+          "description": "owningTemplateParameter"
+        },
+        "templateParameter": {
+          "type": "string",
+          "description": "templateParameter"
+        }
+      }
+    },
+    "IInputPin": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ownedComment": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "ownedComment"
+        },
+        "isOrdered": {
+          "type": "boolean",
+          "description": "isOrdered"
+        },
+        "isUnique": {
+          "type": "boolean",
+          "description": "isUnique"
+        },
+        "lowerValue": {
+          "$ref": "#/definitions/IValueSpecification",
+          "description": "lowerValue"
+        },
+        "upperValue": {
+          "$ref": "#/definitions/IValueSpecification",
+          "description": "upperValue"
+        },
+        "name": {
+          "type": "string",
+          "description": "name"
+        },
+        "nameExpression": {
+          "$ref": "#/definitions/IStringExpression",
+          "description": "nameExpression"
+        },
+        "visibility": {
+          "$ref": "#/definitions/VisibilityKind",
+          "description": "visibility"
+        },
+        "type": {
+          "type": "string",
+          "description": "type"
+        },
+        "isLeaf": {
+          "type": "boolean",
+          "description": "isLeaf"
+        },
+        "inInterruptibleRegion": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "inInterruptibleRegion"
+        },
+        "inStructuredNode": {
+          "type": "string",
+          "description": "inStructuredNode"
+        },
+        "incoming": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "incoming"
+        },
+        "outgoing": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "outgoing"
+        },
+        "redefinedNode": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "redefinedNode"
+        },
+        "inPartition": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "inPartition"
+        },
+        "inState": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "inState"
+        },
+        "isControlType": {
+          "type": "boolean",
+          "description": "isControlType"
+        },
+        "ordering": {
+          "$ref": "#/definitions/ObjectNodeOrderingKind",
+          "description": "ordering"
+        },
+        "selection": {
+          "type": "string",
+          "description": "selection"
+        },
+        "upperBound": {
+          "$ref": "#/definitions/IValueSpecification",
+          "description": "upperBound"
+        },
+        "isControl": {
+          "type": "boolean",
+          "description": "isControl"
+        }
+      },
+      "required": [
+        "isControl",
+        "isControlType",
+        "isLeaf",
+        "isOrdered",
+        "isUnique",
+        "ordering"
+      ]
+    },
+    "ObjectNodeOrderingKind": {
+      "type": "string",
+      "enum": [
+        "unordered",
+        "ordered",
+        "LIFO",
+        "FIFO"
+      ]
+    },
+    "IOutputPin": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ownedComment": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "ownedComment"
+        },
+        "isOrdered": {
+          "type": "boolean",
+          "description": "isOrdered"
+        },
+        "isUnique": {
+          "type": "boolean",
+          "description": "isUnique"
+        },
+        "lowerValue": {
+          "$ref": "#/definitions/IValueSpecification",
+          "description": "lowerValue"
+        },
+        "upperValue": {
+          "$ref": "#/definitions/IValueSpecification",
+          "description": "upperValue"
+        },
+        "name": {
+          "type": "string",
+          "description": "name"
+        },
+        "nameExpression": {
+          "$ref": "#/definitions/IStringExpression",
+          "description": "nameExpression"
+        },
+        "visibility": {
+          "$ref": "#/definitions/VisibilityKind",
+          "description": "visibility"
+        },
+        "type": {
+          "type": "string",
+          "description": "type"
+        },
+        "isLeaf": {
+          "type": "boolean",
+          "description": "isLeaf"
+        },
+        "inInterruptibleRegion": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "inInterruptibleRegion"
+        },
+        "inStructuredNode": {
+          "type": "string",
+          "description": "inStructuredNode"
+        },
+        "incoming": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "incoming"
+        },
+        "outgoing": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "outgoing"
+        },
+        "redefinedNode": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "redefinedNode"
+        },
+        "inPartition": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "inPartition"
+        },
+        "inState": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "inState"
+        },
+        "isControlType": {
+          "type": "boolean",
+          "description": "isControlType"
+        },
+        "ordering": {
+          "$ref": "#/definitions/ObjectNodeOrderingKind",
+          "description": "ordering"
+        },
+        "selection": {
+          "type": "string",
+          "description": "selection"
+        },
+        "upperBound": {
+          "$ref": "#/definitions/IValueSpecification",
+          "description": "upperBound"
+        },
+        "isControl": {
+          "type": "boolean",
+          "description": "isControl"
+        }
+      },
+      "required": [
+        "isControl",
+        "isControlType",
+        "isLeaf",
+        "isOrdered",
+        "isUnique",
+        "ordering"
+      ]
+    }
+  }
+}

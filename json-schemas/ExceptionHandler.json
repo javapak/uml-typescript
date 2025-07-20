@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/ExceptionHandler",
+  "definitions": {
+    "ExceptionHandler": {
+      "type": "object",
+      "properties": {
+        "ownedComment": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "ownedComment"
+        },
+        "exceptionInput": {
+          "type": "string",
+          "description": "exceptionInput"
+        },
+        "exceptionType": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "exceptionType"
+        },
+        "handlerBody": {
+          "type": "string",
+          "description": "handlerBody"
+        },
+        "protectedNode": {
+          "type": "string",
+          "description": "protectedNode"
+        }
+      },
+      "required": [
+        "exceptionInput",
+        "exceptionType",
+        "handlerBody",
+        "ownedComment",
+        "protectedNode"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

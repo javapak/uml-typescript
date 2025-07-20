@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/TransitionKind",
+  "definitions": {
+    "TransitionKind": {
+      "type": "string",
+      "enum": [
+        "internal",
+        "local",
+        "external"
+      ]
+    }
+  }
+}

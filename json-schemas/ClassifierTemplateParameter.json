@@ -1,0 +1,96 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/ClassifierTemplateParameter",
+  "definitions": {
+    "ClassifierTemplateParameter": {
+      "type": "object",
+      "properties": {
+        "ownedComment": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "ownedComment"
+        },
+        "default": {
+          "type": "string",
+          "description": "default"
+        },
+        "ownedDefault": {
+          "$ref": "#/definitions/IParameterableElement",
+          "description": "ownedDefault"
+        },
+        "parameteredElement": {
+          "type": "string",
+          "description": "parameteredElement"
+        },
+        "signature": {
+          "type": "string",
+          "description": "signature"
+        },
+        "ownedParameteredElement": {
+          "$ref": "#/definitions/IParameterableElement",
+          "description": "ownedParameteredElement"
+        },
+        "allowSubstitutable": {
+          "type": "boolean",
+          "description": "allowSubstitutable"
+        },
+        "constrainingClassifier": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "constrainingClassifier"
+        }
+      },
+      "required": [
+        "allowSubstitutable",
+        "constrainingClassifier",
+        "ownedComment",
+        "parameteredElement",
+        "signature"
+      ],
+      "additionalProperties": false
+    },
+    "IParameterableElement": {
+      "type": "object",
+      "properties": {
+        "ownedComment": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "ownedComment"
+        },
+        "owningTemplateParameter": {
+          "type": "string",
+          "description": "owningTemplateParameter"
+        },
+        "templateParameter": {
+          "type": "string",
+          "description": "templateParameter"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/Comment",
+  "definitions": {
+    "Comment": {
+      "type": "object",
+      "properties": {
+        "ownedComment": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "ownedComment"
+        },
+        "annotatedElement": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "annotatedElement"
+        },
+        "body": {
+          "type": "string",
+          "description": "body"
+        }
+      },
+      "required": [
+        "annotatedElement",
+        "ownedComment"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

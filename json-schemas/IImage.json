@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/IImage",
+  "definitions": {
+    "IImage": {
+      "type": "object",
+      "properties": {
+        "ownedComment": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "ownedComment"
+        },
+        "content": {
+          "type": "string",
+          "description": "content"
+        },
+        "format": {
+          "type": "string",
+          "description": "format"
+        },
+        "location": {
+          "type": "string",
+          "description": "location"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

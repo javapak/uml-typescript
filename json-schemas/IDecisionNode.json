@@ -1,0 +1,366 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/IDecisionNode",
+  "definitions": {
+    "IDecisionNode": {
+      "type": "object",
+      "properties": {
+        "ownedComment": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "ownedComment"
+        },
+        "name": {
+          "type": "string",
+          "description": "name"
+        },
+        "nameExpression": {
+          "$ref": "#/definitions/IStringExpression",
+          "description": "nameExpression"
+        },
+        "visibility": {
+          "$ref": "#/definitions/VisibilityKind",
+          "description": "visibility"
+        },
+        "isLeaf": {
+          "type": "boolean",
+          "description": "isLeaf"
+        },
+        "inInterruptibleRegion": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "inInterruptibleRegion"
+        },
+        "inStructuredNode": {
+          "type": "string",
+          "description": "inStructuredNode"
+        },
+        "incoming": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "incoming"
+        },
+        "outgoing": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "outgoing"
+        },
+        "redefinedNode": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "redefinedNode"
+        },
+        "inPartition": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "inPartition"
+        },
+        "decisionInput": {
+          "type": "string",
+          "description": "decisionInput"
+        },
+        "decisionInputFlow": {
+          "type": "string",
+          "description": "decisionInputFlow"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "isLeaf"
+      ]
+    },
+    "IStringExpression": {
+      "type": "object",
+      "properties": {
+        "ownedComment": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "ownedComment"
+        },
+        "templateBinding": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "templateBinding"
+        },
+        "ownedTemplateSignature": {
+          "$ref": "#/definitions/ITemplateSignature",
+          "description": "ownedTemplateSignature"
+        },
+        "name": {
+          "type": "string",
+          "description": "name"
+        },
+        "nameExpression": {
+          "$ref": "#/definitions/IStringExpression",
+          "description": "nameExpression"
+        },
+        "visibility": {
+          "$ref": "#/definitions/VisibilityKind",
+          "description": "visibility"
+        },
+        "type": {
+          "type": "string",
+          "description": "type"
+        },
+        "owningTemplateParameter": {
+          "type": "string",
+          "description": "owningTemplateParameter"
+        },
+        "templateParameter": {
+          "type": "string",
+          "description": "templateParameter"
+        },
+        "operand": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IValueSpecification"
+          },
+          "description": "operand"
+        },
+        "symbol": {
+          "type": "string",
+          "description": "symbol"
+        },
+        "owningExpression": {
+          "type": "string",
+          "description": "owningExpression"
+        },
+        "subExpression": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IStringExpression"
+          },
+          "description": "subExpression"
+        }
+      },
+      "additionalProperties": false
+    },
+    "ITemplateSignature": {
+      "type": "object",
+      "properties": {
+        "ownedComment": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "ownedComment"
+        },
+        "parameter": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "parameter"
+        },
+        "template": {
+          "type": "string",
+          "description": "template"
+        },
+        "ownedParameter": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ITemplateParameter"
+          },
+          "description": "ownedParameter"
+        }
+      },
+      "required": [
+        "parameter",
+        "template"
+      ],
+      "additionalProperties": false
+    },
+    "ITemplateParameter": {
+      "type": "object",
+      "properties": {
+        "ownedComment": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "ownedComment"
+        },
+        "default": {
+          "type": "string",
+          "description": "default"
+        },
+        "ownedDefault": {
+          "$ref": "#/definitions/IParameterableElement",
+          "description": "ownedDefault"
+        },
+        "parameteredElement": {
+          "type": "string",
+          "description": "parameteredElement"
+        },
+        "signature": {
+          "type": "string",
+          "description": "signature"
+        },
+        "ownedParameteredElement": {
+          "$ref": "#/definitions/IParameterableElement",
+          "description": "ownedParameteredElement"
+        }
+      },
+      "required": [
+        "parameteredElement",
+        "signature"
+      ],
+      "additionalProperties": false
+    },
+    "IParameterableElement": {
+      "type": "object",
+      "properties": {
+        "ownedComment": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "ownedComment"
+        },
+        "owningTemplateParameter": {
+          "type": "string",
+          "description": "owningTemplateParameter"
+        },
+        "templateParameter": {
+          "type": "string",
+          "description": "templateParameter"
+        }
+      },
+      "additionalProperties": false
+    },
+    "VisibilityKind": {
+      "type": "string",
+      "enum": [
+        "public",
+        "private",
+        "protected",
+        "package"
+      ]
+    },
+    "IValueSpecification": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ownedComment": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "ownedComment"
+        },
+        "name": {
+          "type": "string",
+          "description": "name"
+        },
+        "nameExpression": {
+          "$ref": "#/definitions/IStringExpression",
+          "description": "nameExpression"
+        },
+        "visibility": {
+          "$ref": "#/definitions/VisibilityKind",
+          "description": "visibility"
+        },
+        "type": {
+          "type": "string",
+          "description": "type"
+        },
+        "owningTemplateParameter": {
+          "type": "string",
+          "description": "owningTemplateParameter"
+        },
+        "templateParameter": {
+          "type": "string",
+          "description": "templateParameter"
+        }
+      }
+    }
+  }
+}

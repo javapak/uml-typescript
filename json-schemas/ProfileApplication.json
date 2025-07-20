@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/ProfileApplication",
+  "definitions": {
+    "ProfileApplication": {
+      "type": "object",
+      "properties": {
+        "ownedComment": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "ownedComment"
+        },
+        "appliedProfile": {
+          "type": "string",
+          "description": "appliedProfile"
+        },
+        "isStrict": {
+          "type": "boolean",
+          "description": "isStrict"
+        },
+        "applyingPackage": {
+          "type": "string",
+          "description": "applyingPackage"
+        }
+      },
+      "required": [
+        "appliedProfile",
+        "applyingPackage",
+        "isStrict",
+        "ownedComment"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/IGeneralization",
+  "definitions": {
+    "IGeneralization": {
+      "type": "object",
+      "properties": {
+        "ownedComment": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "ownedComment"
+        },
+        "general": {
+          "type": "string",
+          "description": "general"
+        },
+        "generalizationSet": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "generalizationSet"
+        },
+        "isSubstitutable": {
+          "type": "boolean",
+          "description": "isSubstitutable"
+        },
+        "specific": {
+          "type": "string",
+          "description": "specific"
+        }
+      },
+      "required": [
+        "general",
+        "specific"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/PackageImport",
+  "definitions": {
+    "PackageImport": {
+      "type": "object",
+      "properties": {
+        "ownedComment": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "ownedComment"
+        },
+        "importedPackage": {
+          "type": "string",
+          "description": "importedPackage"
+        },
+        "importingNamespace": {
+          "type": "string",
+          "description": "importingNamespace"
+        },
+        "visibility": {
+          "$ref": "#/definitions/VisibilityKind",
+          "description": "visibility"
+        }
+      },
+      "required": [
+        "importedPackage",
+        "importingNamespace",
+        "ownedComment",
+        "visibility"
+      ],
+      "additionalProperties": false
+    },
+    "VisibilityKind": {
+      "type": "string",
+      "enum": [
+        "public",
+        "private",
+        "protected",
+        "package"
+      ]
+    }
+  }
+}

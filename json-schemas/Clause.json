@@ -1,0 +1,97 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/Clause",
+  "definitions": {
+    "Clause": {
+      "type": "object",
+      "properties": {
+        "ownedComment": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "ownedComment"
+        },
+        "body": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "body"
+        },
+        "bodyOutput": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "bodyOutput"
+        },
+        "decider": {
+          "type": "string",
+          "description": "decider"
+        },
+        "predecessorClause": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "predecessorClause"
+        },
+        "successorClause": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "successorClause"
+        },
+        "test": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "test"
+        }
+      },
+      "required": [
+        "body",
+        "bodyOutput",
+        "decider",
+        "ownedComment",
+        "predecessorClause",
+        "successorClause",
+        "test"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

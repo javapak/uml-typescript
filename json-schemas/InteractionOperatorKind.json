@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/InteractionOperatorKind",
+  "definitions": {
+    "InteractionOperatorKind": {
+      "type": "string",
+      "enum": [
+        "seq",
+        "alt",
+        "opt",
+        "break",
+        "par",
+        "strict",
+        "loop",
+        "critical",
+        "neg",
+        "assert",
+        "ignore",
+        "consider"
+      ]
+    }
+  }
+}

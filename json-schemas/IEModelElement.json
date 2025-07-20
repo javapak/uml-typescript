@@ -1,0 +1,11 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/IEModelElement",
+  "definitions": {
+    "IEModelElement": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Interface for EModelElement"
+    }
+  }
+}

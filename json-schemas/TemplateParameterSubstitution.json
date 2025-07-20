@@ -1,0 +1,74 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/TemplateParameterSubstitution",
+  "definitions": {
+    "TemplateParameterSubstitution": {
+      "type": "object",
+      "properties": {
+        "ownedComment": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "ownedComment"
+        },
+        "actual": {
+          "type": "string",
+          "description": "actual"
+        },
+        "formal": {
+          "type": "string",
+          "description": "formal"
+        },
+        "ownedActual": {
+          "$ref": "#/definitions/IParameterableElement",
+          "description": "ownedActual"
+        },
+        "templateBinding": {
+          "type": "string",
+          "description": "templateBinding"
+        }
+      },
+      "required": [
+        "actual",
+        "formal",
+        "ownedComment",
+        "templateBinding"
+      ],
+      "additionalProperties": false
+    },
+    "IParameterableElement": {
+      "type": "object",
+      "properties": {
+        "ownedComment": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size"
+          ],
+          "additionalProperties": false,
+          "description": "ownedComment"
+        },
+        "owningTemplateParameter": {
+          "type": "string",
+          "description": "owningTemplateParameter"
+        },
+        "templateParameter": {
+          "type": "string",
+          "description": "templateParameter"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}
